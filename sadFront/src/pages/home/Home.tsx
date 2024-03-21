@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 
-export function Login() {
+
+export function Home() {
     return (
         <Button>
-        Login
+        Home
         </Button>
-    );
+    )
 }
