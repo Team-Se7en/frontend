@@ -45,7 +45,7 @@ export function ProfessorSignup() {
           alignItems: "center",
         }}
       >
-        <form onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <Typography variant="h4" align="center" gutterBottom>
             Professor Sign Up
           </Typography>
@@ -146,7 +146,7 @@ export function ProfessorSignup() {
               </Grid>
             </Grid>
           </Grid>
-        </form>
+        </Box>
       </Box>
     </Container>
   );
