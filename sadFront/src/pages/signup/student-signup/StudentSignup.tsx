@@ -33,7 +33,7 @@ export function StudentSignup() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
         sx={{
@@ -114,6 +114,11 @@ export function StudentSignup() {
                 <Grid item xs>
                   <Link href="/signup/professor" variant="body2">
                     signup as a professor
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/login" variant="body2">
+                    Already have an account? Login
                   </Link>
                 </Grid>
               </Grid>

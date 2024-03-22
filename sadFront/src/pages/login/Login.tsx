@@ -1,6 +1,25 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 
 export function Login() {
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const handleInputChange = (event: any) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+        console.log(formData);
+    };
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -26,6 +45,8 @@ export function Login() {
                         label="Email Address"
                         name="email"
                         autoFocus
+                        value={FormData.email}
+                        onChange={handleInputChange}
                     />
                     <TextField
                         margin="normal"
@@ -35,6 +56,8 @@ export function Login() {
                         label="Password"
                         type="password"
                         id="password"
+                        value={FormData.password}
+                        onChange={handleInputChange}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
@@ -45,6 +68,7 @@ export function Login() {
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
+                        onClick={handleSubmit}
                     >
                         Sign In
                     </Button>
@@ -56,7 +80,7 @@ export function Login() {
                         </Grid>
                         <Grid item>
                             <Link href="/signup" variant="body2">
-                                {"Don't have an account? Sign Up"}
+                                Don't have an account? Sign Up
                             </Link>
                         </Grid>
                     </Grid>

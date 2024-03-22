@@ -1,6 +1,4 @@
-import { Home, Login, Signup } from "pages";
-import { ProfessorSignup } from "pages/signup/professor-signup/ProfessorSignup";
-import { StudentSignup } from "pages/signup/student-signup/StudentSignup";
+import { Home, Login, ProfessorSignup, Signup, StudentSignup } from "@pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
