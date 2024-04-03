@@ -36,7 +36,7 @@ export function Login() {
                 <Typography component="h1" variant="h5">
                     Login
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                     <TextField
                         margin="normal"
                         required
