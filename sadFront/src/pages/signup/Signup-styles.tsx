@@ -29,6 +29,14 @@ const SignupStyles = makeStyles(() =>
                     opacity: '100%',
                 }
             }
+        },
+        signupText: {
+            position: 'absolute',
+            margin: 'auto !important',
+            fontSize: '3rem !important',
+            left: 'calc(50% - 4rem)',
+            top: 'calc(50% - 2rem)',
+            color: 'darkblue',
         }
     })
 );
