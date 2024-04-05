@@ -1,0 +1,39 @@
+import { AuthBackgroundImgae } from "@assets";
+import { createStyles, makeStyles } from "@mui/styles";
+
+const Styles = makeStyles(() => 
+    createStyles({
+        fullyCenter: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        displayFlex: {
+            display: 'flex',
+        },
+        flexColumn: {
+            display: 'flex',
+            flexDirection: 'column',
+        },
+        flexRow: {
+            display: 'flex',
+            flexDirection: 'row',
+        },
+        logo: {
+            width: '2rem',
+            height: '2rem',
+            borderRadius: '50%',
+        },
+        authBackground: {
+            background: `url(${AuthBackgroundImgae})`,
+            backgroundPosition: 'bottom left',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            paddingTop: '8rem',
+            width: '100vw',
+            height: '100vh',
+        }
+    })
+);
+
+export default Styles;
