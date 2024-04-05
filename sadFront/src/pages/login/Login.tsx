@@ -1,5 +1,8 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
+import clsx from "clsx";
 import { useState } from "react";
+import Styles from "Styles";
+import LoginStyles from "./Login.styles";
 
 export function Login() {
     const [formData, setFormData] = useState({
@@ -15,76 +18,74 @@ export function Login() {
         });
     };
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
+    const handleSubmit = () => {
         console.log(formData);
     };
 
+    const globalClasses = Styles();
+    const loginClasses = LoginStyles();
+
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Login
-                </Typography>
-                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoFocus
-                        value={FormData.email}
-                        onChange={handleInputChange}
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        value={FormData.password}
-                        onChange={handleInputChange}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
+        <Box className={clsx(globalClasses.authBackground)}>
+            <Container component="main" maxWidth="xs" className={clsx(loginClasses.wrapper)}>
+                <CssBaseline />
+                <Box
+                    className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)}
+                >
+                    <Avatar className="avatar"></Avatar>
+                    <Typography component="h1" variant="h5">
                         Login
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="/forget-password" variant="body2">
-                                Forgot password?
-                            </Link>
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoFocus
+                            value={formData.email}
+                            onChange={handleInputChange}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            className="login-btn"
+                        >
+                            Login
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="/forget-password" variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="/signup" variant="body2">
+                                    Don't have an account? Sign Up
+                                </Link>
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <Link href="/signup" variant="body2">
-                                Don't have an account? Sign Up
-                            </Link>
-                        </Grid>
-                    </Grid>
+                    </Box>
                 </Box>
-            </Box>
-        </Container>
+            </Container>
+        </Box>
     );
 }
