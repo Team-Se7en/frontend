@@ -2,7 +2,9 @@ import Routing from "Routing";
 
 function App() {
   return (
-    <Routing></Routing>
+    <div>
+      <Routing></Routing>
+    </div>
   );
 }
 
