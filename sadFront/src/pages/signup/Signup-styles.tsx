@@ -5,39 +5,43 @@ const SignupStyles = makeStyles(() =>
     createStyles({
         wrapper: {
             height: '100%',
-            '& .studentImage': {
+            '& .signupImage': {
                 height: 'inherit',
-                background: `url(${StudentImage})`,
-                backgroundPosition: 'top',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                // width: '50%',
-                opacity: '50%',
+                backgroundPosition: 'top !important',
+                backgroundSize: 'cover !important',
+                backgroundRepeat: 'no-repeat !important',
+                transitionDuration: '.3s',
+                position: 'relative',
+                overflow: 'hidden',
+                opacity: '.5',
+
                 '&:hover': {
-                    opacity: '100%',
+                    opacity: '1',
+
+                    '& .signupText': {
+                        fontSize: '0',
+                    }
+                },
+
+                '& .signupText': {
+                    margin: 'auto !important',
+                    fontSize: '3rem !important',
+                    color: 'darkblue',
+                    transition: 'font-size .3s ease',
+                    // position: 'relative',
+                    zIndex: '1',
+                    opacity: '1',
                 }
             },
+
+            '& .studentImage': {
+                background: `url(${StudentImage})`,
+            },
+
             '& .professorImage': {
-                height: 'inherit',
                 background: `url(${ProfessorImage})`,
-                backgroundPosition: 'top',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                // width: '50%',
-                opacity: '50%',
-                '&:hover': {
-                    opacity: '100%',
-                }
             }
         },
-        signupText: {
-            position: 'absolute',
-            margin: 'auto !important',
-            fontSize: '3rem !important',
-            left: 'calc(50% - 4rem)',
-            top: 'calc(50% - 2rem)',
-            color: 'darkblue',
-        }
     })
 );
 

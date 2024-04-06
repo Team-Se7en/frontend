@@ -1,10 +1,14 @@
+import { ThemeProvider } from "@emotion/react";
 import Routing from "Routing";
+import theme from "Theme";
 
 function App() {
   return (
-    <div>
-      <Routing></Routing>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <Routing></Routing>
+      </div>
+    </ThemeProvider>
   );
 }
 

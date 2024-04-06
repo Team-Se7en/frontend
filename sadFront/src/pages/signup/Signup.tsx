@@ -56,18 +56,19 @@ export function Signup() {
     //   </Box>
     // </Container>
     <>
-    <Box className={clsx(signupStyles.wrapper, globalStyles.displayFlex)} sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
-      <Container component={Link} to="/signup/professor" maxWidth={false} disableGutters className="professorImage">
+      <Box className={clsx(signupStyles.wrapper, globalStyles.displayFlex)} sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
+        <Container component={Link} to="/signup/professor" maxWidth={false} disableGutters className={clsx("signupImage professorImage", globalStyles.fullyCenter)}>
+          <Typography className="signupText">
+            Signup as Professor
+          </Typography>
+        </Container>
+        <Container component={Link} to="/signup/student" maxWidth={false} disableGutters className={clsx("signupImage studentImage", globalStyles.fullyCenter)}>
+          <Typography className="signupText">
+            Signup as Student
+          </Typography>
+        </Container>
+      </Box>
 
-      </Container>
-      <Container component={Link} to="/signup/student" maxWidth={false} disableGutters className="studentImage">
-
-      </Container>
-    </Box>
-
-    <Typography className={signupStyles.signupText}>
-      Signup
-    </Typography>
     </>
   );
 }

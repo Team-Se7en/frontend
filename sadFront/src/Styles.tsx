@@ -4,19 +4,19 @@ import { createStyles, makeStyles } from "@mui/styles";
 const Styles = makeStyles(() => 
     createStyles({
         fullyCenter: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: 'flex !important',
+            justifyContent: 'center !important',
+            alignItems: 'center !important',
         },
         displayFlex: {
-            display: 'flex',
+            display: 'flex !important',
         },
         flexColumn: {
-            display: 'flex',
+            display: 'flex !important',
             flexDirection: 'column',
         },
         flexRow: {
-            display: 'flex',
+            display: 'flex !important',
             flexDirection: 'row',
         },
         logo: {
