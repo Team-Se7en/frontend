@@ -1,4 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
+
 import { Link } from "react-router-dom";
 import SignupStyles from "./Signup-styles";
 import Styles from "Styles";
@@ -57,12 +58,12 @@ export function Signup() {
     // </Container>
     <>
       <Box className={clsx(signupStyles.wrapper, globalStyles.displayFlex)} sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
-        <Container component={Link} to="/signup/professor" maxWidth={false} disableGutters className={clsx("signupImage professorImage", globalStyles.fullyCenter)}>
+        <Container component={Link} to="/signup/professor" maxWidth={false} disableGutters className={clsx("signupImage professorImage")}>
           <Typography className="signupText">
             Signup as Professor
           </Typography>
         </Container>
-        <Container component={Link} to="/signup/student" maxWidth={false} disableGutters className={clsx("signupImage studentImage", globalStyles.fullyCenter)}>
+        <Container component={Link} to="/signup/student" maxWidth={false} disableGutters className={clsx("signupImage studentImage")}>
           <Typography className="signupText">
             Signup as Student
           </Typography>
