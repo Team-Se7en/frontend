@@ -1,3 +1,5 @@
 export { default as AuthBackgroundImgae } from "./auth-background.png"
 export { default as ProfessorImage } from "./professor-background.png"
 export { default as StudentImage } from "./student-background.png"
+export { default as ProfessorSignUp } from "./ProfessorImageSignUp.png"
+export { default as StudentSignUp } from "./StudentSignup.png"

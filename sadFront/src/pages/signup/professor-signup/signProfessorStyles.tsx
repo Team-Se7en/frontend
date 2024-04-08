@@ -19,11 +19,6 @@ export const StyledPaper = styled(Paper)(({ theme }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     borderRadius: theme.shape.borderRadius,
-    // backgroundColor: 'white',
-    // backgroundImage: `url(${"./frontend/.sadFront/.src/.assets/.images/ProfessorImageSignUp.png"})`,
-    // backgroundSize: 'cover',
-    // backgroundRepeat: 'no-repeat',
-    // backgroundPosition: 'center',
 
 }));
 

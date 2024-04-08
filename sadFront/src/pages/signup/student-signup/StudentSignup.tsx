@@ -36,6 +36,17 @@ export function StudentSignup() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+
+            {/* <Box
+      sx={{
+        backgroundImage: `url(${StudentSignUp})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
+    
+    </Box> */}
+    
       <Box
         sx={{
           background: '#bde0fe',
