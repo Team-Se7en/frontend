@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import { useState } from "react";
 
 export function StudentSignup() {
@@ -37,10 +38,18 @@ export function StudentSignup() {
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          background: '#bde0fe',
+          backgroundSize: '500px 400px',
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
+          borderRadius: '1rem',
+          padding: '1rem 0.5rem 2rem 0.5rem',
+          marginTop: '3rem',
+          marginBottom: '3rem',
+          opacity: '0.8'
+
         }}
       >
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>

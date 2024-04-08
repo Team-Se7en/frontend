@@ -65,7 +65,16 @@ const SignupStyles = makeStyles(() =>
 
             '& .professorImage': {
                 background: `url(${ProfessorImage})`,
-            }
+            },
+
+
+            // '& .ProfessorSignup':{
+            //     background: `url(${ProfessorImageSignUp})`,
+            // },
+
+
+
+
         },
     })
 );

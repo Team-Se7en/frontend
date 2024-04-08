@@ -37,13 +37,23 @@ export function ProfessorSignup() {
 
   return (
     <Container component="main" maxWidth="xs">
+
       <CssBaseline />
+
       <Box
         sx={{
-          marginTop: 8,
+          background: '#bde0fe',
+          backgroundSize: '500px 400px',
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
+          borderRadius: '1rem',
+          padding: '1rem 0.5rem 2rem 0.5rem',
+          marginTop: '3rem',
+          marginBottom: '3rem',
+          opacity: '0.8'
+
         }}
       >
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
@@ -152,3 +162,174 @@ export function ProfessorSignup() {
     </Container>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// import {
+//   Box,
+//   Button,
+//   Container,
+//   CssBaseline,
+//   Grid,
+//   Link,
+//   Paper,
+//   TextField,
+//   Typography,
+// } from '@mui/material';
+// import {
+//   FormTextField,
+//   StyledContainer,
+//   StyledPaper,
+//   buttonThemeColor
+// } from './signProfessorStyles';
+// import React, { useState } from 'react';
+
+// export function ProfessorSignup() {
+//   const [formData, setFormData] = useState({
+//     firstName: '',
+//     lastName: '',
+//     email: '',
+//     password: '',
+//     researchInterests: '',
+//     department: '',
+//     university: '',
+//   });
+
+//   const handleInputChange = (event) => {
+//     const { name, value } = event.target;
+//     setFormData((prev) => ({
+//       ...prev,
+//       [name]: value,
+//     }));
+//   };
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+    
+//     console.log(formData);
+//   };
+
+//   return (
+//     <StyledContainer component="main" maxWidth="sm" >
+//       <CssBaseline />
+//       <StyledPaper elevation={6}>
+//         <Typography variant="h4" align="center" gutterBottom>
+//           Professor Sign Up
+//         </Typography>
+//         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+//           <Grid container spacing={2}>
+//             <Grid item xs={12} sm={6}>
+//               <FormTextField
+//                 autoComplete="fname"
+//                 name="firstName"
+//                 required
+//                 fullWidth
+//                 label="First Name"
+//                 autoFocus
+//                 value={formData.firstName}
+//                 onChange={handleInputChange}
+//               />
+//             </Grid>
+//             <Grid item xs={12} sm={6}>
+//               <FormTextField
+//                 autoComplete="lname"
+//                 name="lastName"
+//                 required
+//                 fullWidth
+//                 label="Last Name"
+//                 value={formData.lastName}
+//                 onChange={handleInputChange}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <FormTextField
+//                 required
+//                 fullWidth
+//                 label="Email Address"
+//                 name="email"
+//                 autoComplete="email"
+//                 value={formData.email}
+//                 onChange={handleInputChange}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <FormTextField
+//                 required
+//                 fullWidth
+//                 name="password"
+//                 label="Password"
+//                 type="password"
+//                 autoComplete="current-password"
+//                 value={formData.password}
+//                 onChange={handleInputChange}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <FormTextField
+//                 required
+//                 fullWidth
+//                 name="researchInterests"
+//                 label="Research Interests"
+//                 value={formData.researchInterests}
+//                 onChange={handleInputChange}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <FormTextField
+//                 required
+//                 fullWidth
+//                 name="department"
+//                 label="Department"
+//                 value={formData.department}
+//                 onChange={handleInputChange}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <FormTextField
+//                 required
+//                 fullWidth
+//                 name="university"
+//                 label="University"
+//                 value={formData.university}
+//                 onChange={handleInputChange}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <Button
+//                 type="submit"
+//                 fullWidth
+//                 variant="contained"
+//                 color="primary"
+//                 sx={{ mt: 3, mb: 2 }}
+//               >
+//                 Sign Up
+//               </Button>
+//             </Grid>
+//             <Grid container justifyContent="space-around">
+//               <Grid item xs={5.5} >
+//                 <Link href="/signup/student" variant="body2">
+//                   Signup as a student
+//                 </Link>
+//               </Grid>
+//               <Grid item>
+//                 <Link href="/login" variant="body2">
+//                   Already have an account? Login
+//                 </Link>
+//               </Grid>
+//             </Grid>
+//           </Grid>
+//         </Box>
+//       </StyledPaper>
+
+//       </StyledContainer>
+//   );
+// }
