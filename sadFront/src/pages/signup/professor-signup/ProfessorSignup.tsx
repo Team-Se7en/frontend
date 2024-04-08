@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { ProfessorSignUpImage } from "@assets";
 import { useState } from "react";
 
 export function ProfessorSignup() {
@@ -36,19 +37,25 @@ export function ProfessorSignup() {
   };
 
   return (
+    <Box
+    sx={{
+      background:'#03045e',
+      height: '100vh',
+    }}
+  >
+    
     <Container component="main" maxWidth="xs">
 
       <CssBaseline />
-      {/* <Box
+      <Box
       sx={{
-        backgroundImage: `url(${ProfessorSignUp})`,
+        backgroundImage: `url(${ProfessorSignUpImage})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        height: '67vh',
       }}
     >
     
-    </Box> */}
-
       <Box
         sx={{
           background: '#bde0fe',
@@ -59,9 +66,9 @@ export function ProfessorSignup() {
           justifyContent: "center",
           borderRadius: '1rem',
           padding: '1rem 0.5rem 2rem 0.5rem',
-          marginTop: '3rem',
-          marginBottom: '3rem',
-          opacity: '0.8',
+          // marginTop: '3rem',
+          // marginBottom: '3rem',
+          opacity: '0.85',
 
 
         }}
@@ -169,6 +176,12 @@ export function ProfessorSignup() {
           </Grid>
         </Box>
       </Box>
+
+      </Box>
+
     </Container>
+
+    </Box>
+
   );
 }

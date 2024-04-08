@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import {StudentSignUpImage} from "@assets";
 import { useState } from "react";
 
 export function StudentSignup() {
@@ -34,32 +35,36 @@ export function StudentSignup() {
   };
 
   return (
+    <Box
+    sx={{
+      background:'#03045e',
+      height: '100vh',
+    }}
+  >
     <Container component="main" maxWidth="xs">
       <CssBaseline />
 
-            {/* <Box
+      <Box
       sx={{
-        backgroundImage: `url(${StudentSignUp})`,
+        backgroundImage: `url(${StudentSignUpImage})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
     >
     
-    </Box> */}
-    
       <Box
         sx={{
           background: '#bde0fe',
-          backgroundSize: '500px 400px',
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: '1rem',
-          padding: '1rem 0.5rem 2rem 0.5rem',
-          marginTop: '3rem',
-          marginBottom: '3rem',
-          opacity: '0.8'
+          borderRadius: '0.3rem',
+          padding: '0rem 0.5rem 2rem 0.5rem',
+          // marginTop: '3rem',
+          // marginBottom: '3rem',
+          opacity: '0.85',
+          height:'80vh',
 
         }}
       >
@@ -146,6 +151,10 @@ export function StudentSignup() {
           </Grid>
         </Box>
       </Box>
+
+    </Box>
     </Container>
+    </Box>
+
   );
 }
