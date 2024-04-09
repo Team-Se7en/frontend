@@ -5,9 +5,7 @@ import theme from "Theme";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div>
         <Routing></Routing>
-      </div>
     </ThemeProvider>
   );
 }
