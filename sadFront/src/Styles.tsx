@@ -1,5 +1,6 @@
-import { AuthBackgroundImgae } from "@assets";
 import { createStyles, makeStyles } from "@mui/styles";
+
+import { AuthBackgroundImgae } from "@assets";
 
 const Styles = makeStyles(() => 
     createStyles({
@@ -26,7 +27,7 @@ const Styles = makeStyles(() =>
         },
         authBackground: {
             background: `url(${AuthBackgroundImgae})`,
-            backgroundPosition: 'bottom left',
+            backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             paddingTop: '8rem',

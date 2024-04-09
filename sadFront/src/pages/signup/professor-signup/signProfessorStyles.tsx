@@ -31,7 +31,7 @@ export const FormTextField = styled(TextField)(({ theme }) => ({
 }));
 
 export const buttonThemeColor = {
-    primary: '#5c6bc0',
+    primary: '#03045E',
     contrastText: '#ffffff',
 };
 

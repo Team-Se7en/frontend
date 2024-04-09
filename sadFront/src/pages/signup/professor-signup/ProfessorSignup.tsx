@@ -39,22 +39,23 @@ export function ProfessorSignup() {
   return (
     <Box
     sx={{
-      background:'#03045e',
+      backgroundImage: `url(${ProfessorSignUpImage})`,
+      backgroundPosition: ' center top',
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
       height: '100vh',
+      width: '100vm',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+
     }}
   >
+
     
     <Container component="main" maxWidth="xs">
 
       <CssBaseline />
-      <Box
-      sx={{
-        backgroundImage: `url(${ProfessorSignUpImage})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        height: '67vh',
-      }}
-    >
     
       <Box
         sx={{
@@ -66,9 +67,7 @@ export function ProfessorSignup() {
           justifyContent: "center",
           borderRadius: '1rem',
           padding: '1rem 0.5rem 2rem 0.5rem',
-          // marginTop: '3rem',
-          // marginBottom: '3rem',
-          opacity: '0.85',
+          opacity: '0.95',
 
 
         }}
@@ -177,7 +176,7 @@ export function ProfessorSignup() {
         </Box>
       </Box>
 
-      </Box>
+      {/* </Box> */}
 
     </Container>
 

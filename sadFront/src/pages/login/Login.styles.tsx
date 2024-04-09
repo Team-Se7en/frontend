@@ -1,7 +1,18 @@
 import { createStyles, makeStyles } from "@mui/styles";
 
+import { AuthBackgroundImgae } from "@assets";
+
 const LoginStyles = makeStyles(() =>
     createStyles({
+        authBackground: {
+            background: `url(${AuthBackgroundImgae})`,
+            backgroundPosition: 'left center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            paddingTop: '8rem',
+            width: '100vw',
+            height: '100vh',
+        },
         wrapper: {
             backgroundColor: 'white',
             borderRadius: '1rem',
@@ -12,7 +23,7 @@ const LoginStyles = makeStyles(() =>
             justifyContent:'center',
 
             '& .avatar': {
-                margin: '2rem',
+                margin: '1rem',
                 width: '70px',
                 height: '70px',
                 borderRadius: '50%',

@@ -37,20 +37,23 @@ export function StudentSignup() {
   return (
     <Box
     sx={{
-      background:'#03045e',
+      backgroundImage: `url(${StudentSignUpImage})`,
+      backgroundPosition: ' center center',
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
       height: '100vh',
+      width: '100vm',
+      
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     }}
   >
+
     <Container component="main" maxWidth="xs">
       <CssBaseline />
 
-      <Box
-      sx={{
-        backgroundImage: `url(${StudentSignUpImage})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-      }}
-    >
+
     
       <Box
         sx={{
@@ -152,7 +155,6 @@ export function StudentSignup() {
         </Box>
       </Box>
 
-    </Box>
     </Container>
     </Box>
 
