@@ -9,28 +9,34 @@ import { Avatar } from "@mui/material";
 
 const card = (
   <React.Fragment>
-    <CardContent>
-      <Avatar
-        className="avatar"
-        alt="Xiaodan Zhu"
-        src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1718236800&v=beta&t=_ROkXK-gfaD5ANq-FbDDW13wiIOwX6u9-2fAw_qYKeA"
-      />
-      <Typography
-        sx={{ fontSize: 14 }}
-        color="text.secondary"
-        gutterBottom
-      ></Typography>
-      <Typography variant="h5" component="div">
-        NLP/ML PhD Positions
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        Xiaodan Zhu
-      </Typography>
-      <Typography variant="body2">Queen's University Canada</Typography>
+    <CardContent className="card-main">
+      <Box className="left-info">
+        <Box className="top-info">
+          <Avatar
+            className="avatar"
+            alt="Sauleh Etemadi"
+            src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1718236800&v=beta&t=_ROkXK-gfaD5ANq-FbDDW13wiIOwX6u9-2fAw_qYKeA"
+          />
+          <Box className="program-info">
+            <Typography variant="h5" component="div">
+              NLP/ML PhD Positions
+            </Typography>
+            <Box className="prof-and-uni">
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                Sauleh Etemadi
+              </Typography>
+              <Typography variant="body2">Queen's University Canada</Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Box className="tags"></Box>
+      </Box>
+      <Box className="deadline-and-button">
+        <CardActions>
+          <Button size="small">Learn More</Button>
+        </CardActions>
+      </Box>
     </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
   </React.Fragment>
 );
 
