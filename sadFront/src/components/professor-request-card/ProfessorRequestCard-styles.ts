@@ -1,4 +1,3 @@
-import { AspectRatio } from "@mui/icons-material";
 import { Card, CardActions, CardContent, styled } from "@mui/material";
 
 
@@ -7,7 +6,7 @@ export const StyledCard = styled(Card)(({ theme }) => ({
     maxWidth: '80rem',
     minWidth: '20rem',
     // height: '12rem',
-    minHeight: '12rem',
+    minHeight: '15rem',
     aspectRatio: '4 / 1',
     margin: '1rem auto',
     backgroundImage: 'linear-gradient(to bottom right, #e5e5e5, white);',
@@ -18,18 +17,17 @@ export const StyledCard = styled(Card)(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
         aspectRatio: '1 / 1',
     },
+}));
 
+export const StyledCardContent = styled(CardContent)(() => ({
+    height: 'calc(100% - 5.25rem)',
+}));
+
+export const StyledCardActions = styled(CardActions)(() => ({
+    height: '2.25rem',
+    backgroundImage: 'linear-gradient(to bottom right, #14213d, blue) !important',
     '&:hover': {
         cursor: 'pointer',
 
     },
-}));
-
-export const StyledCardContent = styled(CardContent)(({ theme }) => ({
-    height: 'calc(100% - 6rem)',
-}));
-
-export const StyledCardActions = styled(CardActions)(({ theme }) => ({
-    height: '3rem',
-    backgroundImage: 'linear-gradient(to bottom right, #14213d, blue) !important',
 }));
