@@ -1,16 +1,17 @@
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, CssBaseline, Grid, TextField, Typography } from "@mui/material";
 import clsx from "clsx";
 import { useState } from "react";
 import Styles from "Styles";
-import LoginStyles from "./Login.styles";
+import ForgotStyles from "./forgotPassword.styles";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
-export function Login() {
+export function Forgot() {
     const [formData, setFormData] = useState({
         email: "",
-        password: "",
     });
 
-    const handleInputChange = (event: any) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormData({
             ...formData,
@@ -18,23 +19,38 @@ export function Login() {
         });
     };
 
-    const handleSubmit = () => {
-        console.log(formData);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/auth/users/reset_password/', formData);
+
+            if (response.status !== 200) {
+                throw new Error('Failed to reset password');
+            }
+
+            navigate("/verification");
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle error appropriately, e.g., display error message to the user
+        }
     };
 
     const globalClasses = Styles();
-    const loginClasses = LoginStyles();
+    const forgotClasses = ForgotStyles();
 
     return (
         <Box className={clsx(globalClasses.authBackground)}>
-            <Container component="main" maxWidth="xs" className={clsx(loginClasses.wrapper)}>
+            <Container component="main" maxWidth="xs" className={clsx(forgotClasses.wrapper)}>
                 <CssBaseline />
                 <Box
                     className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)}
                 >
                     <Avatar className="avatar"></Avatar>
                     <Typography component="h1" variant="h5">
-                        Login
+                        Reset your password
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <TextField
@@ -48,39 +64,20 @@ export function Login() {
                             value={formData.email}
                             onChange={handleInputChange}
                         />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
+                        
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            className="login-btn"
+                            className="forgot-btn"
                         >
-                            Login
+                            Send password reset email
                         </Button>
+
                         <Grid container>
                             <Grid item xs>
-                                <Link href="/forgot-pass" variant="body2">
-                                    Forgot password?
-                                </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/signup" variant="body2">
-                                    Don't have an account? Sign Up
-                                </Link>
                             </Grid>
                         </Grid>
                     </Box>

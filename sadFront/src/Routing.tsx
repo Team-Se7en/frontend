@@ -1,4 +1,7 @@
 import { Signup, StudentSignup, ProfessorSignup, Home, Login } from "@pages";
+import { Verification } from "pages/forgot-pass/AccountVerification";
+import { Forgot } from "pages/forgot-pass/Forgotpassword";
+import { Newpassword } from "pages/forgot-pass/Newpassword";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function Routing() {
@@ -10,6 +13,9 @@ export default function Routing() {
                 <Route path="signup" element={<Signup />} />
                 <Route path="signup/student" element={<StudentSignup />} />
                 <Route path="signup/professor" element={<ProfessorSignup />} />
+                <Route path="forgot-pass" element={<Forgot />} />
+                <Route path="Verification" element={<Verification />} />
+                <Route path="Newpassword" element={<Newpassword />} />
             </Routes>
         </BrowserRouter>
     )
