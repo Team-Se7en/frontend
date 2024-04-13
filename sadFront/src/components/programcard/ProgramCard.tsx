@@ -7,6 +7,12 @@ import Icon from "@mui/material/Icon";
 import { StyledProgramCard } from "./ProgramCard-styles";
 import { StyledCardContent } from "./ProgramCard-styles";
 import { StyledCardActions } from "./ProgramCard-styles";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+
+const handleClick = () => {
+  console.info("You clicked a topic.");
+};
 
 const card = (
   <React.Fragment>
@@ -77,10 +83,24 @@ const card = (
             </Box>
           </Box>
         </Box>
-        <Box className="topics">
+        <Box
+          className="topics"
+          display={"flex"}
+          flexDirection={"row"}
+          gap={"0.5rem"}
+        >
           <Typography variant="body2" fontSize={"0.9rem"}>
             Topics:
           </Typography>
+          <Stack direction="row" spacing={1}>
+            <Chip label="Machine Learning" size="small" onClick={handleClick} />
+            <Chip label="NLP" size="small" onClick={handleClick} />
+            <Chip
+              label="Artificial Intelligence"
+              size="small"
+              onClick={handleClick}
+            />
+          </Stack>
         </Box>
       </Box>
       <Box
