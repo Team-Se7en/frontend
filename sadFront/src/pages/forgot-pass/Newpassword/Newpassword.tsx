@@ -39,7 +39,7 @@ export function Newpassword() {
     };
 
     return (
-        <Box className={clsx(globalClasses.authBackground)}>
+        <Box className={clsx(globalClasses.newpassword)}>
             <Container component="main" maxWidth="xs" className={clsx(newpasswordClasses.wrapper)}>
                 <CssBaseline />
                 <Box

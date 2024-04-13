@@ -23,18 +23,19 @@ export function Forgot() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        navigate("/verification");
         
         try {
-            const response = await axios.post('http://127.0.0.1:8000/auth/users/reset_password/', formData);
+            const response = await axios.post('https://seven-apply.liara.run/auth/users/reset_password/', formData);
 
-            if (response.status !== 200) {
+            if (response.status !== 204) {
                 throw new Error('Failed to reset password');
             }
 
-            navigate("/verification");
+            
         } catch (error) {
             console.error('Error:', error);
-            // Handle error appropriately, e.g., display error message to the user
+            
         }
     };
 
@@ -42,7 +43,7 @@ export function Forgot() {
     const forgotClasses = ForgotStyles();
 
     return (
-        <Box className={clsx(globalClasses.authBackground)}>
+        <Box  className={clsx(globalClasses.forgotBackground)}>
             <Container component="main" maxWidth="xs" className={clsx(forgotClasses.wrapper)}>
                 <CssBaseline />
                 <Box
@@ -63,6 +64,7 @@ export function Forgot() {
                             autoFocus
                             value={formData.email}
                             onChange={handleInputChange}
+                            
                         />
                         
                         <Button
