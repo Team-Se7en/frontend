@@ -5,7 +5,7 @@ export function ProgramsList() {
   return (
     <Box
       height={800}
-      width={800}
+      width={900}
       my={4}
       display="flex"
       alignItems="center"
