@@ -1,23 +1,16 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar } from "@mui/material";
 import Icon from "@mui/material/Icon";
+import { StyledProgramCard } from "./ProgramCard-styles";
+import { StyledCardContent } from "./ProgramCard-styles";
+import { StyledCardActions } from "./ProgramCard-styles";
 
 const card = (
   <React.Fragment>
-    <CardContent
-      className="card-main"
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        padding: "1.5rem",
-      }}
-    >
+    <StyledCardContent>
       <Box
         className="left-info"
         sx={{
@@ -109,20 +102,18 @@ const card = (
             June 2024
           </Typography>
         </Box>
-        <CardActions sx={{ padding: "0" }}>
+        <StyledCardActions>
           <Button size="large">Learn More</Button>
-        </CardActions>
+        </StyledCardActions>
       </Box>
-    </CardContent>
+    </StyledCardContent>
   </React.Fragment>
 );
 
 export default function ProgramCard() {
   return (
     <Box sx={{ width: "45rem" }}>
-      <Card variant="outlined" sx={{ borderRadius: "1rem", padding: "0" }}>
-        {card}
-      </Card>
+      <StyledProgramCard variant="outlined">{card}</StyledProgramCard>
     </Box>
   );
 }
