@@ -1,4 +1,4 @@
-import { Signup, StudentSignup, ProfessorSignup, Home, Login } from "@pages";
+import { Signup, StudentSignup, ProfessorSignup, Home, Login , ProfessorEditProfile} from "@pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function Routing() {
@@ -10,6 +10,7 @@ export default function Routing() {
                 <Route path="signup" element={<Signup />} />
                 <Route path="signup/student" element={<StudentSignup />} />
                 <Route path="signup/professor" element={<ProfessorSignup />} />
+                <Route path="professor/editProfile" element={<ProfessorEditProfile />} />
             </Routes>
         </BrowserRouter>
     )
