@@ -32,7 +32,14 @@ const Styles = makeStyles(() =>
             paddingTop: '8rem',
             width: '100vw',
             height: '100vh',
-        }
+        },
+        justifySelfBottom: {
+            marginTop: 'auto !important',
+            marginBottom: '0 !important',
+        },
+        justifyContentBetween: {
+            justifyContent: 'space-between !important',
+        },
     })
 );
 

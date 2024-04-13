@@ -1,4 +1,6 @@
 import { Button } from "@mui/material";
+import { ProfessorRequestCard } from "@components";
+
 import { ProgramsList } from "components/programslist/ProgramsList";
 
 export function Home() {
@@ -6,6 +8,7 @@ export function Home() {
     <>
       <Button>Home</Button>
       <ProgramsList></ProgramsList>
+      <ProfessorRequestCard></ProfessorRequestCard>
     </>
   );
 }

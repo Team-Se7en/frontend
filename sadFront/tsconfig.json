@@ -29,6 +29,7 @@
       "@hooks": ["hooks"],
       "@components": ["components"],
       "@assets": ["assets"],
+      "@models": ["models"],
     }
   },
   "include": ["src"],

@@ -6,7 +6,7 @@ body,
     width: 100vw;
 }
 
-body>#root>div {
+body>#root {
     width: 100vw;
     height: 100vh;
 }
