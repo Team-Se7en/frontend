@@ -42,7 +42,7 @@ const Styles = makeStyles(() =>
         },
         verification: {
             background: `url(${Verification})`,
-            backgroundPosition: 'bottom top',
+            backgroundPosition: 'center center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             paddingTop: '8rem',
@@ -51,7 +51,7 @@ const Styles = makeStyles(() =>
         },
         newpassword: {
             background: `url(${NewPassword})`,
-            backgroundPosition: 'bottom left',
+            backgroundPosition: 'right center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             paddingTop: '8rem',
@@ -61,7 +61,7 @@ const Styles = makeStyles(() =>
         
         forgotBackground: {
             background: `url(${ApplicationProcess})`,
-            WebkitBackgroundSize:"100%",
+            backgroundPosition: 'bottom left',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             paddingTop: '10rem',

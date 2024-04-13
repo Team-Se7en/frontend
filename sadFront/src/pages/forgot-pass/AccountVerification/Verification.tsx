@@ -21,9 +21,9 @@ export function Verification() {
           >
             <Avatar className="avatar"></Avatar>
             <Typography component="h1" variant="h5">
-            A link was sent to your email and you can confirm it
+            Please Check Your Email
             </Typography>
-            <Typography>Thank you for choosing our site :)</Typography>
+            <Typography>Thanks :)</Typography>
            
               <Grid container>
                 <Grid item xs>
