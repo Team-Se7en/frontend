@@ -1,6 +1,5 @@
+import { ApplicationProcess, AuthBackgroundImgae, NewPassword, Verification } from "@assets";
 import { createStyles, makeStyles } from "@mui/styles";
-
-import { AuthBackgroundImgae } from "@assets";
 
 const Styles = makeStyles(() => 
     createStyles({
@@ -33,8 +32,44 @@ const Styles = makeStyles(() =>
             paddingTop: '8rem',
             width: '100vw',
             height: '100vh',
+        },
+        justifySelfBottom: {
+            marginTop: 'auto !important',
+            marginBottom: '0 !important',
+        },
+        justifyContentBetween: {
+            justifyContent: 'space-between !important',
+        },
+        verification: {
+            background: `url(${Verification})`,
+            backgroundPosition: 'bottom top',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            paddingTop: '8rem',
+            width: '100vw',
+            height: '100vh',
+        },
+        newpassword: {
+            background: `url(${NewPassword})`,
+            backgroundPosition: 'bottom left',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            paddingTop: '8rem',
+            width: '100vw',
+            height: '100vh',
+        },
+        
+        forgotBackground: {
+            background: `url(${ApplicationProcess})`,
+            WebkitBackgroundSize:"100%",
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            paddingTop: '10rem',
+            width: '100vw',
+            height: '100vh',
         }
     })
 );
+
 
 export default Styles;
