@@ -15,8 +15,8 @@ export default function Routing() {
                 <Route path="signup/professor" element={<ProfessorSignup />} />
                 <Route path="professor/editProfile" element={<ProfessorEditProfile />} />
                 <Route path="forgot-pass" element={<Forgot />} />
-                <Route path="Verification" element={<Verification />} />
-                <Route path="Newpassword" element={<Newpassword />} />
+                <Route path="verification" element={<Verification />} />
+                <Route path="newpassword" element={<Newpassword />} />
             </Routes>
         </BrowserRouter>
     )
