@@ -1,10 +1,12 @@
+import{ useEffect, useState } from 'react';
+import axios from 'axios'; // Import Axios library
 import { Avatar, Box, Button, Container, CssBaseline, Grid, Typography, TextField, IconButton, InputAdornment } from "@mui/material";
 import clsx from "clsx";
-import { useState } from "react";
 import Styles from "Styles";
 import NewpasswordStyles from "./Newpassword.styles";
-import { useNavigate } from "react-router-dom";
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useParams} from "react-router-dom";
+import { Visibility, VisibilityOff } from '@mui/icons-material';'react-router-dom';
+
 
 export function Newpassword() {
     const [formData, setFormData] = useState({
@@ -15,11 +17,16 @@ export function Newpassword() {
     const [passwordError, setPasswordError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    const navigate = useNavigate();
+    const { uid, token } = useParams(); 
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    useEffect(() => {
+        console.log('uid:', uid);
+        console.log('token:', token);
+    }, [uid, token]);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
-    
+        window.location.replace("/login");
         if (formData.createpassword !== formData.repeatpassword) {
             setPasswordError("The passwords do not match");
             return;
@@ -27,8 +34,17 @@ export function Newpassword() {
             setPasswordError("");
         }
 
-        console.log(formData);
-        navigate("/login");
+        try {
+            const response = await axios.post('https://seven-apply.liara.run/auth/users/reset_password_confirm/', {
+                uid,
+                token,
+                new_password: formData.createpassword
+            });
+
+            console.log('Password reset successful:', response.data);
+        } catch (error) {
+            console.error('Error resetting password:', error);
+        }
     };
 
     const globalClasses = Styles();
@@ -39,7 +55,7 @@ export function Newpassword() {
     };
 
     return (
-        <Box className={clsx(globalClasses.newpassword)}>
+        <Box sx={{}} className={clsx(globalClasses.newpassword)}>
             <Container component="main" maxWidth="xs" className={clsx(newpasswordClasses.wrapper)}>
                 <CssBaseline />
                 <Box
@@ -47,7 +63,7 @@ export function Newpassword() {
                 >
                     <Avatar className="avatar"></Avatar>
                     <Typography component="h1" variant="h5">
-                    create password
+                    Create Password
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <TextField
@@ -56,7 +72,7 @@ export function Newpassword() {
                             fullWidth
                             id="createpassword"
                             type={showPassword ? 'text' : 'password'}
-                            label="New password"
+                            label="New Password"
                             value={formData.createpassword}
                             onChange={(e) => setFormData({ ...formData, createpassword: e.target.value })}
                             error={passwordError !== ""}
@@ -81,7 +97,7 @@ export function Newpassword() {
                             fullWidth
                             id="repeatpassword"
                             type={showPassword ? 'text' : 'password'}
-                            label="Repeat password"
+                            label="Repeat Password"
                             value={formData.repeatpassword}
                             onChange={(e) => setFormData({ ...formData, repeatpassword: e.target.value })}
                             error={passwordError !== ""}
@@ -106,7 +122,7 @@ export function Newpassword() {
                             variant="contained"
                             className="newpassword-btn"
                         >
-                            submit
+                            Submit
                         </Button>
                         <Grid container>
                             <Grid item xs>
@@ -120,3 +136,5 @@ export function Newpassword() {
         </Box>
     );
 }
+
+export default Newpassword;

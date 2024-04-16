@@ -1,6 +1,6 @@
 import { ProfessorRequestCard } from "@components";
 import { CardModel, Status } from "@models"
-import { Tooltip, Typography } from "@mui/material";
+import { ProgramsList } from "components/programslist/ProgramsList";
 
 export function Home() {
   const model: CardModel = {
@@ -13,6 +13,7 @@ export function Home() {
   return (
     <>
       <ProfessorRequestCard model={model}></ProfessorRequestCard>
+      <ProgramsList></ProgramsList>
     </>
   );
 }
