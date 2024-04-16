@@ -1,31 +1,21 @@
-import { Box, Button, CardActions, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Modal, Typography } from "@mui/material";
-import { StyledCard, StyledCardActions, StyledCardContent } from "./ProfessorRequestCard-styles";
+import { Box, Button, CardActions, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Modal, Tooltip, Typography } from "@mui/material";
+import { StyledBackground, StyledBackgroundImage, StyledCard, StyledCardActions, StyledCardContent, StyledDescription, StyledTag } from "./ProfessorRequestCard-styles";
 import { useState } from "react";
-import { CloseRounded, Delete, DeleteRounded, Edit, EditRounded, FullscreenExitOutlined, FullscreenRounded } from "@mui/icons-material";
+import { CloseRounded, Delete, DeleteRounded, Description, Edit, EditRounded, FullscreenExitOutlined, FullscreenRounded } from "@mui/icons-material";
 import theme from "Theme";
 import Styles from "Styles";
 import clsx from "clsx";
-import Status from "models/Status";
 import CardModal from "components/modals/card-modal/CardModal";
 import DeleteDialog from "components/dialogs/delete-dialog/DeleteDialog";
+import { Status, CardModel } from "@models";
+import { Spacer } from "@components";
+import { StatusCard } from "components/ui/StatusCard";
 
-function CardStatus(status: Status, requestedCount: number) {
-    switch (status) {
-        case Status.open:
-            return
-            <CardActions>
-
-            </CardActions>;
-        case Status.pending:
-            return <></>;
-        case Status.closed:
-            return <></>;
-        default:
-            throw new Error('Unknown status: ' + status);
-    }
+export interface ProfessorRequestCardProps {
+    model: CardModel,
 }
 
-export function ProfessorRequestCard() {
+export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogFullscreen, setDialogFullscreen] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -64,23 +54,36 @@ export function ProfessorRequestCard() {
     return (
         <>
             <StyledCard>
-                <StyledCardContent>
+                <StyledBackgroundImage />
+                <StyledCardContent className={clsx(globalStyles.flexColumn)}>
+
                     <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween)}>
-                        <Typography variant="h4" color="iconButton">
-                            Title: title
-                        </Typography>
-                        <Box>
-                            <IconButton onClick={handleModalOpen}>
-                                <EditRounded sx={{ color: theme.palette.iconButton }} />
-                            </IconButton>
-                            <IconButton onClick={handleDeleteDialogOpen}>
-                                <DeleteRounded sx={{ color: theme.palette.iconButton }} />
-                            </IconButton>
+                        <Tooltip title={props.model.title}>
+                            <Typography variant="h4" color="iconButton" noWrap>
+                                {props.model.title}
+                            </Typography>
+                        </Tooltip>
+                        <Box sx={{ minWidth: 'fit-content' }}>
+                            <Tooltip title="Edit">
+                                <IconButton onClick={handleModalOpen}>
+                                    <EditRounded sx={{ color: theme.palette.iconButton }} />
+                                </IconButton>
+                            </Tooltip>
+
+                            <Tooltip title="Delete">
+                                <IconButton onClick={handleDeleteDialogOpen}>
+                                    <DeleteRounded sx={{ color: theme.palette.iconButton }} />
+                                </IconButton>
+                            </Tooltip>
                         </Box>
                     </Box>
-                    <Typography variant="body1" sx={{ mt: 1, height: 'calc(100% - 5.25rem)', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        Description: ddddddddddddddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd ddddddddddddddddddddddddddddddddddddddddddddddddd ddddddddddddddddd
-                    </Typography>
+                    <Tooltip title="description">
+                        <StyledDescription variant="body1">
+                            {props.model.description}
+                        </StyledDescription>
+                    </Tooltip>
+
+                    <Spacer />
 
                     <Grid container spacing={1} sx={{ overflow: 'hidden', height: '2.5rem', mt: '0 !important' }}>
                         <Grid item>
@@ -89,50 +92,33 @@ export function ProfessorRequestCard() {
                             </Typography>
                         </Grid>
 
-                        <Grid item>
-                            <Chip label="science" variant="outlined"></Chip>
-                        </Grid>
+                        {
+                            props.model.tags.map(tag => (
+                                <Grid item>
+                                    <StyledTag label={tag} variant="outlined"></StyledTag>
+                                </Grid>
+                            ))
+                        }
 
-                        <Grid item>
-                            <Chip label="science" variant="outlined"></Chip>
-                        </Grid>
-
-                        <Grid item>
-                            <Chip label="science" variant="outlined"></Chip>
-                        </Grid>
-
-                        <Grid item>
-                            <Chip label="science" variant="outlined"></Chip>
-                        </Grid>
-
-                        <Grid item>
-                            <Chip label="science" variant="outlined"></Chip>
-                        </Grid>
-
-                        <Grid item>
-                            <Chip label="science" variant="outlined"></Chip>
-                        </Grid>
-
-                        <Grid item>
-                            <Chip label="science" variant="outlined"></Chip>
-                        </Grid>
                     </Grid>
                 </StyledCardContent>
 
-                <StyledCardActions onClick={handleDialogOpen}>
-                    <Typography color={"white"}>
-                        Status: {Status[Status.open]}
-                    </Typography>
+                <Tooltip title="Click for more info">
 
-                    <Typography color={"white"} sx={{ml: '2rem !important'}}>
-                        Requesting Students: {20}
-                    </Typography>
+                    <StyledCardActions onClick={handleDialogOpen} status={props.model.status}>
+                        <Typography color={"white"}>
+                            Status: {Status[props.model.status]}
+                        </Typography>
 
-                    {/* <Button variant="outlined">
+                        <Typography color={"white"} sx={{ ml: '2rem !important' }}>
+                            Requesting Students: {20}
+                        </Typography>
+
+                        {/* <Button variant="outlined">
                         More Info...
                     </Button> */}
-                </StyledCardActions>
-
+                    </StyledCardActions>
+                </Tooltip>
             </StyledCard>
             <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth maxWidth='xl' fullScreen={dialogFullscreen}
                 PaperProps={{ sx: { backgroundImage: 'linear-gradient(to bottom right, #70d1f4, #b0e7ff)' } }}>
@@ -154,7 +140,7 @@ export function ProfessorRequestCard() {
             </Dialog>
 
             <Modal open={modalOpen} onClose={handleModalClose}>
-                <CardModal model={null} />
+                <CardModal model={props.model} />
             </Modal>
 
             <Dialog open={deleteDialogOpen} onClose={handleDeleteDialogClose} fullWidth maxWidth='sm'>

@@ -1,10 +1,9 @@
-import Status from "./Status";
+import { Status } from "./Status";
 
-interface CardModel {
+export interface CardModel {
     professorId: string;
     title: string;
     description: string;
     status: Status;
+    tags: string[];
 }
-
-export default CardModel;

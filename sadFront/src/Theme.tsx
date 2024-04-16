@@ -4,6 +4,11 @@ declare module '@mui/material/styles' {
     interface PaletteOptions {
         button?: string;
         iconButton?: string;
+        status?: {
+            open?: string;
+            pending?: string;
+            closed?: string;
+        }
     }
   }
 
@@ -13,6 +18,9 @@ const theme = createTheme({
         iconButton: '#14213d',
         warning: {
             main: yellow[600],
+        },
+        status: {
+            open: ''
         }
     }
 });

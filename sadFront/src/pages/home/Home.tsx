@@ -1,14 +1,18 @@
-import { Button } from "@mui/material";
 import { ProfessorRequestCard } from "@components";
-
-import { ProgramsList } from "components/programslist/ProgramsList";
+import { CardModel, Status } from "@models"
+import { Tooltip, Typography } from "@mui/material";
 
 export function Home() {
+  const model: CardModel = {
+    title: 'Laboratory Research',
+    description: 'Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab.Need a hardworking student for experiments of living being in my lab.Need a hardworking student for experiments of living being in my lab.Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. Need a hardworking student for experiments of living being in my lab. ',
+    professorId: '111',
+    status: Status.closed,
+    tags: ['science', 'lab']
+  }
   return (
     <>
-      <Button>Home</Button>
-      <ProgramsList></ProgramsList>
-      <ProfessorRequestCard></ProfessorRequestCard>
+      <ProfessorRequestCard model={model}></ProfessorRequestCard>
     </>
   );
 }
