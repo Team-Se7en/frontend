@@ -1,9 +1,10 @@
+import{ useEffect, useState } from 'react';
+import axios from 'axios'; // Import Axios library
 import { Avatar, Box, Button, Container, CssBaseline, Grid, Typography, TextField, IconButton, InputAdornment } from "@mui/material";
 import clsx from "clsx";
-import { useState } from "react";
 import Styles from "Styles";
 import NewpasswordStyles from "./Newpassword.styles";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export function Newpassword() {
@@ -15,11 +16,20 @@ export function Newpassword() {
     const [passwordError, setPasswordError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    const navigate = useNavigate();
+    const { uid, token } = useParams(); // Get parameters from the URL
+    const navigate = useNavigate(); // For navigation between routes
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    useEffect(() => {
+        // Perform operations with uid and token
+        console.log('uid:', uid);
+        console.log('token:', token);
+    }, [uid, token]);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
-    
+        navigate("/login");
+
+        // Check if passwords match
         if (formData.createpassword !== formData.repeatpassword) {
             setPasswordError("The passwords do not match");
             return;
@@ -27,8 +37,20 @@ export function Newpassword() {
             setPasswordError("");
         }
 
-        console.log(formData);
-        navigate("/login");
+        try {
+            // Send request to API to reset password
+            const response = await axios.post('https://seven-apply.liara.run/auth/users/reset_password_confirm/', {
+                uid,
+                token,
+                new_password: formData.createpassword
+            });
+
+            console.log('Password reset successful:', response.data);
+             // Redirect to login page after successful password reset
+        } catch (error) {
+            console.error('Error resetting password:', error);
+            // Handle error condition
+        }
     };
 
     const globalClasses = Styles();
@@ -47,7 +69,7 @@ export function Newpassword() {
                 >
                     <Avatar className="avatar"></Avatar>
                     <Typography component="h1" variant="h5">
-                    create password
+                    Create Password
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <TextField
@@ -56,7 +78,7 @@ export function Newpassword() {
                             fullWidth
                             id="createpassword"
                             type={showPassword ? 'text' : 'password'}
-                            label="New password"
+                            label="New Password"
                             value={formData.createpassword}
                             onChange={(e) => setFormData({ ...formData, createpassword: e.target.value })}
                             error={passwordError !== ""}
@@ -81,7 +103,7 @@ export function Newpassword() {
                             fullWidth
                             id="repeatpassword"
                             type={showPassword ? 'text' : 'password'}
-                            label="Repeat password"
+                            label="Repeat Password"
                             value={formData.repeatpassword}
                             onChange={(e) => setFormData({ ...formData, repeatpassword: e.target.value })}
                             error={passwordError !== ""}
@@ -106,7 +128,7 @@ export function Newpassword() {
                             variant="contained"
                             className="newpassword-btn"
                         >
-                            submit
+                            Submit
                         </Button>
                         <Grid container>
                             <Grid item xs>
@@ -120,3 +142,5 @@ export function Newpassword() {
         </Box>
     );
 }
+
+export default Newpassword;
