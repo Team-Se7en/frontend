@@ -4,8 +4,9 @@ import { Avatar, Box, Button, Container, CssBaseline, Grid, Typography, TextFiel
 import clsx from "clsx";
 import Styles from "Styles";
 import NewpasswordStyles from "./Newpassword.styles";
-import { useParams, useNavigate } from "react-router-dom";
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useParams} from "react-router-dom";
+import { Visibility, VisibilityOff } from '@mui/icons-material';'react-router-dom';
+
 
 export function Newpassword() {
     const [formData, setFormData] = useState({
@@ -16,20 +17,16 @@ export function Newpassword() {
     const [passwordError, setPasswordError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    const { uid, token } = useParams(); // Get parameters from the URL
-    const navigate = useNavigate(); // For navigation between routes
+    const { uid, token } = useParams(); 
 
     useEffect(() => {
-        // Perform operations with uid and token
         console.log('uid:', uid);
         console.log('token:', token);
     }, [uid, token]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
-        navigate("/login");
-
-        // Check if passwords match
+        window.location.replace("/login");
         if (formData.createpassword !== formData.repeatpassword) {
             setPasswordError("The passwords do not match");
             return;
@@ -38,7 +35,6 @@ export function Newpassword() {
         }
 
         try {
-            // Send request to API to reset password
             const response = await axios.post('https://seven-apply.liara.run/auth/users/reset_password_confirm/', {
                 uid,
                 token,
@@ -46,10 +42,8 @@ export function Newpassword() {
             });
 
             console.log('Password reset successful:', response.data);
-             // Redirect to login page after successful password reset
         } catch (error) {
             console.error('Error resetting password:', error);
-            // Handle error condition
         }
     };
 
@@ -61,7 +55,7 @@ export function Newpassword() {
     };
 
     return (
-        <Box className={clsx(globalClasses.newpassword)}>
+        <Box sx={{}} className={clsx(globalClasses.newpassword)}>
             <Container component="main" maxWidth="xs" className={clsx(newpasswordClasses.wrapper)}>
                 <CssBaseline />
                 <Box
