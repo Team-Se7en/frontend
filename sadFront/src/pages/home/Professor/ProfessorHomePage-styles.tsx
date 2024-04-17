@@ -1,17 +1,27 @@
 import { createStyles, makeStyles } from "@mui/styles";
 
+import { ProfessorHomePage } from "@assets";
+
 const HomePageProfessorStyles = makeStyles(() =>
     createStyles({
         wrapper: {
-            backgroundColor: 'white',
             borderRadius: '1rem',
             padding: '0.2rem',
-            opacity: 0.91,
             display: 'flex',
-            alignItems: 'space-evenly',
-            justifyContent:'space-evenly',
+            alignItems: 'center',
+            justifyContent:'center',
             position: 'absolute',
         },
+
+        paperContainer: {
+            backgroundImage: `url(${ProfessorHomePage})`,
+            width: '100%',
+            height: '50vh',  // Make sure it covers at least the full view height
+            backgroundSize: 'cover',
+            backgroundPosition: 'top',
+            backgroundRepeat: 'no-repeat',
+            
+        }
 
         
     })
