@@ -1,6 +1,5 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar } from "@mui/material";
 import Icon from "@mui/material/Icon";
@@ -9,6 +8,7 @@ import { StyledCardContent } from "./ProgramCard-styles";
 import { StyledCardActions } from "./ProgramCard-styles";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import ProgramModal from "./../modals/program-modal/ProgramModal";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -123,7 +123,7 @@ const card = (
           </Typography>
         </Box>
         <StyledCardActions>
-          <Button size="large">Learn More</Button>
+          <ProgramModal></ProgramModal>
         </StyledCardActions>
       </Box>
     </StyledCardContent>
