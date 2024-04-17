@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 
 const style = {
@@ -11,11 +12,17 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "50%",
+  width: "45%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  display: "flex",
+  flexDirection: "column",
+  borderRadius: "1rem",
+  borderColor: "#BFBFBF",
+  padding: "2rem 2rem 0rem 2rem",
+  gap: "1rem",
 };
 
 export default function TransitionsModal() {
@@ -42,13 +49,51 @@ export default function TransitionsModal() {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+          <Box id="modal-main" sx={style}>
+            <Box id="prof-info"></Box>
+            <Divider
+              textAlign="center"
+              sx={{
+                fontFamily: "roboto",
+                fontSize: "1rem",
+                color: "black",
+              }}
+            >
+              NLP/ML PhD Positions Available at my Group at Queen's University
+              Canada
+            </Divider>
+            <Box id="program-descriptions"></Box>
+            <Divider
+              textAlign="left"
+              sx={{
+                fontFamily: "roboto",
+                fontSize: "1rem",
+                color: "#404040",
+              }}
+            >
+              Program Info
+            </Divider>
+            <Box id="program-info"></Box>
+            <Divider
+              textAlign="left"
+              sx={{
+                fontFamily: "roboto",
+                fontSize: "1rem",
+                color: "#404040",
+              }}
+            >
+              About Queen’s University
+            </Divider>
+            <Box id="about-uni"></Box>
+            <Box id="button-container" textAlign={"center"}>
+              <Button
+                variant="contained"
+                disableElevation
+                sx={{ width: "50%", borderRadius: "0.5rem 0.5rem 0px 0px" }}
+              >
+                Apply Now!
+              </Button>
+            </Box>
           </Box>
         </Fade>
       </Modal>
