@@ -3,6 +3,8 @@ import { Avatar, Box, Button, Container, CssBaseline, Grid, Link, TextField, Typ
 import HomePageProfessorStyles from "./ProfessorHomePage-styles";
 import ProgramCard from "components/programcard/ProgramCard";
 import { ProgramsList } from "components/programslist/ProgramsList";
+import StudentCard from "components/studentcard/StudentCard";
+import { StudentList } from "components/studentlist";
 import Styles from "Styles";
 import clsx from "clsx";
 
@@ -11,15 +13,20 @@ export function ProfessorHomePage() {
     const ProfessorHomePageClasses = HomePageProfessorStyles();
 
     return (
-        <Box className={clsx(ProfessorHomePageClasses.paperContainer)}>
-            {/* <Container component="main" maxWidth="lg" className={clsx(ProfessorHomePageClasses.wrapper)}> */}
-                {/* </Container> */}
+        <Box className={ProfessorHomePageClasses.paperContainer}>
+                <Avatar
+                className={ProfessorHomePageClasses.avatar}>
+                </Avatar>
 
-                <CssBaseline />
+                <Grid 
+                className={ProfessorHomePageClasses.positions1}><ProgramsList />
+                </Grid>
 
+                <Grid 
+                className={ProfessorHomePageClasses.positions2}><StudentList />
+                </Grid>
                 
-                <ProgramCard  />
-                {/* <ProgramsList /> */}
+
                 
         </Box>
     );
