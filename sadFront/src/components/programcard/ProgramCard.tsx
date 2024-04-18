@@ -7,8 +7,12 @@ import Icon from "@mui/material/Icon";
 import { StyledProgramCard } from "./ProgramCard-styles";
 import { StyledCardContent } from "./ProgramCard-styles";
 import { StyledCardActions } from "./ProgramCard-styles";
+import { DeaedLineAndButton } from "./ProgramCard-styles";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { ProfAndUni } from "./ProgramCard-styles";
+import { Deadline } from "./ProgramCard-styles";
+import { ProgramInfo } from "./ProgramCard-styles";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -22,9 +26,9 @@ const card = (
         sx={{
           display: "flex",
           flexDirection: "column",
-          width: 0.8,
           gap: "1rem",
         }}
+        width={{ xs: "100%", sm: "100%", md: "100%", lg: "80%", xl: "80%" }}
       >
         <Box
           className="top-info"
@@ -36,37 +40,23 @@ const card = (
             alt="Sauleh Etemadi"
             src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1718236800&v=beta&t=_ROkXK-gfaD5ANq-FbDDW13wiIOwX6u9-2fAw_qYKeA"
             sx={{
-              height: "6rem",
-              width: "6rem",
+              minHeight: "5rem",
+              minWidth: "5rem",
               margin: "0.5rem",
               marginBottom: 0,
             }}
           />
-          <Box
-            className="program-info"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: "0.5rem",
-            }}
-          >
+          <ProgramInfo>
             <Typography
               variant="h5"
               component="div"
               sx={{ fontWeight: "bold" }}
+              fontSize={"1.4rem"}
             >
               NLP/ML PhD Positions
             </Typography>
-            <Box
-              className="prof-and-uni"
-              sx={{ display: "flex", flexDirection: "row", gap: "3rem" }}
-            >
-              <Typography
-                sx={{ mb: 1.5 }}
-                color="text.secondary"
-                fontSize={"1.1rem"}
-              >
+            <ProfAndUni>
+              <Typography color="text.secondary" fontSize={"1rem"}>
                 Sauleh Etemadi
               </Typography>
               <Box
@@ -75,19 +65,21 @@ const card = (
                 flexDirection={"row"}
                 gap={"0.2rem"}
               >
-                <Icon>school</Icon>
-                <Typography variant="body2">
+                <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
+                <Typography variant="body2" fontSize={"0.8rem"}>
                   Queen's University Canada
                 </Typography>
               </Box>
-            </Box>
-          </Box>
+            </ProfAndUni>
+          </ProgramInfo>
         </Box>
         <Box
           className="topics"
           display={"flex"}
           flexDirection={"row"}
           gap={"0.5rem"}
+          alignItems={"center"}
+          //overflow={"auto"}
         >
           <Typography variant="body2" fontSize={"0.9rem"}>
             Topics:
@@ -103,36 +95,26 @@ const card = (
           </Stack>
         </Box>
       </Box>
-      <Box
-        className="deadline-and-button"
-        sx={{ width: 0.2 }}
-        display={"flex"}
-        flexDirection={"column"}
-        marginTop={"1rem"}
-        gap={"3rem"}
-        justifyContent={"flex-end"}
-        textAlign={"center"}
-        alignItems={"center"}
-      >
-        <Box className="deadline">
+      <DeaedLineAndButton>
+        <Deadline>
           <Typography variant="body2" fontSize={"0.7rem"}>
-            Application Deadline
+            Application Deadline:
           </Typography>
-          <Typography variant="body2" fontWeight={"bold"} fontSize={"1rem"}>
+          <Typography variant="body2" fontWeight={"bold"} fontSize={"0.8rem"}>
             June 2024
           </Typography>
-        </Box>
+        </Deadline>
         <StyledCardActions>
           <Button size="large">Learn More</Button>
         </StyledCardActions>
-      </Box>
+      </DeaedLineAndButton>
     </StyledCardContent>
   </React.Fragment>
 );
 
 export default function ProgramCard() {
   return (
-    <Box sx={{ width: "45rem" }}>
+    <Box minWidth={"28rem"} width={"90%"} margin={"0.5rem"}>
       <StyledProgramCard variant="outlined">{card}</StyledProgramCard>
     </Box>
   );
