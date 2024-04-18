@@ -19,29 +19,42 @@ export function ProfessorHomePage() {
     return (
         <Box>
             <CssBaseline />
-            <Box className={ProfessorHomePageClasses.paperContainer}>
-                
-                <Avatar className={ProfessorHomePageClasses.avatar}></Avatar>
 
-                <Stack className={ProfessorHomePageClasses.socialicons} direction="row" spacing={2}>
+            <Box className={ProfessorHomePageClasses.paperContainer}>
+                <Stack direction="column" alignItems="center" spacing={2} style={{ marginTop: '25px' }}>
+                    
+                    <Avatar className={ProfessorHomePageClasses.avatar}></Avatar>
+                    
+                    <Button className={ProfessorHomePageClasses.editprofilebutton} type="submit">
+                    Profile Management
+                    </Button>
+
+                    <Button className={ProfessorHomePageClasses.addprogrambutton} type="submit">
+                    Program Management
+                    </Button>
+                    
+                </Stack>
+                
+                <Stack className={ProfessorHomePageClasses.socialicons} direction="row" spacing={2} style={{ marginLeft: 'auto' }}>
                     <YouTubeIcon style={{ color: '#FF0000', fontSize: 50 }} />
                     <LinkedInIcon style={{ color: '#0077b5', fontSize: 50 }} />
                     <TwitterIcon style={{ color: '#1DA1F2', fontSize: 50 }} />
                 </Stack>
-
-                <Button className={ProfessorHomePageClasses.editprofilebutton} type="submit">
-                Edit Profile
-                </Button>
                 
             </Box>
+
             
             <Grid container spacing={2}>
                 
-                <Grid item xs={12} md={6} className={ProfessorHomePageClasses.positions1}>
+                <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
                     <ProgramsList />
                 </Grid>
                 
-                <Grid item xs={12} md={6} className={ProfessorHomePageClasses.positions2}>
+                <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
+                    <StudentList />
+                </Grid>
+
+                <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
                     <StudentList />
                 </Grid>
                 

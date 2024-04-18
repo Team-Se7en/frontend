@@ -6,16 +6,13 @@ const HomePageProfessorStyles = makeStyles((theme) => createStyles({
     paperContainer: {
         backgroundImage: `url(${ProfessorHomePage})`,
         width: '100%',
-        height: '50vh',
+        height: '30vh',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'space-between',
-        paddingBottom: '20px',
-
+        flexDirection: 'row',
+        paddingBottom: '20px'
     },
     
     avatar: {
@@ -25,13 +22,24 @@ const HomePageProfessorStyles = makeStyles((theme) => createStyles({
         color: '#bde0fe',
         backgroundColor: '#03045e',
         display: 'flex',
-        margin: '0 auto', 
-        border: '2px solid #bde0fe',
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+        flexwrap: 'wrap', 
         
     },
     
     editprofilebutton: {
+        borderRadius: '50%',
+        fontWeight: 'bold',
+        margin: '1rem',
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        marginVertical: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+
+    },
+
+    addprogrambutton:{
         borderRadius: '50%',
         fontWeight: 'bold',
         margin: '1rem',
@@ -52,7 +60,7 @@ const HomePageProfessorStyles = makeStyles((theme) => createStyles({
         margin: '1rem',
     },
     
-    positions1: {
+    positions: {
         borderRadius: '1rem',
         display: 'flex',
         alignItems: 'center',
@@ -62,15 +70,25 @@ const HomePageProfessorStyles = makeStyles((theme) => createStyles({
         marginTop: '50px',
     },
     
-    positions2: {
-        borderRadius: '1rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        padding: '1rem',
-        marginTop: '50px',
-    }
+    // positions2: {
+    //     borderRadius: '1rem',
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     flexDirection: 'column',
+    //     padding: '1rem',
+    //     marginTop: '50px',
+    // },
+
+    // positions3: {
+    //     borderRadius: '1rem',
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     flexDirection: 'column',
+    //     padding: '1rem',
+    //     marginTop: '50px',
+    // }
 }));
 
 export default HomePageProfessorStyles;
