@@ -21,6 +21,7 @@ export function Home() {
   return (
     <>
       <ProfessorRequestCard model={model}></ProfessorRequestCard>
+      <ProgramsList></ProgramsList>
     </>
   );
 }
