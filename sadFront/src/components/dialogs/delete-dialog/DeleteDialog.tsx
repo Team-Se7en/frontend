@@ -1,13 +1,15 @@
-import { Box, Button, ButtonGroup, Container, IconButton, Typography } from "@mui/material";
+import { Box, ButtonGroup, DialogProps, Typography } from "@mui/material";
 import { NoButton, Wrapper, YesButton } from "./DeleteDialog-styles";
 import Styles from "Styles";
 import clsx from "clsx";
-import { DangerousRounded, WarningRounded } from "@mui/icons-material";
+import { WarningRounded } from "@mui/icons-material";
 import theme from "Theme";
 
+export interface DeleteDialogProps extends DialogProps {
 
+}
 
-export default function DeleteDialog() {
+export default function DeleteDialog(props: DeleteDialogProps) {
 
     const globalStyles = Styles();
 
