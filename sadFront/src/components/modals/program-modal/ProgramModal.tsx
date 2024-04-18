@@ -8,7 +8,11 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { Avatar } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
 import { useMediaQuery } from "@mui/material";
+import PaidIcon from "@mui/icons-material/Paid";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import TodayIcon from "@mui/icons-material/Today";
 
 const style = {
   position: "absolute" as "absolute",
@@ -55,7 +59,7 @@ export default function TransitionsModal() {
           <Box
             id="modal-main"
             sx={style}
-            minWidth={"25rem"}
+            minWidth={"27rem"}
             width={{ xs: "75%", sm: "65%", md: "55%", lg: "45%", xl: "40%" }}
             height={{ xs: "55%", sm: "60%", md: "65%", lg: "75%", xl: "85%" }}
           >
@@ -122,7 +126,7 @@ export default function TransitionsModal() {
               >
                 NLP/ML PhD Positions
               </Divider>
-              <Box id="program-descriptions">
+              <Box id="program-descriptions" padding={"0.5rem"}>
                 <Typography>
                   Fully funded PhD and Master’s positions in Natural Language
                   Processing and Machine Learning are available at the Text
@@ -148,7 +152,58 @@ export default function TransitionsModal() {
               >
                 Program Info
               </Divider>
-              <Box id="program-info"></Box>
+              <Box
+                id="program-info"
+                display={"flex"}
+                flexDirection={"column"}
+                gap={"1rem"}
+                padding={"1rem"}
+              >
+                <Box
+                  id="starting-date"
+                  display={"flex"}
+                  gap={"1rem"}
+                  alignItems={"center"}
+                >
+                  <TodayIcon sx={{ fontSize: "1.6rem" }} />
+                  <Typography>Starting Date: </Typography>
+                  <Typography fontWeight={"bold"}>
+                    Sep. 1, 2024 or Jan. 1, 2025
+                  </Typography>
+                </Box>
+                <Box
+                  id="application-deadline"
+                  display={"flex"}
+                  gap={"1rem"}
+                  alignItems={"center"}
+                >
+                  <AccessAlarmsIcon sx={{ fontSize: "1.6rem" }} />
+                  <Typography>Application Deadline:</Typography>
+                  <Typography fontWeight={"bold"}>May 30th, 2024</Typography>
+                </Box>
+                <Box
+                  id="Duration"
+                  display={"flex"}
+                  gap={"1rem"}
+                  alignItems={"center"}
+                >
+                  <AccessTimeIcon sx={{ fontSize: "1.6rem" }} />
+                  <Typography>Duration: </Typography>
+                  <Typography fontWeight={"bold"}>2 years</Typography>
+                </Box>
+                <Box
+                  id="fee"
+                  display={"flex"}
+                  gap={"1rem"}
+                  alignItems={"center"}
+                >
+                  <PaidIcon sx={{ fontSize: "1.6rem" }} />
+                  <Typography>Fee: </Typography>
+                  <Typography fontWeight={"bold"}>
+                    7,455,000,000 Rials
+                  </Typography>
+                </Box>
+              </Box>
               <Divider
                 textAlign="left"
                 sx={{
@@ -159,7 +214,14 @@ export default function TransitionsModal() {
               >
                 About Queen’s University
               </Divider>
-              <Box id="about-uni">
+              <Box
+                id="about-uni"
+                padding={"0.5rem"}
+                display={"flex"}
+                flexDirection={"column"}
+                gap={"1rem"}
+                alignItems={"center"}
+              >
                 <Typography>
                   Queen’s university (https://www.queensu.ca/) has over 180
                   years’ history and is one of Canada’s oldest universities. It
@@ -174,6 +236,11 @@ export default function TransitionsModal() {
                   artificial intelligence research and dynamic cities to live
                   and visit.
                 </Typography>
+                <img
+                  src="https://www.globaladmissions.com/uploads/school_pictures/Campus_1.jpg?auto=format,enhance,redeye,compress,true"
+                  alt="Queen's University"
+                  width={"90%"}
+                />
               </Box>
             </Box>
 
