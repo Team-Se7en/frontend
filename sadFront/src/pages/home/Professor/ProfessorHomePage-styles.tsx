@@ -2,90 +2,75 @@ import { createStyles, makeStyles } from "@mui/styles";
 
 import { ProfessorHomePage } from "@assets";
 
-const HomePageProfessorStyles = makeStyles(() =>
-    createStyles({
-        paperContainer: {
-            backgroundImage: `url(${ProfessorHomePage})`,
-            width: '100%',
-            height: '50vh',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top',
-            backgroundRepeat: 'no-repeat',
-            
-        },
+const HomePageProfessorStyles = makeStyles((theme) => createStyles({
+    paperContainer: {
+        backgroundImage: `url(${ProfessorHomePage})`,
+        width: '100%',
+        height: '50vh',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'space-between',
+        paddingBottom: '20px',
 
-        positions1 : {
-            borderRadius: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent:'flex-start',
-            flexDirection: 'row',
-            position: 'absolute',
-            padding: '500px 5px 5px 5px ',
-
-
-        },
+    },
+    
+    avatar: {
+        width: '150px',
+        height: '150px',
+        borderRadius: '50%',
+        color: '#bde0fe',
+        backgroundColor: '#03045e',
+        display: 'flex',
+        margin: '0 auto', 
+        border: '2px solid #bde0fe',
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
         
-        positions2: {
-            borderRadius: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            flexDirection: 'row',  
-            position: 'absolute', 
-            padding: '500px 5px 5px 700px ',
-        },
+    },
+    
+    editprofilebutton: {
+        borderRadius: '50%',
+        fontWeight: 'bold',
+        margin: '1rem',
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        marginVertical: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
 
-        avatar: {
-                width: '1000px',
-                height: '1000px',
-                borderRadius: '50%',
-                color: '#bde0fe',
-                backgroundColor: '#03045e',
-                display: 'flex',
-                alignItems: 'stretch',
-                justifyContent: 'space-between',
-                fontWeight: 'bold',
-                border: '2px solid #bde0fe',
-                boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-                backgroundImage: 'linear-gradient(135deg, #bde0fe 0%, #03045e 250%)',
-                padding: '2rem',
-                position: 'absolute',
-                top: '250px',
-                left: '200px',
-                
+    },
 
-        },
-
-        editprofilebutton:{
-            width: '120px',
-            height: '40px',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 'bold',
-            position: 'absolute',
-            top: '350px',
-            left: '1200px',
-            padding: '10px 10px',
-
-        },
-
-        socialicons:{
-            width: '100px',
-            height: '40px',
-            display: 'flex',
-            alignItems: 'stretch',
-            justifyContent: 'space-between',
-            position: 'absolute',
-            top: '350px',
-            left: '1000px',
-            padding: '10px',
-            
-        }
-
-    })
-);
+    
+    socialicons: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '1rem',
+        margin: '1rem',
+    },
+    
+    positions1: {
+        borderRadius: '1rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        padding: '1rem',
+        marginTop: '50px',
+    },
+    
+    positions2: {
+        borderRadius: '1rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        padding: '1rem',
+        marginTop: '50px',
+    }
+}));
 
 export default HomePageProfessorStyles;
