@@ -8,6 +8,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
+import { ProfessorSignUpImage } from "@assets";
 import { useState } from "react";
 
 export function ProfessorSignup() {
@@ -35,14 +37,39 @@ export function ProfessorSignup() {
   };
 
   return (
+    <Box
+    sx={{
+      backgroundImage: `url(${ProfessorSignUpImage})`,
+      backgroundPosition: ' center top',
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      height: '100vh',
+      width: '100vm',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+
+    }}
+  >
+
+    
     <Container component="main" maxWidth="xs">
+
       <CssBaseline />
+    
       <Box
         sx={{
-          marginTop: 8,
+          background: '#bde0fe',
+          backgroundSize: '500px 400px',
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
+          borderRadius: '1rem',
+          padding: '1rem 0.5rem 2rem 0.5rem',
+          opacity: '0.95',
+
+
         }}
       >
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
@@ -148,6 +175,12 @@ export function ProfessorSignup() {
           </Grid>
         </Box>
       </Box>
+
+      {/* </Box> */}
+
     </Container>
+
+    </Box>
+
   );
 }

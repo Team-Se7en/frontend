@@ -1,8 +1,9 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
+
+import LoginStyles from "./Login.styles";
+import Styles from "Styles";
 import clsx from "clsx";
 import { useState } from "react";
-import Styles from "Styles";
-import LoginStyles from "./Login.styles";
 
 export function Login() {
     const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ export function Login() {
     const loginClasses = LoginStyles();
 
     return (
-        <Box className={clsx(globalClasses.authBackground)}>
+        <Box className={clsx(loginClasses.authBackground)}>
             <Container component="main" maxWidth="xs" className={clsx(loginClasses.wrapper)}>
                 <CssBaseline />
                 <Box
@@ -73,7 +74,7 @@ export function Login() {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="/forget-password" variant="body2">
+                                <Link href="/forgot-pass" variant="body2">
                                     Forgot password?
                                 </Link>
                             </Grid>
