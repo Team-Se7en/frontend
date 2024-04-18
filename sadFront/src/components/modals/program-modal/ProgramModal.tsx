@@ -15,7 +15,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  height: "80%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -32,7 +31,7 @@ export default function TransitionsModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const isSmallScreen = useMediaQuery("(max-width:800px)");
 
   return (
     <div>
@@ -56,7 +55,9 @@ export default function TransitionsModal() {
           <Box
             id="modal-main"
             sx={style}
-            width={{ xs: "75%", sm: "65%", md: "55%", lg: "45%", xl: "35%" }}
+            minWidth={"25rem"}
+            width={{ xs: "75%", sm: "65%", md: "55%", lg: "45%", xl: "40%" }}
+            height={{ xs: "55%", sm: "60%", md: "65%", lg: "75%", xl: "85%" }}
           >
             <Box
               id="scrollable-top"
@@ -70,13 +71,6 @@ export default function TransitionsModal() {
                 <Box id="prof-info" sx={{ display: "flex" }} gap={"0.8rem"}>
                   <Box
                     id="avatar-container"
-                    width={{
-                      xs: "4rem",
-                      sm: "5rem",
-                      md: "5rem",
-                      lg: "6rem",
-                      xl: "6rem",
-                    }}
                     sx={{
                       margin: "0.5rem",
                       marginBottom: 0,
@@ -98,26 +92,8 @@ export default function TransitionsModal() {
                       id="name-and-button"
                       sx={{ display: "flex" }}
                       alignItems={"center"}
-                      gap={{
-                        xs: "0rem",
-                        sm: "0rem",
-                        md: "0.5rem",
-                        lg: "0.5rem",
-                        xl: "0.5rem",
-                      }}
                     >
-                      <Typography
-                        variant="h6"
-                        fontSize={{
-                          xs: "1rem",
-                          sm: "1rem",
-                          md: "1.2rem",
-                          lg: "1.2rem",
-                          xl: "1.5rem",
-                        }}
-                      >
-                        Sauleh Etemadi
-                      </Typography>
+                      <Typography variant="h6">Sauleh Etemadi</Typography>
                       <KeyboardArrowRightIcon />
                       <Button size="small" sx={{ height: "2rem" }}>
                         {isSmallScreen ? (
@@ -127,30 +103,10 @@ export default function TransitionsModal() {
                         )}
                       </Button>
                     </Box>
-                    <Typography
-                      color="text.secondary"
-                      fontSize={{
-                        xs: "0.7rem",
-                        sm: "0.7rem",
-                        md: "1rem",
-                        lg: "1rem",
-                        xl: "1rem",
-                      }}
-                    >
+                    <Typography color="text.secondary">
                       Associate Professor at Queen's University
                     </Typography>
-                    <Typography
-                      color="text.secondary"
-                      fontSize={{
-                        xs: "0.7rem",
-                        sm: "0.7rem",
-                        md: "1rem",
-                        lg: "1rem",
-                        xl: "1rem",
-                      }}
-                    >
-                      3w
-                    </Typography>
+                    <Typography color="text.secondary">3w</Typography>
                   </Box>
                 </Box>
                 <Box id="share-container"></Box>
@@ -167,15 +123,7 @@ export default function TransitionsModal() {
                 NLP/ML PhD Positions
               </Divider>
               <Box id="program-descriptions">
-                <Typography
-                  fontSize={{
-                    xs: "0.8rem",
-                    sm: "0.8rem",
-                    md: "1rem",
-                    lg: "1rem",
-                    xl: "1rem",
-                  }}
-                >
+                <Typography>
                   Fully funded PhD and Master’s positions in Natural Language
                   Processing and Machine Learning are available at the Text
                   Analytics and Machine Learning Group (TAML), led by Dr.
@@ -212,15 +160,7 @@ export default function TransitionsModal() {
                 About Queen’s University
               </Divider>
               <Box id="about-uni">
-                <Typography
-                  fontSize={{
-                    xs: "0.8rem",
-                    sm: "0.8rem",
-                    md: "1rem",
-                    lg: "1rem",
-                    xl: "1rem",
-                  }}
-                >
+                <Typography>
                   Queen’s university (https://www.queensu.ca/) has over 180
                   years’ history and is one of Canada’s oldest universities. It
                   is a public research university famous for many subjects such
