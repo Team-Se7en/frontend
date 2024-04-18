@@ -8,9 +8,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import React, { useState } from "react";
 
-import { ProfessorSignUpImage } from "@assets";
-import { useState } from "react";
+import ProfessorSignUpStyles from "./ProfessorSignUp-styles";
 
 export function ProfessorSignup() {
   const [formData, setFormData] = useState({
@@ -18,12 +18,10 @@ export function ProfessorSignup() {
     lastName: "",
     email: "",
     password: "",
-    researchInterests: "",
-    department: "",
-    university: "",
+    confirmPassword: "",
   });
 
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -31,156 +29,114 @@ export function ProfessorSignup() {
     });
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData);
   };
 
+  const ProfessorSignUpClasses = ProfessorSignUpStyles();
+
   return (
-    <Box
-    sx={{
-      backgroundImage: `url(${ProfessorSignUpImage})`,
-      backgroundPosition: ' center top',
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
-      height: '100vh',
-      width: '100vm',
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+    <Box className={ProfessorSignUpClasses.authBackground}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box className={ProfessorSignUpClasses.wrapper}>
 
-    }}
-  >
-
-    
-    <Container component="main" maxWidth="xs">
-
-      <CssBaseline />
-    
-      <Box
-        sx={{
-          background: '#bde0fe',
-          backgroundSize: '500px 400px',
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: '1rem',
-          padding: '1rem 0.5rem 2rem 0.5rem',
-          opacity: '0.95',
-
-
-        }}
-      >
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-          <Typography variant="h4" align="center" gutterBottom>
+          <Typography component="h1" variant="h5">
             Professor Sign Up
           </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="First Name"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Last Name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                type="email"
-                label="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                type="password"
-                label="Password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Research Interests"
-                name="researchInterests"
-                value={formData.researchInterests}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Department"
-                name="department"
-                value={formData.department}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="University"
-                name="university"
-                value={formData.university}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Sign Up
-              </Button>
+          <Box
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                />
+              </Grid>
 
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/signup/student" variant="body2">
-                    signup as a student
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/login" variant="body2">
-                    Already have an account? Login
-                  </Link>
-                </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="lname"
+                  name="lastName"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="email"
+                  name="email"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="new-password"
+                  name="password"
+                  required
+                  fullWidth
+                  id="password"
+                  label="Password"
+                  type="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="new-password"
+                  name="confirmPassword"
+                  required
+                  fullWidth
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                />
               </Grid>
             </Grid>
-          </Grid>
+
+            <Button className={ProfessorSignUpClasses.button1}
+              type="submit"
+              fullWidth
+            >
+              Sign Up
+            </Button>
+
+            <Grid container justifyContent="center" paddingTop='5px'>
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
         </Box>
-      </Box>
-
-      {/* </Box> */}
-
-    </Container>
-
+      </Container>
     </Box>
-
   );
 }
