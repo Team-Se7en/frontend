@@ -24,7 +24,7 @@ const ProfessorSignUpStyles = makeStyles(() =>
             backgroundColor: 'white',
             borderRadius: '1rem',
             padding: '2.5rem 1rem',
-            opacity: 0.91,
+            opacity: 0.85,
 
 
             },
