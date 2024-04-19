@@ -13,16 +13,17 @@ const EditProfileStyles = makeStyles(() =>
             alignItems: 'center',
             justifyContent: 'center',
             width: '45rem !important',
+            height: 'fit-content',
         },
         background: {
             backgroundImage: `url(${ProfessorSignUpImage})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            // backgroundColor: 'lightskyblue',
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
+            alignItems: 'center',
         },
         uperImage: {
             height: '10rem',
@@ -37,7 +38,7 @@ const EditProfileStyles = makeStyles(() =>
             borderRadius: '10px',
         },
         lowerButtons: {
-            marginTop: '1rem !important',
+            margin: '1rem 0 !important',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
