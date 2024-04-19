@@ -3,17 +3,15 @@ import Styles from "Styles";
 import clsx from "clsx";
 import EditProfileStyles from "./EditProfile-styles";
 import { useState } from "react";
-import { ProfessorProfileImage } from "@assets";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { StudentProfileImage } from "@assets";
+import axios from "axios";
 
-export function ProfessorEditProfile() {
+export function StudentEditProfile() {
     const [formData, setFormData] = useState({
-        firstName: "William",
+        firstName: "Jesse",
         lastName: "Amiri",
-        department: "management",
         university: "MIP",
-        birthdate: null,
+        ssn: 2147483647,
     });
 
     const handleInputChange = (event: any) => {
@@ -24,9 +22,30 @@ export function ProfessorEditProfile() {
         });
     };
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
         console.log(formData);
+        const sendingData = {
+            university_name: formData.university,
+            user: {
+                first_name: formData.firstName,
+                last_name: formData.lastName,
+            },
+            ssn: formData.ssn
+        }
+
+        try {
+            const response = await axios.patch('https://seven-apply.liara.run/eduportal/student-profile/me/', sendingData);
+
+            if (response.status !== 204) {
+                throw new Error('Failed to edit student profile');
+            }
+
+
+        } catch (error) {
+            console.error('Error:', error);
+
+        }
     };
 
     const globalClasses = Styles();
@@ -40,8 +59,8 @@ export function ProfessorEditProfile() {
                     className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)}
                 >
                     <Box className={clsx(editProfileStyles.uperImage)}>
-                        <img src={ProfessorProfileImage} className={clsx(editProfileStyles.profileImage)}></img>
-                        <Typography fontSize={30}>The Professor</Typography>
+                        <img src={StudentProfileImage} className={clsx(editProfileStyles.profileImage)}></img>
+                        <Typography fontSize={30}>The Student</Typography>
                     </Box>
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <Grid container spacing={2}>
@@ -68,9 +87,9 @@ export function ProfessorEditProfile() {
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
-                                    label="Department"
-                                    name="department"
-                                    value={formData.department}
+                                    label="SSN"
+                                    name="ssn"
+                                    value={formData.ssn}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -85,15 +104,6 @@ export function ProfessorEditProfile() {
                                     required
                                 />
                             </Grid>
-                            <Grid item xs={12}>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker
-                                        label="Controlled picker"
-                                        value={formData.birthdate}
-                                        onChange={handleInputChange}
-                                    />
-                                </LocalizationProvider>
-                            </Grid>
                             <Grid item xs={12} className={clsx(editProfileStyles.lowerButtons)}>
                                 <Button
                                     type="submit"
@@ -103,7 +113,7 @@ export function ProfessorEditProfile() {
                                     Save
                                 </Button>
                                 <Button
-                                    type="submit"
+                                    type="reset"
                                     variant="contained"
                                     color="warning"
                                 >
