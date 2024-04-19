@@ -5,7 +5,7 @@ import { ProgramsList } from "components/programslist/ProgramsList";
 export function Home() {
   const model: ProfessorCardViewShortInfo = {
     title: 'Laboratory Research',
-    status: Status.open,
+    status: Status.closed,
     tags: ['science', 'lab'],
     startDate: new Date(),
     endDate: new Date(),

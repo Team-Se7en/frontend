@@ -2,6 +2,7 @@ import { PositionDuration, Professor, Status, University } from "@models";
 
 
 export interface CardInfo {
+    id: number;
     title: string;
     studentCapacity: number;
     status: Status;
@@ -21,7 +22,7 @@ export interface ProfessorCardViewShortInfo extends CardInfo {
 export interface ProfessorCardViewFullInfo extends CardInfo {
     description: string;
     university: University;
-
+    requestingStudents: number;
 }
 
 export interface StudentCardViewShortInfo extends CardInfo {

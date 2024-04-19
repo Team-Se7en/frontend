@@ -4,24 +4,33 @@ import { useState } from "react";
 import Styles from "Styles";
 import { CancelButton, SaveButton, StyledTag, Wrapper } from "./CardModal-styles";
 import theme from "Theme";
-import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo, Status } from "@models";
+import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo, Status, University } from "@models";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import dayjs from "dayjs";
 
 export interface CardModalProps {
     model: ProfessorCardViewFullInfo | null;
 }
 
 export default function CardModal(props: CardModalProps) {
+
+    const isNew: boolean = props.model == null;
+
+    const universities: University[] = [{ name: 'IUST', description: 'Iran University of Science and Technology' }, { name: 'Tehran', description: 'Good University' }];
+
+
     const [model, setModelData] = useState({
         title: props.model?.title ?? "",
         description: props.model?.description ?? "",
         status: props.model?.status ?? Status.open,
-        startDate: props.model?.startDate ?? Date.now(),
-        endDate: props.model?.endDate ?? Date.now(),
+        startDate: dayjs(props.model?.startDate.toLocaleDateString('en-US')) ?? dayjs(new Date().toLocaleDateString('en-US')),
+        endDate: dayjs(props.model?.endDate.toLocaleDateString('en-US')) ?? dayjs(new Date().toLocaleDateString('en-US')),
         tags: props.model?.tags ?? [],
         fee: props.model?.fee ?? 0,
         positionStartDate: props.model?.positionStartDate ?? Date.now(),
         duration: props.model?.duration ?? { year: 0, month: 0, day: 0 },
+        university: props.model?.university ?? universities[0],
     });
 
     const handleInputChange = (event: any) => {
@@ -38,7 +47,6 @@ export default function CardModal(props: CardModalProps) {
     };
 
     const handleTagDelete = (tagToDelete: string) => {
-        console.log(tagToDelete);
         const updatedTags = model.tags.filter(tag => tag !== tagToDelete);
         setModelData({
             ...model,
@@ -48,10 +56,19 @@ export default function CardModal(props: CardModalProps) {
 
     const [tagToAdd, setTagToAdd] = useState('');
     const handleTagAdd = (event: any) => {
-        if (event.target.value != '' && !model.tags.includes(event.target.value)) 
+        if (event.target.value != '' && !model.tags.includes(event.target.value))
             model.tags.push(event.target.value);
         handleInputChange(event);
     };
+
+    const handleUniversityChange = (_university: University) => {
+        setModelData({
+            ...model,
+            university: _university,
+        })
+        console.log(model.university);
+    };
+
 
     const globalStyles = Styles();
 
@@ -59,7 +76,7 @@ export default function CardModal(props: CardModalProps) {
         <Wrapper maxWidth="xs" sx={{ mt: 1 }} disableGutters>
 
             <Box component="form" onSubmit={handleSubmit}>
-                <Box sx={{ p: theme.spacing(5) }} className={clsx(globalStyles.flexColumn, globalStyles.fullyCenter)}>
+                <Box sx={{ p: theme.spacing(5), pt: '8rem', overflowY: 'scroll', height: '34rem' }} gap={2} className={clsx(globalStyles.flexColumn, globalStyles.fullyCenter)}>
 
                     <TextField
                         margin="normal"
@@ -73,7 +90,7 @@ export default function CardModal(props: CardModalProps) {
                         onChange={handleInputChange}
                     />
 
-                    <FormControl fullWidth sx={{ mt: 2 }}>
+                    <FormControl fullWidth>
                         <Typography variant="h6" textAlign="left" marginBottom={1}>
                             Description
                         </Typography>
@@ -85,16 +102,9 @@ export default function CardModal(props: CardModalProps) {
                             autoFocus
                             onChange={handleInputChange}
                             minRows={2}
+                            required
                         />
                     </FormControl>
-
-                    {/* <LocalizationProvider>
-                            <DatePicker
-                                label="Controlled picker"
-                                value={model.positionStartDate}
-                                onChange={handleInputChange}
-                            />
-                    </LocalizationProvider> */}
 
                     <TextField
                         margin="normal"
@@ -107,10 +117,38 @@ export default function CardModal(props: CardModalProps) {
                         type="number"
                         value={model.fee}
                         onChange={handleInputChange}
-                        sx={{ mt: 4 }}
                     />
 
-                    <Typography variant="h6" textAlign="left" sx={{ width: '100%', mt: 2 }} marginBottom={1}>
+                    {/* <InputLabel>Add Tag</InputLabel> */}
+                    {/* <Select value={model.university} label="University" fullWidth required>
+                        {
+                            universities.map(university => (
+                                <MenuItem value={university} onClick={() => handleUniversityChange(university)}>{university.name}</MenuItem>
+                            ))
+                        }
+                    </Select> */}
+
+                    <FormControl fullWidth required sx={{ mt: 2 }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Application start date"
+                                value={model.startDate}
+                                onChange={handleInputChange}
+                            />
+                        </LocalizationProvider>
+                    </FormControl>
+                    <FormControl fullWidth required>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Application end date"
+                                value={model.endDate}
+                                onChange={handleInputChange}
+                            />
+                        </LocalizationProvider>
+                    </FormControl>
+
+
+                    <Typography variant="h6" textAlign="left" sx={{ width: '100%' }}>
                         Duration
                     </Typography>
                     <Grid container spacing={2}>
@@ -163,9 +201,9 @@ export default function CardModal(props: CardModalProps) {
                         {/* <InputLabel>Add Tag</InputLabel> */}
                         <Select value={tagToAdd} onChange={handleTagAdd}>
 
-                        <MenuItem value={"science"}>science</MenuItem>
-                        <MenuItem value={"computer"}>computer</MenuItem>
-                        <MenuItem value={"sports"}>sports</MenuItem>
+                            <MenuItem value={"science"}>science</MenuItem>
+                            <MenuItem value={"computer"}>computer</MenuItem>
+                            <MenuItem value={"sports"}>sports</MenuItem>
                         </Select>
                         <FormHelperText>Select Tag to Add</FormHelperText>
                     </FormControl>

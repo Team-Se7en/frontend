@@ -1,4 +1,4 @@
-import { ProfessorCardViewShortInfo } from "@models";
+import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo } from "@models";
 import { Box, Button, Collapse, DialogContent, DialogTitle, Divider, Grid, Typography } from "@mui/material";
 import { StyledTag } from "components/professor-request-card/ProfessorRequestCard-styles";
 import { useState } from "react";
@@ -6,7 +6,7 @@ import Styles from "Styles";
 
 export interface ProfessorRequestCardDialogProps {
     cardId: string;
-    model: ProfessorCardViewShortInfo;
+    model: ProfessorCardViewFullInfo;
 }
 
 export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDialogProps) {
@@ -34,11 +34,11 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                 </Divider>
                 <Box>
                     <Typography variant="body1" component="div">
-                        {descriptionExpanded ? "ow" : `${"ow".slice(0, 200)}...`}
+                        {descriptionExpanded ? props.model.description : `${props.model.description.slice(0, 200)}`}
                     </Typography>
                     <Collapse in={!descriptionExpanded}>
                         {
-                            "ow".length > 100 ?
+                            props.model.description.length > 100 ?
                                 <Button fullWidth onClick={handleDescriptionExpandClick} size="medium" variant="text" disableRipple>
                                     {descriptionExpanded ? 'Show less' : 'Show more'}
                                 </Button>
@@ -102,15 +102,15 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                 </Grid>
 
                 <Divider orientation="horizontal" variant="middle" sx={{ mt: 1, mb: 1 }}>
-                    {props.model.universityName}
+                    {props.model.university.name}
                 </Divider>
                 <Box>
                     <Typography variant="body1" component="div">
-                        {universityExpanded ? "ow" : `${"ow".slice(0, 200)}...`}
+                        {universityExpanded ? props.model.university.description : `${props.model.university.description.slice(0, 200)}`}
                     </Typography>
                     <Collapse in={!universityExpanded}>
                         {
-                            "ow".length > 100 ?
+                            props.model.university.description.length > 100 ?
                                 <Button fullWidth onClick={handleUniversityExpandClick} size="medium" variant="text" disableRipple>
                                     {universityExpanded ? 'Show less' : 'Show more'}
                                 </Button>
