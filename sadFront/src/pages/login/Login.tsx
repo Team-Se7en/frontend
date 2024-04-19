@@ -72,9 +72,9 @@ export function Login() {
                         >
                             Login
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="/forgot-pass" variant="body2">
+                        <Grid container >
+                            <Grid item xs sx={{ paddingBottom: '20px' }}>
+                                <Link href="/forgot-pass" variant="body2" >
                                     Forgot password?
                                 </Link>
                             </Grid>

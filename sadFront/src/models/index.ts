@@ -1,2 +1,6 @@
-export * from './CardModel'
+export * from './CardInfo'
 export * from './Status'
+export * from './Professor'
+export * from './Student'
+export * from './University'
+export * from './PositionDuration'

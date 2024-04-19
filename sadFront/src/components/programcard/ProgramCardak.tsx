@@ -1,25 +1,25 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar } from "@mui/material";
 import Icon from "@mui/material/Icon";
-import { StyledProgramCard } from "./ProgramCard-styles";
-import { StyledCardContent } from "./ProgramCard-styles";
-import { StyledCardActions } from "./ProgramCard-styles";
-import { DeaedLineAndButton } from "./ProgramCard-styles";
+import { StyledProgramCard } from "./ProgramCardak-styles";
+import { StyledCardContent } from "./ProgramCardak-styles";
+import { StyledCardActions } from "./ProgramCardak-styles";
+import { DeaedLineAndButton } from "./ProgramCardak-styles";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import ProgramModal from "./../modals/program-modal/ProgramModal";
-import { ProfAndUni } from "./ProgramCard-styles";
-import { Deadline } from "./ProgramCard-styles";
-import { ProgramInfo } from "./ProgramCard-styles";
+import { ProfAndUni } from "./ProgramCardak-styles";
+import { Deadline } from "./ProgramCardak-styles";
+import { ProgramInfo } from "./ProgramCardak-styles";
 import { StudentCardViewShortInfo } from "@models";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
 };
 
-export default function ProgramCard(props: StudentCardViewShortInfo) {
+export default function ProgramCardak(props: StudentCardViewShortInfo) {
   return (
     <Box minWidth={"28rem"} width={"90%"} margin={"0.5rem"}>
       <StyledProgramCard variant="outlined">
@@ -116,7 +116,7 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
               </Typography>
             </Deadline>
             <StyledCardActions>
-              <ProgramModal></ProgramModal>
+              <Button size="large">Learn More</Button>
             </StyledCardActions>
           </DeaedLineAndButton>
         </StyledCardContent>

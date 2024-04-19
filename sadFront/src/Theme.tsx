@@ -6,7 +6,6 @@ declare module '@mui/material/styles' {
         iconButton?: string;
         status?: {
             open?: string;
-            pending?: string;
             closed?: string;
         }
     }

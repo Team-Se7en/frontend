@@ -1,9 +1,9 @@
-import ProgramCard from "components/programcard/ProgramCard";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import ProgramCardak from "components/programcard/ProgramCardak";
 import { SampleCard } from "./SampleData";
 
-export function ProgramsList() {
+export function ProgramsListCopy() {
   return (
     <Box
       width={"60%"}
@@ -13,7 +13,7 @@ export function ProgramsList() {
     >
       <Divider
         textAlign="left"
-        sx={{ fontFamily: "roboto", fontSize: "1rem", color: "#6e6e6e" }}
+        sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e",  paddingTop: "20px"}}
       >
         Recent Programs
       </Divider>
@@ -28,7 +28,7 @@ export function ProgramsList() {
         padding={"0rem"}
         overflow={"auto"}
       >
-        <ProgramCard
+        <ProgramCardak
           status={SampleCard.status}
           startDate={SampleCard.startDate}
           endDate={SampleCard.endDate}
@@ -40,8 +40,8 @@ export function ProgramsList() {
           title={SampleCard.title}
           studentCapacity={SampleCard.studentCapacity}
           professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
+        ></ProgramCardak>
+        <ProgramCardak
           status={SampleCard.status}
           startDate={SampleCard.startDate}
           endDate={SampleCard.endDate}
@@ -53,8 +53,8 @@ export function ProgramsList() {
           title={SampleCard.title}
           studentCapacity={SampleCard.studentCapacity}
           professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
+        ></ProgramCardak>
+        <ProgramCardak
           status={SampleCard.status}
           startDate={SampleCard.startDate}
           endDate={SampleCard.endDate}
@@ -66,8 +66,8 @@ export function ProgramsList() {
           title={SampleCard.title}
           studentCapacity={SampleCard.studentCapacity}
           professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
+        ></ProgramCardak>
+        <ProgramCardak
           status={SampleCard.status}
           startDate={SampleCard.startDate}
           endDate={SampleCard.endDate}
@@ -79,8 +79,8 @@ export function ProgramsList() {
           title={SampleCard.title}
           studentCapacity={SampleCard.studentCapacity}
           professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
+        ></ProgramCardak>
+        <ProgramCardak
           status={SampleCard.status}
           startDate={SampleCard.startDate}
           endDate={SampleCard.endDate}
@@ -92,8 +92,8 @@ export function ProgramsList() {
           title={SampleCard.title}
           studentCapacity={SampleCard.studentCapacity}
           professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
+        ></ProgramCardak>
+        <ProgramCardak
           status={SampleCard.status}
           startDate={SampleCard.startDate}
           endDate={SampleCard.endDate}
@@ -105,7 +105,7 @@ export function ProgramsList() {
           title={SampleCard.title}
           studentCapacity={SampleCard.studentCapacity}
           professor={SampleCard.professor}
-        ></ProgramCard>
+        ></ProgramCardak>
       </Box>
     </Box>
   );

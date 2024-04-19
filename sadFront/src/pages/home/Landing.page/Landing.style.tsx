@@ -27,12 +27,17 @@ const useStyles = makeStyles({
     textTransform: 'lowercase',
   },
   footer: {
-    backgroundColor: '#1603a5',
+    backgroundColor: '#fff',
     color: '#ddd',
     padding: '20px',
     textAlign: 'center',
   },
-  
+  footerWrapper: {
+    borderTop: '1px solid #ddd',
+    width: '100%',
+    margin: '20px 0',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+  },
 });
 
 export default useStyles;
