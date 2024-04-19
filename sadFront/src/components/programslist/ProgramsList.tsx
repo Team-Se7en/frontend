@@ -18,7 +18,6 @@ export function ProgramsList() {
         Recent Programs
       </Divider>
       <Box
-        height={"30rem"}
         my={4}
         display="flex"
         flexDirection={"column"}
@@ -26,7 +25,6 @@ export function ProgramsList() {
         gap={"0.2rem"}
         p={2}
         padding={"0rem"}
-        overflow={"auto"}
       >
         <ProgramCard
           status={SampleCard.status}
