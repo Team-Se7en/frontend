@@ -1,6 +1,5 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar } from "@mui/material";
 import Icon from "@mui/material/Icon";
@@ -10,6 +9,7 @@ import { StyledCardActions } from "./ProgramCard-styles";
 import { DeaedLineAndButton } from "./ProgramCard-styles";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import ProgramModal from "./../modals/program-modal/ProgramModal";
 import { ProfAndUni } from "./ProgramCard-styles";
 import { Deadline } from "./ProgramCard-styles";
 import { ProgramInfo } from "./ProgramCard-styles";
@@ -116,7 +116,7 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
               </Typography>
             </Deadline>
             <StyledCardActions>
-              <Button size="large">Learn More</Button>
+              <ProgramModal></ProgramModal>
             </StyledCardActions>
           </DeaedLineAndButton>
         </StyledCardContent>
