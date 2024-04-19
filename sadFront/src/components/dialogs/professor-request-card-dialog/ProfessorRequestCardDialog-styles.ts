@@ -1,7 +1,7 @@
+import { Box, styled } from "@mui/material";
+import theme from "Theme";
 
 
-export default function ProfessorRequestCardDialog() {
-    return (
-        
-    )
-}
+export const StyledDialogContainer = styled(Box)(() => ({
+    // backgroundImage: theme.palette.backgroundColor,
+}));

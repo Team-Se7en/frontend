@@ -6,8 +6,10 @@ declare module '@mui/material/styles' {
         iconButton?: string;
         status?: {
             open?: string;
+            pending?: string;
             closed?: string;
-        }
+        };
+        backgroundColor?: string;
     }
   }
 
@@ -19,8 +21,11 @@ const theme = createTheme({
             main: yellow[600],
         },
         status: {
-            open: ''
-        }
+            open: 'linear-gradient(to bottom right, #5fa8d3, #add8e6) !important',
+            pending: 'linear-gradient(to bottom right, #0086B2, #00A7C9) !important',
+            closed: 'linear-gradient(to bottom right, #ff9999 , #FFCCCC) !important',
+        },
+        backgroundColor: 'linear-gradient(to bottom right, #e5e4e2 , #f6f5f3) !important',
     }
 });
 
