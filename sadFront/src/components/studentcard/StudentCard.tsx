@@ -4,137 +4,128 @@ import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
+import { Deadline } from "./StudentCard-styles";
+import { DeaedLineAndButton } from "./StudentCard-styles";
 import Icon from "@mui/material/Icon";
+import { ProfAndUni } from "./StudentCard-styles";
+import { ProgramInfo } from "./StudentCard-styles";
 import Stack from "@mui/material/Stack";
+import { StudentCardViewShortInfo } from "@models";
 import { StyledCardActions } from "./StudentCard-styles";
 import { StyledCardContent } from "./StudentCard-styles";
 import { StyledStudentCard } from "./StudentCard-styles";
 import Typography from "@mui/material/Typography";
 
 const handleClick = () => {
-console.info("You clicked a topic.");
-};
+    console.info("You clicked a topic.");
+    };
 
-    const card = (
-    <React.Fragment>
-    <StyledCardContent>
-        <Box
-        className="left-info"
-        sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: 0.8,
-            gap: "1rem",
-        }}
-        >
-        <Box
-            className="top-info"
-            sx={{ display: "flex", flexDirection: "row" }}
-            gap={"1rem"}
-        >
-            <Avatar
-            className="avatar"
-            alt="Sauleh Etemadi"
-            // src = ""
-            sx={{
-                height: "6rem",
-                width: "6rem",
-                margin: "0.5rem",
-                marginBottom: 0,
-            }}
-            />
+    export default function StudentCard(props: StudentCardViewShortInfo) {
+    return (
+    <Box minWidth={"28rem"} width={"90%"} margin={"0.5rem"}>
+        <StyledStudentCard variant="outlined">
+        <StyledCardContent>
             <Box
-            className="program-info"
+            className="left-info"
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
-                gap: "0.5rem",
+                gap: "1rem",
             }}
+            width={{ xs: "100%", sm: "100%", md: "100%", lg: "80%", xl: "80%" }}
             >
-            <Typography
-                variant="h5"
-                component="div"
-                sx={{ fontWeight: "bold" }}
-            >
-                Computer Engineering Major
-            </Typography>
             <Box
-                className="prof-and-uni"
-                sx={{ display: "flex", flexDirection: "row", gap: "3rem" }}
+                className="top-info"
+                sx={{ display: "flex", flexDirection: "row" }}
+                gap={"1rem"}
             >
+                <Avatar
+                className="avatar"
+                alt="Sauleh Etemadi"
+                src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1718236800&v=beta&t=_ROkXK-gfaD5ANq-FbDDW13wiIOwX6u9-2fAw_qYKeA"
+                sx={{
+                    minHeight: "5rem",
+                    minWidth: "5rem",
+                    margin: "0.5rem",
+                    marginBottom: 0,
+                }}
+                />
+                <ProgramInfo>
                 <Typography
-                sx={{ mb: 1.5 }}
-                color="text.secondary"
-                fontSize={"1.1rem"}
+                    variant="h5"
+                    component="div"
+                    sx={{ fontWeight: "bold" }}
+                    fontSize={"1.4rem"}
                 >
-                Jim Pirson
+                    {props.title}
                 </Typography>
-                <Box
-                className="icon-uni"
+                <ProfAndUni>
+                    <Typography color="text.secondary" fontSize={"1rem"}>
+                    {props.professor.Name}
+                    </Typography>
+                    <Box
+                    className="icon-uni"
+                    display={"flex"}
+                    flexDirection={"row"}
+                    gap={"0.2rem"}
+                    >
+                    <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
+                    <Typography variant="body2" fontSize={"0.8rem"}>
+                        {props.universityName}
+                    </Typography>
+                    </Box>
+                </ProfAndUni>
+                </ProgramInfo>
+            </Box>
+            <Box
+                className="topics"
                 display={"flex"}
                 flexDirection={"row"}
-                gap={"0.2rem"}
-                >
-                <Icon>school</Icon>
-                <Typography variant="body2">
-                    Standford
+                gap={"0.5rem"}
+                alignItems={"center"}
+                //overflow={"auto"}
+            >
+                <Typography variant="body2" fontSize={"0.9rem"}>
+                Interest Field:
                 </Typography>
-                </Box>
+                
+                <Stack direction="row" spacing={1}>
+                <Chip
+                    label="Machine Learning"
+                    size="small"
+                    onClick={handleClick}
+                />
+                <Chip label="NLP" size="small" onClick={handleClick} />
+                <Chip
+                    label="Artificial Intelligence"
+                    size="small"
+                    onClick={handleClick}
+                />
+                </Stack>
             </Box>
             </Box>
-        </Box>
-        <Box
-            className="topics"
-            display={"flex"}
-            flexDirection={"row"}
-            gap={"0.5rem"}
-        >
-            <Typography variant="body2" fontSize={"0.9rem"}>
-            Interested Field:
-            </Typography>
-            <Stack direction="row" spacing={1}>
-            <Chip label="Security" size="small" onClick={handleClick} />
-            <Chip label="Hardware" size="small" onClick={handleClick} />
-            <Chip
-                label="Ai"
-                size="small"
-                onClick={handleClick}
-            />
-            </Stack>
-        </Box>
-        </Box>
-        <Box
-        className="deadline-and-button"
-        sx={{ width: 0.2 }}
-        display={"flex"}
-        flexDirection={"column"}
-        marginTop={"1rem"}
-        gap={"3rem"}
-        justifyContent={"flex-end"}
-        textAlign={"center"}
-        alignItems={"center"}
-        >
-        <Box className="deadline">
-            <Typography variant="body2" fontSize={"0.7rem"}>
-            Application time
-            </Typography>
-            <Typography variant="body2" fontWeight={"bold"} fontSize={"1rem"}>
-            4/17/2024
-            </Typography>
-        </Box>
-        <StyledCardActions>
-            <Button size="large">Learn More</Button>
-        </StyledCardActions>
-        </Box>
-    </StyledCardContent>
-    </React.Fragment>
-    );
-
-    export default function StudentCard() {
-    return (
-    <Box sx={{ width: "45rem" }}>
-        <StyledStudentCard variant="outlined">{card}</StyledStudentCard>
+            
+            <DeaedLineAndButton>
+            <Deadline>
+                <Typography variant="body2" fontSize={"0.7rem"}>
+                Application Time:
+                </Typography>
+                <Typography
+                variant="body2"
+                fontWeight={"bold"}
+                fontSize={"0.8rem"}
+                >
+                Feb 2024
+                </Typography>
+                
+            </Deadline>
+            
+            <StyledCardActions>
+                <Button size="large">Learn More</Button>
+            </StyledCardActions>
+            </DeaedLineAndButton>
+        </StyledCardContent>
+        </StyledStudentCard>
     </Box>
     );
     }

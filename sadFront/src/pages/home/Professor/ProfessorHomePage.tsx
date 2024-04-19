@@ -2,8 +2,8 @@ import { Avatar, Box, Button, Container, CssBaseline, Grid, Link, TextField, Typ
 
 import HomePageProfessorStyles from "./ProfessorHomePage-styles";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import ProgramCard from "components/programcard/ProgramCard";
-import { ProgramsList } from "components/programslist/ProgramsList";
+import ProgramCardak from "components/programcard/ProgramCardak";
+import { ProgramsListCopy } from "components/programslistcopy/ProgramsListCopy";
 import { Stack } from '@mui/material';
 import StudentCard from "components/studentcard/StudentCard";
 import { StudentList } from "components/studentlist";
@@ -47,23 +47,20 @@ export function ProfessorHomePage() {
             <Grid container spacing={2}>
                 
                 <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
-                    <ProgramsList />
+                    <ProgramsListCopy />
                 </Grid>
                 
+
                 <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
                     <StudentList />
                 </Grid>
 
                 <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
-                    <StudentList />
+                    <ProgramsListCopy />
                 </Grid>
                 
             </Grid>
 
-            <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
-                    <ProgramCard />
-                </Grid>
-            
         </Box>
     );
 }
