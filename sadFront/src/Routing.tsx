@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home, Login, ProfessorEditProfile, ProfessorSignup, Signup, StudentSignup } from "@pages";
 import Landing from "pages/home/Landing.page/Landing";
 import {ProfessorHomePage} from "pages/home/Professor/ProfessorHomePage"
+import { SignupVerfication } from "pages/signup/SignupVerification";
 
 export default function Routing() {
     return (
@@ -16,6 +17,7 @@ export default function Routing() {
                 <Route path="signup" element={<Signup />} />
                 <Route path="signup/student" element={<StudentSignup />} />
                 <Route path="signup/professor" element={<ProfessorSignup />} />
+                <Route path="signup/verification" element={<SignupVerfication />} />
                 <Route path="professor/editProfile" element={<ProfessorEditProfile />} />
                 <Route path="student/editProfile" element={<StudentEditProfile />} />
                 <Route path="forgot-pass" element={<Forgot />} />
