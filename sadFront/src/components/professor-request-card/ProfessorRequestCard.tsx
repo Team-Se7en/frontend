@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Modal, Tooltip, Typography } from "@mui/material";
 import { StyledBackgroundImage, StyledCard, StyledCardActions, StyledCardContent, StyledDescription, StyledTag } from "./ProfessorRequestCard-styles";
 import { useState } from "react";
-import { AccessTimeRounded, AttachMoneyRounded, CloseRounded, DeleteRounded, EditRounded, EventRounded, FullscreenExitOutlined, FullscreenRounded, HourglassFullRounded, School, SchoolOutlined, SchoolRounded } from "@mui/icons-material";
+import { AccessTimeRounded, AttachMoneyRounded, CloseRounded, DeleteRounded, EditRounded, EventRounded, FullscreenExitOutlined, FullscreenRounded, HourglassFullRounded, HourglassTopRounded, School, SchoolOutlined, SchoolRounded } from "@mui/icons-material";
 import theme from "Theme";
 import Styles from "Styles";
 import clsx from "clsx";
@@ -54,8 +54,8 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
     const fullInfo: ProfessorCardViewFullInfo = {
         description: "description",
         university: {
-            name: "university",
-            description: "university description"
+            name: "IUST",
+            description: "Iran University of Science and Technology"
         },
         title: props.model.title,
         studentCapacity: props.model.studentCapacity,
@@ -65,7 +65,9 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
         tags: props.model.tags,
         fee: props.model.fee,
         positionStartDate: props.model.positionStartDate,
-        duration: props.model.duration
+        duration: props.model.duration,
+        requestingStudents: 0,
+        id: 0
     }
 
     return (
@@ -143,7 +145,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                             </Box>
                             <Box gap={0.5} className={globalStyles.flexRow}>
 
-                                <HourglassFullRounded sx={{ color: theme.palette.iconButton }} />
+                                <HourglassTopRounded sx={{ color: theme.palette.iconButton }} />
                                 <Typography>
                                     {
                                         props.model.duration.year ? ` ${props.model.duration.year}y,` : ''
@@ -199,7 +201,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         <CloseRounded />
                     </IconButton>
                 </DialogActions>
-                <ProfessorRequestCardDialog cardId={""} model={props.model} />
+                <ProfessorRequestCardDialog cardId={""} model={fullInfo} />
             </Dialog>
 
             <Modal open={modalOpen} onClose={handleModalClose} sx={{ m: 2 }}>
