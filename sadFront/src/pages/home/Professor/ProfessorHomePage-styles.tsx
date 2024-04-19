@@ -35,6 +35,9 @@ const HomePageProfessorStyles = makeStyles((theme) => createStyles({
         marginVertical: 10,
         alignItems: 'center',
         justifyContent: 'center',
+        background: '#0437c2 !important',
+        color:'white !important',
+
 
 
     },
@@ -48,6 +51,10 @@ const HomePageProfessorStyles = makeStyles((theme) => createStyles({
         marginVertical: 10,
         alignItems: 'center',
         justifyContent: 'center',
+        background: '#0437c2 !important',
+        color:'white !important',
+
+
 
     },
 
@@ -66,29 +73,11 @@ const HomePageProfessorStyles = makeStyles((theme) => createStyles({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        padding: '1rem',
-        marginTop: '50px',
+        // padding: '1rem',
+        // marginTop: '50px',
+        margin: 'auto',
     },
     
-    // positions2: {
-    //     borderRadius: '1rem',
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     flexDirection: 'column',
-    //     padding: '1rem',
-    //     marginTop: '50px',
-    // },
-
-    // positions3: {
-    //     borderRadius: '1rem',
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     flexDirection: 'column',
-    //     padding: '1rem',
-    //     marginTop: '50px',
-    // }
 }));
 
 export default HomePageProfessorStyles;
