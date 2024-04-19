@@ -3,9 +3,17 @@ import { Verification } from "pages/forgot-pass/AccountVerification";
 import { Forgot } from "pages/forgot-pass/Forgotpassword";
 import { Newpassword } from "pages/forgot-pass/Newpassword";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, Login, ProfessorEditProfile, ProfessorSignup, Signup, StudentSignup } from "@pages";
+import {
+  Home,
+  Login,
+  ProfessorEditProfile,
+  ProfessorSignup,
+  Signup,
+  StudentSignup,
+} from "@pages";
 import Landing from "pages/home/Landing.page/Landing";
-import {ProfessorHomePage} from "pages/home/Professor/ProfessorHomePage"
+import { ProfessorHomePage } from "pages/home/Professor/ProfessorHomePage";
+import StudentHomepage from "pages/home/Student/StudentHomepage";
 import { SignupVerfication } from "pages/signup/SignupVerification";
 
 export default function Routing() {
@@ -26,6 +34,7 @@ export default function Routing() {
                 <Route path="home" element={<Landing />} />
                 <Route path="newpassword" element={<Newpassword />} />
                 <Route path="professorhomepage" element={<ProfessorHomePage />} />
+              <Route path="studenthomepage" element={<StudentHomepage />} />
             </Routes>
         </BrowserRouter>
     )
