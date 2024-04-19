@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import ProfessorSignUpStyles from "./ProfessorSignUp-styles";
 
@@ -21,7 +21,7 @@ export function ProfessorSignup() {
     confirmPassword: "",
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -29,7 +29,7 @@ export function ProfessorSignup() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log(formData);
   };
@@ -47,7 +47,7 @@ export function ProfessorSignup() {
           </Typography>
           <Box
             onSubmit={handleSubmit}
-            noValidate
+            // noValidate
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
