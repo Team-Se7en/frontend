@@ -1,7 +1,10 @@
-import { Button, Container, styled } from "@mui/material";
+import { Button, Chip, Container, styled } from "@mui/material";
+import theme from "Theme";
 
-export const Wrapper = styled(Container)(({ theme }) => ({
-    borderRadius: theme.shape.borderRadius,
+export const Wrapper = styled(Container)(() => ({
+    // borderRadius: theme.shape.borderRadius,
+    backgroundImage: theme.palette.backgroundColor,
+    // borderRadius: theme.shape.borderRadius,0
 }));
 
 export const SaveButton = styled(Button)(({ theme }) => ({
@@ -20,4 +23,8 @@ export const CancelButton = styled(Button)(({ theme }) => ({
         backgroundColor: 'red',
         color: 'white',
     }
+}));
+
+export const StyledTag = styled(Chip)(() => ({
+    backgroundColor: 'white',
 }));
