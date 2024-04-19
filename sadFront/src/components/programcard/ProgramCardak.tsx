@@ -1,19 +1,21 @@
 import * as React from "react";
+
+import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Avatar } from "@mui/material";
-import Icon from "@mui/material/Icon";
-import { StyledProgramCard } from "./ProgramCardak-styles";
-import { StyledCardContent } from "./ProgramCardak-styles";
-import { StyledCardActions } from "./ProgramCardak-styles";
-import { DeaedLineAndButton } from "./ProgramCardak-styles";
 import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
-import { ProfAndUni } from "./ProgramCardak-styles";
 import { Deadline } from "./ProgramCardak-styles";
+import { DeaedLineAndButton } from "./ProgramCardak-styles";
+import Icon from "@mui/material/Icon";
+import { ProfAndUni } from "./ProgramCardak-styles";
 import { ProgramInfo } from "./ProgramCardak-styles";
+import ProgramModal from "./../modals/program-modal/ProgramModal";
+import Stack from "@mui/material/Stack";
 import { StudentCardViewShortInfo } from "@models";
+import { StyledCardActions } from "./ProgramCardak-styles";
+import { StyledCardContent } from "./ProgramCardak-styles";
+import { StyledProgramCard } from "./ProgramCardak-styles";
+import Typography from "@mui/material/Typography";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -116,7 +118,7 @@ export default function ProgramCardak(props: StudentCardViewShortInfo) {
               </Typography>
             </Deadline>
             <StyledCardActions>
-              <Button size="large">Learn More</Button>
+              <ProgramModal/>
             </StyledCardActions>
           </DeaedLineAndButton>
         </StyledCardContent>
