@@ -49,7 +49,7 @@ const LoginStyles = makeStyles(() =>
 
             '& .login-btn': {
                 marginTop: '2rem',
-                marginBottom: '2rem',
+                marginBottom: '1rem',
                 padding: '10px 10px',
                 fontSize: '1rem',
                 fontWeight: '550',

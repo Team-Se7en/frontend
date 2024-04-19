@@ -1,9 +1,12 @@
-import { Signup, StudentSignup, ProfessorSignup, Home, Login , ProfessorEditProfile} from "@pages";
-import { Verification } from "pages/forgot-pass/AccountVerification";
-import { Forgot } from "pages/forgot-pass/Forgotpassword";
-import { Newpassword } from "pages/forgot-pass/Newpassword";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home, Login, ProfessorEditProfile, ProfessorSignup, Signup, StudentSignup } from "@pages";
+
+import { Forgot } from "pages/forgot-pass/Forgotpassword";
 import Landing from "pages/home/Landing.page/Landing";
+import { Newpassword } from "pages/forgot-pass/Newpassword";
+import {ProfessorHomePage} from "pages/home/Professor/ProfessorHomePage"
+import { Verification } from "pages/forgot-pass/AccountVerification";
+
 export default function Routing() {
     return (
         <BrowserRouter>
@@ -18,6 +21,8 @@ export default function Routing() {
                 <Route path="verification" element={<Verification />} />
                 <Route path="password/reset/confirm/:uid/:token" element={<Newpassword />} />
                 <Route path="home" element={<Landing />} />
+                <Route path="newpassword" element={<Newpassword />} />
+                <Route path="professorhomepage" element={<ProfessorHomePage />} />
             </Routes>
         </BrowserRouter>
     )
