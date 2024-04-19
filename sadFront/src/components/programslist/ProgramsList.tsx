@@ -1,6 +1,7 @@
 import ProgramCard from "components/programcard/ProgramCard";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import { SampleCard } from "./SampleData";
 
 export function ProgramsList() {
   return (
@@ -27,15 +28,84 @@ export function ProgramsList() {
         padding={"0rem"}
         overflow={"auto"}
       >
-        <ProgramCard></ProgramCard>
-        <ProgramCard></ProgramCard>
-        <ProgramCard></ProgramCard>
-        <ProgramCard></ProgramCard>
-        <ProgramCard></ProgramCard>
-        <ProgramCard></ProgramCard>
-        <ProgramCard></ProgramCard>
-        <ProgramCard></ProgramCard>
-        <ProgramCard></ProgramCard>
+        <ProgramCard
+          status={SampleCard.status}
+          startDate={SampleCard.startDate}
+          endDate={SampleCard.endDate}
+          tags={SampleCard.tags}
+          fee={SampleCard.fee}
+          positionStartDate={SampleCard.positionStartDate}
+          duration={SampleCard.duration}
+          universityName={SampleCard.universityName}
+          title={SampleCard.title}
+          studentCapacity={SampleCard.studentCapacity}
+          professor={SampleCard.professor}
+        ></ProgramCard>
+        <ProgramCard
+          status={SampleCard.status}
+          startDate={SampleCard.startDate}
+          endDate={SampleCard.endDate}
+          tags={SampleCard.tags}
+          fee={SampleCard.fee}
+          positionStartDate={SampleCard.positionStartDate}
+          duration={SampleCard.duration}
+          universityName={SampleCard.universityName}
+          title={SampleCard.title}
+          studentCapacity={SampleCard.studentCapacity}
+          professor={SampleCard.professor}
+        ></ProgramCard>
+        <ProgramCard
+          status={SampleCard.status}
+          startDate={SampleCard.startDate}
+          endDate={SampleCard.endDate}
+          tags={SampleCard.tags}
+          fee={SampleCard.fee}
+          positionStartDate={SampleCard.positionStartDate}
+          duration={SampleCard.duration}
+          universityName={SampleCard.universityName}
+          title={SampleCard.title}
+          studentCapacity={SampleCard.studentCapacity}
+          professor={SampleCard.professor}
+        ></ProgramCard>
+        <ProgramCard
+          status={SampleCard.status}
+          startDate={SampleCard.startDate}
+          endDate={SampleCard.endDate}
+          tags={SampleCard.tags}
+          fee={SampleCard.fee}
+          positionStartDate={SampleCard.positionStartDate}
+          duration={SampleCard.duration}
+          universityName={SampleCard.universityName}
+          title={SampleCard.title}
+          studentCapacity={SampleCard.studentCapacity}
+          professor={SampleCard.professor}
+        ></ProgramCard>
+        <ProgramCard
+          status={SampleCard.status}
+          startDate={SampleCard.startDate}
+          endDate={SampleCard.endDate}
+          tags={SampleCard.tags}
+          fee={SampleCard.fee}
+          positionStartDate={SampleCard.positionStartDate}
+          duration={SampleCard.duration}
+          universityName={SampleCard.universityName}
+          title={SampleCard.title}
+          studentCapacity={SampleCard.studentCapacity}
+          professor={SampleCard.professor}
+        ></ProgramCard>
+        <ProgramCard
+          status={SampleCard.status}
+          startDate={SampleCard.startDate}
+          endDate={SampleCard.endDate}
+          tags={SampleCard.tags}
+          fee={SampleCard.fee}
+          positionStartDate={SampleCard.positionStartDate}
+          duration={SampleCard.duration}
+          universityName={SampleCard.universityName}
+          title={SampleCard.title}
+          studentCapacity={SampleCard.studentCapacity}
+          professor={SampleCard.professor}
+        ></ProgramCard>
       </Box>
     </Box>
   );

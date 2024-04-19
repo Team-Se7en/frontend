@@ -1,11 +1,12 @@
 import { ProfessorRequestCard } from "@components";
-import {  ProfessorCardViewShortInfo, Status } from "@models"
+import { ProfessorCardViewShortInfo, Status } from "@models";
+import { ProgramsList } from "components/programslist/ProgramsList";
 
 export function Home() {
   const model: ProfessorCardViewShortInfo = {
-    title: 'Laboratory Research',
+    title: "Laboratory Research",
     status: Status.closed,
-    tags: ['science', 'lab'],
+    tags: ["science", "lab"],
     startDate: new Date(),
     endDate: new Date(),
     universityName: "",
@@ -15,9 +16,9 @@ export function Home() {
     duration: {
       year: 1,
       month: 1,
-      day: 1
-    }
-  }
+      day: 1,
+    },
+  };
   return (
     <>
       <ProfessorRequestCard model={model}></ProfessorRequestCard>
