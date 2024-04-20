@@ -23,24 +23,47 @@ export function Newpassword() {
         console.log('uid:', uid);
         console.log('token:', token);
     }, [uid, token]);
+    const isValidPassword = (password: string): boolean => {
+        // رمز عبور باید حداقل ۸ کاراکتر داشته باشد
+        if (password.length < 8) return false;
+    
+        // رمز عبور باید حداقل یک حرف بزرگ و یک حرف کوچک داشته باشد
+        if (!/[A-Z]/.test(password) || !/[a-z]/.test(password)) return false;
+    
+        // رمز عبور باید حداقل یک عدد داشته باشد
+        if (!/\d/.test(password)) return false;
+
+        if (!/[^A-Za-z0-9]/.test(password)) return false;
+    
+        return true;
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); 
-        window.location.replace("/login");
+        event.preventDefault();  
         if (formData.createpassword !== formData.repeatpassword) {
             setPasswordError("The passwords do not match");
             return;
         } else {
-            setPasswordError("");
+                  if ((!isValidPassword(formData.createpassword))){
+                    setPasswordError("Password must contain at least one uppercase letter, one lowercase letter,one special character, one number, and be at least 8 characters long");
+                        return;
+                }else{
+                        //  if(formData.createpassword===firstName){
+                        //     setPasswordError("Password cannot be the same as username");
+                        //     return;
+                                window.location.replace("/login");
+                                setPasswordError("");
+                            
+                         
+                }
         }
-
+        
         try {
             const response = await axios.post('https://seven-apply.liara.run/auth/users/reset_password_confirm/', {
                 uid,
                 token,
                 new_password: formData.createpassword
             });
-
             console.log('Password reset successful:', response.data);
         } catch (error) {
             console.error('Error resetting password:', error);
