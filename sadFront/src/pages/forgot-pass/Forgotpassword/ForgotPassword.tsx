@@ -85,7 +85,8 @@ export function Forgot() {
                             variant="contained"
                             className="forgot-btn"
                         >
-                            Send password reset email
+
+                         reset password 
                         </Button>
 
                         <Grid container>
