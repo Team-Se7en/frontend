@@ -9,7 +9,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import Grid from '@mui/material/Grid';
 
 function Landing() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -32,7 +31,7 @@ function Landing() {
     <div className={classes.container}>
       <AppBar position="static" style={{ backgroundColor: '#fff', color: '#1603a5' }}>
         <Toolbar>
-          <Avatar alt="Site Logo" src={"logo.svg"} style={{ marginRight: '10px', marginLeft: '100px', display: isSmallScreen ? 'none' : 'block' }} />
+        <Avatar src={'src/assets/icons/logo.svg'}  style={{ width:'99px', marginRight: '-2px', marginLeft: '100px', display: isSmallScreen ? 'none' : 'block' }} />
           <Typography align='left' variant="h6" style={{ flexGrow: 1 }}>
             Seven Apply
           </Typography>
@@ -65,70 +64,61 @@ function Landing() {
             Login
           </Button>
           <Button color="inherit" component={Link} to="/signup" style={{ marginRight: '100px' }}>
-            <AddCircleOutlineIcon style={{ marginRight: '20px' }} />
+            <AddCircleOutlineIcon style={{ marginRight: '10px' }} />
             Sign up
           </Button>
         </Toolbar>
-        <Toolbar>
-          {isSmallScreen && (
-            <>
-              <Button color="inherit" component={Link} to="/students" style={{ backgroundColor: 'transparent', textTransform: 'none', marginRight: '10px' }}>
-                Students
-              </Button>
-              <Button color="inherit" component={Link} to="/professors" style={{ backgroundColor: 'transparent', textTransform: 'none', marginRight: '10px' }}>
-                Professors
-              </Button>
-              <Button color="inherit" component={Link} to="/institutions" style={{ backgroundColor: 'transparent', textTransform: 'none', marginRight: '10px' }}>
-                Institutions
-              </Button>
-            </>
-          )}
-        </Toolbar>
+
       </AppBar>
       <div style={{ minHeight: 'calc(100vh - 64px - 56px)' }}>
       </div>
       <div className={classes.footerWrapper}></div>
-      <footer className={classes.footer} style={{ color: '#1603a5', padding: '20px 0' }}>
-        <Grid container spacing={2} justifyContent="flex-start" alignItems="center">
-          <Grid item xs={12} sm={6} md={4}>
-            <Typography variant="h6" gutterBottom>
+      <footer className={classes.footer} style={{ color: '#1603a5', padding: '0px 0' }}>
+            <Typography align='center' variant="h6" style={{ flexGrow: 1,marginLeft:'-970px' }}>Seven Apply</Typography>
+        <Avatar src={'src/assets/icons/logo.svg'}  style={{ width:'99px', marginRight: '-2px', marginLeft: '100px',marginTop:'-37px' ,display: isSmallScreen ? 'none' : 'block' }} />
+            <Typography style={{marginLeft:'1110px',marginTop:'-10px'}} variant="h6" gutterBottom>
               Get Social
             </Typography>
             <div>
-              <IconButton style={{ textTransform: 'capitalize' }} color="inherit" href="https://twitter.com">
+              <IconButton style={{ textTransform: 'capitalize',marginLeft:'1100px'}} color="inherit" href="https://twitter.com">
                 <TwitterIcon />
               </IconButton>
               <IconButton style={{ textTransform: 'capitalize' }} color="inherit" href="https://instagram.com">
                 <InstagramIcon />
               </IconButton>
-              <IconButton style={{ textTransform: 'capitalize' }} color="inherit" href="https://linkedin.com">
+              <IconButton style={{ textTransform: 'capitalize'}} color="inherit" href="https://linkedin.com">
                 <LinkedInIcon />
               </IconButton>
-              <IconButton style={{ textTransform: 'capitalize' }} color="inherit" href="https://telegram.com">
+              <IconButton style={{ textTransform: 'capitalize'}} color="inherit" href="https://telegram.com">
                 <TelegramIcon />
               </IconButton>
             </div>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Typography variant="h6" gutterBottom>
+          
+          
+            <Typography style={{marginLeft:'-550px',marginTop:'-80px', marginBottom:'14px'}} variant="h6" gutterBottom>
               About
             </Typography>
-            <Button variant="outlined">About</Button>
-            <Typography variant="h6" gutterBottom>
+            <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none', marginLeft:'-550px',marginTop:'-13px' }}>
+                About
+              </Button>
+            <Typography style={{marginLeft:'50px',marginTop:'-69px'}}    variant="h6" gutterBottom>
               Students
             </Typography>
-            <Button variant="outlined">Schools</Button>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Typography variant="h6" gutterBottom>
+            <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none', marginLeft:'50px',marginTop:'-5px' }}>
+            Schools
+              </Button>
+          
+            <Typography style={{marginLeft:'600px',marginTop:'-66px'}}  variant="h6" gutterBottom>
               Professor
             </Typography>
-            <Button variant="outlined">Apply</Button>
-          </Grid>
-        </Grid>
-        <Button style={{ textTransform: 'capitalize' }} color="inherit" href="/terms">Terms of Use</Button>
-        <Button style={{ textTransform: 'capitalize' }} color="inherit" href="/privacy">Privacy Policy</Button>
-        <Button style={{ textTransform: 'capitalize' }} color="inherit" onClick={scrollToTop}>Back to Top</Button>
+            <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none', marginLeft:'450px',marginTop:'-60px'}}>
+            Apply
+              </Button>
+          
+        
+        <Button style={{ textTransform: 'capitalize',marginTop:'40px',marginLeft:'-450px' }} color="inherit" href="/terms">Terms of Use</Button>
+        <Button style={{ textTransform: 'capitalize',marginTop:'40px' }} color="inherit" href="/privacy">Privacy Policy</Button>
+        <Button style={{ textTransform: 'capitalize',marginTop:'40px' }} color="inherit" onClick={scrollToTop}>Back to Top</Button>
       </footer>
     </div>
   );

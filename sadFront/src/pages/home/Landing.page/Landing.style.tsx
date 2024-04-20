@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   footerWrapper: {
     borderTop: '1px solid #ddd',
     width: '100%',
-    margin: '20px 0',
+    margin: '0 0',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
   },
 });
