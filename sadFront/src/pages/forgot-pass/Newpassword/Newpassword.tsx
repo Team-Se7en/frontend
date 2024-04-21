@@ -23,29 +23,33 @@ export function Newpassword() {
         console.log('uid:', uid);
         console.log('token:', token);
     }, [uid, token]);
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); 
-        window.location.replace("/login");
+        event.preventDefault();  
         if (formData.createpassword !== formData.repeatpassword) {
             setPasswordError("The passwords do not match");
             return;
         } else {
             setPasswordError("");
         }
-
+    
+                    
+    
         try {
             const response = await axios.post('https://seven-apply.liara.run/auth/users/reset_password_confirm/', {
                 uid,
                 token,
                 new_password: formData.createpassword
+                
             });
-
+            window.location.replace("/login")
             console.log('Password reset successful:', response.data);
         } catch (error) {
             console.error('Error resetting password:', error);
+            const errorMessages = error.response?.data?.new_password || [];
+            setPasswordError(errorMessages.join('\n') || "An error occurred");
         }
     };
+
 
     const globalClasses = Styles();
     const newpasswordClasses = NewpasswordStyles();

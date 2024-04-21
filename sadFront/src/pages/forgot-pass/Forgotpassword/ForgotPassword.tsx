@@ -6,10 +6,16 @@ import ForgotStyles from "./forgotPassword.styles";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+const isValidEmail = (email:any) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
 export function Forgot() {
     const [formData, setFormData] = useState({
         email: "",
     });
+    const [passwordError,setPasswordError] = useState("");
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -23,7 +29,12 @@ export function Forgot() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        navigate("/verification");
+        if (!isValidEmail(formData.email)) {
+            setPasswordError('Invalid email format');
+            return;
+        }else{
+               navigate("/verification");
+        }
         
         try {
             const response = await axios.post('https://seven-apply.liara.run/auth/users/reset_password/', formData);
@@ -64,7 +75,8 @@ export function Forgot() {
                             autoFocus
                             value={formData.email}
                             onChange={handleInputChange}
-                            
+                            error={passwordError !== ""}
+                            helperText={passwordError}
                         />
                         
                         <Button
@@ -73,7 +85,8 @@ export function Forgot() {
                             variant="contained"
                             className="forgot-btn"
                         >
-                            Send password reset email
+
+                         reset password 
                         </Button>
 
                         <Grid container>
