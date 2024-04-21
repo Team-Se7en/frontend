@@ -11,15 +11,28 @@ export function Login() {
         password: "",
     });
 
+    const [emailError, setEmailError] = useState("");
+
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
+
+        if (name === "email") {
+            let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+            if (!emailRegex.test(value)) {
+                setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
+            } else {
+                setEmailError("");
+            }
+        }
+        
         setFormData({
             ...formData,
             [name]: value,
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (event:any) => {
+        event.preventDefault();
         console.log(formData);
     };
 
@@ -38,7 +51,10 @@ export function Login() {
                         Login
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                        <TextField
+                        
+                    <TextField
+                            error={!!emailError}
+                            helperText={emailError}
                             margin="normal"
                             required
                             fullWidth
@@ -49,6 +65,7 @@ export function Login() {
                             value={formData.email}
                             onChange={handleInputChange}
                         />
+
                         <TextField
                             margin="normal"
                             required
