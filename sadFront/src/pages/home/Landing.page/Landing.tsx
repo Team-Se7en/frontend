@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Menu, Button, Avatar, useMediaQuery } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Menu, Button,useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import useStyles from './Landing.style';
@@ -29,11 +29,11 @@ function Landing() {
 
   return (
     <div className={classes.container}>
-      <AppBar position="static" style={{ backgroundColor: '#fff', color: '#1603a5' }}>
+      <AppBar position="static" style={{ backgroundColor: '#0F1035', color: '#FFF5EE' }}>
         <Toolbar>
-        <Avatar src={'src/assets/icons/logo.svg'}  style={{ width:'99px', marginRight: '-2px', marginLeft: '100px', display: isSmallScreen ? 'none' : 'block' }} />
-          <Typography align='left' variant="h6" style={{ flexGrow: 1 }}>
-            Seven Apply
+        {/* <Avatar src={'src/assets/icons/logo.svg'}  style={{ width:'99px', marginRight: '-2px', marginLeft: '100px', display: isSmallScreen ? 'none' : 'block' }} /> */}
+          <Typography align='left' variant="h6" style={{ flexGrow: 1,marginLeft:'-20px' }}>
+            7Apply
           </Typography>
           {!isSmallScreen && (
             <>
@@ -68,19 +68,18 @@ function Landing() {
             Sign up
           </Button>
         </Toolbar>
-
       </AppBar>
       <div style={{ minHeight: 'calc(100vh - 64px - 56px)' }}>
       </div>
       <div className={classes.footerWrapper}></div>
-      <footer className={classes.footer} style={{ color: '#1603a5', padding: '0px 0' }}>
-            <Typography align='center' variant="h6" style={{ flexGrow: 1,marginLeft:'-970px' }}>Seven Apply</Typography>
-        <Avatar src={'src/assets/icons/logo.svg'}  style={{ width:'99px', marginRight: '-2px', marginLeft: '100px',marginTop:'-37px' ,display: isSmallScreen ? 'none' : 'block' }} />
+      <footer className={classes.footer} style={{ color: '#FFF5EE', padding: '0px 0' }}>
+            <Typography align='center' variant="h6" style={{ flexGrow: 1,marginLeft:'-1420px' }}>7Apply</Typography>
+        {/* <Avatar src={'src/assets/icons/logo.svg'}  style={{ width:'99px', marginRight: '-2px', marginLeft: '100px',marginTop:'-37px' ,display: isSmallScreen ? 'none' : 'block' }} /> */}
             <Typography style={{marginLeft:'1110px',marginTop:'-10px'}} variant="h6" gutterBottom>
               Get Social
             </Typography>
             <div>
-              <IconButton style={{ textTransform: 'capitalize',marginLeft:'1100px'}} color="inherit" href="https://twitter.com">
+              <IconButton style={{ textTransform: 'capitalize',marginLeft:'1120px'}} color="inherit" href="https://twitter.com">
                 <TwitterIcon />
               </IconButton>
               <IconButton style={{ textTransform: 'capitalize' }} color="inherit" href="https://instagram.com">

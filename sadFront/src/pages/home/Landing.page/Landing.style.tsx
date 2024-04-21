@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     textTransform: 'lowercase',
   },
   footer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#0F1035',
     color: '#ddd',
     padding: '20px',
     textAlign: 'center',
