@@ -3,6 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
+import Cookies from "js-cookie";
 import LoginStyles from "./Login.styles";
 import Styles from "Styles";
 import client from "../../Http/axios";
@@ -55,11 +56,30 @@ export function Login() {
         client.post("/auth/jwt/create", data)
         .then((response:any) => {
             const token = response.data.access;
-            localStorage.setItem("token", token);
-            //if student
-            window.location.href = "/studenthomepage";
-            // if professor
-            // window.location.href = "/dashboard";
+            Cookies.set('token', token, { expires: 7 });
+
+            client.get("/auth/users").then((response:any) => {
+                if (response.data[0].is_student){
+                    window.location.href = "/studenthomepage";
+                    
+                } else{
+                    window.location.href = "/professorhomepage";
+                }
+            
+            }).catch((error:any) => {
+                toast.error(error.response.data, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                    });
+
+            })
 
             console.log(response.data);
             
