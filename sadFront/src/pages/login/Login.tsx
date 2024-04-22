@@ -1,8 +1,13 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 import LoginStyles from "./Login.styles";
 import Styles from "Styles";
+import client from "../../Http/axios";
 import clsx from "clsx";
+import { log } from "console";
 import { useState } from "react";
 
 export function Login() {
@@ -12,16 +17,23 @@ export function Login() {
     });
 
     const [emailError, setEmailError] = useState("");
+    const [loginError, setLoginError] = useState("");
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
-
-        if (name === "email") {
-            let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-            if (!emailRegex.test(value)) {
-                setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
-            } else {
+        if (value.trim() === "") {
+            if (name === "email") {
                 setEmailError("");
+            }
+        } else {
+            if (name === "email") {
+                let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+                if (!emailRegex.test(value)) {
+                    setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
+                } else {
+                    setEmailError("");
+                }
             }
         }
         
@@ -31,9 +43,49 @@ export function Login() {
         });
     };
 
-    const handleSubmit = (event:any) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
-        console.log(formData);
+        let data = {
+            email:formData.email,
+            password: formData.password,
+        };
+        
+        console.log("Request Data:", data);
+
+        client.post("/auth/jwt/create", data)
+        .then((response:any) => {
+            const token = response.data.access;
+            localStorage.setItem("token", token);
+            //if student
+            window.location.href = "/studenthomepage";
+            // if professor
+            // window.location.href = "/dashboard";
+
+            console.log(response.data);
+            
+            
+        })
+        
+        .catch((error) =>{
+            console.error("Login failed:", error);
+            setLoginError("Invalid email or password. Please try again.");
+            console.log(error.response.data.detail);
+            
+            toast.error(error.response.data.detail, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+                });
+                
+            setOpenSnackbar(true);
+        });
+        
     };
 
     const globalClasses = Styles();
@@ -41,18 +93,17 @@ export function Login() {
 
     return (
         <Box className={clsx(loginClasses.authBackground)}>
+            <ToastContainer />
             <Container component="main" maxWidth="xs" className={clsx(loginClasses.wrapper)}>
                 <CssBaseline />
-                <Box
-                    className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)}
-                >
+                
+                <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)}>
                     <Avatar className="avatar"></Avatar>
                     <Typography component="h1" variant="h5">
                         Login
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                        
-                    <TextField
+                        <TextField
                             error={!!emailError}
                             helperText={emailError}
                             margin="normal"
@@ -65,7 +116,6 @@ export function Login() {
                             value={formData.email}
                             onChange={handleInputChange}
                         />
-
                         <TextField
                             margin="normal"
                             required
@@ -89,7 +139,7 @@ export function Login() {
                         >
                             Login
                         </Button>
-                        <Grid container >
+                        <Grid container>
                             <Grid item xs sx={{ paddingBottom: '20px' }}>
                                 <Link href="/forgot-pass" variant="body2" >
                                     Forgot password?
@@ -105,5 +155,7 @@ export function Login() {
                 </Box>
             </Container>
         </Box>
+        
+        
     );
 }
