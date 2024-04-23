@@ -32,15 +32,16 @@ export function StudentSignup() {
     
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
+        const lowercasedValue = name === "email" ? value.toLowerCase() : value;
 
-        if (value.trim() === "") {
+        if (lowercasedValue.trim() === "") {
             if (name === "email") {
                 setEmailError("");
             }
         } else {
             if (name === "email") {
                 let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-                if (!emailRegex.test(value)) {
+                if (!emailRegex.test(lowercasedValue)) {
                     setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
                 } else {
                     setEmailError("");
@@ -50,7 +51,7 @@ export function StudentSignup() {
         
     setFormData({
         ...formData,
-        [name]: value,
+        [name]: lowercasedValue,
     });
 };
 
@@ -150,6 +151,8 @@ export function StudentSignup() {
 
                             <Grid item xs={12}>
                                 <TextField
+                                    error={!!emailError}
+                                    helperText={emailError}
                                     autoComplete="email"
                                     name="email"
                                     required

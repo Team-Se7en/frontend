@@ -21,16 +21,19 @@ export function Login() {
     const [loginError, setLoginError] = useState("");
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
-    const handleInputChange = (event: any) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        if (value.trim() === "") {
+
+        const lowercasedValue = name === "email" ? value.toLowerCase() : value;
+
+        if (lowercasedValue.trim() === "") {
             if (name === "email") {
                 setEmailError("");
             }
         } else {
             if (name === "email") {
                 let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-                if (!emailRegex.test(value)) {
+                if (!emailRegex.test(lowercasedValue)) {
                     setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
                 } else {
                     setEmailError("");
@@ -40,7 +43,7 @@ export function Login() {
         
         setFormData({
             ...formData,
-            [name]: value,
+            [name]: lowercasedValue,
         });
     };
 
