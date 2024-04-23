@@ -1,17 +1,21 @@
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 import {
-    Box,
-    Button,
-    Container,
-    CssBaseline,
-    Grid,
-    Link,
-    TextField,
-    Typography,
+Box,
+Button,
+Container,
+CssBaseline,
+Grid,
+Link,
+TextField,
+Typography,
 } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
+
+import Cookies from "js-cookie";
 import StudentSignUpStyles from "./StudentSignup-styles";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import client from "../../../Http/axios";
+
+// import { useNavigate } from "react-router-dom";
 
 export function StudentSignup() {
     const [formData, setFormData] = useState({
@@ -21,41 +25,85 @@ export function StudentSignup() {
         password: "",
         confirmPassword: "",
     });
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    
+    const [emailError, setEmailError] = useState("");
+    const [signupError, setsignupError] = useState("");
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    
+    const handleInputChange = (event: any) => {
         const { name, value } = event.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
+        const lowercasedValue = name === "email" ? value.toLowerCase() : value;
 
-    const navigate = useNavigate();
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        navigate("/signup/verification");
-
-        const sendingData = {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            is_student: true,
-            email: formData.email,
-            password: formData.password,
-            re_password: formData.confirmPassword
-        }
-        console.log(sendingData);
-        try {
-            const response = await axios.post('https://seven-apply.liara.run/auth/users/', sendingData);
-
-            if (response.status !== 204) {
-                throw new Error('Failed to sign up');
+        if (lowercasedValue.trim() === "") {
+            if (name === "email") {
+                setEmailError("");
             }
-            console.log(response);
-
-        } catch (error) {
-            console.error('Error:', error);
+        } else {
+            if (name === "email") {
+                let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+                if (!emailRegex.test(lowercasedValue)) {
+                    setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
+                } else {
+                    setEmailError("");
+                }
+            }
         }
+        
+    setFormData({
+        ...formData,
+        [name]: lowercasedValue,
+    });
+};
+
+    // const navigate = useNavigate();
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+        
+        // navigate("/signup/verification");
+        let data = {
+            'first_name': formData.firstName,
+            'last_name': formData.lastName,
+            'is_student': true,
+            'email': formData.email,
+            'password': formData.password,
+            're_password': formData.confirmPassword,
+        };
+        
+        console.log("Request Data:", data);
+        
+        Cookies.remove("token");
+        client.post("/auth/users/", data)
+        .then((response:any) => {
+
+        window.location.href = "/verification";
+
+        console.log(response.data);
+
+        })
+
+        .catch((error:any) =>{
+            console.error("SignUp failed:", error);
+            setsignupError("Invalid email or password. Please try again.");
+            console.log(error.response.data);
+            
+            toast.error(error.response.data, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+                });
+                
+            setOpenSnackbar(true);
+    });
+        
+        console.log(formData);
     };
+
 
     const StudentSignUpClasses = StudentSignUpStyles();
 
@@ -103,6 +151,8 @@ export function StudentSignup() {
 
                             <Grid item xs={12}>
                                 <TextField
+                                    error={!!emailError}
+                                    helperText={emailError}
                                     autoComplete="email"
                                     name="email"
                                     required
@@ -146,7 +196,6 @@ export function StudentSignup() {
                         <Button className={StudentSignUpClasses.button1}
                             type="submit"
                             fullWidth
-                            // href="/signup/verification"
                         >
                             Sign Up
                         </Button>
@@ -164,3 +213,4 @@ export function StudentSignup() {
         </Box>
     );
 }
+

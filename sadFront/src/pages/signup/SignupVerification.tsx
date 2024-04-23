@@ -1,3 +1,4 @@
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 import {
     Box,
     Button,
@@ -7,45 +8,51 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import { useState } from "react";
+import{ useEffect, useState } from 'react';
+
+import Cookies from "js-cookie";
 import StudentSignUpStyles from "./student-signup/StudentSignup-styles";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import client from "../../Http/axios";
+import { useParams } from "react-router-dom";
 
-export function SignupVerfication() {
-    const [formData, setFormData] = useState({
-        uid: "",
-        token: "",
-    });
+export function SignupVerification() {
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
+    const { uid, token } = useParams(); 
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        console.log('uid:', uid);
+        console.log('token:', token);
+    }, [uid, token]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        navigate("/login");
+        // window.location.replace("/login");
 
-        console.log(formData);
+        client.post("/auth/users/activation/",{
+            uid,
+            token,
+        })
+        .then((response:any) => {
+            console.log(response)
 
-        try {
-            const response = await axios.post('https://seven-apply.liara.run/auth/users/activation/', formData);
+            window.location.href = "/login";
 
-            if (response.status !== 204) {
-                throw new Error('Failed to verify');
-            }
-            console.log(response);
+            }).catch((error:any) => {
+                toast.error(error.response.data, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                    });
 
-        } catch (error) {
-            console.error('Error:', error);
-
-        }
+            })
+        
     };
 
     const StudentSignUpClasses = StudentSignUpStyles();
@@ -64,37 +71,10 @@ export function SignupVerfication() {
                         onSubmit={handleSubmit}
                         sx={{ mt: 3 }}
                     >
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} >
-                                <TextField
-                                    name="uid"
-                                    required
-                                    fullWidth
-                                    id="uid"
-                                    label="UID"
-                                    autoFocus
-                                    value={formData.uid}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} >
-                                <TextField
-                                    name="token"
-                                    required
-                                    fullWidth
-                                    id="token"
-                                    label="Token"
-                                    value={formData.token}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
-                        </Grid>
 
                         <Button className={StudentSignUpClasses.button1}
                             type="submit"
                             fullWidth
-                        // href="/login"
                         >
                             Verify
                         </Button>

@@ -1,3 +1,4 @@
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 import {
   Box,
   Button,
@@ -10,7 +11,9 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
+import Cookies from "js-cookie";
 import ProfessorSignUpStyles from "./ProfessorSignUp-styles";
+import client from "../../../Http/axios";
 
 export function ProfessorSignup() {
   const [formData, setFormData] = useState({
@@ -21,16 +24,81 @@ export function ProfessorSignup() {
     confirmPassword: "",
   });
 
-  const handleInputChange = (event) => {
+  const [emailError, setEmailError] = useState("");
+  const [signupError, setsignupError] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleInputChange = (event:any) => {
     const { name, value } = event.target;
+    const lowercasedValue = name === "email" ? value.toLowerCase() : value;
+
+    if (lowercasedValue.trim() === "") {
+      if (name === "email") {
+          setEmailError("");
+      }
+  } else {
+      if (name === "email") {
+          let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+          if (!emailRegex.test(lowercasedValue)) {
+              setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
+          } else {
+              setEmailError("");
+          }
+      }
+  }
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: lowercasedValue,
     });
   };
 
-  const handleSubmit = (event) => {
+  
+  const handleSubmit = (event:any) => {
     event.preventDefault();
+
+    let data = {
+      'first_name': formData.firstName,
+      'last_name': formData.lastName,
+      'is_student': false,
+      'email': formData.email,
+      'password': formData.password,
+      're_password': formData.confirmPassword,
+  };
+  
+  console.log("Request Data:", data);
+
+  Cookies.remove("token");
+  client.post("/auth/users/", data)
+  .then((response:any) => {
+
+    window.location.href = "/verification";
+
+      console.log(response.data);
+      
+  })
+  
+  .catch((error:any) =>{
+      console.error("SignUp failed:", error);
+      setsignupError("Invalid email or password. Please try again.");
+      console.log(error.response.data);
+      
+      toast.error(error.response.data, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+          });
+          
+      setOpenSnackbar(true);
+  });
+  
+    
     console.log(formData);
   };
 
@@ -45,7 +113,7 @@ export function ProfessorSignup() {
           <Typography component="h1" variant="h5">
             Professor Sign Up
           </Typography>
-          <Box
+          <Box component="form"
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 3 }}
@@ -80,6 +148,8 @@ export function ProfessorSignup() {
 
               <Grid item xs={12}>
                 <TextField
+                  error={!!emailError}
+                  helperText={emailError}
                   autoComplete="email"
                   name="email"
                   required
