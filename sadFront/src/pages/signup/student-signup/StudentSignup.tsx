@@ -75,7 +75,7 @@ export function StudentSignup() {
         client.post("/auth/users/", data)
         .then((response:any) => {
 
-        window.location.href = "/signup/verification";
+        window.location.href = "/verification";
 
         console.log(response.data);
 

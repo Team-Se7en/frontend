@@ -127,7 +127,7 @@ import axios from "axios";
 import client from "../../Http/axios";
 import { useParams } from "react-router-dom";
 
-export function SignupVerfication() {
+export function SignupVerification() {
 
     const { uid, token } = useParams(); 
 
