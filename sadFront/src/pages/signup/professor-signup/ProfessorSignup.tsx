@@ -1,15 +1,21 @@
-import { Bounce, ToastContainer, toast } from 'react-toastify';
 import {
+  Avatar,
   Box,
   Button,
+  Checkbox,
   Container,
   CssBaseline,
+  FormContrlLabel,
   Grid,
+  IconButton,
+  InputAdornment,
   Link,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 import React, { useState } from "react";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import Cookies from "js-cookie";
 import ProfessorSignUpStyles from "./ProfessorSignUp-styles";
@@ -27,6 +33,8 @@ export function ProfessorSignup() {
   const [emailError, setEmailError] = useState("");
   const [signupError, setsignupError] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleInputChange = (event:any) => {
     const { name, value } = event.target;
@@ -169,9 +177,21 @@ export function ProfessorSignup() {
                   fullWidth
                   id="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={formData.password}
                   onChange={handleInputChange}
+                  InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                    )
+                    }}
                 />
               </Grid>
 
@@ -183,9 +203,21 @@ export function ProfessorSignup() {
                   fullWidth
                   id="confirmPassword"
                   label="Confirm Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
+                  InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                    )
+                    }}
                 />
               </Grid>
             </Grid>
