@@ -5,11 +5,7 @@ import clsx from "clsx";
 import { WarningRounded } from "@mui/icons-material";
 import theme from "Theme";
 
-export interface DeleteDialogProps extends DialogProps {
-
-}
-
-export default function DeleteDialog(props: DeleteDialogProps) {
+export default function DeleteDialog() {
 
     const globalStyles = Styles();
 

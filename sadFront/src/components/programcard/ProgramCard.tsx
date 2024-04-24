@@ -9,6 +9,7 @@ import { StyledCardActions } from "./ProgramCard-styles";
 import { DeaedLineAndButton } from "./ProgramCard-styles";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import ProgramModal from "./../modals/program-modal/ProgramModal";
 import { ProfAndUni } from "./ProgramCard-styles";
 import { Deadline } from "./ProgramCard-styles";
 import { ProgramInfo } from "./ProgramCard-styles";
@@ -60,7 +61,9 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
                 </Typography>
                 <ProfAndUni>
                   <Typography color="text.secondary" fontSize={"1rem"}>
-                    {props.professor.Name}
+                    {props.professor.first_name +
+                      " " +
+                      props.professor.last_name}
                   </Typography>
                   <Box
                     className="icon-uni"
@@ -70,7 +73,7 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
                   >
                     <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
                     <Typography variant="body2" fontSize={"0.8rem"}>
-                      {props.universityName}
+                      {props.professor.university}
                     </Typography>
                   </Box>
                 </ProfAndUni>
@@ -88,17 +91,14 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
                 Topics:
               </Typography>
               <Stack direction="row" spacing={1}>
-                <Chip
-                  label="Machine Learning"
-                  size="small"
-                  onClick={handleClick}
-                />
-                <Chip label="NLP" size="small" onClick={handleClick} />
-                <Chip
-                  label="Artificial Intelligence"
-                  size="small"
-                  onClick={handleClick}
-                />
+                {props.tags.map((tag, index) => (
+                  <Chip
+                    key={index}
+                    label={tag}
+                    size="small"
+                    onClick={handleClick}
+                  />
+                ))}
               </Stack>
             </Box>
           </Box>
@@ -112,10 +112,11 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
                 fontWeight={"bold"}
                 fontSize={"0.8rem"}
               >
-                June 2024
+                {props.deadline.toString()}
               </Typography>
             </Deadline>
             <StyledCardActions>
+              <ProgramModal></ProgramModal>
               <ProgramModal></ProgramModal>
             </StyledCardActions>
           </DeaedLineAndButton>
