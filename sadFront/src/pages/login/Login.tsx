@@ -1,15 +1,15 @@
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, IconButton, InputAdornment, Link, TextField, Typography } from "@mui/material";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useEffect, useState } from "react";
 
 import Cookies from "js-cookie";
 import LoginStyles from "./Login.styles";
 import Styles from "Styles";
 import client from "../../Http/axios";
 import clsx from "clsx";
-import { log } from "console";
-import { useState } from "react";
 
 export function Login() {
     const [formData, setFormData] = useState({
@@ -18,12 +18,32 @@ export function Login() {
     });
 
     const [emailError, setEmailError] = useState("");
-    const [loginError, setLoginError] = useState("");
     const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
+
+    useEffect(() => {
+        const rememberMeValue = Cookies.get('rememberMe') === 'true';
+        console.log("Remember Me Value:", rememberMeValue);
+        setRememberMe(rememberMeValue);
+        
+        if (rememberMeValue) {
+            const savedEmail = Cookies.get('email');
+            const savedPassword = Cookies.get('password');
+            console.log("Saved Email:", savedEmail);
+            
+            if (savedEmail) {
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    email: savedEmail,
+                    password: savedPassword || "",
+                }));
+            }
+        }
+    }, []);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-
         const lowercasedValue = name === "email" ? value.toLowerCase() : value;
 
         if (lowercasedValue.trim() === "") {
@@ -56,12 +76,21 @@ export function Login() {
         
         console.log("Request Data:", data);
 
-        client.post("/auth/jwt/create", data)
+        client.post("/auth/jwt/create/", data)
         .then((response:any) => {
             const token = response.data.access;
             Cookies.set('token', token, { expires: 7 });
 
+            if (rememberMe) {
+                Cookies.set('email', formData.email, { expires: 7 });
+                Cookies.set('rememberMe', 'true', { expires: 7 });
+            } else {
+                Cookies.remove('email');
+                Cookies.remove('rememberMe');
+            }
+
             client.get("/auth/users").then((response:any) => {
+                const redirect = () => {
                 if (response.data[0].is_student){
                     window.location.href = "/studenthomepage";
                     
@@ -69,11 +98,16 @@ export function Login() {
                     window.location.href = "/professorhomepage";
                 }
 
-            })
+            };
+            
+            setTimeout(redirect, 4000);
+
+            });
+
             
             toast.success("Login successful!", {
                 position: "top-center",
-                autoClose: 1000,
+                autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -86,7 +120,7 @@ export function Login() {
         }).catch((error:any) =>{
             toast.error(error.response.data.detail, {
                 position: "top-center",
-                autoClose: 2000,
+                autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -100,8 +134,6 @@ export function Login() {
         });
         
     };
-
-    
 
     const globalClasses = Styles();
     const loginClasses = LoginStyles();
@@ -132,18 +164,31 @@ export function Login() {
                             onChange={handleInputChange}
                         />
                         <TextField
+                            variant="outlined"
                             margin="normal"
                             required
                             fullWidth
                             name="password"
                             label="Password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             id="password"
                             value={formData.password}
                             onChange={handleInputChange}
+                            InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                            )
+                            }}
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
+                            control={<Checkbox checked={rememberMe} onChange={(event) => setRememberMe(event.target.checked)} color="primary" />}
                             label="Remember me"
                         />
                         <Button
@@ -170,7 +215,5 @@ export function Login() {
                 </Box>
             </Container>
         </Box>
-        
-        
     );
 }
