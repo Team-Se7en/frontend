@@ -13,28 +13,31 @@ import Styles from "Styles";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import clsx from "clsx";
+import { getProfessorPositions } from "services/position.service";
+import { useEffect, useState } from "react";
 
 export function ProfessorHomePage() {
     const globalClasses = Styles();
+
+    const [professorPositions, setProfessorPositions] = useState([]);
+
+    useEffect(() => {
+        const fetchRecentPositions = async () => {
+            const positionsData = await getProfessorPositions({ professorId: 1 });
+            setProfessorPositions(positionsData)
+        };
+
+        fetchRecentPositions();
+    });
+
     const ProfessorHomePageClasses = HomePageProfessorStyles();
 
-    const model: ProfessorCardViewShortInfo = {
-        title: 'Laboratory Research',
-        status: Status.closed,
-        tags: ['science', 'lab'],
-        startDate: new Date(),
-        endDate: new Date(),
-        universityName: "Iran University of Science and Technology",
-        studentCapacity: 12,
-        fee: 1.99,
-        positionStartDate: new Date(),
-        duration: {
-        year: 1,
-        month: 2,
-        day: 4
-        },
-        requestingStudents: 4,
-    }
+    let model: ProfessorCardViewShortInfo[];
+    getProfessorPositions({ professorId: 1 }).then(result => {
+        model = result.data;
+    }).catch(error => {
+
+    });
 
     return (
         <Box>
@@ -42,34 +45,38 @@ export function ProfessorHomePage() {
 
             <Box className={ProfessorHomePageClasses.paperContainer}>
                 <Stack direction="column" alignItems="center" spacing={2} style={{ marginTop: '25px' }}>
-                    
+
                     <Avatar className={ProfessorHomePageClasses.avatar}></Avatar>
-                    
+
                     <Button className={ProfessorHomePageClasses.editprofilebutton} type="submit">
-                    Profile Management
+                        Profile Management
                     </Button>
 
                     <Button className={ProfessorHomePageClasses.addprogrambutton} type="submit">
-                    Program Management
+                        Program Management
                     </Button>
-                    
+
                 </Stack>
-                
+
                 <Stack className={ProfessorHomePageClasses.socialicons} direction="row" spacing={2} style={{ marginLeft: 'auto' }}>
                     <YouTubeIcon style={{ color: '#FF0000', fontSize: 50 }} />
                     <LinkedInIcon style={{ color: '#0077b5', fontSize: 50 }} />
                     <TwitterIcon style={{ color: '#1DA1F2', fontSize: 50 }} />
                 </Stack>
-                
+
             </Box>
 
-            
+
             <Grid container spacing={2}>
-                
-                <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
-                    <ProfessorRequestCard model = {model} />
-                </Grid>
-                
+
+                {
+                    professorPositions.map(position => (
+                        <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
+                            <ProfessorRequestCard model={position} />
+                        </Grid>
+                    ))
+                }
+
 
                 <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
                     <StudentList />
@@ -78,7 +85,7 @@ export function ProfessorHomePage() {
                 <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
                     <ProgramsListCopy />
                 </Grid>
-                
+
             </Grid>
 
         </Box>
