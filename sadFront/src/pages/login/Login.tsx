@@ -68,32 +68,22 @@ export function Login() {
                 } else{
                     window.location.href = "/professorhomepage";
                 }
-            
-            }).catch((error:any) => {
-                toast.error(error.response.data, {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                    transition: Bounce,
-                    });
 
             })
-
-            console.log(response.data);
             
+            toast.success("Login successful!", {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            }); 
             
-        })
-        
-        .catch((error) =>{
-            console.error("Login failed:", error);
-            setLoginError("Invalid email or password. Please try again.");
-            console.log(error.response.data.detail);
-            
+        }).catch((error:any) =>{
             toast.error(error.response.data.detail, {
                 position: "top-center",
                 autoClose: 2000,
@@ -110,6 +100,8 @@ export function Login() {
         });
         
     };
+
+    
 
     const globalClasses = Styles();
     const loginClasses = LoginStyles();
