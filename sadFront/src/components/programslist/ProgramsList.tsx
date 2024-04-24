@@ -1,9 +1,28 @@
+import * as React from "react";
 import ProgramCard from "components/programcard/ProgramCard";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { SampleCard } from "./SampleData";
+import axios from "axios";
+import { StudentCardViewShortInfo } from "@models";
 
 export function ProgramsList() {
+  const [allPrograms, setAllPrograms] =
+    React.useState<StudentCardViewShortInfo[]>();
+
+  React.useEffect(() => {
+    axios
+      .get("https://seven-apply.liara.run/eduportal/positions")
+      .then((response) => {
+        setAllPrograms(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
+
+  console.log(allPrograms);
+  if (!allPrograms) return null;
   return (
     <Box
       width={"60%"}
@@ -26,84 +45,22 @@ export function ProgramsList() {
         p={2}
         padding={"0rem"}
       >
-        <ProgramCard
-          status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
-          tags={SampleCard.tags}
-          fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
-          duration={SampleCard.duration}
-          universityName={SampleCard.universityName}
-          title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
-          professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
-          status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
-          tags={SampleCard.tags}
-          fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
-          duration={SampleCard.duration}
-          universityName={SampleCard.universityName}
-          title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
-          professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
-          status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
-          tags={SampleCard.tags}
-          fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
-          duration={SampleCard.duration}
-          universityName={SampleCard.universityName}
-          title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
-          professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
-          status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
-          tags={SampleCard.tags}
-          fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
-          duration={SampleCard.duration}
-          universityName={SampleCard.universityName}
-          title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
-          professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
-          status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
-          tags={SampleCard.tags}
-          fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
-          duration={SampleCard.duration}
-          universityName={SampleCard.universityName}
-          title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
-          professor={SampleCard.professor}
-        ></ProgramCard>
-        <ProgramCard
-          status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
-          tags={SampleCard.tags}
-          fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
-          duration={SampleCard.duration}
-          universityName={SampleCard.universityName}
-          title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
-          professor={SampleCard.professor}
-        ></ProgramCard>
+        {allPrograms.map((program, index) => (
+          <ProgramCard
+            key={index}
+            professor={program.professor}
+            id={program.id}
+            status={program.status}
+            title={program.title}
+            tags={program.tags}
+            fee={program.fee}
+            duration={program.duration}
+            starts_at={program.starts_at}
+            updated_at={program.updated_at}
+            created_at={program.created_at}
+            deadline={program.deadline}
+          />
+        ))}
       </Box>
     </Box>
   );
