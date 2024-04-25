@@ -3,10 +3,10 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import useStyles from './foter-styles'; // استایل‌های مربوطه را وارد کنید
+import useStyles from './foter-styles';
 
 function Footer() {
-  const classes = useStyles(); // استایل‌ها را اعمال کنید
+  const classes = useStyles(); 
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -14,7 +14,7 @@ function Footer() {
 
   return (
     <div>
-      <div className={classes.footerWrapper}></div>
+      <div style={{float:'left'}} className={classes.footerWrapper}></div>
       <footer className={classes.footer} style={{ color: '#FFF5EE', padding: '0px 0' }}>
         <Typography align='center' variant="h6" style={{marginLeft:'-1150px' }}>7Apply</Typography>
         {/* <Avatar src={'src/assets/icons/logo.svg'}  style={{ width:'99px', marginRight: '-2px', marginLeft: '100px',marginTop:'-37px' ,display: isSmallScreen ? 'none' : 'block' }} /> */}
@@ -40,27 +40,46 @@ function Footer() {
         <Typography style={{marginLeft:'-550px',marginTop:'-80px', marginBottom:'14px'}} variant="h6" gutterBottom>
           About
         </Typography>
-        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none', marginLeft:'-550px',marginTop:'-13px' }}>
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none', marginLeft:'-550px',marginTop:'-120px' }}>
           About
         </Button>
-        <Typography style={{marginLeft:'50px',marginTop:'-69px'}}    variant="h6" gutterBottom>
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none',marginTop:'5px',marginLeft:'-60px'}}>
+          Our Story
+        </Button>
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none',marginTop:'140px',marginLeft:'-78px'}}>
+          Careers
+        </Button>
+        <Typography style={{marginLeft:'70px',marginTop:'-222px'}}    variant="h6" gutterBottom>
           Students
         </Typography>
-        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none', marginLeft:'50px',marginTop:'-5px' }}>
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none',marginTop:'-113px',marginLeft:'70px'}}>
           Schools
         </Button>
-        
-        <Typography style={{marginLeft:'600px',marginTop:'-66px'}}  variant="h6" gutterBottom>
-          Professor
-        </Typography>
-        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none', marginLeft:'450px',marginTop:'-60px'}}>
-          Apply
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none',marginTop:'148px',marginLeft:'-65px'}}>
+          Recruiters
+        </Button>
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none',marginTop:'10px',marginLeft:'-86px'}}>
+          Register
         </Button>
         
+        <Typography style={{marginLeft:'600px',marginTop:'-224px'}}  variant="h6" gutterBottom>
+          Professor
+        </Typography>
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none', marginLeft:'460px',marginTop:'-164px'}}>
+          Apply
+        </Button>
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none',marginTop:'-40px',marginLeft:'-57px'}}>
+          Resources
+        </Button>
+        <Button color="inherit" style={{ backgroundColor: 'transparent', textTransform: 'none',marginTop:'100px',marginLeft:'-88px'}}>
+          Press
+        </Button>
+        
+        
       
-        <Button style={{ textTransform: 'capitalize',marginTop:'40px',marginLeft:'-450px' }} color="inherit" href="/terms">Terms of Use</Button>
-        <Button style={{ textTransform: 'capitalize',marginTop:'40px' }} color="inherit" href="/privacy">Privacy Policy</Button>
-        <Button style={{ textTransform: 'capitalize',marginTop:'40px' }} color="inherit" onClick={scrollToTop}>Back to Top</Button>
+        <Button style={{ textTransform: 'capitalize',marginTop:'200px',marginLeft:'-450px' }} color="inherit" href="/terms">Terms of Use</Button>
+        <Button style={{ textTransform: 'capitalize',marginTop:'200px' }} color="inherit" href="/privacy">Privacy Policy</Button>
+        <Button style={{ textTransform: 'capitalize',marginTop:'200px' }} color="inherit" onClick={scrollToTop}>Back to Top</Button>
       </footer>
     </div>
   );
