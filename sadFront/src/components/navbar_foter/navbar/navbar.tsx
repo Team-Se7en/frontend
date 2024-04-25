@@ -63,7 +63,7 @@ function Navbar({ showAuthButtons = false }) {
                 <AccountCircleIcon style={{ marginRight: '10px' }} />
                 Login
               </Button>
-              <Button style={{ marginRight: '140px' }} color="inherit" component={Link} to="/signup">
+              <Button style={{ marginRight: '80px' }} color="inherit" component={Link} to="/signup">
                 <AddCircleOutlineIcon style={{ marginRight: '5px' }} />
                 Signup
               </Button>
