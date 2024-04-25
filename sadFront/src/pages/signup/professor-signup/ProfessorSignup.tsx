@@ -101,28 +101,31 @@ export function ProfessorSignup() {
       progress: undefined,
       theme: "dark",
       transition: Bounce,
-  }); 
+    });
 
   })
 
   
-  
   .catch((error:any) =>{
       console.log(error.response.data);
       
-      toast.error(error.response.data.password[0], {
-          position: "top-center",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-          });
+      if (error.response && error.response.data) {
+        if (error.response.data.password && error.response.data.password.length > 0) {
+          toast.error(error.response.data.password[0], {
+              position: "top-center",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Bounce,
+              });
 
-          
+            }
+
+        if (error.response.data.non_field_errors && error.response.data.non_field_errors.length > 0) {
           toast.error(error.response.data.non_field_errors[0], {
             position: "top-center",
             autoClose: 4000,
@@ -135,6 +138,9 @@ export function ProfessorSignup() {
             transition: Bounce,
             });
 
+          }
+
+        if (error.response.data.email && error.response.data.email.length > 0) {
           toast.error(error.response.data.email[0], {
             position: "top-center",
             autoClose: 4000,
@@ -146,12 +152,17 @@ export function ProfessorSignup() {
             theme: "dark",
             transition: Bounce,
             });
+
+        }
+
+      }
           
       setOpenSnackbar(true);
   });
   
     
     console.log(formData);
+    
   };
 
   const ProfessorSignUpClasses = ProfessorSignUpStyles();

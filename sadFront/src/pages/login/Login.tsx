@@ -105,7 +105,7 @@ export function Login() {
             });
 
             
-            toast.success("Login successful!", {
+            toast.success("Login Successful!", {
                 position: "top-center",
                 autoClose: 4000,
                 hideProgressBar: false,
