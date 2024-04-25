@@ -92,8 +92,8 @@ export function ProfessorSignup() {
     setTimeout(redirect, 3000);
 
     toast.success("Sign Up Successful!", {
-      position: "top-center",
-      autoClose: 4000,
+      position: "top-left",
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -111,7 +111,7 @@ export function ProfessorSignup() {
       if (error.response && error.response.data) {
         if (error.response.data.password && error.response.data.password.length > 0) {
           toast.error(error.response.data.password[0], {
-              position: "top-center",
+              position: "top-left",
               autoClose: 4000,
               hideProgressBar: false,
               closeOnClick: true,
@@ -121,11 +121,33 @@ export function ProfessorSignup() {
               theme: "dark",
               });
 
+              toast.error(error.response.data.password[1], {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+
+                toast.error(error.response.data.password[2], {
+                  position: "top-left",
+                  autoClose: 4000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+                  });
+
             }
 
         if (error.response.data.non_field_errors && error.response.data.non_field_errors.length > 0) {
           toast.error(error.response.data.non_field_errors[0], {
-            position: "top-center",
+            position: "top-left",
             autoClose: 4000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -139,7 +161,7 @@ export function ProfessorSignup() {
 
         if (error.response.data.email && error.response.data.email.length > 0) {
           toast.error(error.response.data.email[0], {
-            position: "top-center",
+            position: "top-left",
             autoClose: 4000,
             hideProgressBar: false,
             closeOnClick: true,

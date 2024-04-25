@@ -88,7 +88,7 @@ export function StudentSignup() {
             setTimeout(redirect, 3000);
 
             toast.success("Sign Up Successful!", {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -107,7 +107,7 @@ export function StudentSignup() {
             
             if (error.response.data.password && error.response.data.password.length > 0) {
             toast.error(error.response.data.password[0], {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -119,7 +119,7 @@ export function StudentSignup() {
                 
                 if (error.response.data.password.length > 1) {
                     toast.error(error.response.data.password[1], {
-                        position: "top-center",
+                        position: "top-left",
                         autoClose: 4000,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -132,7 +132,7 @@ export function StudentSignup() {
 
                 if (error.response.data.password.length > 2) {
                     toast.error(error.response.data.password[2], {
-                        position: "top-center",
+                        position: "top-left",
                         autoClose: 4000,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -148,7 +148,7 @@ export function StudentSignup() {
     
             if (error.response.data.non_field_errors && error.response.data.non_field_errors.length > 0) {
             toast.error(error.response.data.non_field_errors[0], {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -162,7 +162,7 @@ export function StudentSignup() {
     
             if (error.response.data.email && error.response.data.email.length > 0) {
             toast.error(error.response.data.email[0], {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -188,7 +188,7 @@ export function StudentSignup() {
 
     return (
         <Box className={StudentSignUpClasses.authBackground}>
-            <ToastContainer transition={Bounce} />
+            <ToastContainer transition={Flip} />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box className={StudentSignUpClasses.wrapper}>

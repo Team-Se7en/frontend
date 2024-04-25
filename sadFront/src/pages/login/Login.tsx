@@ -1,7 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, IconButton, InputAdornment, Link, TextField, Typography } from "@mui/material";
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Bounce, Flip, Slide, ToastContainer, Zoom, toast } from 'react-toastify';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useEffect, useState } from "react";
 
@@ -100,26 +100,25 @@ export function Login() {
 
             };
             
-            setTimeout(redirect, 4000);
+            setTimeout(redirect, 3000);
 
             });
 
             
             toast.success("Login Successful!", {
-                position: "top-center",
-                autoClose: 4000,
+                position: "top-left",
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                transition: Bounce,
             }); 
             
         }).catch((error:any) =>{
             toast.error(error.response.data.detail, {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -127,7 +126,6 @@ export function Login() {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                transition: Bounce,
                 });
                 
             setOpenSnackbar(true);
@@ -140,7 +138,7 @@ export function Login() {
 
     return (
         <Box className={clsx(loginClasses.authBackground)}>
-            <ToastContainer />
+            <ToastContainer transition={Flip} />
             <Container component="main" maxWidth="xs" className={clsx(loginClasses.wrapper)}>
                 <CssBaseline />
                 

@@ -1,7 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Avatar, Box, Button, Container, CssBaseline, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Bounce, Flip, Slide, ToastContainer, Zoom, toast } from 'react-toastify';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import{ useEffect, useState } from 'react';
 
@@ -31,7 +31,7 @@ export function Newpassword() {
         event.preventDefault();  
         if (formData.createpassword !== formData.repeatpassword) {
             toast.error("The two password fields didn't match", {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 4000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -60,7 +60,7 @@ export function Newpassword() {
             setTimeout(redirect, 3000);
 
             toast.success("Password Reset Successful", {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -87,7 +87,7 @@ export function Newpassword() {
 
     return (
         <Box sx={{}} className={clsx(globalClasses.newpassword)}>
-            <ToastContainer transition={Bounce} />
+            <ToastContainer transition={Flip} />
             <Container component="main" maxWidth="xs" className={clsx(newpasswordClasses.wrapper)}>
                 <CssBaseline />
                 <Box
