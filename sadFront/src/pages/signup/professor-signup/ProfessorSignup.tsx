@@ -1,3 +1,5 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   Avatar,
   Box,
@@ -5,7 +7,7 @@ import {
   Checkbox,
   Container,
   CssBaseline,
-  FormContrlLabel,
+  FormControlLabel,
   Grid,
   IconButton,
   InputAdornment,
@@ -80,20 +82,37 @@ export function ProfessorSignup() {
   client.post("/auth/users/", data)
   .then((response:any) => {
 
+    const redirect = () => {
+      
     window.location.href = "/verification";
 
-      console.log(response.data);
-      
+    console.log(response.data);
+    }
+
+    setTimeout(redirect, 3000);
+
+    toast.success("Sign Up Successful!", {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+  }); 
+
   })
+
+  
   
   .catch((error:any) =>{
-      console.error("SignUp failed:", error);
-      setsignupError("Invalid email or password. Please try again.");
       console.log(error.response.data);
       
-      toast.error(error.response.data, {
+      toast.error(error.response.data.password[0], {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 4000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -102,6 +121,31 @@ export function ProfessorSignup() {
           theme: "dark",
           transition: Bounce,
           });
+
+          
+          toast.error(error.response.data.non_field_errors[0], {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+            });
+
+          toast.error(error.response.data.email[0], {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+            });
           
       setOpenSnackbar(true);
   });
@@ -114,6 +158,7 @@ export function ProfessorSignup() {
 
   return (
     <Box className={ProfessorSignUpClasses.authBackground}>
+    <ToastContainer />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box className={ProfessorSignUpClasses.wrapper}>
