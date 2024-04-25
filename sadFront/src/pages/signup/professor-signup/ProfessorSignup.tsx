@@ -100,7 +100,6 @@ export function ProfessorSignup() {
       draggable: true,
       progress: undefined,
       theme: "dark",
-      transition: Bounce,
     });
 
   })
@@ -120,7 +119,6 @@ export function ProfessorSignup() {
               draggable: true,
               progress: undefined,
               theme: "dark",
-              transition: Bounce,
               });
 
             }
@@ -135,7 +133,6 @@ export function ProfessorSignup() {
             draggable: true,
             progress: undefined,
             theme: "dark",
-            transition: Bounce,
             });
 
           }
@@ -150,7 +147,6 @@ export function ProfessorSignup() {
             draggable: true,
             progress: undefined,
             theme: "dark",
-            transition: Bounce,
             });
 
         }
@@ -169,7 +165,7 @@ export function ProfessorSignup() {
 
   return (
     <Box className={ProfessorSignUpClasses.authBackground}>
-    <ToastContainer />
+    <ToastContainer transition={Bounce} />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box className={ProfessorSignUpClasses.wrapper}>
