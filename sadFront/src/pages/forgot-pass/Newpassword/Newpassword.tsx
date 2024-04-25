@@ -1,12 +1,15 @@
-import{ useEffect, useState } from 'react';
-import axios from 'axios'; // Import Axios library
-import { Avatar, Box, Button, Container, CssBaseline, Grid, Typography, TextField, IconButton, InputAdornment } from "@mui/material";
-import clsx from "clsx";
-import Styles from "Styles";
-import NewpasswordStyles from "./Newpassword.styles";
-import { useParams} from "react-router-dom";
-import { Visibility, VisibilityOff } from '@mui/icons-material';'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
+import { Avatar, Box, Button, Container, CssBaseline, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { Bounce, Flip, Slide, ToastContainer, Zoom, toast } from 'react-toastify';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import{ useEffect, useState } from 'react';
+
+import NewpasswordStyles from "./Newpassword.styles";
+import Styles from "Styles";
+import axios from 'axios';
+import clsx from "clsx";
+import { useParams } from "react-router-dom";
 
 export function Newpassword() {
     const [formData, setFormData] = useState({
@@ -23,16 +26,25 @@ export function Newpassword() {
         console.log('uid:', uid);
         console.log('token:', token);
     }, [uid, token]);
+    
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();  
         if (formData.createpassword !== formData.repeatpassword) {
-            setPasswordError("The passwords do not match");
+            toast.error("The two password fields didn't match", {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+                });
             return;
         } else {
             setPasswordError("");
         }
-    
-                    
     
         try {
             const response = await axios.post('https://seven-apply.liara.run/auth/users/reset_password_confirm/', {
@@ -41,12 +53,27 @@ export function Newpassword() {
                 new_password: formData.createpassword
                 
             });
+            const redirect = () => {
             window.location.replace("/login")
-            console.log('Password reset successful:', response.data);
+            }
+            
+            setTimeout(redirect, 3000);
+
+            toast.success("Password Reset Successful", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+
+        console.log('Password reset successful:', response.data);
         } catch (error) {
             console.error('Error resetting password:', error);
-            const errorMessages = error.response?.data?.new_password || [];
-            setPasswordError(errorMessages.join('\n') || "An error occurred");
+
         }
     };
 
@@ -60,6 +87,7 @@ export function Newpassword() {
 
     return (
         <Box sx={{}} className={clsx(globalClasses.newpassword)}>
+            <ToastContainer transition={Flip} />
             <Container component="main" maxWidth="xs" className={clsx(newpasswordClasses.wrapper)}>
                 <CssBaseline />
                 <Box

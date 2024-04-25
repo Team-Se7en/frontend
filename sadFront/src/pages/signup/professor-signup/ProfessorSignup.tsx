@@ -1,15 +1,23 @@
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
+  Avatar,
   Box,
   Button,
+  Checkbox,
   Container,
   CssBaseline,
+  FormControlLabel,
   Grid,
+  IconButton,
+  InputAdornment,
   Link,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 import React, { useState } from "react";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import Cookies from "js-cookie";
 import ProfessorSignUpStyles from "./ProfessorSignUp-styles";
@@ -27,6 +35,8 @@ export function ProfessorSignup() {
   const [emailError, setEmailError] = useState("");
   const [signupError, setsignupError] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleInputChange = (event:any) => {
     const { name, value } = event.target;
@@ -72,40 +82,112 @@ export function ProfessorSignup() {
   client.post("/auth/users/", data)
   .then((response:any) => {
 
+    const redirect = () => {
+      
     window.location.href = "/verification";
 
-      console.log(response.data);
-      
+    console.log(response.data);
+    }
+
+    setTimeout(redirect, 3000);
+
+    toast.success("Sign Up Successful!", {
+      position: "top-left",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
   })
+
   
   .catch((error:any) =>{
-      console.error("SignUp failed:", error);
-      setsignupError("Invalid email or password. Please try again.");
       console.log(error.response.data);
       
-      toast.error(error.response.data, {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-          });
+      if (error.response && error.response.data) {
+        if (error.response.data.password && error.response.data.password.length > 0) {
+          toast.error(error.response.data.password[0], {
+              position: "top-left",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
+
+              toast.error(error.response.data.password[1], {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+
+                toast.error(error.response.data.password[2], {
+                  position: "top-left",
+                  autoClose: 4000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+                  });
+
+            }
+
+        if (error.response.data.non_field_errors && error.response.data.non_field_errors.length > 0) {
+          toast.error(error.response.data.non_field_errors[0], {
+            position: "top-left",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
+
+          }
+
+        if (error.response.data.email && error.response.data.email.length > 0) {
+          toast.error(error.response.data.email[0], {
+            position: "top-left",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
+
+        }
+
+      }
           
       setOpenSnackbar(true);
   });
   
     
     console.log(formData);
+    
   };
 
   const ProfessorSignUpClasses = ProfessorSignUpStyles();
 
   return (
     <Box className={ProfessorSignUpClasses.authBackground}>
+    <ToastContainer transition={Bounce} />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box className={ProfessorSignUpClasses.wrapper}>
@@ -169,9 +251,21 @@ export function ProfessorSignup() {
                   fullWidth
                   id="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={formData.password}
                   onChange={handleInputChange}
+                  InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                    )
+                    }}
                 />
               </Grid>
 
@@ -183,9 +277,21 @@ export function ProfessorSignup() {
                   fullWidth
                   id="confirmPassword"
                   label="Confirm Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
+                  InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                    )
+                    }}
                 />
               </Grid>
             </Grid>

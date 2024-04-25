@@ -1,3 +1,5 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import {
     Box,
@@ -27,21 +29,38 @@ export function SignupVerification() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // window.location.replace("/login");
 
         client.post("/auth/users/activation/",{
             uid,
             token,
         })
+        
         .then((response:any) => {
-            console.log(response)
 
+            const redirect = () => {
             window.location.href = "/login";
+            console.log(response)
+            }
 
-            }).catch((error:any) => {
+            setTimeout(redirect, 3000);
+
+            toast.success("Verification Complete!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+
+        })
+            
+            .catch((error:any) => {
                 toast.error(error.response.data, {
                     position: "top-center",
-                    autoClose: 2000,
+                    autoClose: 4000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -59,12 +78,13 @@ export function SignupVerification() {
 
     return (
         <Box className={StudentSignUpClasses.authBackground}>
+            <ToastContainer transition={Bounce} />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box className={StudentSignUpClasses.wrapper}>
 
                     <Typography component="h1" variant="h5">
-                        Email Verification
+                        Please Verify Your Email
                     </Typography>
                     <Box
                         component="form"
@@ -76,7 +96,7 @@ export function SignupVerification() {
                             type="submit"
                             fullWidth
                         >
-                            Verify
+                            Confirm
                         </Button>
                     </Box>
                 </Box>
