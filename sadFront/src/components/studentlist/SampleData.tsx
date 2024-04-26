@@ -20,15 +20,15 @@ const SampleEndDate: Date = new Date(2027, 12, 25);
 const SamplePositionStartDate: Date = new Date(2024, 9, 18);
 
 export const SampleCard: StudentCardViewShortInfo = {
-  status: Status.open,
-  startDate: SampleStartDate,
-  endDate: SampleEndDate,
+  status: Status.Open,
+  start_date: SampleStartDate,
+  end_date: SampleEndDate,
   tags: ["Machine Learning", "NLP", "Artificial Intelligence"],
   fee: 758400000,
-  positionStartDate: SamplePositionStartDate,
+  position_start_date: SamplePositionStartDate,
   duration: SampleDuration,
   universityName: "Standford University",
   title: "NLP/ML PhD Positions",
-  studentCapacity: 20,
+  capacity: 20,
   professor: SampleProfessor,
 };

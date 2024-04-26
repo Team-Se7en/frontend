@@ -1,45 +1,37 @@
-import { Avatar, Box, Button, Container, CssBaseline, Grid, Link, TextField, Typography } from "@mui/material";
-import { ProfessorCardViewShortInfo, Status } from "@models";
+import { Avatar, Box, Button, CssBaseline, Grid } from "@mui/material";
+import { ProfessorCardViewShortInfo } from "@models";
 
 import HomePageProfessorStyles from "./ProfessorHomePage-styles";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { ProfessorRequestCard } from "@components";
-import ProgramCardak from "components/programcard/ProgramCardak";
 import { ProgramsListCopy } from "components/programslistcopy/ProgramsListCopy";
 import { Stack } from '@mui/material';
-import StudentCard from "components/studentcard/StudentCard";
 import { StudentList } from "components/studentlist";
 import Styles from "Styles";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import clsx from "clsx";
-import { getProfessorPositions } from "services/position.service";
+import { getProfessorRecentPositions } from "services/position.service";
 import { useEffect, useState } from "react";
+import { ProfessorRequestCard } from "@components";
+import { ProfessorRecentPositions } from "components/professor-recent-positions/ProfessorRecentPositions";
 
 export function ProfessorHomePage() {
     const globalClasses = Styles();
 
-    const [professorPositions, setProfessorPositions] = useState([]);
+    const [professorPositions, setProfessorPositions] = useState<ProfessorCardViewShortInfo[]>([]);
 
     useEffect(() => {
         const fetchRecentPositions = async () => {
-            const positionsData = await getProfessorPositions({ professorId: 1 });
-            setProfessorPositions(positionsData)
+            const result = await getProfessorRecentPositions();
+            setProfessorPositions(result.data)
         };
 
         fetchRecentPositions();
-    });
+    }, []);
 
     const ProfessorHomePageClasses = HomePageProfessorStyles();
 
-    let model: ProfessorCardViewShortInfo[];
-    getProfessorPositions({ professorId: 1 }).then(result => {
-        model = result.data;
-    }).catch(error => {
-
-    });
-
     return (
+        <>
         <Box>
             <CssBaseline />
 
@@ -56,6 +48,10 @@ export function ProfessorHomePage() {
                         Program Management
                     </Button>
 
+                    <Button className={ProfessorHomePageClasses.addprogrambutton} type="submit">
+                        Add Program
+                    </Button>
+
                 </Stack>
 
                 <Stack className={ProfessorHomePageClasses.socialicons} direction="row" spacing={2} style={{ marginLeft: 'auto' }}>
@@ -68,14 +64,9 @@ export function ProfessorHomePage() {
 
 
             <Grid container spacing={2}>
-
-                {
-                    professorPositions.map(position => (
-                        <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
-                            <ProfessorRequestCard model={position} />
-                        </Grid>
-                    ))
-                }
+                <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions} sx={{ flexDirection: 'column'}}>
+                    <ProfessorRecentPositions />
+                </Grid>
 
 
                 <Grid item xs={12} md={4} className={ProfessorHomePageClasses.positions}>
@@ -89,5 +80,7 @@ export function ProfessorHomePage() {
             </Grid>
 
         </Box>
+        {/* <Modal></Modal> */}
+        </>
     );
 }

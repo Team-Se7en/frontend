@@ -30,80 +30,80 @@ export function ProgramsListCopy() {
       >
         <ProgramCardak
           status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
+          start_date={SampleCard.start_date}
+          end_date={SampleCard.end_date}
           tags={SampleCard.tags}
           fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
+          position_start_date={SampleCard.position_start_date}
           duration={SampleCard.duration}
           universityName={SampleCard.universityName}
           title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
+          capacity={SampleCard.capacity}
           professor={SampleCard.professor}
         ></ProgramCardak>
         <ProgramCardak
           status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
+          start_date={SampleCard.start_date}
+          end_date={SampleCard.end_date}
           tags={SampleCard.tags}
           fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
+          position_start_date={SampleCard.position_start_date}
           duration={SampleCard.duration}
           universityName={SampleCard.universityName}
           title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
+          capacity={SampleCard.capacity}
           professor={SampleCard.professor}
         ></ProgramCardak>
         <ProgramCardak
           status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
+          start_date={SampleCard.start_date}
+          end_date={SampleCard.end_date}
           tags={SampleCard.tags}
           fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
+          position_start_date={SampleCard.position_start_date}
           duration={SampleCard.duration}
           universityName={SampleCard.universityName}
           title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
+          capacity={SampleCard.capacity}
           professor={SampleCard.professor}
         ></ProgramCardak>
         <ProgramCardak
           status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
+          start_date={SampleCard.start_date}
+          end_date={SampleCard.end_date}
           tags={SampleCard.tags}
           fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
+          position_start_date={SampleCard.position_start_date}
           duration={SampleCard.duration}
           universityName={SampleCard.universityName}
           title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
+          capacity={SampleCard.capacity}
           professor={SampleCard.professor}
         ></ProgramCardak>
         <ProgramCardak
           status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
+          start_date={SampleCard.start_date}
+          end_date={SampleCard.end_date}
           tags={SampleCard.tags}
           fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
+          position_start_date={SampleCard.position_start_date}
           duration={SampleCard.duration}
           universityName={SampleCard.universityName}
           title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
+          capacity={SampleCard.capacity}
           professor={SampleCard.professor}
         ></ProgramCardak>
         <ProgramCardak
           status={SampleCard.status}
-          startDate={SampleCard.startDate}
-          endDate={SampleCard.endDate}
+          start_date={SampleCard.start_date}
+          end_date={SampleCard.end_date}
           tags={SampleCard.tags}
           fee={SampleCard.fee}
-          positionStartDate={SampleCard.positionStartDate}
+          position_start_date={SampleCard.position_start_date}
           duration={SampleCard.duration}
           universityName={SampleCard.universityName}
           title={SampleCard.title}
-          studentCapacity={SampleCard.studentCapacity}
+          capacity={SampleCard.capacity}
           professor={SampleCard.professor}
         ></ProgramCardak>
       </Box>

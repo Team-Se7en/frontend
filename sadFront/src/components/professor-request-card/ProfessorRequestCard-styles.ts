@@ -13,17 +13,18 @@ export const StyledCard = styled(Card)((props: StyledCardProps) => ({
     // maxWidth: '80rem',
     // minWidth: '20rem',
     // height: '10rem',
-    height: '17rem',
+    height: '14rem',
+    minHeight: '14rem',
     // maxHeight: '16rem',
     minWidth: '20rem',
-    width: '80%',
-    maxWidth: '30rem',
+    width: '90%',
+    maxWidth: '45rem',
     // minHeight: '15rem',
-    aspectRatio: '16 / 7',
+    // aspectRatio: '16 / 7',
     margin: '1rem auto',
     position: 'relative',
     zIndex: '0',
-    backgroundImage: statusColor(props.status),
+    // backgroundImage: statusColor(props.status),
     // borderRadius: theme.shape.borderRadius,
     // [theme.breakpoints.between('sm', 'md')]: {
     //     aspectRation: '3 / 1',
@@ -63,6 +64,7 @@ export const StyledCardActions = styled(CardActions)(() => ({
 
 export const StyledTag = styled(Chip)(() => ({
     backgroundColor: 'white',
+    // borderColor: theme.palette.iconButton,
 }));
 
 // export const StyledDescription = styled(Typography)(({ theme }) => ({
