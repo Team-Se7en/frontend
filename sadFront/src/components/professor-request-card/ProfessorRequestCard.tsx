@@ -14,6 +14,7 @@ import { deletePosition } from "services/position.service";
 import { Bounce, toast } from "react-toastify";
 import { Spacer } from "components/ui";
 import { StatusCircle } from "components/ui/status-circle/StatusCircle";
+import { formatTime } from "lib/format-time";
 
 export interface ProfessorRequestCardProps {
     model: ProfessorCardViewShortInfo;
@@ -96,7 +97,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
         fee: props.model.fee,
         position_start_date: props.model.position_start_date,
         // duration: props.model.duration,
-        requestingStudents: 0,
+        request_count: 0,
         id: 0,
         position_end_date: props.model.position_end_date,
     }
@@ -107,7 +108,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                 {/* <StyledBackgroundImage /> */}
                 <StyledCardContent className={clsx(globalStyles.flexColumn)}>
 
-                    <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween)}>
+                    <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween, globalStyles.vCenter)}>
                         <Tooltip title={props.model.title}>
                             <Typography variant="h5" color="iconButton" noWrap>
                                 {props.model.title}
@@ -128,11 +129,19 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         </Box>
                     </Box>
 
-                    <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween)} sx={{ mt: 2 }}>
+                    <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween, globalStyles.vCenter)} sx={{ mt: 2 }}>
                         <Box gap={1} className={globalStyles.flexRow}>
                             <AccessTimeRounded sx={{ color: theme.palette.accessTime }} />
                             <Typography variant="body1">
-                                {/* {props.model.startDate.toLocaleDateString('en-US')} - {props.model.endDate.toLocaleDateString('en-US')} */}
+                                {`${formatTime(props.model.start_date.toString())} - ${formatTime(props.model.end_date.toString())}`}
+                            </Typography>
+                        </Box>
+                        <Spacer />
+                        <Box gap={0.5} className={globalStyles.flexRow}>
+
+                            <EventRounded sx={{ color: theme.palette.iconButton }} />
+                            <Typography variant="body1">
+                                {`${formatTime(props.model.position_start_date.toString())} - ${formatTime(props.model.position_end_date.toString())}`}
                             </Typography>
                         </Box>
                         <Spacer />
@@ -166,14 +175,8 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                     </Box>
 
                     <Box gap={1} className={globalStyles.flexRow}>
-                        <Box gap={0.5} className={globalStyles.flexRow}>
 
-                            <EventRounded sx={{ color: theme.palette.iconButton }} />
-                            <Typography variant="body1">
-                                {/* {props.model.positionStartDate.toLocaleDateString('en-US')} */}
-                            </Typography>
-                        </Box>
-                        <Box gap={0.5} className={globalStyles.flexRow}>
+                        {/* <Box gap={0.5} className={globalStyles.flexRow}>
 
                             <HourglassTopRounded sx={{ color: theme.palette.iconButton }} />
                             <Typography>
@@ -187,7 +190,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                                     props.model.duration.day ? ` ${props.model.duration.day}d` : ''
                                 }
                             </Typography>
-                        </Box>
+                        </Box> */}
                     </Box>
 
                     <Grid container spacing={1} sx={{ overflow: 'hidden', height: '2.5rem', mt: '0 !important' }}>
@@ -234,11 +237,11 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         <CloseRounded />
                     </IconButton>
                 </DialogActions>
-                <ProfessorRequestCardDialog cardId={""} model={fullInfo} />
+                <ProfessorRequestCardDialog model_id={props.model.id} />
             </Dialog>
 
-            <Modal open={modalOpen} onClose={handleModalClose} sx={{ m: 2, borderRadius: '1rem' }}>
-                <CardModal model={fullInfo} />
+            <Modal open={modalOpen} onClose={handleModalClose} sx={{ m: 2, borderRadius: '4px' }}>
+                <CardModal model_id={props.model.id} onClose={handleModalClose} />
             </Modal>
 
             <Dialog open={deleteDialogOpen} onClose={handleDeleteDialogClose} fullWidth maxWidth='sm'>

@@ -4,4 +4,5 @@ export enum Status {
     Closed = "Closed",
     Accepted = "Accepted",
     Rejected = "Rejected",
+    NotActive = "Not Active",
 }

@@ -40,6 +40,12 @@ const Styles = makeStyles(() =>
         justifyContentBetween: {
             justifyContent: 'space-between !important',
         },
+        vCenter: {
+            alignItems: 'center !important',
+        },
+        hCenter: {
+            justifyContent: 'center !important',
+        },
         verification: {
             background: `url(${Verification})`,
             backgroundPosition: 'center center',

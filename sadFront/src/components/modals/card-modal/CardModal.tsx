@@ -9,10 +9,11 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
 import { Bounce, toast } from "react-toastify";
-import { getPositionFullInfoProfessor } from "services/position.service";
+import { createPosition, getPositionFullInfoProfessor, updatePosition } from "services/position.service";
 
 export interface CardModalProps {
     model_id?: number;
+    onClose: () => void;
 }
 
 export default function CardModal(props: CardModalProps) {
@@ -57,9 +58,10 @@ export default function CardModal(props: CardModalProps) {
         position_end_date: new Date(),
         // duration: model?.duration ?? { year: 0, month: 0, day: 0 },
         // university: props.model?.university ?? universities[0],
-        university: undefined,
-        requestingStudents: 0,
-
+        university: "",
+        request_count: 0,
+        id: 0,
+        capacity: 0,
     });
 
     const handleInputChange = (event: any) => {
@@ -72,7 +74,12 @@ export default function CardModal(props: CardModalProps) {
 
 
     const handleSubmit = () => {
-        console.log(model);
+        if (props.model_id) {
+            updatePosition(props.model_id, model);
+        }
+        else {
+            createPosition(model);
+        }
     };
 
     const handleTagDelete = (tagToDelete: string) => {
@@ -95,8 +102,12 @@ export default function CardModal(props: CardModalProps) {
     return (
         <Wrapper maxWidth="xs" sx={{ mt: 1 }} disableGutters>
 
-            <Box component="form" onSubmit={handleSubmit}>
-                <Box sx={{ p: theme.spacing(5), pt: '8rem', overflowY: 'scroll', height: '34rem' }} gap={2} className={clsx(globalStyles.flexColumn, globalStyles.fullyCenter)}>
+            <Box component="form">
+                <Box sx={{
+                    p: theme.spacing(5), pt: '17rem',
+                    overflow: 'scroll',
+                    height: '45rem',
+                }} gap={2} className={clsx(globalStyles.flexColumn, globalStyles.fullyCenter)}>
 
                     <TextField
                         margin="normal"
@@ -139,20 +150,24 @@ export default function CardModal(props: CardModalProps) {
                         onChange={handleInputChange}
                     />
 
-                    {/* <InputLabel>Add Tag</InputLabel> */}
-                    {/* <Select value={model.university} label="University" fullWidth required>
-                        {
-                            universities.map(university => (
-                                <MenuItem value={university} onClick={() => handleUniversityChange(university)}>{university.name}</MenuItem>
-                            ))
-                        }
-                    </Select> */}
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="capacity"
+                        label="Capacity"
+                        name="capacity"
+                        autoFocus
+                        type="number"
+                        value={model.capacity}
+                        onChange={handleInputChange}
+                    />
 
                     <FormControl fullWidth required sx={{ mt: 2 }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                                 label="Application start date"
-                                value={model.startDate}
+                                value={dayjs(model.start_date)}
                                 onChange={handleInputChange}
                             />
                         </LocalizationProvider>
@@ -161,7 +176,7 @@ export default function CardModal(props: CardModalProps) {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                                 label="Application end date"
-                                value={dayjs(model.endDate)}
+                                value={dayjs(model.end_date)}
                                 onChange={handleInputChange}
                             />
                         </LocalizationProvider>
@@ -171,7 +186,7 @@ export default function CardModal(props: CardModalProps) {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                                 label="Position start date"
-                                value={model.position_start_date}
+                                value={dayjs(model.position_start_date)}
                                 onChange={handleInputChange}
                             />
                         </LocalizationProvider>
@@ -180,7 +195,7 @@ export default function CardModal(props: CardModalProps) {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                                 label="Position end date"
-                                value={model.position_end_date}
+                                value={dayjs(model.position_end_date)}
                                 onChange={handleInputChange}
                             />
                         </LocalizationProvider>
@@ -269,10 +284,10 @@ export default function CardModal(props: CardModalProps) {
                 </Box>
 
                 <ButtonGroup variant="text" fullWidth>
-                    <CancelButton color="error" disableRipple type="submit">Cancel</CancelButton>
-                    <SaveButton color="success" disableRipple>Save</SaveButton>
+                    <CancelButton color="error" disableRipple onClick={props.onClose}>Cancel</CancelButton>
+                    <SaveButton color="success" disableRipple onClick={handleSubmit}>Save</SaveButton>
                 </ButtonGroup>
             </Box>
-        </Wrapper>
+        </Wrapper >
     );
 }

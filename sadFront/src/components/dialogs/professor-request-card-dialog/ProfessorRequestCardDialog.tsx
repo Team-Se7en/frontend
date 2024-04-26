@@ -1,15 +1,65 @@
-import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo } from "@models";
+import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo, Status } from "@models";
 import { Box, Button, Collapse, DialogContent, DialogTitle, Divider, Grid, Typography } from "@mui/material";
 import { StyledTag } from "components/professor-request-card/ProfessorRequestCard-styles";
-import { useState } from "react";
+import { formatTime } from "lib/format-time";
+import { useEffect, useState } from "react";
+import { toast, Bounce } from "react-toastify";
+import { getPositionFullInfoProfessor } from "services/position.service";
 import Styles from "Styles";
 
 export interface ProfessorRequestCardDialogProps {
-    cardId: string;
-    model: ProfessorCardViewFullInfo;
+    // cardId: string;
+    // model: ProfessorCardViewFullInfo;
+    model_id: number;
 }
 
 export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDialogProps) {
+    useEffect(() => {
+        const getModel = async () => {
+            try {
+                if (!props.model_id) {
+                    throw new Error('Invalid Id');
+                }
+                const result = await getPositionFullInfoProfessor(props.model_id);
+                setModelData(result.data);
+            } catch (e) {
+                toast.success("Couldn't retrieve position info", {
+                    position: "bottom-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                });
+            }
+        }
+
+        if (props.model_id) {
+            getModel();
+        }
+    }, [props.model_id]);
+
+    const [model, setModelData] = useState<ProfessorCardViewFullInfo>({
+        title: "",
+        description: "",
+        status: Status.Open,
+        start_date: new Date(),
+        end_date: new Date(),
+        tags: [],
+        fee: 0,
+        position_start_date: new Date(),
+        position_end_date: new Date(),
+        // duration: model?.duration ?? { year: 0, month: 0, day: 0 },
+        // university: props.model?.university ?? universities[0],
+        university: "",
+        request_count: 0,
+        id: 0,
+        capacity: 0,
+    });
+
     const [descriptionExpanded, setDescriptionExpanded] = useState(false);
     const handleDescriptionExpandClick = () => {
         setDescriptionExpanded(!descriptionExpanded);
@@ -25,7 +75,7 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
     return (
         <Box>
             <DialogTitle>
-                {props.model.title}
+                {model.title}
             </DialogTitle>
 
             <DialogContent>
@@ -34,11 +84,11 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                 </Divider>
                 <Box>
                     <Typography variant="body1" component="div">
-                        {descriptionExpanded ? props.model.description : `${props.model.description.slice(0, 200)}`}
+                        {descriptionExpanded ? model.description : `${model.description.slice(0, 200)}`}
                     </Typography>
                     <Collapse in={!descriptionExpanded}>
                         {
-                            props.model.description.length > 100 ?
+                            model.description.length > 100 ?
                                 <Button fullWidth onClick={handleDescriptionExpandClick} size="medium" variant="text" disableRipple>
                                     {descriptionExpanded ? 'Show less' : 'Show more'}
                                 </Button>
@@ -52,37 +102,25 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                 </Divider>
 
                 <Typography variant="body1">
-                    {props.model.start_date.toLocaleDateString('en-US')} - {props.model.end_date.toLocaleDateString('en-US')}
+                    Application Acceptance: {`${formatTime(model.start_date.toString())} - ${formatTime(model.end_date.toString())}`}
                 </Typography>
 
                 <Typography variant="body1">
-                    Fee: $ {props.model.fee}
+                    Fee: $ {model.fee}
                 </Typography>
 
                 <Typography variant="body1">
-                    Needed: {props.model.capacity}
+                    Needed: {model.capacity}
                 </Typography>
 
                 <Typography variant="body1">
-                    Requested: {props.model.requestingStudents}
+                    Requested: {model.request_count}
                 </Typography>
 
                 <Typography variant="body1">
-                    Start Date: {props.model.position_start_date.toLocaleDateString('en-US')},
+                    Position Duration: {`${formatTime(model.position_start_date.toString())} - ${formatTime(model.position_end_date.toString())}`}
                 </Typography>
 
-                <Typography variant="body1">
-                    Duration: 
-                    {
-                        props.model.duration.year ? ` ${props.model.duration.year}y,` : ''
-                    }
-                    {
-                        props.model.duration.month ? ` ${props.model.duration.month}m,` : ''
-                    }
-                    {
-                        props.model.duration.day ? ` ${props.model.duration.day}d` : ''
-                    }
-                </Typography>
 
                 <Grid container spacing={1} sx={{ overflow: 'hidden', height: '2.5rem', mt: '0 !important' }}>
                     <Grid item>
@@ -92,7 +130,7 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                     </Grid>
 
                     {
-                        props.model.tags.map(tag => (
+                        model.tags.map(tag => (
                             <Grid item>
                                 <StyledTag label={tag} variant="outlined"></StyledTag>
                             </Grid>
@@ -102,21 +140,21 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                 </Grid>
 
                 <Divider orientation="horizontal" variant="middle" sx={{ mt: 1, mb: 1 }}>
-                    {props.model.university.name}
+                    {model.university}
                 </Divider>
                 <Box>
-                    <Typography variant="body1" component="div">
-                        {universityExpanded ? props.model.university.description : `${props.model.university.description.slice(0, 200)}`}
+                    {/* <Typography variant="body1" component="div">
+                        {universityExpanded ? model.university?.description ?? '' : `${model.university?.description.slice(0, 200) ?? ''}`}
                     </Typography>
                     <Collapse in={!universityExpanded}>
                         {
-                            props.model.university.description.length > 100 ?
+                            (model.university?.description.length ?? 0) > 100 ?
                                 <Button fullWidth onClick={handleUniversityExpandClick} size="medium" variant="text" disableRipple>
                                     {universityExpanded ? 'Show less' : 'Show more'}
                                 </Button>
                                 : <></>
                         }
-                    </Collapse>
+                    </Collapse> */}
                 </Box>
 
                 <Divider orientation="horizontal" variant="middle" sx={{ mt: 1, mb: 1 }}>

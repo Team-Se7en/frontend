@@ -9,7 +9,7 @@ export interface StatusCircleProps {
 export function StatusCircle(props: StatusCircleProps) {
     return (
         <Tooltip title={props.status} placement="left">
-            <Box sx={{ backgroundImage: statusColor(props.status), width: '1rem', height: '1rem', borderRadius: '50%' }}>
+            <Box sx={{ backgroundColor: statusColor(props.status), width: '1rem', height: '1rem', borderRadius: '50%' }}>
 
             </Box>
         </Tooltip>

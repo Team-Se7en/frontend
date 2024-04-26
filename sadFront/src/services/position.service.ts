@@ -1,3 +1,4 @@
+import { ProfessorCardViewFullInfo } from "@models";
 import { ResetTvOutlined } from "@mui/icons-material";
 import client from "Http/axios";
 
@@ -5,7 +6,7 @@ export interface GetProfessorPositionsRequestModel {
     professorId: number;
 }
 
-export const getProfessorRecentPositions = async() => {
+export const getProfessorRecentPositions = async () => {
     try {
         const result = await client.get(`/eduportal/professors/my_recent_positions`);
         return result;
@@ -15,7 +16,7 @@ export const getProfessorRecentPositions = async() => {
     }
 };
 
-export const deletePosition = async(id: number) => {
+export const deletePosition = async (id: number) => {
     try {
         const result = await client.delete(`/eduportal/positions/${id}`);
         return result;
@@ -25,7 +26,7 @@ export const deletePosition = async(id: number) => {
     }
 };
 
-export const getPositionFullInfoProfessor = async(id: number) => {
+export const getPositionFullInfoProfessor = async (id: number) => {
     try {
         const result = await client.get(`/eduportal/positions/${id}`);
         return result;
@@ -34,3 +35,23 @@ export const getPositionFullInfoProfessor = async(id: number) => {
         throw e;
     }
 };
+
+export const updatePosition = async (id: number, model: ProfessorCardViewFullInfo) => {
+    try {
+        const result = await client.put(`/eduportal/positions/${id}`, model);
+        return result;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+export const createPosition = async (model: ProfessorCardViewFullInfo) => {
+    try {
+        const result = await client.post(`/eduportal/positions`, model);
+        return result;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
