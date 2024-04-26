@@ -20,10 +20,8 @@ export const StyledProgramCard = styled(Card)(({ theme }) => ({
 export const StyledCardContent = styled(CardContent)(({ theme }) => ({
   display: "flex",
   padding: "1.5rem",
-
-  [theme.breakpoints.down("lg")]: {
-    flexDirection: "column",
-  },
+  flexDirection: "column",
+  gap: "0.5rem",
 }));
 
 export const StyledCardActions = styled(CardActions)(({ theme }) => ({
@@ -34,8 +32,7 @@ export const DeaedLineAndButton = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   marginTop: "0.3rem",
-  gap: "3rem",
-  justifyContent: "flex-end",
+  gap: "1rem",
   textAlign: "center",
   alignItems: "center",
   width: "25%",
@@ -80,5 +77,14 @@ export const ProgramInfo = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.down("lg")]: {
     gap: "0rem",
+  },
+}));
+
+export const BottemInfo = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  gap: "0rem",
+  [theme.breakpoints.down("lg")]: {
+    flexDirection: "column",
   },
 }));

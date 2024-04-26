@@ -45,7 +45,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
 
   return (
     <div>
-      <Button size="large" onClick={handleOpen}>
+      <Button size="large" onClick={handleOpen} sx={{ padding: "0.2rem" }}>
         LEARN MORE
       </Button>
       <Modal
@@ -103,7 +103,11 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                       sx={{ display: "flex" }}
                       alignItems={"center"}
                     >
-                      <Typography variant="h6">Sauleh Etemadi</Typography>
+                      <Typography variant="h6">
+                        {props.professor.user.first_name +
+                          " " +
+                          props.professor.user.last_name}
+                      </Typography>
                       <KeyboardArrowRightIcon />
                       <Button size="small" sx={{ height: "2rem" }}>
                         {isSmallScreen ? (
@@ -117,7 +121,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                       Associate Professor at {props.professor.university}
                     </Typography>
                     <Typography color="text.secondary">
-                      {ConvDate(props.created_at, "week diff")}w
+                      {ConvDate(props.start_date, "week diff")}w
                     </Typography>
                   </Box>
                 </Box>
@@ -163,7 +167,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   <TodayIcon sx={{ fontSize: "1.6rem" }} />
                   <Typography>Starting Date: </Typography>
                   <Typography fontWeight={"bold"}>
-                    {ConvDate(props.starts_at, "full")}
+                    {ConvDate(props.position_start_date, "full")}
                   </Typography>
                 </Box>
                 <Box
@@ -175,7 +179,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   <AccessAlarmsIcon sx={{ fontSize: "1.6rem" }} />
                   <Typography>Application Deadline:</Typography>
                   <Typography fontWeight={"bold"}>
-                    {ConvDate(props.deadline, "full")}
+                    {ConvDate(props.position_end_date, "full")}
                   </Typography>
                 </Box>
                 <Box
