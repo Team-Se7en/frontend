@@ -15,6 +15,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
 const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,7 +25,14 @@ setAnchorEl(event.currentTarget);
 };
 const handleClose = () => {
 setAnchorEl(null);
+navigateToEdit()
 };
+
+const navigate = useNavigate();
+const navigateToEdit = () => {
+    navigate("/professor/editProfile");
+}
+
 return (
 <React.Fragment>
     <Box sx={{ backgroundColor:'#0F1035'}}>
@@ -67,7 +75,7 @@ return (
     
 
     >
-    <MenuItem onClick={handleClose}>
+    <MenuItem onClick={navigateToEdit}>
     <ListItemIcon>
         <AccountCircleIcon fontSize="small" sx={{ color: '#03045e' }}/>
     </ListItemIcon>
