@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Hidden, Button, Grid } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Hidden, Button, Grid, InputBase } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
@@ -7,6 +7,7 @@ import useStyles from './navbar-styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import MobileMenu from "./MobileMenu";
+import SearchIcon from '@mui/icons-material/Search'; 
 
 function Navbar({ showAuthButtons = false }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -29,6 +30,20 @@ function Navbar({ showAuthButtons = false }) {
             7Apply
           </Typography>
 
+          {/* Search Bar */}
+          <Hidden smDown>
+            <div className={classes.searchBar}>
+              <InputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                className={classes.searchInput}
+              />
+              <IconButton className={classes.searchIcon}>
+                <SearchIcon />
+              </IconButton>
+            </div>
+          </Hidden>
+
           {isMobile ? (
             <Hidden mdUp>
               <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerOpen} style={{ marginRight: '10px' }}>
@@ -40,7 +55,7 @@ function Navbar({ showAuthButtons = false }) {
             <Hidden smDown>
               <Grid container spacing={2}>
                 <Grid item>
-                  <Button color="inherit" component={Link} to="/students" style={{ backgroundColor: 'transparent', textTransform: 'none',marginLeft: '130px'   }}>
+                  <Button color="inherit" component={Link} to="/students" style={{ backgroundColor: 'transparent', textTransform: 'none',marginLeft: '270px'   }}>
                     Students
                   </Button>
                 </Grid>

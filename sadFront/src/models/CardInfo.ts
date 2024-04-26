@@ -1,4 +1,4 @@
-import { PositionDuration, Professor, Status, University } from "@models";
+import { Professor, Status, University } from "@models";
 
 
 export interface CardInfo {
@@ -6,17 +6,13 @@ export interface CardInfo {
     title: string;
     capacity: number;
     status: Status;
-    // starts_at: Date;
-    // deadline: Date;
-    tags: string[];
-    fee: number;
-    // created_at: Date;
-    // updated_at: Date;
-    // duration: PositionDuration;
     start_date: Date;
     end_date: Date;
+    tags: string[];
+    fee: number;
     position_start_date: Date;
     position_end_date: Date;
+    updated_at: Date;
 }
 
 export interface ProfessorCardViewShortInfo extends CardInfo {
@@ -36,6 +32,7 @@ export interface StudentCardViewShortInfo extends CardInfo {
 }
 
 export interface StudentCardViewFullInfo extends CardInfo {
+    professor: Professor;
     description: string;
-    university: University; 
+    capacity: number;
 }
