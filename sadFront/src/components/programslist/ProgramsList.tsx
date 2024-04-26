@@ -27,7 +27,7 @@ export function ProgramsList() {
     <Box
       width={"60%"}
       minWidth={"30rem"}
-      maxWidth={"50rem"}
+      maxWidth={"45rem"}
       sx={{ backgroundColor: "#fafafa" }}
     >
       <Divider
@@ -59,8 +59,8 @@ export function ProgramsList() {
             updated_at={program.updated_at}
             created_at={program.created_at}
             deadline={program.deadline}
-            description="" //To be assigned later
-            capacity={0} //To be assigned later
+            description="" //Will be assigned in modal
+            capacity={0} //Will be assigned in modal
           />
         ))}
       </Box>

@@ -14,6 +14,7 @@ import { Deadline } from "./ProgramCard-styles";
 import { ProgramInfo } from "./ProgramCard-styles";
 import { StudentCardViewFullInfo } from "@models";
 import ProgramModal from "./../modals/program-modal/ProgramModal";
+import { ConvDate } from "lib/DateConvertor";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -31,6 +32,7 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
               flexDirection: "column",
               gap: "1rem",
             }}
+            height={"10rem"}
             width={{ xs: "100%", sm: "100%", md: "100%", lg: "80%", xl: "80%" }}
           >
             <Box
@@ -96,6 +98,7 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                     label={tag}
                     size="small"
                     onClick={handleClick}
+                    //variant="outlined"
                   />
                 ))}
               </Stack>
@@ -111,7 +114,7 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                 fontWeight={"bold"}
                 fontSize={"0.8rem"}
               >
-                {props.deadline.toString()}
+                {ConvDate(props.deadline, "year and month")}
               </Typography>
             </Deadline>
             <StyledCardActions>

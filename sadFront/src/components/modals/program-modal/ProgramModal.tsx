@@ -15,30 +15,14 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TodayIcon from "@mui/icons-material/Today";
 import { StudentCardViewFullInfo } from "@models";
 import axios from "axios";
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: "1rem",
-  borderColor: "#BFBFBF",
-  padding: "1.5rem 1.5rem 0rem 1.5rem",
-  gap: "1rem",
-};
+import { style } from "./ProgramModal-styles";
+import { ConvDate } from "lib/DateConvertor";
 
 export default function TransitionsModal(props: StudentCardViewFullInfo) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const isSmallScreen = useMediaQuery("(max-width:800px)");
-
   const [fullInfo, setFullInfo] = React.useState<StudentCardViewFullInfo>();
 
   React.useEffect(() => {
@@ -81,7 +65,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
           <Box
             id="modal-main"
             sx={style}
-            minWidth={"27rem"}
+            minWidth={"25rem"}
             width={{ xs: "75%", sm: "65%", md: "55%", lg: "45%", xl: "40%" }}
             height={{ xs: "55%", sm: "60%", md: "65%", lg: "75%", xl: "85%" }}
           >
@@ -133,7 +117,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                       Associate Professor at {props.professor.university}
                     </Typography>
                     <Typography color="text.secondary">
-                      {props.created_at.toLocaleString()}
+                      {ConvDate(props.created_at, "week diff")}w
                     </Typography>
                   </Box>
                 </Box>
@@ -179,7 +163,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   <TodayIcon sx={{ fontSize: "1.6rem" }} />
                   <Typography>Starting Date: </Typography>
                   <Typography fontWeight={"bold"}>
-                    {props.starts_at.toString()}
+                    {ConvDate(props.starts_at, "full")}
                   </Typography>
                 </Box>
                 <Box
@@ -191,7 +175,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   <AccessAlarmsIcon sx={{ fontSize: "1.6rem" }} />
                   <Typography>Application Deadline:</Typography>
                   <Typography fontWeight={"bold"}>
-                    {props.deadline.toString()}
+                    {ConvDate(props.deadline, "full")}
                   </Typography>
                 </Box>
                 <Box
