@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Avatar } from "@mui/material";
@@ -9,23 +8,25 @@ import { StyledCardActions } from "./ProgramCard-styles";
 import { DeaedLineAndButton } from "./ProgramCard-styles";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import ProgramModal from "./../modals/program-modal/ProgramModal";
 import { ProfAndUni } from "./ProgramCard-styles";
 import { Deadline } from "./ProgramCard-styles";
 import { ProgramInfo } from "./ProgramCard-styles";
-import { StudentCardViewShortInfo } from "@models";
+import { StudentCardViewFullInfo } from "@models";
+import ProgramModal from "./../modals/program-modal/ProgramModal";
+import { ConvDate } from "lib/DateConvertor";
+import { BottemInfo } from "./ProgramCard-styles";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
 };
 
-export default function ProgramCard(props: StudentCardViewShortInfo) {
+export default function ProgramCard(props: StudentCardViewFullInfo) {
   return (
     <Box minWidth={"28rem"} width={"90%"} margin={"0.5rem"}>
       <StyledProgramCard variant="outlined">
         <StyledCardContent>
           <Box
-            className="left-info"
+            className="top-info"
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -34,7 +35,7 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
             width={{ xs: "100%", sm: "100%", md: "100%", lg: "80%", xl: "80%" }}
           >
             <Box
-              className="top-info"
+              className="prof-info"
               sx={{ display: "flex", flexDirection: "row" }}
               gap={"1rem"}
             >
@@ -60,9 +61,9 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
                 </Typography>
                 <ProfAndUni>
                   <Typography color="text.secondary" fontSize={"1rem"}>
-                    {props.professor.first_name +
+                    {props.professor.user.first_name +
                       " " +
-                      props.professor.last_name}
+                      props.professor.user.last_name}
                   </Typography>
                   <Box
                     className="icon-uni"
@@ -78,46 +79,129 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
                 </ProfAndUni>
               </ProgramInfo>
             </Box>
-            <Box
-              className="topics"
-              display={"flex"}
-              flexDirection={"row"}
-              gap={"0.5rem"}
-              alignItems={"center"}
-              //overflow={"auto"}
-            >
-              <Typography variant="body2" fontSize={"0.9rem"}>
-                Topics:
-              </Typography>
-              <Stack direction="row" spacing={1}>
-                {props.tags.map((tag, index) => (
-                  <Chip
-                    key={index}
-                    label={tag}
-                    size="small"
-                    onClick={handleClick}
-                  />
-                ))}
-              </Stack>
-            </Box>
           </Box>
-          <DeaedLineAndButton>
-            <Deadline>
-              <Typography variant="body2" fontSize={"0.7rem"}>
-                Application Deadline:
-              </Typography>
-              <Typography
-                variant="body2"
-                fontWeight={"bold"}
-                fontSize={"0.8rem"}
+          <BottemInfo>
+            <Box
+              className="left-details"
+              display={"flex"}
+              flexDirection={"column"}
+              gap={"0.8rem"}
+            >
+              <Box
+                className="info"
+                display={"flex"}
+                flexDirection={"row"}
+                justifyContent={"space-between"}
+                marginBottom={"0.5rem"}
+                marginTop={"0.4rem"}
               >
-                {props.deadline.toString()}
-              </Typography>
-            </Deadline>
-            <StyledCardActions>
-              <ProgramModal></ProgramModal>
-            </StyledCardActions>
-          </DeaedLineAndButton>
+                <Box
+                  className="start-date"
+                  display={"flex"}
+                  flexDirection={"column"}
+                >
+                  <Typography variant="body2" fontSize={"0.7rem"}>
+                    Starts at
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    fontWeight={"bold"}
+                    fontSize={"0.8rem"}
+                  >
+                    {ConvDate(props.position_start_date, "year and month")}
+                  </Typography>
+                </Box>
+                <Box
+                  className="duration"
+                  display={"flex"}
+                  flexDirection={"column"}
+                >
+                  <Typography variant="body2" fontSize={"0.7rem"}>
+                    Duration:
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    fontWeight={"bold"}
+                    fontSize={"0.8rem"}
+                  >
+                    2 years
+                  </Typography>
+                </Box>
+                <Box className="fee" display={"flex"} flexDirection={"column"}>
+                  <Typography variant="body2" fontSize={"0.7rem"}>
+                    Fee:
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    fontWeight={"bold"}
+                    fontSize={"0.8rem"}
+                  >
+                    {props.fee} Rials
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                className="topics"
+                flexDirection={"row"}
+                gap={"0.5rem"}
+                alignItems={"center"}
+                //overflow={"auto"}
+                display={{
+                  xs: "none",
+                  sm: "none",
+                  md: "flex",
+                  lg: "flex",
+                  xl: "flex",
+                }}
+              >
+                <Typography variant="body2" fontSize={"0.9rem"}>
+                  Topics:
+                </Typography>
+                <Stack direction="row" spacing={1}>
+                  {props.tags.map((tag, index) => (
+                    <Chip
+                      key={index}
+                      label={tag}
+                      size="small"
+                      onClick={handleClick}
+                      //variant="outlined"
+                    />
+                  ))}
+                </Stack>
+              </Box>
+            </Box>
+            <DeaedLineAndButton>
+              <Deadline>
+                <Typography variant="body2" fontSize={"0.7rem"}>
+                  Application Deadline:
+                </Typography>
+                <Typography
+                  variant="body2"
+                  fontWeight={"bold"}
+                  fontSize={"0.8rem"}
+                >
+                  {ConvDate(props.position_end_date, "year and month")}
+                </Typography>
+              </Deadline>
+              <StyledCardActions>
+                <ProgramModal
+                  professor={props.professor}
+                  description={props.description}
+                  capacity={props.capacity}
+                  id={props.id}
+                  title={props.title}
+                  status={props.status}
+                  position_start_date={props.position_start_date}
+                  position_end_date={props.position_end_date}
+                  fee={props.fee}
+                  start_date={props.start_date}
+                  tags={props.tags}
+                  updated_at={props.updated_at}
+                  end_date={props.end_date}
+                ></ProgramModal>
+              </StyledCardActions>
+            </DeaedLineAndButton>
+          </BottemInfo>
         </StyledCardContent>
       </StyledProgramCard>
     </Box>

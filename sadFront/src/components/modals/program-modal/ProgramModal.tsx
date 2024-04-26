@@ -13,33 +13,39 @@ import { useMediaQuery } from "@mui/material";
 import PaidIcon from "@mui/icons-material/Paid";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TodayIcon from "@mui/icons-material/Today";
+import { StudentCardViewFullInfo } from "@models";
+import axios from "axios";
+import { style } from "./ProgramModal-styles";
+import { ConvDate } from "lib/DateConvertor";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: "1rem",
-  borderColor: "#BFBFBF",
-  padding: "1.5rem 1.5rem 0rem 1.5rem",
-  gap: "1rem",
-};
-
-export default function TransitionsModal() {
+export default function TransitionsModal(props: StudentCardViewFullInfo) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const isSmallScreen = useMediaQuery("(max-width:800px)");
+  const [fullInfo, setFullInfo] = React.useState<StudentCardViewFullInfo>();
+
+  React.useEffect(() => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/positions" +
+          "/" +
+          props.id +
+          "/"
+      )
+      .then((response) => {
+        setFullInfo(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
+
+  if (!fullInfo) return null;
 
   return (
     <div>
-      <Button size="large" onClick={handleOpen}>
+      <Button size="large" onClick={handleOpen} sx={{ padding: "0.2rem" }}>
         LEARN MORE
       </Button>
       <Modal
@@ -59,7 +65,7 @@ export default function TransitionsModal() {
           <Box
             id="modal-main"
             sx={style}
-            minWidth={"27rem"}
+            minWidth={"25rem"}
             width={{ xs: "75%", sm: "65%", md: "55%", lg: "45%", xl: "40%" }}
             height={{ xs: "55%", sm: "60%", md: "65%", lg: "75%", xl: "85%" }}
           >
@@ -97,7 +103,11 @@ export default function TransitionsModal() {
                       sx={{ display: "flex" }}
                       alignItems={"center"}
                     >
-                      <Typography variant="h6">Sauleh Etemadi</Typography>
+                      <Typography variant="h6">
+                        {props.professor.user.first_name +
+                          " " +
+                          props.professor.user.last_name}
+                      </Typography>
                       <KeyboardArrowRightIcon />
                       <Button size="small" sx={{ height: "2rem" }}>
                         {isSmallScreen ? (
@@ -108,9 +118,11 @@ export default function TransitionsModal() {
                       </Button>
                     </Box>
                     <Typography color="text.secondary">
-                      Associate Professor at Queen's University
+                      Associate Professor at {props.professor.university}
                     </Typography>
-                    <Typography color="text.secondary">3w</Typography>
+                    <Typography color="text.secondary">
+                      {ConvDate(props.start_date, "week diff")}w
+                    </Typography>
                   </Box>
                 </Box>
                 <Box id="share-container"></Box>
@@ -127,20 +139,7 @@ export default function TransitionsModal() {
                 NLP/ML PhD Positions
               </Divider>
               <Box id="program-descriptions" padding={"0.5rem"}>
-                <Typography>
-                  Fully funded PhD and Master’s positions in Natural Language
-                  Processing and Machine Learning are available at the Text
-                  Analytics and Machine Learning Group (TAML), led by Dr.
-                  Xiaodan Zhu (www.xiaodanzhu.com), at the Department of
-                  Electrical and Computer Engineering at Queen’s University,
-                  Canada. The students may also be affiliated with the Ingenuity
-                  Labs Research Institute at Queen’s University
-                  (https://lnkd.in/gcDWiB5T). Our students come from top
-                  universities in Canada and across the globe. Our graduates
-                  work at top research and industrial organizations and
-                  companies in Canada and the U.S. We aim to create a diverse
-                  and inclusive learning and research environment.
-                </Typography>
+                <Typography>{fullInfo.description}</Typography>
               </Box>
               <Divider
                 textAlign="left"
@@ -168,7 +167,7 @@ export default function TransitionsModal() {
                   <TodayIcon sx={{ fontSize: "1.6rem" }} />
                   <Typography>Starting Date: </Typography>
                   <Typography fontWeight={"bold"}>
-                    Sep. 1, 2024 or Jan. 1, 2025
+                    {ConvDate(props.position_start_date, "full")}
                   </Typography>
                 </Box>
                 <Box
@@ -179,7 +178,9 @@ export default function TransitionsModal() {
                 >
                   <AccessAlarmsIcon sx={{ fontSize: "1.6rem" }} />
                   <Typography>Application Deadline:</Typography>
-                  <Typography fontWeight={"bold"}>May 30th, 2024</Typography>
+                  <Typography fontWeight={"bold"}>
+                    {ConvDate(props.position_end_date, "full")}
+                  </Typography>
                 </Box>
                 <Box
                   id="Duration"
@@ -189,7 +190,7 @@ export default function TransitionsModal() {
                 >
                   <AccessTimeIcon sx={{ fontSize: "1.6rem" }} />
                   <Typography>Duration: </Typography>
-                  <Typography fontWeight={"bold"}>2 years</Typography>
+                  <Typography fontWeight={"bold"}>{} days</Typography>
                 </Box>
                 <Box
                   id="fee"
@@ -199,9 +200,7 @@ export default function TransitionsModal() {
                 >
                   <PaidIcon sx={{ fontSize: "1.6rem" }} />
                   <Typography>Fee: </Typography>
-                  <Typography fontWeight={"bold"}>
-                    7,455,000,000 Rials
-                  </Typography>
+                  <Typography fontWeight={"bold"}>{props.fee} Rials</Typography>
                 </Box>
               </Box>
               <Divider
@@ -212,7 +211,7 @@ export default function TransitionsModal() {
                   color: "#404040",
                 }}
               >
-                About Queen’s University
+                About {props.professor.university}
               </Divider>
               <Box
                 id="about-uni"
