@@ -6,6 +6,9 @@ import AccountMenu from "../../../components/accountmenu/AccountMenu";
 import HomePageProfessorStyles from "./ProfessorHomePage-styles";
 import Styles from "Styles";
 import clsx from "clsx";
+import Navbar from "components/navbar_foter/navbar/navbar";
+import Footer from "components/navbar_foter/foter/foter";
+import { ProfessorRecentPositions } from "components/professor-recent-positions/ProfessorRecentPositions";
 
 export function ProfessorHomePage() {
     const globalClasses = Styles();
@@ -13,12 +16,13 @@ export function ProfessorHomePage() {
     const ProfessorHomePageClasses = HomePageProfessorStyles();
 
     return (
-        <>
-        <Box>
-            <CssBaseline />
-            <AccountMenu/>
-            
-        </Box>
+            <Box>
+                <CssBaseline />
+                {/* <Navbar /> */}
+                <AccountMenu />
+                <ProfessorRecentPositions />
+                {/* <Footer /> */}
 
+            </Box>
     );
 }
