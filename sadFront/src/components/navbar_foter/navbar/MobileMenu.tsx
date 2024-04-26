@@ -12,7 +12,7 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, showAuthButtons }) => {
   return (
-    <Drawer anchor="left" open={open} onClose={onClose}>
+    <Drawer anchor="right" open={open} onClose={onClose}>
       <List>
         <ListItem button component={Link} to="/students" onClick={onClose}>
           <ListItemText primary="Students" />
