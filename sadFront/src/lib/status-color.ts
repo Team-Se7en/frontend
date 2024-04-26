@@ -3,11 +3,11 @@ import theme from "Theme";
 
 export function statusColor(status: Status): string {
     switch (status) {
-        case Status.open:
+        case Status.Open:
             return theme.palette.status.open;
-        case Status.pending:
+        case Status.Pending:
             return theme.palette.status.pending;
-        case Status.closed:
+        case Status.Closed:
         default:
             return theme.palette.status.closed;
     }

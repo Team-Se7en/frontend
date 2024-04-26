@@ -9,16 +9,24 @@ export interface StatusCardProps extends CardActionsProps {
 export function StatusCard(props: StatusCardProps) {
     let backgroundImage;
     switch (props.status) {
-        case Status.pending:
+        case Status.Pending:
             backgroundImage = 'linear-gradient(to bottom right, #14213d, blue) !important';
             break;
 
-        case Status.open:
+        case Status.Open:
             backgroundImage = 'linear-gradient(to bottom right, #14213d, #50C878) !important';
             break;
 
-        case Status.closed:
+        case Status.Closed:
             backgroundImage = 'linear-gradient(to bottom right, #14213d, #FF0000) !important';
+            break;
+
+        case Status.Accepted:
+            
+            break;
+
+        case Status.Rejected:
+
             break;
 
         default:

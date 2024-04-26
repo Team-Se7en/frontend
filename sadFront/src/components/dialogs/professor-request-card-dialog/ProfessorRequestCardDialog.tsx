@@ -52,7 +52,7 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                 </Divider>
 
                 <Typography variant="body1">
-                    {props.model.startDate.toLocaleDateString('en-US')} - {props.model.endDate.toLocaleDateString('en-US')}
+                    {props.model.start_date.toLocaleDateString('en-US')} - {props.model.end_date.toLocaleDateString('en-US')}
                 </Typography>
 
                 <Typography variant="body1">
@@ -60,7 +60,7 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                 </Typography>
 
                 <Typography variant="body1">
-                    Needed: {props.model.studentCapacity}
+                    Needed: {props.model.capacity}
                 </Typography>
 
                 <Typography variant="body1">
@@ -68,7 +68,7 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                 </Typography>
 
                 <Typography variant="body1">
-                    Start Date: {props.model.positionStartDate.toLocaleDateString('en-US')},
+                    Start Date: {props.model.position_start_date.toLocaleDateString('en-US')},
                 </Typography>
 
                 <Typography variant="body1">

@@ -1,36 +1,65 @@
-import { Box, ButtonGroup, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, TextareaAutosize, TextField, Typography } from "@mui/material";
+import { Box, ButtonGroup, FormControl, FormHelperText, Grid, MenuItem, Select, TextareaAutosize, TextField, Typography } from "@mui/material";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Styles from "Styles";
 import { CancelButton, SaveButton, StyledTag, Wrapper } from "./CardModal-styles";
 import theme from "Theme";
-import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo, Status, University } from "@models";
+import { ProfessorCardViewFullInfo, Status, University } from "@models";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
+import { Bounce, toast } from "react-toastify";
+import { getPositionFullInfoProfessor } from "services/position.service";
 
 export interface CardModalProps {
-    model: ProfessorCardViewFullInfo | null;
+    model_id?: number;
 }
 
 export default function CardModal(props: CardModalProps) {
+    useEffect(() => {
+        const getModel = async () => {
+            try {
+                if (!props.model_id) {
+                    throw new Error('Invalid Id');
+                }
+                const result = await getPositionFullInfoProfessor(props.model_id);
+                setModelData(result.data);
+            } catch (e) {
+                toast.success("Couldn't retrieve position info", {
+                    position: "bottom-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                });
+            }
+        }
 
-    const isNew: boolean = props.model == null;
+        if (props.model_id) {
+            getModel();
+        }
+    }, [props.model_id]);
 
-    const universities: University[] = [{ name: 'IUST', description: 'Iran University of Science and Technology' }, { name: 'Tehran', description: 'Good University' }];
 
+    const [model, setModelData] = useState<ProfessorCardViewFullInfo>({
+        title: "",
+        description: "",
+        status: Status.Open,
+        start_date: new Date(),
+        end_date: new Date(),
+        tags: [],
+        fee: 0,
+        position_start_date: new Date(),
+        position_end_date: new Date(),
+        // duration: model?.duration ?? { year: 0, month: 0, day: 0 },
+        // university: props.model?.university ?? universities[0],
+        university: ,
+        requestingStudents: 0,
 
-    const [model, setModelData] = useState({
-        title: props.model?.title ?? "",
-        description: props.model?.description ?? "",
-        status: props.model?.status ?? Status.open,
-        startDate: dayjs(props.model?.startDate.toLocaleDateString('en-US')) ?? dayjs(new Date().toLocaleDateString('en-US')),
-        endDate: dayjs(props.model?.endDate.toLocaleDateString('en-US')) ?? dayjs(new Date().toLocaleDateString('en-US')),
-        tags: props.model?.tags ?? [],
-        fee: props.model?.fee ?? 0,
-        positionStartDate: props.model?.positionStartDate ?? Date.now(),
-        duration: props.model?.duration ?? { year: 0, month: 0, day: 0 },
-        university: props.model?.university ?? universities[0],
     });
 
     const handleInputChange = (event: any) => {
@@ -60,15 +89,6 @@ export default function CardModal(props: CardModalProps) {
             model.tags.push(event.target.value);
         handleInputChange(event);
     };
-
-    const handleUniversityChange = (_university: University) => {
-        setModelData({
-            ...model,
-            university: _university,
-        })
-        console.log(model.university);
-    };
-
 
     const globalStyles = Styles();
 
@@ -141,14 +161,53 @@ export default function CardModal(props: CardModalProps) {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                                 label="Application end date"
-                                value={model.endDate}
+                                value={dayjs(model.endDate)}
                                 onChange={handleInputChange}
                             />
                         </LocalizationProvider>
                     </FormControl>
 
+                    <FormControl fullWidth required sx={{ mt: 2 }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Position start date"
+                                value={model.position_start_date}
+                                onChange={handleInputChange}
+                            />
+                        </LocalizationProvider>
+                    </FormControl>
+                    <FormControl fullWidth required>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Position end date"
+                                value={model.position_end_date}
+                                onChange={handleInputChange}
+                            />
+                        </LocalizationProvider>
+                    </FormControl>
 
-                    <Typography variant="h6" textAlign="left" sx={{ width: '100%' }}>
+                    {/* <FormControl fullWidth required sx={{ mt: 2 }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Position start date"
+                                value={model.positionStartDate}
+                                onChange={handleInputChange}
+                            />
+                        </LocalizationProvider>
+                    </FormControl> */}
+
+                    {/* <FormControl fullWidth required>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Position end date"
+                                value={model.positionEndDate}
+                                onChange={handleInputChange}
+                            />
+                        </LocalizationProvider>
+                    </FormControl> */}
+
+
+                    {/* <Typography variant="h6" textAlign="left" sx={{ width: '100%' }}>
                         Duration
                     </Typography>
                     <Grid container spacing={2}>
@@ -179,7 +238,7 @@ export default function CardModal(props: CardModalProps) {
                                 onChange={handleInputChange}
                             />
                         </Grid>
-                    </Grid>
+                    </Grid> */}
 
                     <Grid container spacing={1} mt={2}>
                         <Grid item>

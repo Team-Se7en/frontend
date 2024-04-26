@@ -7,18 +7,21 @@ export const Wrapper = styled(Container)(() => ({
     // borderRadius: theme.shape.borderRadius,0
 }));
 
-export const SaveButton = styled(Button)(({ theme }) => ({
-    borderTopRightRadius: 0,
-    borderStartStartRadius: 0,
+export const SaveButton = styled(Button)(() => ({
+    // borderTopRightRadius: 0,
+    // borderStartStartRadius: 0,
+    borderRadius: 0,
     '&:hover': {
         backgroundColor: 'navy',
         color: 'white',
     }
 }));
 
-export const CancelButton = styled(Button)(({ theme }) => ({
-    borderTopLeftRadius: 0,
-    borderStartEndRadius: 0,
+export const CancelButton = styled(Button)(() => ({
+    // borderTopLeftRadius: 0,
+    // borderStartEndRadius: 0,
+    borderRadius: 0,
+
     '&:hover': {
         backgroundColor: 'red',
         color: 'white',

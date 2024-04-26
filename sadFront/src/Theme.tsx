@@ -26,6 +26,7 @@ const theme = createTheme({
             closed: 'linear-gradient(to bottom right, #ff9999 , #FFCCCC) !important',
         },
         backgroundColor: 'linear-gradient(to bottom right, #e5e4e2 , #f6f5f3) !important',
+        // color1: ''
     }
 });
 

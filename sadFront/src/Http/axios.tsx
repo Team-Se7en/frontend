@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance } from "axios";
 
 import Cookies from "js-cookie";
 

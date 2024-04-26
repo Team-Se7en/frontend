@@ -13,6 +13,7 @@ export function ProfessorHomePage() {
     const ProfessorHomePageClasses = HomePageProfessorStyles();
 
     return (
+        <>
         <Box>
             <CssBaseline />
             <AccountMenu/>

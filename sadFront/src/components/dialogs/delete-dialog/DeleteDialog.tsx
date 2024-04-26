@@ -5,7 +5,20 @@ import clsx from "clsx";
 import { WarningRounded } from "@mui/icons-material";
 import theme from "Theme";
 
-export default function DeleteDialog() {
+export interface DeleteDialogProps {
+    onYesClick?: () => void;
+    onNoClick?: () => void;
+}
+
+export default function DeleteDialog(props: DeleteDialogProps) {
+
+    const handleYesClick = () => {
+        props.onYesClick?.();
+    };
+
+    const handleNoClick = () => {
+        props.onNoClick?.();
+    };
 
     const globalStyles = Styles();
 
@@ -21,9 +34,9 @@ export default function DeleteDialog() {
                     Are you sure you want to delete this?
                 </Typography>
             </Box>
-            <ButtonGroup variant="" fullWidth>
-                <YesButton color="success" sx={{ borderStartStartRadius: 0 }}>Yes</YesButton>
-                <NoButton color="error" sx={{ borderStartEndRadius: 0 }}>No</NoButton>
+            <ButtonGroup variant="text" fullWidth>
+                <YesButton color="success" sx={{ borderRadius: 0 }} onClick={handleYesClick}>Yes</YesButton>
+                <NoButton color="error" sx={{ borderRadius: 0 }} onClick={handleNoClick}>No</NoButton>
             </ButtonGroup>
         </Wrapper>
     );

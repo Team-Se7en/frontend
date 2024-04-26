@@ -1,14 +1,36 @@
-import api from "./api";
+import { ResetTvOutlined } from "@mui/icons-material";
+import client from "Http/axios";
 
 export interface GetProfessorPositionsRequestModel {
     professorId: number;
 }
 
-export const getProfessorPositions = async(request: GetProfessorPositionsRequestModel) => {
+export const getProfessorRecentPositions = async() => {
     try {
-        return await api.get(`/eduPortal/positions/${request.professorId}`);
+        const result = await client.get(`/eduportal/professors/my_recent_positions`);
+        return result;
     } catch (e) {
         console.error(e);
         throw e;
     }
-}
+};
+
+export const deletePosition = async(id: number) => {
+    try {
+        const result = await client.delete(`/eduportal/positions/${id}`);
+        return result;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+export const getPositionFullInfoProfessor = async(id: number) => {
+    try {
+        const result = await client.get(`/eduportal/positions/${id}`);
+        return result;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};

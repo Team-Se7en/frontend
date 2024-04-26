@@ -4,20 +4,24 @@ import { PositionDuration, Professor, Status, University } from "@models";
 export interface CardInfo {
     id: number;
     title: string;
-    //studentCapacity: number;
+    capacity: number;
     status: Status;
-    starts_at: Date;
-    deadline: Date;
+    // starts_at: Date;
+    // deadline: Date;
     tags: string[];
     fee: number;
-    created_at: Date;
-    updated_at: Date;
-    duration: PositionDuration;
+    // created_at: Date;
+    // updated_at: Date;
+    // duration: PositionDuration;
+    start_date: Date;
+    end_date: Date;
+    position_start_date: Date;
+    position_end_date: Date;
 }
 
 export interface ProfessorCardViewShortInfo extends CardInfo {
-    universityName: string;
-    requestingStudents: number;
+    university_name: string;
+    request_count: number;
 }
 
 export interface ProfessorCardViewFullInfo extends CardInfo {
