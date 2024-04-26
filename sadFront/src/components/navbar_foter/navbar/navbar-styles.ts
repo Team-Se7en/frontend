@@ -38,6 +38,25 @@ const useStyles = makeStyles({
     margin: '0 0',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
   },
+  searchBar: {
+    marginRight:'-900px',
+    backgroundColor: '#FFFAFA',
+    padding: '1px',
+    
+    display: 'flex',
+    alignItems: 'center',
+  },
+  searchInput: {
+    flex: 1,
+    border: '40%',
+    outline: 'none',
+    marginLeft: '10px',
+    fontSize: '3px',
+  },
+  searchIcon: {
+    color: '#757575',
+    backgroundColor:'#FFFAFA',
+  },
 });
 
 export default useStyles;
