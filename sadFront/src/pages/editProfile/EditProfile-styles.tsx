@@ -13,7 +13,8 @@ const EditProfileStyles = makeStyles(() =>
             alignItems: 'center',
             justifyContent: 'center',
             width: '45rem !important',
-            height: 'fit-content',
+            height: 'calc(100vh - 4rem) !important',
+            overflow: 'auto'
         },
         background: {
             backgroundImage: `url(${ProfessorSignUpImage})`,
