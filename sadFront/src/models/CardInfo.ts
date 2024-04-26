@@ -31,6 +31,7 @@ export interface StudentCardViewShortInfo extends CardInfo {
 }
 
 export interface StudentCardViewFullInfo extends CardInfo {
+    professor: Professor;
     description: string;
-    university: University; 
+    capacity: number;
 }

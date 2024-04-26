@@ -9,18 +9,17 @@ import { StyledCardActions } from "./ProgramCard-styles";
 import { DeaedLineAndButton } from "./ProgramCard-styles";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import ProgramModal from "./../modals/program-modal/ProgramModal";
 import { ProfAndUni } from "./ProgramCard-styles";
 import { Deadline } from "./ProgramCard-styles";
 import { ProgramInfo } from "./ProgramCard-styles";
-import { StudentCardViewShortInfo } from "@models";
+import { StudentCardViewFullInfo } from "@models";
 import ProgramModal from "./../modals/program-modal/ProgramModal";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
 };
 
-export default function ProgramCard(props: StudentCardViewShortInfo) {
+export default function ProgramCard(props: StudentCardViewFullInfo) {
   return (
     <Box minWidth={"28rem"} width={"90%"} margin={"0.5rem"}>
       <StyledProgramCard variant="outlined">
@@ -116,8 +115,21 @@ export default function ProgramCard(props: StudentCardViewShortInfo) {
               </Typography>
             </Deadline>
             <StyledCardActions>
-              <ProgramModal></ProgramModal>
-              <ProgramModal></ProgramModal>
+              <ProgramModal
+                professor={props.professor}
+                description={props.description}
+                capacity={props.capacity}
+                id={props.id}
+                title={props.title}
+                status={props.status}
+                starts_at={props.starts_at}
+                deadline={props.deadline}
+                fee={props.fee}
+                created_at={props.created_at}
+                tags={props.tags}
+                updated_at={props.updated_at}
+                duration={props.duration}
+              ></ProgramModal>
             </StyledCardActions>
           </DeaedLineAndButton>
         </StyledCardContent>

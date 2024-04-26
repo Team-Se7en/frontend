@@ -4,11 +4,11 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { SampleCard } from "./SampleData";
 import axios from "axios";
-import { StudentCardViewShortInfo } from "@models";
+import { StudentCardViewFullInfo } from "@models";
 
 export function ProgramsList() {
   const [allPrograms, setAllPrograms] =
-    React.useState<StudentCardViewShortInfo[]>();
+    React.useState<StudentCardViewFullInfo[]>();
 
   React.useEffect(() => {
     axios
@@ -21,8 +21,8 @@ export function ProgramsList() {
       });
   }, []);
 
-  console.log(allPrograms);
   if (!allPrograms) return null;
+
   return (
     <Box
       width={"60%"}
@@ -59,6 +59,8 @@ export function ProgramsList() {
             updated_at={program.updated_at}
             created_at={program.created_at}
             deadline={program.deadline}
+            description="" //To be assigned later
+            capacity={0} //To be assigned later
           />
         ))}
       </Box>
