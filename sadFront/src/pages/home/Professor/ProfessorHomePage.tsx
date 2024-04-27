@@ -1,7 +1,9 @@
-import { Box, CssBaseline } from "@mui/material";
-import AccountMenu from "components/accountmenu/AccountMenu";
+
 
 // import Styles from "Styles";
+
+import { Box, CssBaseline } from "@mui/material";
+import AccountMenu from "../../../components/accountmenu/AccountMenu";
 
 // function showMenu(menu: ProfessorMenus) {
 //     switch (menu) {

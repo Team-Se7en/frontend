@@ -1,6 +1,6 @@
-import { createStyles, makeStyles } from "@mui/styles";
+import { makeStyles, createStyles } from "@mui/styles";
+import { ProfessorSignUpImage } from "../../../assets/images";
 
-import { ProfessorSignUpImage } from "@assets";
 
 const ProfessorSignUpStyles = makeStyles(() =>
     createStyles({

@@ -1,15 +1,13 @@
-import 'react-toastify/dist/ReactToastify.css';
-
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, IconButton, InputAdornment, Link, TextField, Typography } from "@mui/material";
-import { Flip, ToastContainer, toast } from 'react-toastify';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useEffect, useState } from "react";
-
-import Cookies from "js-cookie";
-import LoginStyles from "./Login.styles";
-import Styles from "Styles";
-import client from "../../Http/axios";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { Box, Container, CssBaseline, Avatar, Typography, TextField, InputAdornment, IconButton, FormControlLabel, Checkbox, Button, Grid } from "@mui/material";
 import clsx from "clsx";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { toast, ToastContainer, Flip } from "react-toastify";
+import client from "../../Http/axios";
+import Styles from "../../Styles";
+import LoginStyles from "./Login.styles";
+import Cookies from "js-cookie";
 
 export function Login() {
     const [formData, setFormData] = useState({
@@ -18,7 +16,7 @@ export function Login() {
     });
 
     const [emailError, setEmailError] = useState("");
-    const [openSnackbar, setOpenSnackbar] = useState(false);
+    // const [openSnackbar, setOpenSnackbar] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
 
@@ -128,7 +126,7 @@ export function Login() {
                 theme: "dark",
                 });
                 
-            setOpenSnackbar(true);
+            // setOpenSnackbar(true);
         });
         
     };
@@ -199,12 +197,12 @@ export function Login() {
                         </Button>
                         <Grid container>
                             <Grid item xs sx={{ paddingBottom: '20px' }}>
-                                <Link href="/forgot-pass" variant="body2" >
+                                <Link to="/forgot-pass" >
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/signup" variant="body2">
+                                <Link to="/signup">
                                     Don't have an account? Sign Up
                                 </Link>
                             </Grid>

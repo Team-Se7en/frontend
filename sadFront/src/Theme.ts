@@ -1,5 +1,7 @@
 import { createTheme } from "@mui/material";
 import { yellow } from "@mui/material/colors";
+import "@mui/material"
+
 declare module '@mui/material/styles' {
     interface PaletteOptions {
         button?: string;
@@ -13,6 +15,19 @@ declare module '@mui/material/styles' {
             rejected?: string;
         };
         backgroundColor?: string;
+    }
+    interface Palette {
+        button: string;
+        iconButton: string;
+        status: {
+            open: string;
+            pending: string;
+            closed: string;
+            notActive: string;
+            accepted: string;
+            rejected: string;
+        };
+        backgroundColor: string;
     }
   }
 

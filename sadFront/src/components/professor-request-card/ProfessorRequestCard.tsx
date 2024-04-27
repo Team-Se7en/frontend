@@ -1,20 +1,20 @@
-import { Box, Button, Dialog, DialogActions, Grid, IconButton, Modal, Tooltip, Typography } from "@mui/material";
-import { StyledBackgroundImage, StyledCard, StyledCardContent, StyledTag } from "./ProfessorRequestCard-styles";
-import { useEffect, useState } from "react";
-import { AccessTimeRounded, AttachMoneyRounded, CloseRounded, DeleteRounded, EditRounded, EventRounded, FullscreenExitOutlined, FullscreenRounded, HourglassTopRounded, SchoolRounded } from "@mui/icons-material";
-import theme from "Theme";
-import Styles from "Styles";
+import { EditRounded, DeleteRounded, AccessTimeRounded, EventRounded, SchoolRounded, AttachMoneyRounded, FullscreenExitOutlined, FullscreenRounded, CloseRounded } from "@mui/icons-material";
+import { Box, Tooltip, Typography, IconButton, Grid, Button, Dialog, DialogActions, Modal } from "@mui/material";
 import clsx from "clsx";
-import CardModal from "components/modals/card-modal/CardModal";
-import DeleteDialog from "components/dialogs/delete-dialog/DeleteDialog";
-import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo, Status } from "@models";
-import ProfessorRequestCardDialog from "components/dialogs/professor-request-card-dialog/ProfessorRequestCardDialog";
-import { enumToString } from "lib/enum-toString";
-import { deletePosition } from "services/position.service";
-import { Bounce, toast } from "react-toastify";
-import { Spacer } from "components/ui";
-import { StatusCircle } from "components/ui/status-circle/StatusCircle";
-import { formatTime } from "lib/format-time";
+import { useState } from "react";
+import { toast, Bounce } from "react-toastify";
+import { formatTime } from "../../lib/format-time";
+import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
+import { deletePosition } from "../../services/position.service";
+import Styles from "../../Styles";
+import theme from "../../Theme";
+import DeleteDialog from "../dialogs/delete-dialog/DeleteDialog";
+import ProfessorRequestCardDialog from "../dialogs/professor-request-card-dialog/ProfessorRequestCardDialog";
+import CardModal from "../modals/card-modal/CardModal";
+import { Spacer } from "../ui/Spacer";
+import { StatusCircle } from "../ui/status-circle/StatusCircle";
+import { StyledCard, StyledCardContent, StyledTag } from "./ProfessorRequestCard-styles";
+
 
 export interface ProfessorRequestCardProps {
     model: ProfessorCardViewShortInfo;
@@ -82,29 +82,29 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
 
     const globalStyles = Styles();
 
-    const fullInfo: ProfessorCardViewFullInfo = {
-        description: "description",
-        university: {
-            name: "IUST",
-            description: "Iran University of Science and Technology"
-        },
-        title: props.model.title,
-        capacity: props.model.capacity,
-        status: props.model.status,
-        start_date: props.model.start_date,
-        end_date: props.model.end_date,
-        tags: props.model.tags,
-        fee: props.model.fee,
-        position_start_date: props.model.position_start_date,
-        // duration: props.model.duration,
-        request_count: 0,
-        id: 0,
-        position_end_date: props.model.position_end_date,
-    }
+    // const fullInfo: ProfessorCardViewFullInfo = {
+    //     description: "description",
+    //     university: {
+    //         name: "IUST",
+    //         description: "Iran University of Science and Technology"
+    //     },
+    //     title: props.model.title,
+    //     capacity: props.model.capacity,
+    //     status: props.model.status,
+    //     start_date: props.model.start_date,
+    //     end_date: props.model.end_date,
+    //     tags: props.model.tags,
+    //     fee: props.model.fee,
+    //     position_start_date: props.model.position_start_date,
+    //     // duration: props.model.duration,
+    //     request_count: 0,
+    //     id: 0,
+    //     position_end_date: props.model.position_end_date,
+    // }
 
     return (
         <>
-            <StyledCard status={props.model.status} className={clsx(globalStyles.flexColumn)}>
+            <StyledCard className={clsx(globalStyles.flexColumn)}>
                 {/* <StyledBackgroundImage /> */}
                 <StyledCardContent className={clsx(globalStyles.flexColumn)}>
 
@@ -131,7 +131,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
 
                     <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween, globalStyles.vCenter)} sx={{ mt: 2 }}>
                         <Box gap={1} className={globalStyles.flexRow}>
-                            <AccessTimeRounded sx={{ color: theme.palette.accessTime }} />
+                            <AccessTimeRounded sx={{ color: theme.palette.iconButton }} />
                             <Typography variant="body1">
                                 {`${formatTime(props.model.start_date.toString())} - ${formatTime(props.model.end_date.toString())}`}
                             </Typography>

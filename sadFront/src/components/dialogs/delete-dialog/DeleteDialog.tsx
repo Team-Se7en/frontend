@@ -1,9 +1,9 @@
 import { Box, ButtonGroup, Typography } from "@mui/material";
 import { NoButton, Wrapper, YesButton } from "./DeleteDialog-styles";
-import Styles from "Styles";
 import clsx from "clsx";
 import { WarningRounded } from "@mui/icons-material";
-import theme from "Theme";
+import Styles from "../../../Styles";
+import theme from "../../../Theme";
 
 export interface DeleteDialogProps {
     onYesClick?: () => void;

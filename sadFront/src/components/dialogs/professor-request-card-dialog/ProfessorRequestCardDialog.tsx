@@ -1,11 +1,11 @@
-import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo, Status } from "@models";
-import { Box, Button, Collapse, DialogContent, DialogTitle, Divider, Grid, Typography } from "@mui/material";
-import { StyledTag } from "components/professor-request-card/ProfessorRequestCard-styles";
-import { formatTime } from "lib/format-time";
+import { Box, DialogTitle, DialogContent, Divider, Typography, Collapse, Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { toast, Bounce } from "react-toastify";
-import { getPositionFullInfoProfessor } from "services/position.service";
-import Styles from "Styles";
+import { formatTime } from "../../../lib/format-time";
+import { ProfessorCardViewFullInfo } from "../../../models/CardInfo";
+import { Status } from "../../../models/Status";
+import { getPositionFullInfoProfessor } from "../../../services/position.service";
+import { StyledTag } from "../../professor-request-card/ProfessorRequestCard-styles";
 
 export interface ProfessorRequestCardDialogProps {
     // cardId: string;
@@ -65,12 +65,12 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
         setDescriptionExpanded(!descriptionExpanded);
     };
 
-    const [universityExpanded, setUniversityExpanded] = useState(false);
-    const handleUniversityExpandClick = () => {
-        setUniversityExpanded(!universityExpanded);
-    };
+    // const [universityExpanded, setUniversityExpanded] = useState(false);
+    // const handleUniversityExpandClick = () => {
+    //     setUniversityExpanded(!universityExpanded);
+    // };
 
-    const globalStyles = Styles();
+    // const globalStyles = Styles();
 
     return (
         <Box>

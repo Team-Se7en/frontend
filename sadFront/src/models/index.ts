@@ -1,5 +1,0 @@
-export * from './CardInfo'
-export * from './Status'
-export * from './Professor'
-export * from './Student'
-export * from './University'

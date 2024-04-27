@@ -1,7 +1,7 @@
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import ProgramCardak from "components/programcard/ProgramCardak";
-import { SampleCard } from "./SampleData";
+import { Box, Divider } from "@mui/material";
+// import ProgramCardak from "../programcard/ProgramCardak";
+// import { SampleCard } from "./SampleData";
+
 
 export function ProgramsListCopy() {
   return (
@@ -17,7 +17,7 @@ export function ProgramsListCopy() {
       >
         Recent Programs
       </Divider>
-      <Box
+      {/* <Box
         height={"30rem"}
         my={4}
         display="flex"
@@ -106,7 +106,7 @@ export function ProgramsListCopy() {
           capacity={SampleCard.capacity}
           professor={SampleCard.professor}
         ></ProgramCardak>
-      </Box>
+      </Box> */}
     </Box>
   );
 }

@@ -1,6 +1,6 @@
-import { Height, WidthFull } from "@mui/icons-material";
-import { ProfessorImage, StudentImage } from "@assets";
-import { createStyles, makeStyles } from "@mui/styles";
+import { makeStyles, createStyles } from "@mui/styles";
+import { StudentImage, ProfessorImage } from "../../assets/images";
+
 
 const SignupStyles = makeStyles(() =>
     createStyles({

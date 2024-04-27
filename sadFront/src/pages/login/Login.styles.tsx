@@ -1,6 +1,6 @@
-import { createStyles, makeStyles } from "@mui/styles";
+import { makeStyles, createStyles } from "@mui/styles";
+import { AuthBackgroundImgae } from "../../assets/images";
 
-import { AuthBackgroundImgae } from "@assets";
 
 const LoginStyles = makeStyles(() =>
     createStyles({

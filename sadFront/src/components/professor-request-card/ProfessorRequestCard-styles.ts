@@ -1,14 +1,8 @@
-import { CardBackground } from "@assets";
-import { statusColor } from "@lib";
-import { Status } from "@models";
-import { Box, Card, CardActions, CardContent, CardProps, Chip, styled } from "@mui/material";
-import theme from "Theme";
+import { Card, CardContent, CardActions, Chip } from "@mui/material";
+import styled from "styled-components";
+import theme from "../../Theme";
 
-export interface StyledCardProps extends CardProps {
-    status: Status;
-}
-
-export const StyledCard = styled(Card)((props: StyledCardProps) => ({
+export const StyledCard = styled(Card)(() => ({
     // width: 'calc(100% - 10rem)',
     // maxWidth: '80rem',
     // minWidth: '20rem',
@@ -35,17 +29,17 @@ export const StyledCard = styled(Card)((props: StyledCardProps) => ({
     },
 }));
 
-export const StyledBackgroundImage = styled(Box)(({ theme }) => ({
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    opacity: '0.05',
-    backgroundImage: `url(${CardBackground})`,
-    backgroundPosition: 'left top',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    zIndex: '-1',
-}));
+// export const StyledBackgroundImage = styled(Box)(({ theme }) => ({
+//     width: '100%',
+//     height: '100%',
+//     position: 'absolute',
+//     opacity: '0.05',
+//     backgroundImage: `url(${CardBackground})`,
+//     backgroundPosition: 'left top',
+//     backgroundSize: 'cover',
+//     backgroundRepeat: 'no-repeat',
+//     zIndex: '-1',
+// }));
 
 export const StyledCardContent = styled(CardContent)(() => ({
     // height: 'calc(100% - 4.75rem)',

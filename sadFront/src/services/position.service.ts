@@ -1,6 +1,5 @@
-import { ProfessorCardViewFullInfo } from "@models";
-import { ResetTvOutlined } from "@mui/icons-material";
-import client from "Http/axios";
+import client from "../Http/axios";
+import { ProfessorCardViewFullInfo } from "../models/CardInfo";
 
 export interface GetProfessorPositionsRequestModel {
     professorId: number;

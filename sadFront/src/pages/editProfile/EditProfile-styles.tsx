@@ -1,5 +1,5 @@
-import { ProfessorSignUpImage } from "@assets";
-import { createStyles, makeStyles } from "@mui/styles";
+import { makeStyles, createStyles } from "@mui/styles";
+import { ProfessorSignUpImage } from "../../assets/images";
 
 const EditProfileStyles = makeStyles(() =>
     createStyles({

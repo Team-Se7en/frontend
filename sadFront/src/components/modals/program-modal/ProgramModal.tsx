@@ -1,22 +1,11 @@
-import * as React from "react";
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-import { Avatar } from "@mui/material";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
-import { useMediaQuery } from "@mui/material";
-import PaidIcon from "@mui/icons-material/Paid";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import TodayIcon from "@mui/icons-material/Today";
-import { StudentCardViewFullInfo } from "@models";
+import { useMediaQuery, Button, Modal, Backdrop, Fade, Box, Avatar, Typography, Divider } from "@mui/material";
 import axios from "axios";
+import React from "react";
+import { ConvDate } from "../../../lib/DateConvertor";
+import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import { style } from "./ProgramModal-styles";
-import { ConvDate } from "lib/DateConvertor";
+import { KeyboardArrowRight, Today, AccessAlarms, AccessTime, Paid } from "@mui/icons-material";
+
 
 export default function TransitionsModal(props: StudentCardViewFullInfo) {
   const [open, setOpen] = React.useState(false);
@@ -39,7 +28,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, []);
+  }, [props.id]);
 
   if (!fullInfo) return null;
 
@@ -108,7 +97,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                           " " +
                           props.professor.user.last_name}
                       </Typography>
-                      <KeyboardArrowRightIcon />
+                      <KeyboardArrowRight />
                       <Button size="small" sx={{ height: "2rem" }}>
                         {isSmallScreen ? (
                           <p>PROFILE</p>
@@ -164,7 +153,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   gap={"1rem"}
                   alignItems={"center"}
                 >
-                  <TodayIcon sx={{ fontSize: "1.6rem" }} />
+                  <Today sx={{ fontSize: "1.6rem" }} />
                   <Typography>Starting Date: </Typography>
                   <Typography fontWeight={"bold"}>
                     {ConvDate(props.position_start_date, "full")}
@@ -176,7 +165,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   gap={"1rem"}
                   alignItems={"center"}
                 >
-                  <AccessAlarmsIcon sx={{ fontSize: "1.6rem" }} />
+                  <AccessAlarms sx={{ fontSize: "1.6rem" }} />
                   <Typography>Application Deadline:</Typography>
                   <Typography fontWeight={"bold"}>
                     {ConvDate(props.position_end_date, "full")}
@@ -188,7 +177,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   gap={"1rem"}
                   alignItems={"center"}
                 >
-                  <AccessTimeIcon sx={{ fontSize: "1.6rem" }} />
+                  <AccessTime sx={{ fontSize: "1.6rem" }} />
                   <Typography>Duration: </Typography>
                   <Typography fontWeight={"bold"}>{} days</Typography>
                 </Box>
@@ -198,7 +187,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   gap={"1rem"}
                   alignItems={"center"}
                 >
-                  <PaidIcon sx={{ fontSize: "1.6rem" }} />
+                  <Paid sx={{ fontSize: "1.6rem" }} />
                   <Typography>Fee: </Typography>
                   <Typography fontWeight={"bold"}>{props.fee} Rials</Typography>
                 </Box>
@@ -231,7 +220,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   the Ontario Lake and is one of the most beautiful campuses in
                   Canada. Queen’s University is located in Kingston, a tourist
                   hotspot, and is situated between several big cities in
-                  Canada: Toronto, Montreal, and Ottawa, which are centers for
+                  Canada: Toronto, Montreal, and Ottawa, which are centers for
                   artificial intelligence research and dynamic cities to live
                   and visit.
                 </Typography>

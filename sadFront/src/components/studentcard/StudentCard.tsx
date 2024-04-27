@@ -1,20 +1,6 @@
-import * as React from "react";
-
-import { Avatar } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Chip from "@mui/material/Chip";
-import { Deadline } from "./StudentCard-styles";
-import { DeaedLineAndButton } from "./StudentCard-styles";
-import Icon from "@mui/material/Icon";
-import { ProfAndUni } from "./StudentCard-styles";
-import { ProgramInfo } from "./StudentCard-styles";
-import Stack from "@mui/material/Stack";
-import { StudentCardViewShortInfo } from "@models";
-import { StyledCardActions } from "./StudentCard-styles";
-import { StyledCardContent } from "./StudentCard-styles";
-import { StyledStudentCard } from "./StudentCard-styles";
-import Typography from "@mui/material/Typography";
+import { Box, Avatar, Typography, Icon, Stack, Chip, Button } from "@mui/material";
+import { StudentCardViewShortInfo } from "../../models/CardInfo";
+import { StyledStudentCard, StyledCardContent, ProgramInfo, ProfAndUni, DeaedLineAndButton, Deadline, StyledCardActions } from "./StudentCard-styles";
 
 const handleClick = () => {
     console.info("You clicked a topic.");
@@ -61,7 +47,7 @@ const handleClick = () => {
                 </Typography>
                 <ProfAndUni>
                     <Typography color="text.secondary" fontSize={"1rem"}>
-                    {props.professor.Name}
+                    {/* {props.professor.Name} */}
                     </Typography>
                     <Box
                     className="icon-uni"
@@ -71,7 +57,7 @@ const handleClick = () => {
                     >
                     <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
                     <Typography variant="body2" fontSize={"0.8rem"}>
-                        {props.universityName}
+                        {/* {props.universityName} */}
                     </Typography>
                     </Box>
                 </ProfAndUni>

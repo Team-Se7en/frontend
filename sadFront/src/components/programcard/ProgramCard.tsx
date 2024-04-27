@@ -1,20 +1,9 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { Avatar } from "@mui/material";
-import Icon from "@mui/material/Icon";
-import { StyledProgramCard } from "./ProgramCard-styles";
-import { StyledCardContent } from "./ProgramCard-styles";
-import { StyledCardActions } from "./ProgramCard-styles";
-import { DeaedLineAndButton } from "./ProgramCard-styles";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
-import { ProfAndUni } from "./ProgramCard-styles";
-import { Deadline } from "./ProgramCard-styles";
-import { ProgramInfo } from "./ProgramCard-styles";
-import { StudentCardViewFullInfo } from "@models";
-import ProgramModal from "./../modals/program-modal/ProgramModal";
-import { ConvDate } from "lib/DateConvertor";
-import { BottemInfo } from "./ProgramCard-styles";
+import { Box, Avatar, Typography, Icon, Stack, Chip } from "@mui/material";
+import { ConvDate } from "../../lib/DateConvertor";
+import { StudentCardViewFullInfo } from "../../models/CardInfo";
+import ProgramModal from "../modals/program-modal/ProgramModal";
+import { StyledProgramCard, StyledCardContent, ProgramInfo, ProfAndUni, BottemInfo, DeaedLineAndButton, Deadline, StyledCardActions } from "./ProgramCard-styles";
+
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -196,7 +185,7 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                   fee={props.fee}
                   start_date={props.start_date}
                   tags={props.tags}
-                  updated_at={props.updated_at}
+                  // updated_at={props.updated_at}
                   end_date={props.end_date}
                 ></ProgramModal>
               </StyledCardActions>

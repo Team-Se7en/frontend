@@ -1,13 +1,7 @@
-import {
-    Box,
-    Card,
-    CardActions,
-    CardContent,
-    getAppBarUtilityClass,
-    styled,
-} from "@mui/material";
+import { Card, CardContent, CardActions, Box } from "@mui/material";
+import styled from "styled-components";
 
-export const StyledStudentCard = styled(Card)(({ theme }) => ({
+export const StyledStudentCard = styled(Card)(() => ({
     borderRadius: "1rem",
 
     "&:hover": {
@@ -17,17 +11,17 @@ export const StyledStudentCard = styled(Card)(({ theme }) => ({
     },
     }));
 
-    export const StyledCardContent = styled(CardContent)(({ theme }) => ({
+    export const StyledCardContent = styled(CardContent)(() => ({
     display: "flex",
     padding: "1.5rem",
     flexDirection: "column",
     }));
 
-    export const StyledCardActions = styled(CardActions)(({ theme }) => ({
+    export const StyledCardActions = styled(CardActions)(() => ({
     padding: "0",
     }));
 
-    export const DeaedLineAndButton = styled(Box)(({ theme }) => ({
+    export const DeaedLineAndButton = styled(Box)(() => ({
     display: "flex",
     flexDirection: "row",
     marginTop: "0.3rem",
@@ -38,7 +32,7 @@ export const StyledStudentCard = styled(Card)(({ theme }) => ({
     width: "100%",
     }));
 
-    export const ProfAndUni = styled(Box)(({ theme }) => ({
+    export const ProfAndUni = styled(Box)(() => ({
     display: "flex",
     flexDirection: "column",
     gap: "0.2rem",
@@ -46,14 +40,14 @@ export const StyledStudentCard = styled(Card)(({ theme }) => ({
     width: "100%",
     }));
 
-    export const Deadline = styled(Box)(({ theme }) => ({
+    export const Deadline = styled(Box)(() => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: "0.5rem",
     }));
 
-    export const ProgramInfo = styled(Box)(({ theme }) => ({
+    export const ProgramInfo = styled(Box)(() => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

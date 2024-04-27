@@ -1,14 +1,12 @@
-import { Box, Button, Container, CssBaseline, Grid, Tab, Tabs, TextField, Typography } from "@mui/material";
-import Styles from "Styles";
+import { Box, Container, CssBaseline, Tabs, Tab, Grid, TextField, Button, Typography } from "@mui/material";
 import clsx from "clsx";
-import EditProfileStyles from "./EditProfile-styles";
-import { useEffect, useState } from "react";
-import { ProfessorProfileImage } from "@assets";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import client from "Http/axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import client from "../../Http/axios";
+import Styles from "../../Styles";
+import EditProfileStyles from "./EditProfile-styles";
+import { ProfessorProfileImage } from "../../assets/images";
+
 
 export function ProfessorEditProfile() {
     const [formData, setFormData] = useState({
@@ -73,14 +71,14 @@ export function ProfessorEditProfile() {
 
 
     const [value, setValue] = React.useState(0);
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
     const navigate = useNavigate();
-    const navigateToForgetPass = () => {
-        navigate("/forgot-pass");
-    }
+    // const navigateToForgetPass = () => {
+    //     navigate("/forgot-pass");
+    // }
     const navigateToHome = () => {
         navigate("/professorhomepage");
     }

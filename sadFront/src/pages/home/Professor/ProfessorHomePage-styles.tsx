@@ -1,8 +1,7 @@
 import { createStyles, makeStyles } from "@mui/styles";
+import { ProfessorHomePage } from "../../../assets/images";
 
-import { ProfessorHomePage } from "@assets";
-
-const HomePageProfessorStyles = makeStyles((theme) => createStyles({
+const HomePageProfessorStyles = makeStyles(() => createStyles({
     paperContainer: {
         backgroundImage: `url(${ProfessorHomePage})`,
         width: '100%',

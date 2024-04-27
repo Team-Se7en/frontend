@@ -1,9 +1,9 @@
-import * as React from "react";
-import ProgramCard from "components/programcard/ProgramCard";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
+import { Box, Divider } from "@mui/material";
 import axios from "axios";
-import { StudentCardViewFullInfo } from "@models";
+import React from "react";
+import { StudentCardViewFullInfo } from "../../models/CardInfo";
+import ProgramCard from "../programcard/ProgramCard";
+
 
 export function ProgramsList() {
   const [allPrograms, setAllPrograms] =
@@ -61,7 +61,7 @@ export function ProgramsList() {
             fee={145800000}
             position_start_date={program.position_start_date}
             position_end_date={program.position_end_date}
-            updated_at={program.updated_at}
+            // updated_at={program.updated_at}
             start_date={program.start_date}
             end_date={program.end_date}
             description="" //Will be assigned in modal

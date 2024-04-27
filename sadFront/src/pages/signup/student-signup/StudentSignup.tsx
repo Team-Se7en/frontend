@@ -1,22 +1,11 @@
-import {
-    Box,
-    Button,
-    Container,
-    CssBaseline,
-    Grid,
-    IconButton,
-    InputAdornment,
-    Link,
-    TextField,
-    Typography
-} from "@mui/material";
-import { Flip, ToastContainer, toast } from 'react-toastify';
+import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { Box, Container, CssBaseline, Typography, Grid, TextField, InputAdornment, IconButton, Button } from "@mui/material";
 import { useState } from "react";
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-
-import Cookies from "js-cookie";
-import StudentSignUpStyles from "./StudentSignup-styles";
+import { Link } from "react-router-dom";
+import { toast, ToastContainer, Flip } from "react-toastify";
 import client from "../../../Http/axios";
+import StudentSignUpStyles from "./StudentSignup-styles";
+import Cookies from "js-cookie";
 
 export function StudentSignup() {
     const [formData, setFormData] = useState({
@@ -28,8 +17,8 @@ export function StudentSignup() {
     });
     
     const [emailError, setEmailError] = useState("");
-    const [signupError, setsignupError] = useState("");
-    const [openSnackbar, setOpenSnackbar] = useState(false);
+    // const [signupError, setsignupError] = useState("");
+    // const [openSnackbar, setOpenSnackbar] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     
@@ -173,7 +162,7 @@ export function StudentSignup() {
 
     }
             
-        setOpenSnackbar(true);
+        // setOpenSnackbar(true);
     });
     
         
@@ -303,7 +292,7 @@ export function StudentSignup() {
 
                         <Grid container justifyContent="center" paddingTop='5px'>
                             <Grid item>
-                                <Link href="/login" variant="body2">
+                                <Link to="/login">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

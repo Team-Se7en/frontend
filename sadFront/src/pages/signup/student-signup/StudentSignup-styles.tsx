@@ -1,6 +1,5 @@
 import { createStyles, makeStyles } from "@mui/styles";
-
-import {StudentSignUpImage} from "@assets";
+import { StudentSignUpImage } from "../../../assets/images";
 
 const StudentSignUpStyles = makeStyles(() =>
     createStyles({

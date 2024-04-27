@@ -1,13 +1,12 @@
-import { Box, Button, Container, CssBaseline, Grid, Tab, Tabs, TextField, Typography } from "@mui/material";
-import Styles from "Styles";
+import { Box, Container, CssBaseline, Tabs, Tab, Grid, TextField, Button, Typography } from "@mui/material";
 import clsx from "clsx";
-import EditProfileStyles from "./EditProfile-styles";
-import { useEffect, useState } from "react";
-import { StudentProfileImage } from "@assets";
-import React from "react";
-import client from "Http/axios";
-import { Margin } from "@mui/icons-material";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import client from "../../Http/axios";
+import Styles from "../../Styles";
+import EditProfileStyles from "./EditProfile-styles";
+import { StudentProfileImage } from "../../assets/images";
+
 
 export function StudentEditProfile() {
     const [formData, setFormData] = useState({
@@ -86,7 +85,7 @@ export function StudentEditProfile() {
     }
 
     const [value, setValue] = React.useState(0);
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
@@ -101,7 +100,7 @@ export function StudentEditProfile() {
             }
         } else {
             if (name === "email") {
-                let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+                const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
                 if (!emailRegex.test(lowercasedValue)) {
                     setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
                 } else {

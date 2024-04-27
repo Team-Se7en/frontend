@@ -1,5 +1,5 @@
-import Navbar from "components/navbar_foter/navbar/navbar";
-import Footer from "components/navbar_foter/foter/foter"; 
+import Footer from "../../../components/navbar_foter/foter/foter";
+import Navbar from "../../../components/navbar_foter/navbar/navbar";
 
 function Landing() {
   return (

@@ -1,4 +1,5 @@
-import { Professor, Status, University } from "@models";
+import { Professor } from "./Professor";
+import { Status } from "./Status";
 
 
 export interface CardInfo {
@@ -12,7 +13,7 @@ export interface CardInfo {
     fee: number;
     position_start_date: Date;
     position_end_date: Date;
-    updated_at: Date;
+    // updated_at: Date;
 }
 
 export interface ProfessorCardViewShortInfo extends CardInfo {

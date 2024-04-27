@@ -1,11 +1,6 @@
-import {
-  Card,
-  styled,
-  CardActions,
-  CardContent,
-  Box,
-  getAppBarUtilityClass,
-} from "@mui/material";
+import { Card, CardContent, CardActions, Box } from "@mui/material";
+import styled from "styled-components";
+
 
 export const StyledProgramCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -17,14 +12,14 @@ export const StyledProgramCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-export const StyledCardContent = styled(CardContent)(({ theme }) => ({
+export const StyledCardContent = styled(CardContent)(() => ({
   display: "flex",
   padding: "1.5rem",
   flexDirection: "column",
   gap: "0.5rem",
 }));
 
-export const StyledCardActions = styled(CardActions)(({ theme }) => ({
+export const StyledCardActions = styled(CardActions)(() => ({
   padding: "0",
 }));
 

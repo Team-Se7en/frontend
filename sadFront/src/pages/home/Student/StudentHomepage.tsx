@@ -1,26 +1,11 @@
+import { useMediaQuery, AppBar, Toolbar, Avatar, Typography, Button, IconButton, Menu, Box, Grid } from "@mui/material";
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Menu,
-  Button,
-  Avatar,
-  useMediaQuery,
-  Box,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
-import useStyles from "./../Landing.page/Landing.style";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import Grid from "@mui/material/Grid";
-import { ProgramsList } from "components/programslist/ProgramsList";
+import { ProgramsList } from "../../../components/programslist/ProgramsList";
+import useStyles from "../Landing.page/Landing.style";
+import { AccountCircle, AddCircleOutline, Twitter, Instagram, LinkedIn, Telegram } from "@mui/icons-material";
+import { MenuBookOutlined } from "@material-ui/icons";
+
 
 export default function StudentHomepage() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -105,7 +90,7 @@ export default function StudentHomepage() {
             onClick={handleClick}
             style={{ marginRight: "10px" }}
           >
-            <MenuIcon />
+            <MenuBookOutlined />
           </IconButton>
           <Menu
             id="simple-menu"
@@ -115,7 +100,7 @@ export default function StudentHomepage() {
             onClose={handleClose}
           ></Menu>
           <Button color="inherit" component={Link} to="/login">
-            <AccountCircleIcon style={{ marginRight: "10px" }} />
+            <AccountCircle style={{ marginRight: "10px" }} />
             Login
           </Button>
           <Button
@@ -124,7 +109,7 @@ export default function StudentHomepage() {
             to="/signup"
             style={{ marginRight: "100px" }}
           >
-            <AddCircleOutlineIcon style={{ marginRight: "20px" }} />
+            <AddCircleOutline style={{ marginRight: "20px" }} />
             Sign up
           </Button>
         </Toolbar>
@@ -204,28 +189,28 @@ export default function StudentHomepage() {
                 color="inherit"
                 href="https://twitter.com"
               >
-                <TwitterIcon />
+                <Twitter />
               </IconButton>
               <IconButton
                 style={{ textTransform: "capitalize" }}
                 color="inherit"
                 href="https://instagram.com"
               >
-                <InstagramIcon />
+                <Instagram />
               </IconButton>
               <IconButton
                 style={{ textTransform: "capitalize" }}
                 color="inherit"
                 href="https://linkedin.com"
               >
-                <LinkedInIcon />
+                <LinkedIn />
               </IconButton>
               <IconButton
                 style={{ textTransform: "capitalize" }}
                 color="inherit"
                 href="https://telegram.com"
               >
-                <TelegramIcon />
+                <Telegram />
               </IconButton>
             </div>
           </Grid>

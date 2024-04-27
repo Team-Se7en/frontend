@@ -1,9 +1,8 @@
 import { Box, Container, Typography } from "@mui/material";
-
-import { Link } from "react-router-dom";
-import SignupStyles from "./Signup-styles";
-import Styles from "Styles";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
+import Styles from "../../Styles";
+import SignupStyles from "./Signup-styles";
 
 export function Signup() {
   const globalStyles = Styles();

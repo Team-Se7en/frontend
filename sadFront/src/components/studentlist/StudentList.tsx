@@ -1,7 +1,7 @@
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import { SampleCard } from "./SampleData";
-import StudentCard from "components/studentcard/StudentCard";
+import { Box, Divider } from "@mui/material";
+// import StudentCard from "../studentcard/StudentCard";
+// import { SampleCard } from "./SampleData";
+
 
 export function StudentList() {
 return (
@@ -17,7 +17,7 @@ return (
         >
         Recent Requests
         </Divider>
-        <Box
+        {/* <Box
         height={"30rem"}
         my={4}
         display="flex"
@@ -106,7 +106,7 @@ return (
             capacity={SampleCard.capacity}
             professor={SampleCard.professor}
         ></StudentCard>
-        </Box>
+        </Box> */}
     </Box>
     );
     }

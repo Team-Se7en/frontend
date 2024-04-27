@@ -1,15 +1,16 @@
-import { Box, ButtonGroup, FormControl, FormHelperText, Grid, MenuItem, Select, TextareaAutosize, TextField, Typography } from "@mui/material";
+import { Box, TextField, FormControl, Typography, TextareaAutosize, Grid, Select, MenuItem, FormHelperText, ButtonGroup } from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
-import Styles from "Styles";
-import { CancelButton, SaveButton, StyledTag, Wrapper } from "./CardModal-styles";
-import theme from "Theme";
-import { ProfessorCardViewFullInfo, Status, University } from "@models";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
-import { Bounce, toast } from "react-toastify";
-import { createPosition, getPositionFullInfoProfessor, updatePosition } from "services/position.service";
+import { useEffect, useState } from "react";
+import { toast, Bounce } from "react-toastify";
+import { ProfessorCardViewFullInfo } from "../../../models/CardInfo";
+import { Status } from "../../../models/Status";
+import { getPositionFullInfoProfessor, updatePosition, createPosition } from "../../../services/position.service";
+import Styles from "../../../Styles";
+import theme from "../../../Theme";
+import { Wrapper, StyledTag, CancelButton, SaveButton } from "./CardModal-styles";
 
 export interface CardModalProps {
     model_id?: number;
@@ -90,7 +91,6 @@ export default function CardModal(props: CardModalProps) {
         })
     };
 
-    const [tagToAdd, setTagToAdd] = useState('');
     const handleTagAdd = (event: any) => {
         if (event.target.value != '' && !model.tags.includes(event.target.value))
             model.tags.push(event.target.value);
@@ -273,7 +273,7 @@ export default function CardModal(props: CardModalProps) {
                     </Grid>
                     <FormControl fullWidth sx={{ mt: 2 }}>
                         {/* <InputLabel>Add Tag</InputLabel> */}
-                        <Select value={tagToAdd} onChange={handleTagAdd}>
+                        <Select onChange={handleTagAdd}>
 
                             <MenuItem value={"science"}>science</MenuItem>
                             <MenuItem value={"computer"}>computer</MenuItem>

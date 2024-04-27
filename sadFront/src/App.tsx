@@ -1,6 +1,7 @@
-import Routing from "Routing";
-import { ThemeProvider } from "@emotion/react";
-import theme from "Theme";
+import { ThemeProvider } from "styled-components";
+import Routing from "./Routing";
+import theme from "./Theme";
+
 
 function App() {
   return (

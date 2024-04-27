@@ -1,12 +1,12 @@
-import { Avatar, Box, Container, CssBaseline, Grid, Typography } from "@mui/material";
-
-import Styles from "Styles";
+import { Box, Container, CssBaseline, Avatar, Typography, Grid } from "@mui/material";
 import clsx from "clsx";
-import verificationStyles from "./AccountVerification.style";
+import Styles from "../../../Styles";
+import VerificationStyles from "./AccountVerification.style";
+
 
 export function Verification() {
     const globalClasses = Styles();
-    const verificationClasses = verificationStyles();
+    const verificationClasses = VerificationStyles();
 
     return (
         <Box className={clsx(globalClasses.verification)}>

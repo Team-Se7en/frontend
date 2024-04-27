@@ -1,21 +1,19 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {
-  Home,
-  Login,
-  ProfessorEditProfile,
-  ProfessorSignup,
-  Signup,
-  StudentSignup,
-} from "@pages";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ProfessorEditProfile } from "./pages/editProfile/ProfessorEditProfile";
+import { StudentEditProfile } from "./pages/editProfile/StudentEditProfile";
+import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
+import { Forgot } from "./pages/forgot-pass/Forgotpassword/ForgotPassword";
+import Newpassword from "./pages/forgot-pass/Newpassword/Newpassword";
+import Landing from "./pages/home/Landing.page/Landing";
+import { ProfessorHomePage } from "./pages/home/Professor/ProfessorHomePage";
+import StudentHomepage from "./pages/home/Student/StudentHomepage";
+import { ProfessorSignup } from "./pages/signup/professor-signup/ProfessorSignup";
+import Signup from "./pages/signup/Signup";
+import { SignupVerification } from "./pages/signup/SignupVerification";
+import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
+import { Login } from "./pages/login/Login";
+import { Home } from "./pages/home/Home";
 
-import { Forgot } from "pages/forgot-pass/Forgotpassword";
-import Landing from "pages/home/Landing.page/Landing";
-import { Newpassword } from "pages/forgot-pass/Newpassword";
-import { ProfessorHomePage } from "pages/home/Professor/ProfessorHomePage";
-import { SignupVerification } from "pages/signup/SignupVerification";
-import { StudentEditProfile } from "pages/editProfile/StudentEditProfile";
-import StudentHomepage from "pages/home/Student/StudentHomepage";
-import { Verification } from "pages/forgot-pass/AccountVerification";
 
 export default function Routing() {
     return (

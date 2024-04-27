@@ -1,15 +1,14 @@
-import 'react-toastify/dist/ReactToastify.css';
-
-import { Avatar, Box, Button, Container, CssBaseline, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
-import { Bounce, Flip, Slide, ToastContainer, Zoom, toast } from 'react-toastify';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import{ useEffect, useState } from 'react';
-
-import NewpasswordStyles from "./Newpassword.styles";
-import Styles from "Styles";
+import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { Box, Container, CssBaseline, Avatar, Typography, TextField, InputAdornment, IconButton, Button, Grid } from '@mui/material';
 import axios from 'axios';
-import clsx from "clsx";
-import { useParams } from "react-router-dom";
+import clsx from 'clsx';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { toast, Bounce, ToastContainer, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Styles from '../../../Styles';
+import NewpasswordStyles from './Newpassword.styles';
+
 
 export function Newpassword() {
     const [formData, setFormData] = useState({

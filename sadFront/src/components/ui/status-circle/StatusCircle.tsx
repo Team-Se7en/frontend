@@ -1,6 +1,7 @@
-import { statusColor } from "@lib";
-import { Status } from "@models"
-import { Box, Tooltip } from "@mui/material";
+import { Tooltip, Box } from "@mui/material";
+import { statusColor } from "../../../lib/status-color";
+import { Status } from "../../../models/Status";
+
 
 export interface StatusCircleProps {
     status: Status;

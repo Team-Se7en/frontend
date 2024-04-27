@@ -19,18 +19,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
-    /* Paths */
-    "baseUrl": "./src",
-    "paths": {
-      "@pages": ["pages"],
-      "@services": ["services"],
-      "@lib": ["lib"],
-      "@hooks": ["hooks"],
-      "@components": ["components"],
-      "@assets": ["assets"],
-      "@models": ["models"],
-    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

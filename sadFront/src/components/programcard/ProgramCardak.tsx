@@ -1,21 +1,7 @@
-import * as React from "react";
+import { Box, Avatar, Typography, Icon, Stack, Chip } from "@mui/material";
+import { StudentCardViewShortInfo } from "../../models/CardInfo";
+import { StyledProgramCard, StyledCardContent, ProgramInfo, ProfAndUni, DeaedLineAndButton, Deadline, StyledCardActions } from "./ProgramCard-styles";
 
-import { Avatar } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Chip from "@mui/material/Chip";
-import { Deadline } from "./ProgramCardak-styles";
-import { DeaedLineAndButton } from "./ProgramCardak-styles";
-import Icon from "@mui/material/Icon";
-import { ProfAndUni } from "./ProgramCardak-styles";
-import { ProgramInfo } from "./ProgramCardak-styles";
-import ProgramModal from "./../modals/program-modal/ProgramModal";
-import Stack from "@mui/material/Stack";
-import { StudentCardViewShortInfo } from "@models";
-import { StyledCardActions } from "./ProgramCardak-styles";
-import { StyledCardContent } from "./ProgramCardak-styles";
-import { StyledProgramCard } from "./ProgramCardak-styles";
-import Typography from "@mui/material/Typography";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -62,7 +48,7 @@ export default function ProgramCardak(props: StudentCardViewShortInfo) {
                 </Typography>
                 <ProfAndUni>
                   <Typography color="text.secondary" fontSize={"1rem"}>
-                    {props.professor.Name}
+                    {/* {props.professor.Name} */}
                   </Typography>
                   <Box
                     className="icon-uni"
@@ -72,7 +58,7 @@ export default function ProgramCardak(props: StudentCardViewShortInfo) {
                   >
                     <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
                     <Typography variant="body2" fontSize={"0.8rem"}>
-                      {props.universityName}
+                      {/* {props.universityName} */}
                     </Typography>
                   </Box>
                 </ProfAndUni>
@@ -118,7 +104,7 @@ export default function ProgramCardak(props: StudentCardViewShortInfo) {
               </Typography>
             </Deadline>
             <StyledCardActions>
-              <ProgramModal/>
+              {/* <ProgramModal/> */}
             </StyledCardActions>
           </DeaedLineAndButton>
         </StyledCardContent>

@@ -1,5 +1,5 @@
-import { Status } from "@models";
-import theme from "Theme";
+import { Status } from "../models/Status";
+import theme from "../Theme";
 
 export function statusColor(status: Status): string {
     switch (status) {

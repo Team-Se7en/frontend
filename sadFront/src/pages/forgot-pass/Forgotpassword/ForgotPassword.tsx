@@ -1,10 +1,11 @@
-import { Avatar, Box, Button, Container, CssBaseline, Grid, TextField, Typography } from "@mui/material";
+import { Box, Container, CssBaseline, Avatar, Typography, TextField, Button, Grid } from "@mui/material";
+import axios from "axios";
 import clsx from "clsx";
 import { useState } from "react";
-import Styles from "Styles";
-import ForgotStyles from "./forgotPassword.styles";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import Styles from "../../../Styles";
+import ForgotStyles from "./forgotPassword.styles";
+
 
 const isValidEmail = (email:any) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
