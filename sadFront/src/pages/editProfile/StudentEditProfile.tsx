@@ -2,18 +2,28 @@ import { Box, Button, Container, CssBaseline, Grid, Tab, Tabs, TextField, Typogr
 import Styles from "Styles";
 import clsx from "clsx";
 import EditProfileStyles from "./EditProfile-styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StudentProfileImage } from "@assets";
-import axios from "axios";
 import React from "react";
+import client from "Http/axios";
+import { Margin } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 export function StudentEditProfile() {
     const [formData, setFormData] = useState({
-        firstName: "Jesse",
-        lastName: "Amiri",
-        university: "MIP",
-        ssn: 2147483647,
+        firstName: "",
+        lastName: "",
+        university: "",
+        ssn: 0,
     });
+    const [EmailResetformData, emailResetFormData] = useState({
+        password: "",
+        email: "",
+    });
+
+    useEffect(() => {
+        showInfo()
+    })
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
@@ -36,23 +46,83 @@ export function StudentEditProfile() {
         }
 
         try {
-            const response = await axios.patch('https://seven-apply.liara.run/eduportal/student-profile/me/', sendingData);
-
-            if (response.status !== 204) {
-                throw new Error('Failed to edit student profile');
-            }
-
+            const response = await client.patch('/eduportal/student-profile/me/', sendingData);
+            console.log(response)
 
         } catch (error) {
             console.error('Error:', error);
-
         }
     };
+    const handleSubmitEmail = async (event: any) => {
+        event.preventDefault();
+        console.log(EmailResetformData);
+        const sendingData = {
+            current_password: EmailResetformData.password,
+            new_email: EmailResetformData.email
+        }
+
+        try {
+            const response = await client.post('/auth/users/set_email/', sendingData);
+            console.log(response)
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    async function showInfo() {
+
+        try {
+            const response = await client.get("/eduportal/userinfo/");
+            formData.firstName = response.data.first_name
+            formData.lastName = response.data.last_name
+            formData.ssn = response.data.student.ssn
+            formData.university = response.data.student.university_name
+            console.log(response)
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     const [value, setValue] = React.useState(0);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
+
+    const [emailError, setEmailError] = useState("");
+    const handleInputChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        const lowercasedValue = name === "email" ? value.toLowerCase() : value;
+
+        if (lowercasedValue.trim() === "") {
+            if (name === "email") {
+                setEmailError("");
+            }
+        } else {
+            if (name === "email") {
+                let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+                if (!emailRegex.test(lowercasedValue)) {
+                    setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
+                } else {
+                    setEmailError("");
+                }
+            }
+        }
+
+        emailResetFormData({
+            ...EmailResetformData,
+            [name]: lowercasedValue,
+        });
+    };
+
+    const navigate = useNavigate();
+    const navigateToForgetPass = () => {
+        navigate("/forgot-pass");
+    }
+    const navigateToHome = () => {
+        navigate("/studenthomepage");
+    }
 
     const globalClasses = Styles();
     const editProfileStyles = EditProfileStyles();
@@ -66,7 +136,7 @@ export function StudentEditProfile() {
                 >
                     <Box className={clsx(editProfileStyles.uperImage)}>
                         <img src={StudentProfileImage} className={clsx(editProfileStyles.profileImage)}></img>
-                        <Typography fontSize={30}>The Student</Typography>
+                        {/* <Typography fontSize={30}>Welcome</Typography> */}
                     </Box>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Box sx={{ width: '100%' }}>
@@ -74,10 +144,11 @@ export function StudentEditProfile() {
                                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                     <Tab label="Edit Profile" {...a11yProps(0)} />
                                     <Tab label="My Requests" {...a11yProps(1)} />
+                                    {/* <Tab label="Reset Email" {...a11yProps(2)} /> */}
                                 </Tabs>
                             </Box>
                             <CustomTabPanel value={value} index={0}>
-                                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, overflowX: "hidden" }}>
+                                <Box component="form" onSubmit={handleSubmit} onReset={showInfo} sx={{ mt: 1, overflowX: "hidden" }}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
@@ -119,66 +190,13 @@ export function StudentEditProfile() {
                                                 required
                                             />
                                         </Grid>
-                                        <Grid item xs={12}>
-                                            <TextField
-                                                fullWidth
-                                                label="University"
-                                                name="university"
-                                                value={formData.university}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <TextField
-                                                fullWidth
-                                                label="University"
-                                                name="university"
-                                                value={formData.university}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <TextField
-                                                fullWidth
-                                                label="University"
-                                                name="university"
-                                                value={formData.university}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <TextField
-                                                fullWidth
-                                                label="University"
-                                                name="university"
-                                                value={formData.university}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <TextField
-                                                fullWidth
-                                                label="University"
-                                                name="university"
-                                                value={formData.university}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <TextField
-                                                fullWidth
-                                                label="University"
-                                                name="university"
-                                                value={formData.university}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </Grid>
+                                        <Button sx={{ margin: 2 }}
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={navigateToForgetPass}
+                                        >
+                                            Reset Password
+                                        </Button>
                                         <Grid item xs={12} className={clsx(editProfileStyles.lowerButtons)}>
                                             <Button
                                                 type="submit"
@@ -191,17 +209,33 @@ export function StudentEditProfile() {
                                                 type="reset"
                                                 variant="contained"
                                                 color="warning"
+                                                onClick={navigateToHome}
                                             >
                                                 Cancel
                                             </Button>
                                         </Grid>
                                     </Grid>
-                                </Box>                            </CustomTabPanel>
+                                </Box>
+                            </CustomTabPanel>
                             <CustomTabPanel value={value} index={1}>
                                 Item Two
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={2}>
-                                Item Three
+                                <Box component="form" onSubmit={handleSubmitEmail} sx={{ mt: 1, overflowX: "hidden" }}>
+                                    <TextField
+                                        error={!!emailError}
+                                        helperText={emailError}
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        autoFocus
+                                        value={EmailResetformData.email}
+                                        onChange={handleInputChangeEmail}
+                                    />
+                                </Box>
                             </CustomTabPanel>
                         </Box>
                     </Box>
