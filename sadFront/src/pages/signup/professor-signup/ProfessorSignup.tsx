@@ -1,13 +1,10 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
-  Avatar,
   Box,
   Button,
-  Checkbox,
   Container,
   CssBaseline,
-  FormControlLabel,
   Grid,
   IconButton,
   InputAdornment,
@@ -16,7 +13,7 @@ import {
   Typography
 } from "@mui/material";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
-import React, { useState } from "react";
+import { useState } from "react";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import Cookies from "js-cookie";
@@ -48,7 +45,7 @@ export function ProfessorSignup() {
       }
   } else {
       if (name === "email") {
-          let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+          const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
           if (!emailRegex.test(lowercasedValue)) {
               setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
           } else {
@@ -67,7 +64,7 @@ export function ProfessorSignup() {
   const handleSubmit = (event:any) => {
     event.preventDefault();
 
-    let data = {
+    const data = {
       'first_name': formData.firstName,
       'last_name': formData.lastName,
       'is_student': false,

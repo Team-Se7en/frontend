@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, DialogProps, Typography } from "@mui/material";
+import { Box, ButtonGroup, Typography } from "@mui/material";
 import { NoButton, Wrapper, YesButton } from "./DeleteDialog-styles";
 import Styles from "Styles";
 import clsx from "clsx";

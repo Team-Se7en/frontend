@@ -1,7 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, IconButton, InputAdornment, Link, TextField, Typography } from "@mui/material";
-import { Bounce, Flip, Slide, ToastContainer, Zoom, toast } from 'react-toastify';
+import { Flip, ToastContainer, toast } from 'react-toastify';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useEffect, useState } from "react";
 
@@ -52,7 +52,7 @@ export function Login() {
             }
         } else {
             if (name === "email") {
-                let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+                const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
                 if (!emailRegex.test(lowercasedValue)) {
                     setEmailError("Invalid Email Format. Please Enter a Valid Email Address.");
                 } else {
@@ -69,7 +69,7 @@ export function Login() {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        let data = {
+        const data = {
             email:formData.email,
             password: formData.password,
         };

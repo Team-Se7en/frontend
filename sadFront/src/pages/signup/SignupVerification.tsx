@@ -6,15 +6,11 @@ import {
     Button,
     Container,
     CssBaseline,
-    Grid,
-    TextField,
     Typography,
 } from "@mui/material";
-import{ useEffect, useState } from 'react';
+import{ useEffect } from 'react';
 
-import Cookies from "js-cookie";
 import StudentSignUpStyles from "./student-signup/StudentSignup-styles";
-import axios from "axios";
 import client from "../../Http/axios";
 import { useParams } from "react-router-dom";
 

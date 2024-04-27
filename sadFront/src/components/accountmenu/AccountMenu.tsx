@@ -4,17 +4,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Import the
 import AddIcon from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
-import LogoutIcon from '@mui/icons-material/Logout';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
