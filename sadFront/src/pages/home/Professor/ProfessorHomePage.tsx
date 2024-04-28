@@ -3,7 +3,9 @@
 // import Styles from "Styles";
 
 import { Box, CssBaseline } from "@mui/material";
+
 import AccountMenu from "../../../components/accountmenu/AccountMenu";
+import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
 
 // function showMenu(menu: ProfessorMenus) {
 //     switch (menu) {
@@ -43,7 +45,8 @@ export function ProfessorHomePage() {
         <Box>
             <CssBaseline />
             {/* <Navbar /> */}
-            <AccountMenu />
+            {/* <AccountMenu /> */}
+            <ProfessorHeader/>
             {/* <Box className={globalClasses.fullyCenter}>
                 {
                     showMenu(activeMenu)
