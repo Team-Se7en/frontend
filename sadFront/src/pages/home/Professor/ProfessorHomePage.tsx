@@ -5,6 +5,7 @@
 import { Box, CssBaseline } from "@mui/material";
 
 import AccountMenu from "../../../components/accountmenu/AccountMenu";
+import ProfessorFilter from "../../../components/ProfessorFilter/ProfessorFilter";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
 
 // function showMenu(menu: ProfessorMenus) {
@@ -53,6 +54,8 @@ export function ProfessorHomePage() {
                 }
             </Box> */}
             {/* <Footer /> */}
+
+            <ProfessorFilter/>
 
         </Box>
     );
