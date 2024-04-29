@@ -55,9 +55,11 @@ export function ProfessorHomePage() {
             </Box> */}
             {/* <Footer /> */}
 
-            <ProfessorFilter/>
+            <ProfessorFilter onProfessorFilter={function (filter: IIRFilterOptions): void {
+                throw new Error("Function not implemented.");
+            } }/>
 
-            <ProfessorSort/>
+            {/* <ProfessorSort/> */}
 
 
         </Box>
