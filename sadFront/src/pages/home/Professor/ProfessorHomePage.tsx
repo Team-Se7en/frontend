@@ -4,9 +4,9 @@
 
 import { Box, CssBaseline } from "@mui/material";
 
-import AccountMenu from "../../../components/accountmenu/AccountMenu";
 import ProfessorFilter from "../../../components/ProfessorFilter/ProfessorFilter";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
+import ProfessorSort from "../../../components/ProfessorSort/ProfessorSort";
 
 // function showMenu(menu: ProfessorMenus) {
 //     switch (menu) {
@@ -56,6 +56,9 @@ export function ProfessorHomePage() {
             {/* <Footer /> */}
 
             <ProfessorFilter/>
+
+            <ProfessorSort/>
+
 
         </Box>
     );
