@@ -12,7 +12,7 @@ interface FilterOptions {
     year: number[];
 }
 
-const ProfessorFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
+const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
     const [term, setTerm] = useState<FilterOptions['term']>([]);
     const [feeMin, setFeeMin] = useState<number>(0);
     const [feeMax, setFeeMax] = useState<number>(500);
@@ -73,20 +73,13 @@ const ProfessorFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <Typography sx={{ marginBottom: '48px' }}>Fee Range:</Typography>
-                    <Slider  sx={{marginTop:'16px'}} value={[feeMin, feeMax]} onChange={(_, newValue) => {
+                    <Slider  sx={{marginTop:'16px', color: '#0F1035',}} value={[feeMin, feeMax]} onChange={(_, newValue) => {
                         setFeeMin(newValue[0] as number);
                         setFeeMax(newValue[1] as number);
                     }}
                     min={0}
                     max={500}
                     valueLabelDisplay="on"
-                    sx={{
-                        "& .MuiSlider-valueLabel": {
-                            color: '#0F1035',
-                            backgroundColor: '#FFEC9E',
-                            margintop: '8px'
-                        },
-                    }}
                     />
                     <Typography  sx={{ color: 'gray' }}>{`Fee Range: ${feeMin}$ - ${feeMax}$`}</Typography>
 
@@ -94,12 +87,17 @@ const ProfessorFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
             </Grid>
             
             <Grid sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-            <Button onClick={handleApplyFilter} variant="contained" color="primary" sx={{ marginTop: '16px', marginRight: '16px'}}>Apply</Button>
-            <Button onClick={handleResetFilter} variant="contained" color="secondary" sx={{ marginTop: '16px' }}>Reset</Button>
+            <Button onClick={handleApplyFilter}
+            sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#0F1035'}}>
+            Apply</Button>
+            
+            <Button onClick={handleResetFilter}
+            sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#7FC7D9 '}}>
+            Reset</Button>
             </Grid>
 
         </Box>
     );
 };
 
-export default ProfessorFilter;
+export default ProfessorPositionFilter;

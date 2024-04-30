@@ -4,9 +4,11 @@
 
 import { Box, CssBaseline } from "@mui/material";
 
-import ProfessorFilter from "../../../components/ProfessorFilter/ProfessorFilter";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
-import ProfessorSort from "../../../components/ProfessorSort/ProfessorSort";
+import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter/ProfessorPositionFilter";
+import ProfessorPositionsFilter from "../../../components/ProfessorPositionsFilter/ProfessorPositionsFilter";
+
+// import ProfessorSort from "../../../components/ProfessorSort/ProfessorSort";
 
 // function showMenu(menu: ProfessorMenus) {
 //     switch (menu) {
@@ -55,11 +57,16 @@ export function ProfessorHomePage() {
             </Box> */}
             {/* <Footer /> */}
 
-            <ProfessorFilter onProfessorFilter={function (filter: IIRFilterOptions): void {
+            <ProfessorPositionFilter onProfessorFilter={function (filter: IIRFilterOptions): void {
                 throw new Error("Function not implemented.");
+            
             } }/>
 
             {/* <ProfessorSort/> */}
+
+            <ProfessorPositionsFilter onProfessorFilter={function (filter: FilterOptions): void {
+                throw new Error("Function not implemented.");
+            } }/>
 
 
         </Box>
