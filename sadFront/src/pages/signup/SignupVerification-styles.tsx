@@ -1,10 +1,8 @@
 import { createStyles, makeStyles } from "@mui/styles";
-import { Verification } from "../../assets/images";
 
 const SignUpVerificationStyles = makeStyles(() =>
     createStyles({
         authBackground: {
-            backgroundImage: `url(${Verification})`,
             backgroundColor:"",
             backgroundPosition: ' center center',
             backgroundRepeat: "no-repeat",

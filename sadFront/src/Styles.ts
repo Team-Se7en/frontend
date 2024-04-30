@@ -1,6 +1,5 @@
 import { makeStyles, createStyles } from "@mui/styles";
-import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
-import { AuthBackgroundImgae, NewPassword, ApplicationProcess } from "./assets/images";
+import { AuthBackgroundImgae, NewPassword, ApplicationProcess, Verification } from "./assets/images";
 
 const Styles = makeStyles(() => 
     createStyles({
