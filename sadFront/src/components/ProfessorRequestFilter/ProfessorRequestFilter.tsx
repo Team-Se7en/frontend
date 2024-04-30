@@ -6,13 +6,15 @@ interface FilterProps {
 }
 
 interface FilterOptions {
+    status: ('accepted'|'rejected'|'pending')[];
     term: ('spring' | 'summer' | 'autumn')[];
     feeMin: number;
     feeMax: number;
     year: number[];
 }
 
-const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
+const ProfessorRequestFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
+    const [status, setStatus] = useState<FilterOptions['status']>([]);
     const [term, setTerm] = useState<FilterOptions['term']>([]);
     const [feeMin, setFeeMin] = useState<number>(0);
     const [feeMax, setFeeMax] = useState<number>(500);
@@ -22,6 +24,7 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
 
     const handleApplyFilter = () => {
         const filter: FilterOptions = {
+            status,
             term,
             feeMin,
             feeMax,
@@ -31,6 +34,7 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
     };
 
     const handleResetFilter = () => {
+        setStatus([]);
         setTerm([]);
         setFeeMin(0);
         setFeeMax(500);
@@ -40,7 +44,60 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', padding:'64px'}}>
             <Typography variant="h5">Filter</Typography>
-            <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+            <Grid container spacing={1} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+            <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                    <Typography variant="body1">Status</Typography>
+                    <FormControlLabel
+                        control={<Checkbox checked={status.includes('accepted')}
+                        onChange={() => setStatus(prev => prev.includes('accepted') ? prev.filter(t => t !== 'accepted') : [...prev, 'accepted'])}
+                        sx={{
+                            '& .MuiSvgIcon-root': {
+                                fontSize: '1rem' 
+                            }
+                        }}
+                        />}
+                        label="Accepted"
+                        sx={{
+                            '& .MuiFormControlLabel-label': {
+                                fontSize: '0.8rem'
+                            }
+                        }}
+                    />
+                    
+                    <FormControlLabel
+                        control={<Checkbox checked={status.includes('rejected')}
+                        onChange={() => setStatus(prev => prev.includes('rejected') ? prev.filter(t => t !== 'rejected') : [...prev, 'rejected'])}
+                        sx={{
+                            '& .MuiSvgIcon-root': {
+                                fontSize: '1rem' 
+                            }
+                        }}
+                        />}
+                        label="Rejected"
+                        sx={{
+                            '& .MuiFormControlLabel-label': {
+                                fontSize: '0.8rem'
+                            }
+                        }}
+                    />
+                    <FormControlLabel
+                        control={<Checkbox checked={status.includes('pending')}
+                        onChange={() => setStatus(prev => prev.includes('pending') ? prev.filter(t => t !== 'pending') : [...prev, 'pending'])}
+                        sx={{
+                            '& .MuiSvgIcon-root': {
+                                fontSize: '1rem' 
+                            }
+                        }}
+                        />}
+                        label="Pending"
+                        sx={{
+                            '& .MuiFormControlLabel-label': {
+                                fontSize: '0.8rem'
+                            }
+                        }}
+                    />
+
+                </Grid>
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                     <Typography variant="body1">Term</Typography>
                     <FormControlLabel
@@ -144,4 +201,4 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
     );
 };
 
-export default ProfessorPositionFilter;
+export default ProfessorRequestFilter;

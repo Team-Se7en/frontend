@@ -5,27 +5,32 @@ import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter
 import ProfessorPositionSort from "../../../components/ProfessorPositionSort/ProfessorPositionSort";
 import ProfessorPositionsFilter from "../../../components/ProfessorPositionsFilter/ProfessorPositionsFilter";
 import ProfessorPositionsSort from "../../../components/ProfessorPositionsSort/ProfessorPositionsSort";
+import ProfessorRequestFilter from "../../../components/ProfessorRequestFilter/ProfessorRequestFilter";
 
 export function ProfessorHomePage() {
-
     return (
         <Box>
             <CssBaseline />
 
             <ProfessorHeader/>
 
-            <ProfessorPositionFilter onProfessorFilter={function (filter: IIRFilterOptions): void {
-                throw new Error("Function not implemented.");
-            } }/>
+            <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-between" overflowX="hidden" sx={{ gap: '8px' }}>
+                <ProfessorRequestFilter onProfessorFilter={(filter) => {
+                    throw new Error("Function not implemented.");
+                }}/>
 
-            <ProfessorPositionsFilter onProfessorFilter={function (filter: IIRFilterOptions): void {
-                throw new Error("Function not implemented.");
-            } }/>
-            
-            <ProfessorPositionSort/>
-            
-            <ProfessorPositionsSort/>
+                {/* <ProfessorPositionFilter onProfessorFilter={(filter) => {
+                    throw new Error("Function not implemented.");
+                }}/>
 
+                <ProfessorPositionsFilter onProfessorFilter={(filter) => {
+                    throw new Error("Function not implemented.");
+                }}/> */}
+
+                {/* <ProfessorPositionSort/> */}
+                
+                <ProfessorPositionsSort/>
+            </Box>
 
         </Box>
     );

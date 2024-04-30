@@ -56,7 +56,7 @@ const ProfessorPositionsSort: React.FC = () => {
 
     return (
         <div>
-            <FormControl sx={{ m: 1, width: 300 }}>
+            <FormControl sx={{ m: 1, width: 250 }}>
                 <InputLabel id="demo-multiple-chip-label">Sort By</InputLabel>
                 <Select
                     labelId="demo-multiple-chip-label"

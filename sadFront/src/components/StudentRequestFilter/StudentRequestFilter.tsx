@@ -12,7 +12,7 @@ interface FilterOptions {
     year: number[];
 }
 
-const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
+const StudentRequestFilterFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
     const [term, setTerm] = useState<FilterOptions['term']>([]);
     const [feeMin, setFeeMin] = useState<number>(0);
     const [feeMax, setFeeMax] = useState<number>(500);
@@ -144,4 +144,4 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
     );
 };
 
-export default ProfessorPositionFilter;
+export default StudentRequestFilterFilter;
