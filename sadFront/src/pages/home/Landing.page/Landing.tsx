@@ -1,5 +1,5 @@
-import Navbar from "components/navbar/navbar/navbar";
-import Footer from "components/footer/footer/footer"; 
+import Navbar from "../../../components/navbar/navbar/navbar";
+import Footer from "../../../components/footer/footer/footer";
 import { Box } from "@mui/material";
 
 function Landing() {
