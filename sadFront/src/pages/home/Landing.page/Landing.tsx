@@ -1,10 +1,12 @@
-import Footer from "../../../components/navbar_foter/foter/foter";
-import Navbar from "../../../components/navbar_foter/navbar/navbar";
+import Navbar from "components/navbar/navbar/navbar";
+import Footer from "components/footer/footer/footer"; 
+import { Box } from "@mui/material";
 
 function Landing() {
   return (
     <div>
       <Navbar showAuthButtons={true} /> 
+      <Box sx={{ height: '470px' }} />
       <Footer />
     </div>
   );

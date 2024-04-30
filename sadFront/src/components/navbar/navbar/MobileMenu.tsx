@@ -1,8 +1,10 @@
 // MobileMenu.tsx
 
 import React from 'react';
-import { Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { Drawer, List, ListItem, ListItemText} from '@mui/material';
 import { Link } from 'react-router-dom';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 interface MobileMenuProps {
   open: boolean;
@@ -12,10 +14,10 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, showAuthButtons }) => {
   return (
-    <Drawer anchor="right" open={open} onClose={onClose}>
+    <Drawer  anchor="right" open={open} onClose={onClose}>
       <List>
-        <ListItem button component={Link} to="/students" onClick={onClose}>
-          <ListItemText primary="Students" />
+        <ListItem   component={Link} to="/students" onClick={onClose}>
+          <ListItemText  primary="Students" />
         </ListItem>
         <ListItem button component={Link} to="/professors" onClick={onClose}>
           <ListItemText primary="Professors" />
@@ -25,10 +27,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, showAuthButtons 
         </ListItem>
         {showAuthButtons && (
           <>
+          
             <ListItem button component={Link} to="/login" onClick={onClose}>
+            <AccountCircleIcon/>
               <ListItemText primary="Login" />
             </ListItem>
             <ListItem button component={Link} to="/signup" onClick={onClose}>
+            <AddCircleOutlineIcon />
               <ListItemText primary="Signup" />
             </ListItem>
           </>

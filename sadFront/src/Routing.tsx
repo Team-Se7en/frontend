@@ -12,14 +12,14 @@ import Signup from "./pages/signup/Signup";
 import { SignupVerification } from "./pages/signup/SignupVerification";
 import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
 import { Login } from "./pages/login/Login";
-import { Home } from "./pages/home/Home";
+
 
 
 export default function Routing() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="" element={<Home />} />
+                {/* <Route path="" element={<Home />} /> */}
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
                 <Route path="signup/student" element={<StudentSignup />} />
@@ -32,7 +32,7 @@ export default function Routing() {
                 <Route path="password/reset/confirm/:uid/:token" element={<Newpassword />} />
                 <Route path="activate/:uid/:token" element={<SignupVerification/>} />
 
-                <Route path="home" element={<Landing />} />
+                <Route path="" element={<Landing />} />
                 <Route path="newpassword" element={<Newpassword />} />
                 <Route path="professorhomepage" element={<ProfessorHomePage />} />
               <Route path="studenthomepage" element={<StudentHomepage />} />
