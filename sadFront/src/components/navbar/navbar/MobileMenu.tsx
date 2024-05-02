@@ -16,7 +16,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, showAuthButtons 
   return (
     <Drawer  anchor="right" open={open} onClose={onClose}>
       <List>
-        <ListItem   component={Link} to="/students" onClick={onClose}>
+        <ListItem  button component={Link} to="/students" onClick={onClose}>
           <ListItemText  primary="Students" />
         </ListItem>
         <ListItem button component={Link} to="/professors" onClick={onClose}>
