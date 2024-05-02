@@ -6,23 +6,23 @@ interface FilterProps {
 }
 
 interface FilterOptions {
-    status: ('accepted' | 'rejected' | 'pending')[];
+    isfilled: ('Yes' | 'No')[];
     term: ('spring' | 'summer' | 'autumn')[];
     feeMin: number;
     feeMax: number;
     year: number[];
 }
 
-const StudentRequestFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
+const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
     const [term, setTerm] = useState<FilterOptions['term']>([]);
     const [feeMin, setFeeMin] = useState<number>(0);
     const [feeMax, setFeeMax] = useState<number>(500);
     const [year, setYear] = useState<number[]>([]);
-    const [status, setStatus] = useState<FilterOptions['status']>([]);
-    const statusOptions: ('accepted' | 'rejected' | 'pending')[] = ['accepted', 'rejected', 'pending'];
+    const [isfilled, setIsfilled] = useState<FilterOptions['isfilled']>([]);
+    const isfilledOptions: ('Yes' | 'No')[] = ['Yes', 'No'];
 
-    const toggleStatusOption = (option: 'accepted' | 'rejected' | 'pending') => {
-        setStatus(prev => {
+    const toggleIsfilledOption = (option: 'Yes' | 'No') => {
+        setIsfilled(prev => {
             const isOptionSelected = prev.includes(option);
             if (isOptionSelected) {
                 return prev.filter(item => item !== option);
@@ -34,7 +34,7 @@ const StudentRequestFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
 
     const handleApplyFilter = () => {
         const filter: FilterOptions = {
-            status,
+            isfilled,
             term,
             feeMin,
             feeMax,
@@ -44,7 +44,7 @@ const StudentRequestFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
     };
 
     const handleResetFilter = () => {
-        setStatus([]);
+        setIsfilled([]);
         setTerm([]);
         setFeeMin(0);
         setFeeMax(500);
@@ -58,15 +58,15 @@ const StudentRequestFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
             
             <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
             <Grid item xs={12} md={4}>
-                    <Typography variant="body1">Status</Typography>
-                    {statusOptions.map((statusOption) => (
+                    <Typography variant="body1">Is filled</Typography>
+                    {isfilledOptions.map((isfilledOptions) => (
                         <FormControlLabel
-                            key={statusOption}
-                            control={<Checkbox checked={status.includes(statusOption)}
-                                onChange={() => toggleStatusOption(statusOption)}
+                            key={isfilledOptions}
+                            control={<Checkbox checked={isfilled.includes(isfilledOptions)}
+                                onChange={() => toggleIsfilledOption(isfilledOptions)}
                                 sx={{ '& .MuiSvgIcon-root': { fontSize: '1rem' } }}
                             />}
-                            label={statusOption.charAt(0).toUpperCase() + statusOption.slice(1)}
+                            label={isfilledOptions.charAt(0).toUpperCase() + isfilledOptions.slice(1)}
                             sx={{ '& .MuiFormControlLabel-label': { fontSize: '0.8rem' } }}
                         />
                     ))}
@@ -191,4 +191,4 @@ const StudentRequestFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
     );
 };
 
-export default StudentRequestFilter;
+export default StudentPositionFilter;
