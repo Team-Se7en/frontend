@@ -15,6 +15,8 @@ declare module '@mui/material/styles' {
             rejected?: string;
         };
         backgroundColor?: string;
+        borderColor?: string;
+        chartColor?: string;
     }
     interface Palette {
         button: string;
@@ -28,6 +30,8 @@ declare module '@mui/material/styles' {
             rejected: string;
         };
         backgroundColor: string;
+        borderColor: string;
+        chartColor: string;
     }
   }
 
@@ -46,8 +50,10 @@ const theme = createTheme({
             closed: 'gray !important',
             rejected: 'red !important',
         },
-        backgroundColor: 'linear-gradient(to bottom right, #e5e4e2 , #f6f5f3) !important',
+        backgroundColor: 'white',
         // color1: ''
+        borderColor: '#3A506B',
+        chartColor: 'white',
     }
 });
 

@@ -11,3 +11,5 @@ export { default as Verification } from "./verification.png"
 export { default as NewPassword } from "./forgotpass3.png"
 export { default as CardBackground } from "./card-background.png"
 export { default as ProfessorHomePage} from "./ProfessorHomePage.png"
+export { default as ChartImage } from './chart-image.png'
+export { default as LandingImage } from './landing-image.png'
