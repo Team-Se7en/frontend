@@ -14,20 +14,21 @@ export function ProfessorHomePage() {
 
             <ProfessorHeader/>
 
-            <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-between" overflowX="hidden" sx={{ gap: '8px' }}>
-                <ProfessorRequestFilter onProfessorFilter={(filter) => {
+            <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-between" sx={{ gap: '8px' }}>
+
+            <ProfessorPositionFilter onProfessorFilter={(filter) => {
                     throw new Error("Function not implemented.");
                 }}/>
-
-                {/* <ProfessorPositionFilter onProfessorFilter={(filter) => {
+                
+                <ProfessorRequestFilter onProfessorFilter={(filter) => {
                     throw new Error("Function not implemented.");
                 }}/>
 
                 <ProfessorPositionsFilter onProfessorFilter={(filter) => {
                     throw new Error("Function not implemented.");
-                }}/> */}
+                }}/>
 
-                {/* <ProfessorPositionSort/> */}
+                <ProfessorPositionSort/>
                 
                 <ProfessorPositionsSort/>
             </Box>

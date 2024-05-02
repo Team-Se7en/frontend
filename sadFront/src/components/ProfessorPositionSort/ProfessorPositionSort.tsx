@@ -28,7 +28,7 @@ const names: string[] = [
     'Max Fee',
     'Earliest Request Date',
     'Latest Request Date',
-    'Closest Start date Position',
+    'Closest Start Date Position',
     'Farthest Start Date Position',
 ];
 
@@ -59,7 +59,7 @@ const ProfessorPositionSort: React.FC = () => {
     };
 
     return (
-        <div>
+        <Box>
             <FormControl sx={{ m: 1, width: 250 }}>
                 <InputLabel id="demo-multiple-chip-label">Sort By</InputLabel>
                 <Select
@@ -89,7 +89,7 @@ const ProfessorPositionSort: React.FC = () => {
                     ))}
                 </Select>
             </FormControl>
-        </div>
+        </Box>
     );
 }
 

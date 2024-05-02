@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, FormControlLabel, Grid, Slider, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Divider, FormControlLabel, Grid, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 interface FilterProps {
@@ -38,10 +38,13 @@ const ProfessorPositionsFilter: React.FC<FilterProps> = ({ onProfessorFilter }) 
     };
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', padding:'64px'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', padding:'64px', border: '1px solid #ccc', borderRadius: '8px'}}>
             <Typography variant="h5">Filter</Typography>
+            <Divider sx={{ width: '100%', my: 2 }} />
+
             <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+
                     <Typography variant="body1">Term</Typography>
                     <FormControlLabel
                         control={<Checkbox checked={term.includes('spring')}
@@ -59,6 +62,7 @@ const ProfessorPositionsFilter: React.FC<FilterProps> = ({ onProfessorFilter }) 
                             }
                         }}
                     />
+
                     
                     <FormControlLabel
                         control={<Checkbox checked={term.includes('autumn')}
@@ -94,8 +98,12 @@ const ProfessorPositionsFilter: React.FC<FilterProps> = ({ onProfessorFilter }) 
                     />
 
                 </Grid>
+                <Divider sx={{ width: '100%', my: 2 }} />
+
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+
                     <Typography variant="body1">Year</Typography>
+                    
                     {[2024, 2025, 2026].map((y) => (
                         <FormControlLabel
                             key={y}
@@ -109,21 +117,30 @@ const ProfessorPositionsFilter: React.FC<FilterProps> = ({ onProfessorFilter }) 
                         />
                     ))}
                 </Grid>
+                <Divider sx={{ width: '100%', my: 2 }} />
+
                 <Grid item xs={12} md={4}>
+
                     <Typography sx={{ marginBottom: '48px',}}>Fee</Typography>
-                    <Slider  sx={{marginTop:'16px', color: '#0F1035', width:'200px',}} value={[feeMin, feeMax]} onChange={(_, newValue) => {
-                        setFeeMin(newValue[0] as number);
-                        setFeeMax(newValue[1] as number);
-                    }}
-                    min={0}
-                    max={500}
-                    valueLabelDisplay="on"
+                    <Slider 
+                        sx={{marginTop:'16px', color: '#0F1035', width:'200px',}}
+                        value={[feeMin, feeMax]}
+                        onChange={(_, newValue) => {
+                        if (Array.isArray(newValue) && newValue.length === 2) {
+                                setFeeMin(newValue[0]);
+                                setFeeMax(newValue[1]);
+                            }
+                        }}
+                        min={0}
+                        max={500}
+                        valueLabelDisplay="on"
                     />
                     <Typography  sx={{ color: 'gray',width:'200px', }}>{`Fee Range: ${feeMin}$ - ${feeMax}$`}</Typography>
 
                 </Grid>
             </Grid>
-            
+            <Divider sx={{ width: '100%', my: 2 }} />
+
             <Grid sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
             <Button onClick={handleApplyFilter} sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#0F1035'}}>Apply</Button>
             <Button onClick={handleResetFilter} sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#7FC7D9 '}}>Reset</Button>

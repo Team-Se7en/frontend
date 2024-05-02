@@ -24,7 +24,7 @@ const MenuProps = {
 const names: string[] = [
     'Min Fee',
     'Max Fee',
-    'Closest Start date Position',
+    'Closest Start Date Position',
     'Farthest Start Date Position',
 ];
 
@@ -55,7 +55,7 @@ const ProfessorPositionsSort: React.FC = () => {
     };
 
     return (
-        <div>
+        <Box>
             <FormControl sx={{ m: 1, width: 250 }}>
                 <InputLabel id="demo-multiple-chip-label">Sort By</InputLabel>
                 <Select
@@ -85,7 +85,7 @@ const ProfessorPositionsSort: React.FC = () => {
                     ))}
                 </Select>
             </FormControl>
-        </div>
+        </Box>
     );
 }
 
