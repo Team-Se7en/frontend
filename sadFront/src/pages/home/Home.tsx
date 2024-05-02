@@ -8,6 +8,8 @@ import { Spacer } from "../../components/ui/Spacer";
 import { useState, useEffect } from "react";
 import "../../assets/fonts/CalligraphyFLF.css";
 import "../../assets/fonts/GreatVibes-Regular.css";
+import Navbar from "../../components/navbar/navbar/navbar";
+import Footer from "../../components/footer/footer/footer";
 
 
 export function Home() {
@@ -35,7 +37,7 @@ export function Home() {
 
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
 
       <StyledIntro>
         <Grow
@@ -114,7 +116,7 @@ export function Home() {
 
       </StyledIntro >
 
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

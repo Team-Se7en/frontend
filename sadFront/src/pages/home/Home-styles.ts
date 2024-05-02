@@ -9,7 +9,7 @@ import "./Home-animations.css"
 export const StyledIntro = styled(Box)(() => ({
     border: `1px solid ${theme.palette.borderColor}`,
     width: '80%',
-    margin: '5rem auto',
+    margin: '10rem auto',
     borderRadius: theme.shape.borderRadius,
     position: 'relative',
     minHeight: '20rem',
