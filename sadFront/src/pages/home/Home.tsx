@@ -10,6 +10,7 @@ import "../../assets/fonts/CalligraphyFLF.css";
 import "../../assets/fonts/GreatVibes-Regular.css";
 import Navbar from "../../components/navbar/navbar/navbar";
 import Footer from "../../components/footer/footer/footer";
+import  Search from "../../components/Search/Search";
 
 
 export function Home() {
@@ -37,9 +38,11 @@ export function Home() {
 
   return (
     <>
-      <Navbar />
-
+      <Navbar showAuthButtons={true} />
+      <Box sx={{height:'100px'}}></Box>
+      <Search />
       <StyledIntro>
+        
         <Grow
           in={true}
           style={{ transformOrigin: '0 0 0' }}
@@ -115,7 +118,6 @@ export function Home() {
         </StyledDetailContainer>
 
       </StyledIntro >
-
       <Footer />
     </>
   )
