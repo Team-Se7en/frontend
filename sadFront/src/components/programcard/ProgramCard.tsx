@@ -2,8 +2,16 @@ import { Box, Avatar, Typography, Icon, Stack, Chip } from "@mui/material";
 import { ConvDate } from "../../lib/DateConvertor";
 import { StudentCardViewFullInfo } from "../../models/CardInfo";
 import ProgramModal from "../modals/program-modal/ProgramModal";
-import { StyledProgramCard, StyledCardContent, ProgramInfo, ProfAndUni, BottemInfo, DeaedLineAndButton, Deadline, StyledCardActions } from "./ProgramCard-styles";
-
+import {
+  StyledProgramCard,
+  StyledCardContent,
+  ProgramInfo,
+  ProfAndUni,
+  BottemInfo,
+  DeaedLineAndButton,
+  Deadline,
+  StyledCardActions,
+} from "./ProgramCard-styles";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -31,7 +39,7 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
               <Avatar
                 className="avatar"
                 alt="Sauleh Etemadi"
-                src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1718236800&v=beta&t=_ROkXK-gfaD5ANq-FbDDW13wiIOwX6u9-2fAw_qYKeA"
+                src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1720051200&v=beta&t=4tA4xwft_oIReUo_P2E6Zcwb7oi598pywErYUhjwZkA"
                 sx={{
                   minHeight: "5rem",
                   minWidth: "5rem",
