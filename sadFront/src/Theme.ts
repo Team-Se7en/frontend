@@ -53,7 +53,7 @@ const theme = createTheme({
         backgroundColor: 'white',
         // color1: ''
         borderColor: '#3A506B',
-        chartColor: 'white',
+        chartColor: 'black',
     }
 });
 

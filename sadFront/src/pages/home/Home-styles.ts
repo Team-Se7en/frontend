@@ -5,6 +5,7 @@ import { ChartImage, LandingImage } from "../../assets/images";
 import { ProfessorIcon, StudentIcon, SuprisedStudentIcon } from "../../assets/icons";
 import "../../assets/fonts/CalligraphyFLF.css";
 import "./Home-animations.css"
+import { makeStyles, createStyles } from "@mui/styles";
 
 export const StyledIntro = styled(Box)(() => ({
     border: `1px solid ${theme.palette.borderColor}`,
@@ -109,3 +110,13 @@ export const StyledSlogan = styled(Typography)(() => ({
     color: 'transparent',
     // animation: 'bounceWord 1s ease infinite', 
 }));
+
+export const HomeStyles = makeStyles(() => 
+    createStyles({
+        chartStyle: {
+            '& .MuiChartsGrid-line': {
+                strokeWidth: '3px !important',
+            }
+        }
+    })
+);

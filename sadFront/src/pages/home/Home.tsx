@@ -1,5 +1,5 @@
 import { LineChart } from "@mui/x-charts";
-import { StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent } from "./Home-styles";
+import { HomeStyles, StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent } from "./Home-styles";
 import { Box, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
 import theme from "../../Theme";
 import Styles from "../../Styles";
@@ -10,7 +10,7 @@ import "../../assets/fonts/CalligraphyFLF.css";
 import "../../assets/fonts/GreatVibes-Regular.css";
 import Navbar from "../../components/navbar/navbar/navbar";
 import Footer from "../../components/footer/footer/footer";
-import  Search from "../../components/Search/Search";
+import Search from "../../components/Search/Search";
 
 
 export function Home() {
@@ -35,14 +35,15 @@ export function Home() {
   }, []);
 
   const globalClasses = Styles();
+  const homeClasses = HomeStyles();
 
   return (
     <>
       <Navbar showAuthButtons={true} />
-      <Box sx={{height:'100px'}}></Box>
+      <Box sx={{ height: '100px' }}></Box>
       <Search />
       <StyledIntro>
-        
+
         <Grow
           in={true}
           style={{ transformOrigin: '0 0 0' }}
@@ -68,11 +69,11 @@ export function Home() {
 
           <Box className={clsx(globalClasses.flexColumn, globalClasses.fullyCenter)} gap={2} width={'60%'} minWidth={'300px'}>
             <LineChart height={250} grid={{ horizontal: true }} series={[
-              { curve: "linear", data: [0, 20, 2, 6, 3, 9.3], color: theme.palette.chartColor, showMark: false },
-            ]} leftAxis={null} bottomAxis={null} sx={{ backgroundColor: '#0E1C36', borderRadius: theme.shape.borderRadius }} />
+              { curve: "linear", data: [0, 20, 2, 6, 3, 9.3], color: theme.palette.chartColor, showMark: false, },
+            ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }}  className={clsx(homeClasses.chartStyle)} />
             <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} gap={'8px'}>
               <StyledSuprisedStudent />
-              <Slide direction="up" mountOnEnter unmountOnExit in={true} {...({ timeout: 400 })}>
+              <Slide direction="up" mountOnEnter unmountOnExit in={true} {...({ timeout: 1000 })}>
                 <Typography variant="h6">
                   Site's Growth Over Time
                 </Typography>
@@ -92,8 +93,12 @@ export function Home() {
 
               <Tooltip title="site's professors">
                 <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)} width={'45%'}>
-                  <StyledProfessorIcon />
-                  <Slide direction="right" mountOnEnter unmountOnExit in={true} {...({ timeout: 400 })}>
+                  <Grow in={true}
+                    style={{ transformOrigin: 'bottom' }}
+                    {...({ timeout: 1000 })}>
+                    <StyledProfessorIcon />
+                  </Grow>
+                  <Slide direction="right" mountOnEnter unmountOnExit in={true} {...({ timeout: 1000 })}>
                     <Typography variant="h6">
                       {count}
                     </Typography>
@@ -103,8 +108,12 @@ export function Home() {
 
               <Tooltip title="site's students">
                 <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)} width={'45%'}>
-                  <StyledStudentIcon />
-                  <Slide direction="left" mountOnEnter unmountOnExit in={true} {...({ timeout: 400 })}>
+                  <Grow in={true}
+                    style={{ transformOrigin: 'bottom' }}
+                    {...({ timeout: 1000 })}>
+                    <StyledStudentIcon />
+                  </Grow>
+                  <Slide direction="left" mountOnEnter unmountOnExit in={true} {...({ timeout: 1000 })}>
                     <Typography variant="h6">
                       {count}
                     </Typography>
