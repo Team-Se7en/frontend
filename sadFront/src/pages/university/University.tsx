@@ -32,48 +32,46 @@ export default function UniversityPage() {
           flexDirection={"column"}
           width={"100%"}
         >
-          <Box className="uni-image" width={"100%"} zIndex={1}>
+          <Box className="uni-image" width={"100%"}>
             <img src="src\assets\images\CroppedUniImage.jpg" width={"100%"} />
-          </Box>
-          <Box
-            className="logo-container"
-            position={"absolute"}
-            width={"9rem"}
-            height={"9rem"}
-            zIndex={2}
-            borderRadius={"1rem"}
-            top={"22rem"}
-            left={"8rem"}
-            sx={{ backgroundColor: "#fafafa" }}
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
-            <img
-              src="src\assets\icons\acadia-university.webp"
-              width={"80%"}
-              height={"80%"}
-            />
           </Box>
           <Box
             className="statistics"
             sx={{ backgroundColor: "#0F1035" }}
-            zIndex={1}
             display={"flex"}
             flexDirection={"row"}
             color={"#F2F2F2"}
             justifyContent={"space-between"}
-            paddingLeft={"8rem"}
-            paddingRight={"8rem"}
+            paddingLeft={"15%"}
+            paddingRight={"15%"}
             height={"8.5rem"}
             alignItems={"center"}
           >
             <Box
-              className="title-and-city"
+              className="logo-title-and-city"
               display={"flex"}
               flexDirection={"column"}
-              marginTop={"1.5rem"}
+              marginBottom={"7rem"}
             >
+              <Box
+                className="logo-container"
+                width={"8rem"}
+                height={"8rem"}
+                borderRadius={"1rem"}
+                top={"48%"}
+                left={"9%"}
+                sx={{ backgroundColor: "#fafafa" }}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                marginBottom={"0.8rem"}
+              >
+                <img
+                  src="src\assets\icons\acadia-university.webp"
+                  width={"80%"}
+                  height={"80%"}
+                />
+              </Box>
               <Typography
                 className="title"
                 variant="h5"
