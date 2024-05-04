@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Collapse, Typography } from "@mui/material";
 import styled from "styled-components";
 import theme from "../../Theme";
-import { ChartImage, LandingImage } from "../../assets/images";
+import { ChartImage, LandingImage, TopProfessorsImage, TopStudentsImage, TopUniversitiesImage } from "../../assets/images";
 import { ProfessorIcon, StudentIcon, SuprisedStudentIcon } from "../../assets/icons";
 import "../../assets/fonts/CalligraphyFLF.css";
 import "./Home-animations.css"
@@ -10,7 +10,7 @@ import { makeStyles, createStyles } from "@mui/styles";
 export const StyledIntro = styled(Box)(() => ({
     border: `1px solid ${theme.palette.borderColor}`,
     width: '80%',
-    margin: '10rem auto',
+    margin: '10rem auto 5rem auto',
     borderRadius: theme.shape.borderRadius,
     position: 'relative',
     minHeight: '20rem',
@@ -75,7 +75,7 @@ export const StyledStudentIcon = styled(Box)(() => ({
     width: '100%',
     // height: '6rem',
     aspectRatio: '1',
-    backgroundSize: 'contain',  
+    backgroundSize: 'contain',
 }));
 
 export const StyledSuprisedStudent = styled(Box)(() => ({
@@ -84,7 +84,7 @@ export const StyledSuprisedStudent = styled(Box)(() => ({
     // height: '6rem',
     aspectRatio: '1',
     borderRadius: '50%',
-    backgroundSize: 'contain',  
+    backgroundSize: 'contain',
 }));
 
 export const StyledJoinUsText = styled(Typography)(() => ({
@@ -95,7 +95,7 @@ export const StyledJoinUsText = styled(Typography)(() => ({
     '&:hover': {
         cursor: 'pointer',
     },
-    animation: 'bounce 1s ease-in-out infinite',    
+    animation: 'bounce 1s ease-in-out infinite',
 }));
 
 export const StyledSlogan = styled(Typography)(() => ({
@@ -111,7 +111,7 @@ export const StyledSlogan = styled(Typography)(() => ({
     // animation: 'bounceWord 1s ease infinite', 
 }));
 
-export const HomeStyles = makeStyles(() => 
+export const HomeStyles = makeStyles(() =>
     createStyles({
         chartStyle: {
             '& .MuiChartsGrid-line': {
@@ -120,3 +120,58 @@ export const HomeStyles = makeStyles(() =>
         }
     })
 );
+
+export const StyledTopEntities = styled(Box)(() => ({
+    margin: '2rem auto',
+    width: '80%',
+    // minHeight: '12rem',
+    // display: 'flex',
+    // justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+}));
+
+export const TopUniversitiesSideImage = styled(Collapse)(() => ({
+    backgroundImage: `url(${TopUniversitiesImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    width: 'calc(100% - 30rem) !important',
+    maxWidth: '40rem',
+    minWidth: '20rem !important',
+    // height: 'auto',
+    aspectRatio: '16 / 9',
+    backgroundPosition: 'bottom',
+    // borderTopRightRadius: '50%',
+    // borderBottomRightRadius: '50%'
+    borderRadius: '4px',
+}));
+
+export const TopStudentsSideImage = styled(Collapse)(() => ({
+    backgroundImage: `url(${TopStudentsImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    width: 'calc(100% - 30rem) !important',
+    maxWidth: '40rem',
+    minWidth: '20rem !important',
+    // height: 'auto',
+    aspectRatio: '16 / 9',
+    backgroundPosition: 'center',
+    // borderTopRightRadius: '50%',
+    // borderBottomRightRadius: '50%'
+    borderRadius: '4px',
+}));
+
+export const TopProfessorsSideImage = styled(Collapse)(() => ({
+    backgroundImage: `url(${TopProfessorsImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    width: 'calc(100% - 30rem) !important',
+    maxWidth: '40rem',
+    minWidth: '20rem !important',
+    // height: 'auto',
+    aspectRatio: '16 / 9',
+    backgroundPosition: 'top',
+    // borderTopRightRadius: '50%',
+    // borderBottomRightRadius: '50%'
+    borderRadius: '4px',
+}));
