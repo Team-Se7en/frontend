@@ -1,117 +1,166 @@
-import { Box, Avatar, Typography, Icon, Stack, Chip, Button } from "@mui/material";
-import { StudentCardViewShortInfo } from "../../models/CardInfo";
-import { StyledStudentCard, StyledCardContent, ProgramInfo, ProfAndUni, DeaedLineAndButton, Deadline, StyledCardActions } from "./StudentCard-styles";
+import * as React from 'react';
 
-const handleClick = () => {
-    console.info("You clicked a topic.");
+import { Avatar, Box, CardActions, Chip, Grid, Icon, Stack, Typography } from "@mui/material";
+
+import AspectRatio from '@mui/joy/AspectRatio';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/material/CardContent';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import InfoIcon from '@mui/icons-material/Info';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import SchoolIcon from '@mui/icons-material/School';
+import Sheet from '@mui/joy/Sheet';
+import TextField from '@material-ui/core/TextField';
+import WorkIcon from '@mui/icons-material/Work';
+
+interface StudentCardProps {
+    name: string;
+    university: string;
+    status: string;
+    field: string;
+    positionTitle: string;
+    requestDate: string;
+    fee: string;
+    startDate: string;
+    coverLetter: string;
+}
+
+
+const StudentCard: React.FC<StudentCardProps> = ({
+    name,
+    university,
+    status,
+    field,
+    positionTitle,
+    requestDate,
+    fee,
+    startDate,
+    coverLetter,
+
+}) => {
+    const getStatusIcon = (status:any) => {
+        switch (status) {
+            case 'Accepted':
+                return <CheckCircleIcon color="success" />;
+            case 'Rejected':
+                return <RemoveCircleIcon color="disabled" />;
+            case 'Pending':
+                return <HourglassEmptyIcon color="action" />;
+            default:
+                return <InfoIcon />;
+        }
     };
+return (
+    <Box sx={{ width: '100%', display: 'flex', padding: 2 }}>
+        
+        <Card
+        sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '100%',
+            flexWrap: 'wrap',
+            overflow: 'auto',
+        }}
+        >
 
-    export default function StudentCard(props: StudentCardViewShortInfo) {
-    return (
-    <Box minWidth={"28rem"} width={"90%"} margin={"0.5rem"}>
-        <StyledStudentCard variant="outlined">
-        <StyledCardContent>
-            <Box
-            className="left-info"
+        <Avatar sx={{ marginLeft: 2, width: 56, height: 56 }}></Avatar>
+        <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 2, flexGrow: 1 }}>
+
+            <Typography sx={{ display: 'flex', flexDirection: 'row', marginLeft: 2, flexGrow: 1 }}>
+            <Icon><InfoIcon /></Icon>
+            Name:{name}
+            </Typography>
+
+            <Typography sx={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between',marginLeft: 2, flexGrow: 1 }}>
+            {getStatusIcon(status)}
+            Status: {status}                        
+            </Typography>
+            
+            </Box>
+
+            <CardContent>
+                
+            <Sheet
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
+                backgroundColor:'#DCF2F1',
+                borderRadius: 'sm',
+                p: 2,
+                my: 2,
+                display: 'flex',
+                gap: 25,
             }}
-            width={{ xs: "100%", sm: "100%", md: "100%", lg: "80%", xl: "80%" }}
             >
-            <Box
-                className="top-info"
-                sx={{ display: "flex", flexDirection: "row" }}
-                gap={"1rem"}
-            >
-                <Avatar
-                className="avatar"
-                alt="Sauleh Etemadi"
-                src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1718236800&v=beta&t=_ROkXK-gfaD5ANq-FbDDW13wiIOwX6u9-2fAw_qYKeA"
-                sx={{
-                    minHeight: "5rem",
-                    minWidth: "5rem",
-                    margin: "0.5rem",
-                    marginBottom: 0,
-                }}
-                />
-                <ProgramInfo>
-                <Typography
-                    variant="h5"
-                    component="div"
-                    sx={{ fontWeight: "bold" }}
-                    fontSize={"1.4rem"}
-                >
-                    {props.title}
-                </Typography>
-                <ProfAndUni>
-                    <Typography color="text.secondary" fontSize={"1rem"}>
-                    {/* {props.professor.Name} */}
-                    </Typography>
-                    <Box
-                    className="icon-uni"
-                    display={"flex"}
-                    flexDirection={"row"}
-                    gap={"0.2rem"}
-                    >
-                    <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
-                    <Typography variant="body2" fontSize={"0.8rem"}>
-                        {/* {props.universityName} */}
-                    </Typography>
-                    </Box>
-                </ProfAndUni>
-                </ProgramInfo>
-            </Box>
-            <Box
-                className="topics"
-                display={"flex"}
-                flexDirection={"row"}
-                gap={"0.5rem"}
-                alignItems={"center"}
-                //overflow={"auto"}
-            >
-                <Typography variant="body2" fontSize={"0.9rem"}>
-                Interest Field:
-                </Typography>
-                
-                <Stack direction="row" spacing={1}>
-                <Chip
-                    label="Machine Learning"
-                    size="small"
-                    onClick={handleClick}
-                />
-                <Chip label="NLP" size="small" onClick={handleClick} />
-                <Chip
-                    label="Artificial Intelligence"
-                    size="small"
-                    onClick={handleClick}
-                />
-                </Stack>
-            </Box>
-            </Box>
+            <Typography sx={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between',marginLeft: 2, flexGrow: 1 }}>
+            <Icon><WorkIcon /></Icon>
+
+            Field:{field}
+            </Typography>
+
+            <Typography sx={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between',marginLeft: 2, flexGrow: 1 }}>
+            <Icon><SchoolIcon /></Icon>
+            University:{university}
+            </Typography>
+
+            <Typography sx={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between',marginLeft: 2, flexGrow: 1 }}>
+            <Icon><EventNoteIcon /></Icon>
+            Position: {positionTitle}
+            </Typography>
             
-            <DeaedLineAndButton>
-            <Deadline>
-                <Typography variant="body2" fontSize={"0.7rem"}>
-                Application Time:
-                </Typography>
-                <Typography
-                variant="body2"
-                fontWeight={"bold"}
-                fontSize={"0.8rem"}
-                >
-                Feb 2024
-                </Typography>
-                
-            </Deadline>
             
-            <StyledCardActions>
-                <Button size="large">Learn More</Button>
-            </StyledCardActions>
-            </DeaedLineAndButton>
-        </StyledCardContent>
-        </StyledStudentCard>
+            </Sheet>
+            
+            <Sheet
+            sx={{
+                backgroundColor:'#DCF2F1',
+                borderRadius: 'sm',
+                p: 2,
+                my: 2,
+                display: 'flex',
+                gap: 25,
+            }}
+            >
+            <div>
+                <Typography>
+                <Icon><DateRangeIcon /></Icon>
+                RequestDate:
+                </Typography>
+                <Typography fontWeight="lg">{requestDate}</Typography>
+            </div>
+            <div>
+                <Typography>
+                <Icon><AttachMoneyIcon /></Icon>
+                Fee:
+                </Typography>
+                <Typography>{fee}</Typography>
+            </div>
+
+            <div>
+                <Typography>
+                <Icon><DateRangeIcon /></Icon>
+                StartDate:
+                </Typography>
+                <Typography>{startDate}</Typography>
+            </div>
+            </Sheet>
+
+            <Typography>
+            <Icon><InfoIcon /></Icon>
+                Cover Letter:
+                {coverLetter}
+                </Typography>
+                <Typography>{fee}</Typography>
+
+        </CardContent>
+        </Card>
     </Box>
+
+
     );
-    }
+}
+export default StudentCard;

@@ -6,6 +6,8 @@ import ProfessorPositionSort from "../../../components/ProfessorPositionSort/Pro
 import ProfessorPositionsFilter from "../../../components/ProfessorPositionsFilter/ProfessorPositionsFilter";
 import ProfessorPositionsSort from "../../../components/ProfessorPositionsSort/ProfessorPositionsSort";
 import ProfessorRequestFilter from "../../../components/ProfessorRequestFilter/ProfessorRequestFilter";
+import ProgramCard from "../../../components/programcard/ProgramCard";
+import StudentCard from "../../../components/studentcard/StudentCard";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
 import StudentRequestFilter from "../../../components/StudentRequestFilter/StudentRequestFilter";
@@ -23,8 +25,10 @@ export function ProfessorHomePage() {
             <ProfessorPositionFilter onProfessorFilter={(filter) => {
                     throw new Error("Function not implemented.");
                 }}/>
+                <StudentCard name={""} university={""} status={""} field={""} positionTitle={""} requestDate={""} fee={""} startDate={""} coverLetter={""}/>
 
                 <ProfessorPositionSort/>
+
 
             </Box>
 
