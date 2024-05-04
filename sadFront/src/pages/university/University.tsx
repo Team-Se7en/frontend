@@ -3,12 +3,19 @@ import Navbar from "../../components/navbar/navbar/navbar";
 import { Box } from "@mui/material";
 import { ProgramsList } from "../../components/programslist/ProgramsList";
 import { Typography } from "@mui/material";
-import { Icon } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 export default function UniversityPage() {
+  const statisticTitles = [
+    "Total Students",
+    "International Students",
+    "Ranking (2024)",
+    "Total Shared Programs",
+  ];
+  const statistics = [840, 250, 56, 5];
+
   return (
-    <Box>
+    <Box sx={{ overflowX: "hidden" }}>
       <Navbar />
       <Box
         className="page-body"
@@ -17,6 +24,7 @@ export default function UniversityPage() {
         marginTop={"4rem"}
         width={"100%"}
         sx={{ backgroundColor: "#fafafa" }}
+        gap={"1rem"}
       >
         <Box
           className="top-info"
@@ -24,25 +32,47 @@ export default function UniversityPage() {
           flexDirection={"column"}
           width={"100%"}
         >
-          <Box className="uni-image-and-logo" width={"100%"}>
+          <Box className="uni-image" width={"100%"} zIndex={1}>
             <img src="src\assets\images\CroppedUniImage.jpg" width={"100%"} />
+          </Box>
+          <Box
+            className="logo-container"
+            position={"absolute"}
+            width={"9rem"}
+            height={"9rem"}
+            zIndex={2}
+            borderRadius={"1rem"}
+            top={"22rem"}
+            left={"8rem"}
+            sx={{ backgroundColor: "#fafafa" }}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <img
+              src="src\assets\icons\acadia-university.webp"
+              width={"80%"}
+              height={"80%"}
+            />
           </Box>
           <Box
             className="statistics"
             sx={{ backgroundColor: "#0F1035" }}
+            zIndex={1}
             display={"flex"}
             flexDirection={"row"}
             color={"#F2F2F2"}
             justifyContent={"space-between"}
-            paddingLeft={"4rem"}
-            paddingRight={"4rem"}
-            height={"8rem"}
+            paddingLeft={"8rem"}
+            paddingRight={"8rem"}
+            height={"8.5rem"}
             alignItems={"center"}
           >
             <Box
               className="title-and-city"
               display={"flex"}
               flexDirection={"column"}
+              marginTop={"1.5rem"}
             >
               <Typography
                 className="title"
@@ -68,81 +98,28 @@ export default function UniversityPage() {
                 </Typography>
               </Box>
             </Box>
-            <Box
-              className="total-students"
-              display={"flex"}
-              flexDirection={"column"}
-              alignItems={"center"}
-            >
-              <Typography
-                className="num"
-                variant="h4"
-                fontWeight={"bold"}
-                fontSize={"2rem"}
+            {statisticTitles.map((title, index) => (
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
               >
-                840
-              </Typography>
-              <Typography className="num" variant="h6" fontSize={"0.8rem"}>
-                Total Student
-              </Typography>
-            </Box>
-            <Box
-              className="international-students"
-              display={"flex"}
-              flexDirection={"column"}
-              alignItems={"center"}
-            >
-              <Typography
-                className="num"
-                variant="h4"
-                fontWeight={"bold"}
-                fontSize={"2rem"}
-              >
-                250
-              </Typography>
-              <Typography className="num" variant="h6" fontSize={"0.8rem"}>
-                International Student
-              </Typography>
-            </Box>
-            <Box
-              className="ranking"
-              display={"flex"}
-              flexDirection={"column"}
-              alignItems={"center"}
-            >
-              <Typography
-                className="num"
-                variant="h4"
-                fontWeight={"bold"}
-                fontSize={"2rem"}
-              >
-                56
-              </Typography>
-              <Typography className="num" variant="h6" fontSize={"0.8rem"}>
-                Ranking(2024)
-              </Typography>
-            </Box>
-            <Box
-              className="shared-programs"
-              display={"flex"}
-              flexDirection={"column"}
-              alignItems={"center"}
-            >
-              <Typography
-                className="num"
-                variant="h4"
-                fontWeight={"bold"}
-                fontSize={"2rem"}
-              >
-                5
-              </Typography>
-              <Typography className="num" variant="h6" fontSize={"0.8rem"}>
-                Total Shared Programs
-              </Typography>
-            </Box>
+                <Typography variant="h4" fontSize={"2.2rem"}>
+                  {statistics[index]}
+                </Typography>
+                <Typography variant="h6" fontSize={"0.8rem"}>
+                  {title}
+                </Typography>
+              </Box>
+            ))}
           </Box>
         </Box>
-        <Box className="bottem-info" display={"flex"} flexDirection={"row"}>
+        <Box
+          className="bottem-info"
+          display={"flex"}
+          flexDirection={"row"}
+          padding={"2rem"}
+        >
           <Box className="left-side">
             <ProgramsList></ProgramsList>
           </Box>
