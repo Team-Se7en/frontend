@@ -40,8 +40,8 @@ export function Home() {
 
   return (
     <>
-      <Navbar showAuthButtons={true} />
-      <Box sx={{ height: '100px' }}></Box>
+      <Navbar showAuthButtons={true} showAuthButton={true} />
+      <Box sx={{height:'100px'}}></Box>
       <Search />
       <StyledIntro>
 
