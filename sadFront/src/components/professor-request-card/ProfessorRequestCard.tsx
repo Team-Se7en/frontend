@@ -203,7 +203,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         {
                             props.model.tags.map(tag => (
                                 <Grid item key={tag}>
-                                    <StyledTag label={tag} variant="outlined"></StyledTag>
+                                    <StyledTag label={tag}></StyledTag>
                                 </Grid>
                             ))
                         }
@@ -217,7 +217,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                 </StyledCardContent>
             </StyledCard>
 
-            <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth maxWidth='xl' fullScreen={dialogFullscreen}
+            <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth maxWidth='md' fullScreen={dialogFullscreen}
                 PaperProps={{ sx: { backgroundImage: theme.palette.backgroundColor } }}>
                 <DialogActions>
                     <Tooltip title="Edit">

@@ -1,8 +1,9 @@
-import { ProfessorCardViewShortInfo } from "@models";
 import { Box, Divider } from "@mui/material";
-import { ProfessorRequestCard } from "components/professor-request-card";
 import { useState, useEffect } from "react";
-import { getProfessorRecentPositions } from "services/position.service";
+import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
+import { getProfessorRecentPositions } from "../../services/position.service";
+import { ProfessorRequestCard } from "../professor-request-card/ProfessorRequestCard";
+
 
 export function ProfessorRecentPositions() {
     const [professorPositions, setProfessorPositions] = useState<ProfessorCardViewShortInfo[]>([]);

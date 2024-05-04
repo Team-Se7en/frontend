@@ -59,7 +59,7 @@ export default function CardModal(props: CardModalProps) {
         position_end_date: new Date(),
         // duration: model?.duration ?? { year: 0, month: 0, day: 0 },
         // university: props.model?.university ?? universities[0],
-        university: "",
+        university: undefined,
         request_count: 0,
         id: 0,
         capacity: 0,

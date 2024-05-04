@@ -1,9 +1,11 @@
 import { Button, Chip, Container, styled } from "@mui/material";
+import theme from "../../../Theme";
 
 export const Wrapper = styled(Container)(() => ({
     // borderRadius: theme.shape.borderRadius,
     // backgroundImage: theme.palette.backgroundColor,
     // borderRadius: theme.shape.borderRadius,0
+    backgroundColor: theme.palette.backgroundColor,
 }));
 
 export const SaveButton = styled(Button)(() => ({

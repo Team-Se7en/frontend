@@ -4,7 +4,6 @@ import { StudentEditProfile } from "./pages/editProfile/StudentEditProfile";
 import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import { Forgot } from "./pages/forgot-pass/Forgotpassword/ForgotPassword";
 import Newpassword from "./pages/forgot-pass/Newpassword/Newpassword";
-import Landing from "./pages/home/Landing.page/Landing";
 import { ProfessorHomePage } from "./pages/home/Professor/ProfessorHomePage";
 import StudentHomepage from "./pages/home/Student/StudentHomepage";
 import { ProfessorSignup } from "./pages/signup/professor-signup/ProfessorSignup";

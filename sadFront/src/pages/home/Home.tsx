@@ -11,6 +11,7 @@ import "../../assets/fonts/GreatVibes-Regular.css";
 import Navbar from "../../components/navbar/navbar/navbar";
 import Footer from "../../components/footer/footer/footer";
 import Search from "../../components/Search/Search";
+import { ProfessorRecentPositions } from "../../components/professor-recent-positions/ProfessorRecentPositions";
 
 
 export function Home() {
@@ -127,6 +128,9 @@ export function Home() {
         </StyledDetailContainer>
 
       </StyledIntro >
+
+      <ProfessorRecentPositions />
+
       <Footer />
     </>
   )
