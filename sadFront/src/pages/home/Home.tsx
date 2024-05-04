@@ -1,6 +1,6 @@
 import { LineChart } from "@mui/x-charts";
-import { HomeStyles, StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent } from "./Home-styles";
-import { Box, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
+import { HomeStyles, StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent, StyledTopEntities, TopProfessorsSideImage, TopStudentsSideImage, TopUniversitiesSideImage } from "./Home-styles";
+import { Box, Fade, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
 import theme from "../../Theme";
 import Styles from "../../Styles";
 import clsx from "clsx";
@@ -11,8 +11,6 @@ import "../../assets/fonts/GreatVibes-Regular.css";
 import Navbar from "../../components/navbar/navbar/navbar";
 import Footer from "../../components/footer/footer/footer";
 import Search from "../../components/Search/Search";
-import { ProfessorRecentPositions } from "../../components/professor-recent-positions/ProfessorRecentPositions";
-
 
 export function Home() {
 
@@ -71,7 +69,7 @@ export function Home() {
           <Box className={clsx(globalClasses.flexColumn, globalClasses.fullyCenter)} gap={2} width={'60%'} minWidth={'300px'}>
             <LineChart height={250} grid={{ horizontal: true }} series={[
               { curve: "linear", data: [0, 20, 2, 6, 3, 9.3], color: theme.palette.chartColor, showMark: false, },
-            ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }}  className={clsx(homeClasses.chartStyle)} />
+            ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }} className={clsx(homeClasses.chartStyle)} />
             <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} gap={'8px'}>
               <StyledSuprisedStudent />
               <Slide direction="up" mountOnEnter unmountOnExit in={true} {...({ timeout: 1000 })}>
@@ -128,6 +126,50 @@ export function Home() {
         </StyledDetailContainer>
 
       </StyledIntro >
+
+      <StyledTopEntities>
+        {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
+          Top Universities
+        </Divider> */}
+
+        <Fade in={true} style={{ transitionDelay: '100ms'}}>
+          <TopUniversitiesSideImage orientation="horizontal" in={true}/>
+        </Fade>
+
+        <Box height={8}>
+
+        </Box>
+      </StyledTopEntities>
+
+
+      <StyledTopEntities sx={{ flexDirection: 'row-reverse'}}>
+        {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
+          Top Professors
+        </Divider> */}
+
+        <Fade in={true} style={{ transitionDelay: '100ms'}}>
+          <TopProfessorsSideImage orientation="horizontal" in={true}/>
+        </Fade>
+
+        <Box height={8}>
+
+        </Box>
+      </StyledTopEntities>
+
+      <StyledTopEntities>
+        {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
+          Top Students
+        </Divider> */}
+
+        <Fade in={true} style={{ transitionDelay: '100ms'}}>
+          <TopStudentsSideImage orientation="horizontal" in={true}/>
+        </Fade>
+
+        <Box height={8}>
+
+        </Box>
+
+      </StyledTopEntities>
 
       <Footer />
     </>
