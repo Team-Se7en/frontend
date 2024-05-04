@@ -129,8 +129,6 @@ export function Home() {
 
       </StyledIntro >
 
-      <ProfessorRecentPositions />
-
       <Footer />
     </>
   )

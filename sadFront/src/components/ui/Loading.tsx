@@ -6,7 +6,7 @@ export function Loading() {
     const globalClasses = Styles();
 
     return (
-        <Box className={clsx(globalClasses.fullyCenter)} sx={{ p: 3}}>
+        <Box className={clsx(globalClasses.fullyCenter)} sx={{ p: 3, height: '100%', width: '100%'}}>
           <CircularProgress />
         </Box>
       );

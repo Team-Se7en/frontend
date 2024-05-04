@@ -47,7 +47,7 @@ export const getPositionFullInfoProfessor = async (id: number) => {
 
 export const updatePosition = async (id: number, model: ProfessorCardViewFullInfo) => {
     try {
-        const result = await client.put(`/eduportal/positions/${id}`, model);
+        const result = await client.put(`/eduportal/positions/${id}/`, model);
         return result;
     } catch (e) {
         console.error(e);

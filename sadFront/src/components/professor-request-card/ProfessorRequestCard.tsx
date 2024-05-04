@@ -22,6 +22,7 @@ export interface ProfessorRequestCardProps {
 }
 
 export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
+    const [model, setModel] = useState<ProfessorCardViewShortInfo>(props.model);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogFullscreen, setDialogFullscreen] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -58,7 +59,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
     const handleDelete = () => {
         const _deletePosition = async () => {
             try {
-                const result = await deletePosition(props.model.id);
+                const result = await deletePosition(model.id);
                 return result.data;
             } catch (error) {
                 toast.success("Delete Failed", {
@@ -76,7 +77,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
         };
 
         _deletePosition();
-        props.onDelete?.(props.model.id);
+        props.onDelete?.(model.id);
         handleDeleteDialogClose();
     }
 
@@ -88,19 +89,23 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
     //         name: "IUST",
     //         description: "Iran University of Science and Technology"
     //     },
-    //     title: props.model.title,
-    //     capacity: props.model.capacity,
-    //     status: props.model.status,
-    //     start_date: props.model.start_date,
-    //     end_date: props.model.end_date,
-    //     tags: props.model.tags,
-    //     fee: props.model.fee,
-    //     position_start_date: props.model.position_start_date,
-    //     // duration: props.model.duration,
+    //     title: model.title,
+    //     capacity: model.capacity,
+    //     status: model.status,
+    //     start_date: model.start_date,
+    //     end_date: model.end_date,
+    //     tags: model.tags,
+    //     fee: model.fee,
+    //     position_start_date: model.position_start_date,
+    //     // duration: model.duration,
     //     request_count: 0,
     //     id: 0,
-    //     position_end_date: props.model.position_end_date,
+    //     position_end_date: model.position_end_date,
     // }
+
+    const handleUpdate = (updatedModel: ProfessorCardViewShortInfo) => {
+        setModel(updatedModel);
+    }
 
     return (
         <>
@@ -109,9 +114,9 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                 <StyledCardContent className={clsx(globalStyles.flexColumn)}>
 
                     <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween, globalStyles.vCenter)}>
-                        <Tooltip title={props.model.title}>
+                        <Tooltip title={model.title}>
                             <Typography variant="h5" color="iconButton" noWrap>
-                                {props.model.title}
+                                {model.title}
                             </Typography>
                         </Tooltip>
                         <Box sx={{ minWidth: 'fit-content' }}>
@@ -133,7 +138,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         <Box gap={1} className={globalStyles.flexRow}>
                             <AccessTimeRounded sx={{ color: theme.palette.iconButton }} />
                             <Typography variant="body1">
-                                {`${formatTime(props.model.start_date.toString())} - ${formatTime(props.model.end_date.toString())}`}
+                                {`${formatTime(model.start_date.toString())} - ${formatTime(model.end_date.toString())}`}
                             </Typography>
                         </Box>
                         <Spacer />
@@ -141,18 +146,18 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
 
                             <EventRounded sx={{ color: theme.palette.iconButton }} />
                             <Typography variant="body1">
-                                {`${formatTime(props.model.position_start_date.toString())} - ${formatTime(props.model.position_end_date.toString())}`}
+                                {`${formatTime(model.position_start_date.toString())} - ${formatTime(model.position_end_date.toString())}`}
                             </Typography>
                         </Box>
                         <Spacer />
-                        <StatusCircle status={props.model.status} />
+                        <StatusCircle status={model.status} />
                     </Box>
 
-                    <Tooltip title={props.model.university_name}>
+                    <Tooltip title={model.university_name}>
                         <Box gap={1} className={globalStyles.flexRow} sx={{ mt: 0.5 }}>
                             <SchoolRounded sx={{ color: theme.palette.iconButton }} />
                             <Typography variant="body1" textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
-                                {props.model.university_name}
+                                {model.university_name}
                             </Typography>
                         </Box>
                     </Tooltip>
@@ -161,16 +166,16 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         <Box className={globalStyles.flexRow}>
                             <AttachMoneyRounded sx={{ color: theme.palette.iconButton }} />
                             <Typography variant="body1">
-                                {props.model.fee}
+                                {model.fee}
                             </Typography>
                         </Box>
 
                         <Typography variant="body1">
-                            Needed: {props.model.capacity}
+                            Needed: {model.capacity}
                         </Typography>
 
                         <Typography variant="body1">
-                            Requested: {props.model.request_count}
+                            Requested: {model.request_count}
                         </Typography>
                     </Box>
 
@@ -181,13 +186,13 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                             <HourglassTopRounded sx={{ color: theme.palette.iconButton }} />
                             <Typography>
                                 {
-                                    props.model.duration.year ? ` ${props.model.duration.year}y,` : ''
+                                    model.duration.year ? ` ${model.duration.year}y,` : ''
                                 }
                                 {
-                                    props.model.duration.month ? ` ${props.model.duration.month}m,` : ''
+                                    model.duration.month ? ` ${model.duration.month}m,` : ''
                                 }
                                 {
-                                    props.model.duration.day ? ` ${props.model.duration.day}d` : ''
+                                    model.duration.day ? ` ${model.duration.day}d` : ''
                                 }
                             </Typography>
                         </Box> */}
@@ -201,7 +206,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         </Grid>
 
                         {
-                            props.model.tags.map(tag => (
+                            model.tags.map(tag => (
                                 <Grid item key={tag}>
                                     <StyledTag label={tag}></StyledTag>
                                 </Grid>
@@ -237,11 +242,11 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         <CloseRounded />
                     </IconButton>
                 </DialogActions>
-                <ProfessorRequestCardDialog model_id={props.model.id} />
+                <ProfessorRequestCardDialog model_id={model.id} />
             </Dialog>
 
-            <Modal open={modalOpen} onClose={handleModalClose} sx={{ m: 2, borderRadius: '4px' }}>
-                <CardModal model_id={props.model.id} onClose={handleModalClose} />
+            <Modal open={modalOpen} onClose={handleModalClose} sx={{ m: 2, borderRadius: '4px', height: '90%' }}>
+                <CardModal model_id={model.id} onClose={handleModalClose} onAddUpdate={handleUpdate}/>
             </Modal>
 
             <Dialog open={deleteDialogOpen} onClose={handleDeleteDialogClose} fullWidth maxWidth='sm'>

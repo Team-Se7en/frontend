@@ -1,22 +1,6 @@
-/* html,
-body,
-#app,
-#app>div {
-    height: 100vh;
-    width: 100vw;
-} */
-
 body>#root {
     width: 100vw;
     height: 100vh;
-}
-
-body {
-    /* margin: 0; */
-    /* display: flex; */
-    /* place-items: center;
-    min-width: 320px;
-    min-height: 100vh; */
 }
 
 textarea {
@@ -45,4 +29,10 @@ input {
 
 .css-lp68i5-MuiLineElement-root {
     stroke-width: 4px !important;
+}
+
+.css-1muiqtn-MuiContainer-root {
+    border-radius: 4px !important;
+    overflow: scroll !important;
+    height: 100%;
 }
