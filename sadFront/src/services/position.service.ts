@@ -15,6 +15,16 @@ export const getProfessorRecentPositions = async () => {
     }
 };
 
+export const getProfessorPositions = async () => {
+    try {
+        const result = await client.get(`/eduportal/professors/my_positions`);
+        return result;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
 export const deletePosition = async (id: number) => {
     try {
         const result = await client.delete(`/eduportal/positions/${id}`);
