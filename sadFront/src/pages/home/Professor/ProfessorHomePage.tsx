@@ -27,7 +27,7 @@ export function ProfessorHomePage() {
                 }}/>
                 <StudentCard name={""} university={""} status={""} field={""} positionTitle={""} requestDate={""} fee={""} startDate={""} coverLetter={""}/>
 
-                <ProfessorPositionSort/>
+                {/* <ProfessorPositionSort/> */}
 
 
             </Box>

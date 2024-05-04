@@ -1,7 +1,6 @@
-import * as React from 'react';
-
 import { Avatar, Box, CardActions, Chip, Grid, Icon, Stack, Typography } from "@mui/material";
 
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 import AspectRatio from '@mui/joy/AspectRatio';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Button from '@mui/joy/Button';
@@ -43,20 +42,9 @@ const StudentCard: React.FC<StudentCardProps> = ({
     coverLetter,
 
 }) => {
-    const getStatusIcon = (status:any) => {
-        switch (status) {
-            case 'Accepted':
-                return <CheckCircleIcon color="success" />;
-            case 'Rejected':
-                return <RemoveCircleIcon color="disabled" />;
-            case 'Pending':
-                return <HourglassEmptyIcon color="action" />;
-            default:
-                return <InfoIcon />;
-        }
-    };
+
 return (
-    <Box sx={{ width: '100%', display: 'flex', padding: 2 }}>
+    <Box sx={{ width: '100%', display: 'flex', padding: 1 ,}}>
         
         <Card
         sx={{
@@ -69,22 +57,35 @@ return (
         }}
         >
 
-        <Avatar sx={{ marginLeft: 2, width: 56, height: 56 }}></Avatar>
-        <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 2, flexGrow: 1 }}>
+        <CardContent>
 
-            <Typography sx={{ display: 'flex', flexDirection: 'row', marginLeft: 2, flexGrow: 1 }}>
-            <Icon><InfoIcon /></Icon>
-            Name:{name}
+        <Sheet
+            sx={{
+                backgroundColor:'#DCF2F1',
+                borderRadius: 'sm',
+                p: 2,
+                my: 2,
+                display: 'flex',
+                gap: 25,
+
+            }}
+            >
+            <Avatar sx={{ marginLeft: 2, width: 56, height: 56 }}></Avatar>
+
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', marginLeft: 2,}}>
+                <Icon><InfoIcon /></Icon>
+                <Box component="span" sx={{ ml: 0.5 }}>Name:</Box>
+                {name}
             </Typography>
 
-            <Typography sx={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between',marginLeft: 2, flexGrow: 1 }}>
-            {getStatusIcon(status)}
-            Status: {status}                        
+
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row',marginLeft: 2,}}>
+                <Icon><AnalyticsIcon /></Icon>
+                <Box component="span" sx={{ ml: 0.5 }}>Status:</Box>
+                {status}  
             </Typography>
             
-            </Box>
-
-            <CardContent>
+            </Sheet>
                 
             <Sheet
             sx={{
@@ -96,22 +97,23 @@ return (
                 gap: 25,
             }}
             >
-            <Typography sx={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between',marginLeft: 2, flexGrow: 1 }}>
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row',marginLeft: 2,}}>
             <Icon><WorkIcon /></Icon>
-
-            Field:{field}
+            <Box component="span" sx={{ ml: 0.5 }}>Field:</Box>
+            {field}
             </Typography>
 
-            <Typography sx={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between',marginLeft: 2, flexGrow: 1 }}>
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', marginLeft: 2,}}>
             <Icon><SchoolIcon /></Icon>
-            University:{university}
+            <Box component="span" sx={{ ml: 0.5 }}>University:</Box>
+            {university}
             </Typography>
 
-            <Typography sx={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between',marginLeft: 2, flexGrow: 1 }}>
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', marginLeft: 2, }}>
             <Icon><EventNoteIcon /></Icon>
-            Position: {positionTitle}
+            <Box component="span" sx={{ ml: 0.5 }}>Position:</Box>
+            {positionTitle}
             </Typography>
-            
             
             </Sheet>
             
@@ -123,43 +125,58 @@ return (
                 my: 2,
                 display: 'flex',
                 gap: 25,
+
             }}
             >
-            <div>
+            <Box>
                 <Typography>
                 <Icon><DateRangeIcon /></Icon>
-                RequestDate:
+                <Box component="span" sx={{ ml: 0.5 }}>Request Date:</Box>
+                {requestDate}
                 </Typography>
-                <Typography fontWeight="lg">{requestDate}</Typography>
-            </div>
-            <div>
+            </Box>
+            
+            <Box>
                 <Typography>
                 <Icon><AttachMoneyIcon /></Icon>
-                Fee:
+                <Box component="span" sx={{ ml: 0.5 }}>Fee:</Box>
+                {fee}
                 </Typography>
-                <Typography>{fee}</Typography>
-            </div>
+            </Box>
 
-            <div>
+            <Box>
                 <Typography>
                 <Icon><DateRangeIcon /></Icon>
-                StartDate:
+                <Box component="span" sx={{ ml: 0.5 }}>Start Date:</Box>
+                {startDate}
                 </Typography>
-                <Typography>{startDate}</Typography>
-            </div>
+            </Box>
+            
             </Sheet>
+
+            <Sheet
+            sx={{
+                backgroundColor:'#DCF2F1',
+                borderRadius: 'sm',
+                p: 2,
+                my: 2,
+                display: 'flex',
+                gap: 25,
+
+            }}
+            >
 
             <Typography>
             <Icon><InfoIcon /></Icon>
-                Cover Letter:
+            <Box component="span" sx={{ ml: 0.5 }}>Cover Letter:</Box>
                 {coverLetter}
                 </Typography>
-                <Typography>{fee}</Typography>
+
+            </Sheet>
 
         </CardContent>
         </Card>
     </Box>
-
 
     );
 }
