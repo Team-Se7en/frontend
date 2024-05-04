@@ -18,6 +18,7 @@ const SearchContainer = styled('div')({
 
 const SearchButton = styled(Button)({
   marginLeft: '8px',
+  backgroundColor: '#00004b',
 });
 
 const HighlightedText = styled('span')({
@@ -74,7 +75,7 @@ const Search: React.FC = () => {
   return (
     <SearchContainer>
       <TextField
-      style={{width:'900px'}}
+        style={{width:'70%'}} // Responsive width
         label="Search"
         variant="outlined"
         value={query}
@@ -92,14 +93,14 @@ const Search: React.FC = () => {
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {results.length > 0 && (
         <SearchResultList>
-      {results.map((result) => (
-        <SearchResultItem key={result.id}>
-          {/* Highlighted text */}
-          <HighlightedText>{result.name}</HighlightedText>
-          </SearchResultItem>
+          {results.map((result) => (
+            <SearchResultItem key={result.id}>
+              {/* Highlighted text */}
+              <HighlightedText>{result.name}</HighlightedText>
+            </SearchResultItem>
           ))}
-          </SearchResultList>
-        )}
+        </SearchResultList>
+      )}
     </SearchContainer>
   );
 };
