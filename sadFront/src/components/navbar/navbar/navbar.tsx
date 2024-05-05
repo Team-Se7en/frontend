@@ -39,7 +39,7 @@ function Navbar({ showAuthButtons = false,showAuthButton = false }) {
           justifyContent: "center",
           alignItems: "center",
           width:'100%',
-          height:'60px',
+          height:'82px',
         }}
       >
         <span style={{ flex: "0.2 1 auto" }}></span>

@@ -41,10 +41,7 @@ export function Home() {
   return (
     <>
       <Navbar showAuthButtons={true} showAuthButton={true} />
-      <Box sx={{height:'100px'}}></Box>
-      <Search />
       <StyledIntro>
-
         <Grow
           in={true}
           style={{ transformOrigin: '0 0 0' }}

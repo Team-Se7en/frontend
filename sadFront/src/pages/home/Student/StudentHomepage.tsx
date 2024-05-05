@@ -1,17 +1,18 @@
 import { Box} from "@mui/material";
 import { ProgramsList } from "../../../components/programslist/ProgramsList";
-import Navbar from "../../../components/navbar/navbar/navbar";
+
 import Footer from "../../../components/footer/footer/footer";
 import  Search from "../../../components/Search/Search";
+import StudentHeader from "../../../components/home_st_header/StudentHeader";
 
 
 export default function StudentHomepage() {
   return (
 <div>
   <div>
-      <Navbar showAuthButton={false} />
+      <StudentHeader/>
       </div>
-      <div style={{marginTop:'20px'}}>
+      <div style={{marginTop:'100px'}}>
       <Search />
       </div>
       <Box

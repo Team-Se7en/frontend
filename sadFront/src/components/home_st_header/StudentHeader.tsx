@@ -12,10 +12,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-const pages = ['Home', 'Positions', 'Requests', 'University'];
+const pages = ['Home', 'Positions','University'];
 const settings = ['Profile', 'Add Program', 'Logout'];
 
-function ProfessorHeader() {
+function StudentHeader() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -155,4 +155,4 @@ function ProfessorHeader() {
     );
 }
 
-export default ProfessorHeader;
+export default StudentHeader;

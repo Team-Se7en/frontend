@@ -75,7 +75,7 @@ const Search: React.FC = () => {
   return (
     <SearchContainer>
       <TextField
-        style={{width:'70%'}} // Responsive width
+        style={{width:'60%',marginLeft:'78px'}} // Responsive width
         label="Search"
         variant="outlined"
         value={query}
