@@ -10,7 +10,7 @@ import "../../assets/fonts/CalligraphyFLF.css";
 import "../../assets/fonts/GreatVibes-Regular.css";
 import Navbar from "../../components/navbar/navbar/navbar";
 import Footer from "../../components/footer/footer/footer";
-import Search from "../../components/Search/Search";
+
 
 export function Home() {
 
