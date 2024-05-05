@@ -36,16 +36,16 @@ export function ProfessorHomePage() {
                 <ProfessorPositionSort/>
                 </div>
 
-            <ProfessorPositionFilter onProfessorFilter={function (): void {
+            {/* <ProfessorPositionFilter onProfessorFilter={function (): void {
                     throw new Error("Function not implemented.");
-                } }/>
+                } }/> */}
             {/* <Search/> */}
-            <StudentCard name={"Ali Alizadeh"} university={"Iust"} status={"pending"}
+            {/* <StudentCard name={"Ali Alizadeh"} university={"Iust"} status={"pending"}
                         field={"Computer Science"} positionTitle={"Software"} requestDate={"5/4/2024"}
                         fee={"15000"} startDate={"1/1/2025"}
                         coverLetter={"I’m living the dream.I’ve always been a great problem solver, an independent introvert, and a technophile obsessed with the latest devices. Today, I’m open to working as a software engineer, and I get to show off all these elements of who I am."}/>
 
-            <ProfessorPositionSort/>
+            <ProfessorPositionSort/> */}
             {/* <ProfessorPositionsSort/>
             <StudentPositionSort/>
             <StudentRequestSort/> */}

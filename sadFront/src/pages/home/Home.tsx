@@ -13,7 +13,6 @@ import { LandingInfo } from "../../models/LandingInfo";
 import { LineChart } from "@mui/x-charts";
 import { Loading } from "../../components/ui/Loading";
 import Navbar from "../../components/navbar/navbar/navbar";
-import  Search from "../../components/Search/Search";
 import { Spacer } from "../../components/ui/Spacer";
 import Styles from "../../Styles";
 import clsx from "clsx";
@@ -78,7 +77,6 @@ export function Home() {
     <>
       <Navbar showAuthButtons={true} showAuthButton={true} />
       <Box sx={{ height: '100px' }}></Box>
-      <Search />
 
       {
         loading
