@@ -1,9 +1,8 @@
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { StudentCardViewFullInfo } from "../../models/CardInfo";
 import ProgramCard from "../programcard/ProgramCard";
-
 
 export function ProgramsList() {
   const [allPrograms, setAllPrograms] =
@@ -24,17 +23,11 @@ export function ProgramsList() {
   console.log(allPrograms);
   return (
     <Box
-      width={"60%"}
-      minWidth={"30rem"}
+      width="90%"
       maxWidth={"45rem"}
+      minWidth={"20rem"}
       sx={{ backgroundColor: "#fafafa" }}
     >
-      <Divider
-        textAlign="left"
-        sx={{ fontFamily: "roboto", fontSize: "1rem", color: "#6e6e6e" }}
-      >
-        Recent Programs
-      </Divider>
       <Box
         my={4}
         display="flex"

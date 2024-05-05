@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import { ProgramsList } from "../../components/programslist/ProgramsList";
 import { Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Divider } from "@mui/material";
 
 export default function UniversityPage() {
   const statisticTitles = [
@@ -116,10 +117,70 @@ export default function UniversityPage() {
           className="bottem-info"
           display={"flex"}
           flexDirection={"row"}
-          padding={"2rem"}
+          paddingLeft={"10%"}
+          paddingTop={"2rem"}
         >
-          <Box className="left-side">
-            <ProgramsList></ProgramsList>
+          <Box
+            className="left-side"
+            display={"flex"}
+            flexDirection={"column"}
+            gap={"3rem"}
+            width={"60%"}
+          >
+            <Box
+              className="about-uni"
+              display={"flex"}
+              flexDirection={"column"}
+            >
+              <Divider
+                textAlign="left"
+                sx={{
+                  fontFamily: "roboto",
+                  fontSize: "1.1rem",
+                  color: "#6e6e6e",
+                  marginBottom: "2rem",
+                  fontWeight: "bold",
+                }}
+              >
+                About Acadia University
+              </Divider>
+              <Box>
+                <Typography className="uni-description" fontSize={"1rem"}>
+                  Acadia University is a prestigious Canadian institution
+                  located in the scenic town of Wolfville, Nova Scotia. Founded
+                  in 1838, Acadia has a long-standing reputation for academic
+                  excellence, innovation, and community engagement. The
+                  university offers a diverse range of undergraduate and
+                  graduate programs across various disciplines, including arts,
+                  sciences, professional studies, and more. With a commitment to
+                  personalized education and small class sizes, Acadia provides
+                  a supportive and inclusive learning environment that fosters
+                  critical thinking, creativity, and collaboration. The
+                  university's beautiful campus, nestled in the picturesque
+                  Annapolis Valley, offers a vibrant and close-knit community
+                  where students can immerse themselves in a rich academic and
+                  social experience. Acadia University is dedicated to preparing
+                  its students for success by providing them with the knowledge,
+                  skills, and experiences necessary to thrive in their chosen
+                  careers and contribute meaningfully to society.
+                </Typography>
+              </Box>
+            </Box>
+            <Box>
+              <Divider
+                textAlign="left"
+                sx={{
+                  fontFamily: "roboto",
+                  fontSize: "1.1rem",
+                  color: "#6e6e6e",
+                  marginBottom: "2rem",
+                  fontWeight: "bold",
+                }}
+              >
+                Active Programs Here
+              </Divider>
+              <ProgramsList></ProgramsList>
+            </Box>
           </Box>
           <Box className="right-side"></Box>
         </Box>
