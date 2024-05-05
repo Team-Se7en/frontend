@@ -122,6 +122,12 @@ export function StudentEditProfile() {
     const navigateToHome = () => {
         navigate("/studenthomepage");
     }
+    const navigateToViewCV = () => {
+        navigate("/cv/view");
+    }
+    const navigateToEditCV = () => {
+        navigate("/cv/edit");
+    }
 
     const globalClasses = Styles();
     const editProfileStyles = EditProfileStyles();
@@ -137,12 +143,12 @@ export function StudentEditProfile() {
                         <img src={StudentProfileImage} className={clsx(editProfileStyles.profileImage)}></img>
                         {/* <Typography fontSize={30}>Welcome</Typography> */}
                     </Box>
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Box sx={{ width: '100%' }}>
-                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Box sx={{ width: '100%' }}>
+                        <Box >
+                            <Box >
                                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                     <Tab label="Edit Profile" {...a11yProps(0)} />
-                                    <Tab label="My Requests" {...a11yProps(1)} />
+                                    <Tab label="CV" {...a11yProps(1)} />
                                     {/* <Tab label="Reset Email" {...a11yProps(2)} /> */}
                                 </Tabs>
                             </Box>
@@ -169,7 +175,7 @@ export function StudentEditProfile() {
                                                 required
                                             />
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={6}>
                                             <TextField
                                                 fullWidth
                                                 label="SSN"
@@ -217,7 +223,20 @@ export function StudentEditProfile() {
                                 </Box>
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={1}>
-                                Item Two
+                                <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                    <Button sx={{ height: '5rem', width: '50%', marginBottom: '3rem' }}
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={navigateToViewCV}>
+                                        see CV
+                                    </Button>
+                                    <Button sx={{ height: '5rem', width: '50%', marginBottom: '3rem' }}
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={navigateToEditCV}>
+                                        Edit CV
+                                    </Button>
+                                </Box>
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={2}>
                                 <Box component="form" onSubmit={handleSubmitEmail} sx={{ mt: 1, overflowX: "hidden" }}>
