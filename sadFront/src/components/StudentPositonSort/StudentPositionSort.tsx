@@ -4,7 +4,6 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Theme, useTheme } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -30,48 +29,33 @@ const names: string[] = [
 
 interface StyleProps {
     name: string;
-    personName: readonly string[];
+    personName: string; // Now a single string
 }
 
 function getStyles({ name, personName }: StyleProps, theme: Theme) {
     return {
-        fontWeight: personName.includes(name) ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular,
+        fontWeight: personName === name ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular,
     };
 }
 
 const StudentPositionSort: React.FC = () => {
     const theme = useTheme();
-    const [personName, setPersonName] = React.useState<string[]>([]);
+    const [personName, setPersonName] = React.useState<string>(''); // Now a single string
 
-    const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-        const { target: { value } } = event;
-        setPersonName(
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
-
-    const handleDelete = (chipToDelete: string) => {
-        setPersonName((prev) => prev.filter(chip => chip !== chipToDelete));
+    const handleChange = (event: SelectChangeEvent<string>) => {
+        setPersonName(event.target.value as string);
     };
 
     return (
         <Box>
             <FormControl sx={{ m: 1, width: 250 }}>
-                <InputLabel id="demo-multiple-chip-label">Sort By</InputLabel>
+                <InputLabel id="demo-single-select-label">Sort By</InputLabel>
                 <Select
-                    labelId="demo-multiple-chip-label"
-                    id="demo-multiple-chip"
-                    multiple
+                    labelId="demo-single-select-label"
+                    id="demo-single-select"
                     value={personName}
                     onChange={handleChange}
-                    input={<OutlinedInput id="select-multiple-chip" label="Sort Criteria" />}
-                    renderValue={(selected: string[]) => (
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                            {selected.map((value) => (
-                                <Chip key={value} label={value} onDelete={() => handleDelete(value)} />
-                            ))}
-                        </Box>
-                    )}
+                    input={<OutlinedInput id="select-single" label="Sort Criteria" />}
                     MenuProps={MenuProps}
                 >
                     {names.map((name) => (

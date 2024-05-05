@@ -1,117 +1,183 @@
-import { Box, Avatar, Typography, Icon, Stack, Chip, Button } from "@mui/material";
-import { StudentCardViewShortInfo } from "../../models/CardInfo";
-import { StyledStudentCard, StyledCardContent, ProgramInfo, ProfAndUni, DeaedLineAndButton, Deadline, StyledCardActions } from "./StudentCard-styles";
+import { Avatar, Box, CardActions, Chip, Grid, Icon, Stack, Typography } from "@mui/material";
 
-const handleClick = () => {
-    console.info("You clicked a topic.");
-    };
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import AspectRatio from '@mui/joy/AspectRatio';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/material/CardContent';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import InfoIcon from '@mui/icons-material/Info';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import SchoolIcon from '@mui/icons-material/School';
+import Sheet from '@mui/joy/Sheet';
+import TextField from '@material-ui/core/TextField';
+import WorkIcon from '@mui/icons-material/Work';
 
-    export default function StudentCard(props: StudentCardViewShortInfo) {
-    return (
-    <Box minWidth={"28rem"} width={"90%"} margin={"0.5rem"}>
-        <StyledStudentCard variant="outlined">
-        <StyledCardContent>
-            <Box
-            className="left-info"
+interface StudentCardProps {
+    name: string;
+    university: string;
+    status: string;
+    field: string;
+    positionTitle: string;
+    requestDate: string;
+    fee: string;
+    startDate: string;
+    coverLetter: string;
+}
+
+
+const StudentCard: React.FC<StudentCardProps> = ({
+    name,
+    university,
+    status,
+    field,
+    positionTitle,
+    requestDate,
+    fee,
+    startDate,
+    coverLetter,
+
+}) => {
+
+return (
+    <Box sx={{ width: '100%', display: 'flex', padding: 1 ,}}>
+        
+        <Card
+        sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '100%',
+            flexWrap: 'wrap',
+            overflow: 'auto',
+        }}
+        >
+
+        <CardContent>
+
+        <Sheet
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
+                backgroundColor:'#DCF2F1',
+                borderRadius: 'sm',
+                p: 2,
+                my: 2,
+                display: 'flex',
+                gap: 25,
+
             }}
-            width={{ xs: "100%", sm: "100%", md: "100%", lg: "80%", xl: "80%" }}
             >
-            <Box
-                className="top-info"
-                sx={{ display: "flex", flexDirection: "row" }}
-                gap={"1rem"}
-            >
-                <Avatar
-                className="avatar"
-                alt="Sauleh Etemadi"
-                src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1718236800&v=beta&t=_ROkXK-gfaD5ANq-FbDDW13wiIOwX6u9-2fAw_qYKeA"
-                sx={{
-                    minHeight: "5rem",
-                    minWidth: "5rem",
-                    margin: "0.5rem",
-                    marginBottom: 0,
-                }}
-                />
-                <ProgramInfo>
-                <Typography
-                    variant="h5"
-                    component="div"
-                    sx={{ fontWeight: "bold" }}
-                    fontSize={"1.4rem"}
-                >
-                    {props.title}
-                </Typography>
-                <ProfAndUni>
-                    <Typography color="text.secondary" fontSize={"1rem"}>
-                    {/* {props.professor.Name} */}
-                    </Typography>
-                    <Box
-                    className="icon-uni"
-                    display={"flex"}
-                    flexDirection={"row"}
-                    gap={"0.2rem"}
-                    >
-                    <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
-                    <Typography variant="body2" fontSize={"0.8rem"}>
-                        {/* {props.universityName} */}
-                    </Typography>
-                    </Box>
-                </ProfAndUni>
-                </ProgramInfo>
-            </Box>
-            <Box
-                className="topics"
-                display={"flex"}
-                flexDirection={"row"}
-                gap={"0.5rem"}
-                alignItems={"center"}
-                //overflow={"auto"}
-            >
-                <Typography variant="body2" fontSize={"0.9rem"}>
-                Interest Field:
-                </Typography>
+            <Avatar sx={{ marginLeft: 2, width: 56, height: 56 }}></Avatar>
+
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', marginLeft: 2,}}>
+                <Icon><InfoIcon /></Icon>
+                <Box component="span" sx={{ ml: 0.5 }}>Name:</Box>
+                {name}
+            </Typography>
+
+
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row',marginLeft: 2,}}>
+                <Icon><AnalyticsIcon /></Icon>
+                <Box component="span" sx={{ ml: 0.5 }}>Status:</Box>
+                {status}  
+            </Typography>
+            
+            </Sheet>
                 
-                <Stack direction="row" spacing={1}>
-                <Chip
-                    label="Machine Learning"
-                    size="small"
-                    onClick={handleClick}
-                />
-                <Chip label="NLP" size="small" onClick={handleClick} />
-                <Chip
-                    label="Artificial Intelligence"
-                    size="small"
-                    onClick={handleClick}
-                />
-                </Stack>
-            </Box>
+            <Sheet
+            sx={{
+                backgroundColor:'#DCF2F1',
+                borderRadius: 'sm',
+                p: 2,
+                my: 2,
+                display: 'flex',
+                gap: 25,
+            }}
+            >
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row',marginLeft: 2,}}>
+            <Icon><WorkIcon /></Icon>
+            <Box component="span" sx={{ ml: 0.5 }}>Field:</Box>
+            {field}
+            </Typography>
+
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', marginLeft: 2,}}>
+            <Icon><SchoolIcon /></Icon>
+            <Box component="span" sx={{ ml: 0.5 }}>University:</Box>
+            {university}
+            </Typography>
+
+            <Typography sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', marginLeft: 2, }}>
+            <Icon><EventNoteIcon /></Icon>
+            <Box component="span" sx={{ ml: 0.5 }}>Position:</Box>
+            {positionTitle}
+            </Typography>
+            
+            </Sheet>
+            
+            <Sheet
+            sx={{
+                backgroundColor:'#DCF2F1',
+                borderRadius: 'sm',
+                p: 2,
+                my: 2,
+                display: 'flex',
+                gap: 25,
+
+            }}
+            >
+            <Box>
+                <Typography>
+                <Icon><DateRangeIcon /></Icon>
+                <Box component="span" sx={{ ml: 0.5 }}>Request Date:</Box>
+                {requestDate}
+                </Typography>
             </Box>
             
-            <DeaedLineAndButton>
-            <Deadline>
-                <Typography variant="body2" fontSize={"0.7rem"}>
-                Application Time:
+            <Box>
+                <Typography>
+                <Icon><AttachMoneyIcon /></Icon>
+                <Box component="span" sx={{ ml: 0.5 }}>Fee:</Box>
+                {fee}
                 </Typography>
-                <Typography
-                variant="body2"
-                fontWeight={"bold"}
-                fontSize={"0.8rem"}
-                >
-                Feb 2024
+            </Box>
+
+            <Box>
+                <Typography>
+                <Icon><DateRangeIcon /></Icon>
+                <Box component="span" sx={{ ml: 0.5 }}>Start Date:</Box>
+                {startDate}
                 </Typography>
-                
-            </Deadline>
+            </Box>
             
-            <StyledCardActions>
-                <Button size="large">Learn More</Button>
-            </StyledCardActions>
-            </DeaedLineAndButton>
-        </StyledCardContent>
-        </StyledStudentCard>
+            </Sheet>
+
+            <Sheet
+            sx={{
+                backgroundColor:'#DCF2F1',
+                borderRadius: 'sm',
+                p: 2,
+                my: 2,
+                display: 'flex',
+                gap: 25,
+
+            }}
+            >
+
+            <Typography>
+            <Icon><InfoIcon /></Icon>
+            <Box component="span" sx={{ ml: 0.5 }}>Cover Letter:</Box>
+                {coverLetter}
+                </Typography>
+
+            </Sheet>
+
+        </CardContent>
+        </Card>
     </Box>
+
     );
-    }
+}
+export default StudentCard;
