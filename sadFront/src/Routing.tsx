@@ -1,19 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ProfessorEditProfile } from "./pages/editProfile/ProfessorEditProfile";
-import { StudentEditProfile } from "./pages/editProfile/StudentEditProfile";
-import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { Forgot } from "./pages/forgot-pass/Forgotpassword/ForgotPassword";
+import { Home } from "./pages/home/Home";
+import { Login } from "./pages/login/Login";
 import Newpassword from "./pages/forgot-pass/Newpassword/Newpassword";
+import { ProfessorEditProfile } from "./pages/editProfile/ProfessorEditProfile";
 import { ProfessorHomePage } from "./pages/home/Professor/ProfessorHomePage";
-import StudentHomepage from "./pages/home/Student/StudentHomepage";
 import { ProfessorSignup } from "./pages/signup/professor-signup/ProfessorSignup";
 import Signup from "./pages/signup/Signup";
 import { SignupVerification } from "./pages/signup/SignupVerification";
+import { StudentEditProfile } from "./pages/editProfile/StudentEditProfile";
+import StudentHomepage from "./pages/home/Student/StudentHomepage";
 import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
-import { Login } from "./pages/login/Login";
-import { Home } from "./pages/home/Home";
-
-
+import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 
 export default function Routing() {
     return (
@@ -35,7 +34,7 @@ export default function Routing() {
                 <Route path="" element={<Home />} />
                 <Route path="newpassword" element={<Newpassword />} />
                 <Route path="professorhomepage" element={<ProfessorHomePage />} />
-              <Route path="studenthomepage" element={<StudentHomepage />} />
+                <Route path="studenthomepage" element={<StudentHomepage />} />
             </Routes>
         </BrowserRouter>
     )

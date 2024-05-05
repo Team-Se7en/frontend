@@ -1,20 +1,35 @@
-import { Box} from "@mui/material";
-import { ProgramsList } from "../../../components/programslist/ProgramsList";
+import { Box, CssBaseline } from "@mui/material";
 
 import Footer from "../../../components/footer/footer/footer";
+import { ProgramsList } from "../../../components/programslist/ProgramsList";
 import  Search from "../../../components/Search/Search";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
-
+import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
+import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
 
 export default function StudentHomepage() {
   return (
-<div>
-  <div>
+    <Box>
+      <CssBaseline />
+
       <StudentHeader/>
-      </div>
-      <div style={{marginTop:'100px'}}>
-      <Search />
-      </div>
+      
+      <Box style={{marginTop:'70px'}}>
+      <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-between" sx={{ gap: '8px' }}>
+
+      <StudentPositionFilter/>
+
+
+        <Box style={{marginTop:'20px',width:'100% '}}>
+                <Search/>
+        </Box>
+
+        <Box style={{marginTop:'12px'}}>
+                <StudentPositionSort/>
+        </Box>
+
+      </Box>
+      </Box>
       <Box
         className="main"
         sx={{ backgroundColor: "#fafafa" }}
@@ -26,7 +41,7 @@ export default function StudentHomepage() {
         <ProgramsList></ProgramsList>
       </Box>
       <Footer />
-      </div>
+      </Box>
 
   );
 }

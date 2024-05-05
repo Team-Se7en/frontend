@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -96,9 +97,9 @@ function ProfessorHeader() {
                                 textTransform: "none",
                                 transition: '0.3s',
                                 ":hover": {
-                                  color: 'black',
-                                  bgcolor: 'white',
-                                  ml: 1,
+                                    color: 'black',
+                                    bgcolor: 'white',
+                                    ml: 1,
                                 } }}
                             >
                                 {page}
