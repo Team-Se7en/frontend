@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { TextField, Button, CircularProgress, styled } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
+import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
-
 
 interface SearchResult {
   id: number;
@@ -71,6 +72,9 @@ const Search: React.FC = () => {
     }
   };
 
+  const handleClear = () => {
+    setQuery('');
+  };
 
   return (
     <SearchContainer>
@@ -83,9 +87,22 @@ const Search: React.FC = () => {
         onKeyDown={handleKeyDown}
         InputProps={{
           endAdornment: (
-            <SearchButton variant="contained" onClick={handleSearch} disabled={loading}>
-              {loading ? <CircularProgress size={24} color="inherit" /> : <SearchIcon />}
-            </SearchButton>
+            <React.Fragment>
+              {/* اگر مقدار ورودی خالی نباشد، دکمه پاکسازی نشان داده شود */}
+              {query && (
+                <IconButton
+                  edge="end"
+                  aria-label="clear"
+                  onClick={handleClear}
+                  size="small"
+                >
+                  <ClearIcon />
+                </IconButton>
+              )}
+              <SearchButton variant="contained" onClick={handleSearch} disabled={loading}>
+                {loading ? <CircularProgress size={24} color="inherit" /> : <SearchIcon />}
+              </SearchButton>
+            </React.Fragment>
           ),
         }}
       />

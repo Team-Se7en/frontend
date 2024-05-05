@@ -20,6 +20,7 @@ import clsx from "clsx";
 import { getLandingInfo } from "../../services/landing.service";
 import theme from "../../Theme";
 
+
 export function Home() {
   const [studentCount, setStudentCount] = useState<number>(0);
   const [professorCount, setProfessorCount] = useState<number>(0);
