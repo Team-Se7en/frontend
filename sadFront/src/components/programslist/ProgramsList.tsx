@@ -44,21 +44,18 @@ export function ProgramsList() {
             id={program.id}
             status={program.status}
             title={program.title}
-            //tags={program.tags}
-            tags={[
-              "Machine Learning",
-              "Artificial Intelligence",
-              "Computer Science",
-            ]}
-            //fee={program.fee}
-            fee={145800000}
+            tags={program.tags}
+            fee={program.fee}
             position_start_date={program.position_start_date}
             position_end_date={program.position_end_date}
-            // updated_at={program.updated_at}
+            updated_at={program.updated_at}
             start_date={program.start_date}
             end_date={program.end_date}
+            created_at={program.created_at}
             description="" //Will be assigned in modal
             capacity={0} //Will be assigned in modal
+            university_name={program.university_name}
+            university_id={program.university_id}
           />
         ))}
       </Box>

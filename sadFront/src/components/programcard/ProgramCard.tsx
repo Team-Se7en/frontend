@@ -19,7 +19,7 @@ const handleClick = () => {
 
 export default function ProgramCard(props: StudentCardViewFullInfo) {
   return (
-    <Box minWidth={"28rem"} width={"90%"} margin={"0.5rem"}>
+    <Box minWidth={"24rem"} width={"90%"} margin={"0.5rem"}>
       <StyledProgramCard variant="outlined">
         <StyledCardContent>
           <Box
@@ -28,6 +28,7 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
               display: "flex",
               flexDirection: "column",
               gap: "1rem",
+              width: "100%",
             }}
             width={{ xs: "100%", sm: "100%", md: "100%", lg: "80%", xl: "80%" }}
           >
@@ -70,7 +71,7 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                   >
                     <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
                     <Typography variant="body2" fontSize={"0.8rem"}>
-                      {props.professor.university}
+                      {props.university_name}
                     </Typography>
                   </Box>
                 </ProfAndUni>
@@ -83,6 +84,13 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
               display={"flex"}
               flexDirection={"column"}
               gap={"0.8rem"}
+              width={{
+                xs: "100%",
+                sm: "100%",
+                md: "100%",
+                lg: "80%",
+                xl: "80%",
+              }}
             >
               <Box
                 className="info"
@@ -193,8 +201,11 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                   fee={props.fee}
                   start_date={props.start_date}
                   tags={props.tags}
-                  // updated_at={props.updated_at}
+                  updated_at={props.updated_at}
                   end_date={props.end_date}
+                  created_at={props.created_at}
+                  university_name={props.university_name}
+                  university_id={props.university_id}
                 ></ProgramModal>
               </StyledCardActions>
             </DeaedLineAndButton>
