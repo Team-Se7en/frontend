@@ -1,9 +1,14 @@
 import { Box, Divider } from "@mui/material";
-import { useState, useEffect } from "react";
-import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
-import { getProfessorRecentPositions } from "../../services/position.service";
-import { ProfessorRequestCard } from "../professor-request-card/ProfessorRequestCard";
+import { useEffect, useState } from "react";
 
+import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
+import { ProfessorPostionFilter } from "../../models/Filters";
+import { ProfessorRequestCard } from "../professor-request-card/ProfessorRequestCard";
+import { getProfessorRecentPositions } from "../../services/position.service";
+
+export interface ProfessorRecentPositionsProps {
+    filter: ProfessorPostionFilter;    
+}
 
 export function ProfessorRecentPositions() {
     const [professorPositions, setProfessorPositions] = useState<ProfessorCardViewShortInfo[]>([]);

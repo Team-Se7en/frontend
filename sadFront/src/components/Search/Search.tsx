@@ -1,8 +1,8 @@
+import { Button, CircularProgress, TextField, styled } from '@mui/material';
 import React, { useState } from 'react';
-import { TextField, Button, CircularProgress, styled } from '@mui/material';
+
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
-
 
 interface SearchResult {
   id: number;
