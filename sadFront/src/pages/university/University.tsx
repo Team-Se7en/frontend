@@ -9,23 +9,31 @@ import { Divider } from "@mui/material";
 import axios from "axios";
 import { University } from "../../models/University";
 import { Button } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 export default function UniversityPage() {
-  //const [allUniversities, setAllUniversities] = React.useState<University[]>();
+  const [uniInfo, setuniInfo] = React.useState<University>();
+  const location = useLocation();
+  const uniID = location.state;
 
-  //React.useEffect(() => {
-  //  axios
-  //    .get("https://seven-apply.liara.run/eduportal/universities")
-  //    .then((response) => {
-  //      setAllUniversities(response.data);
-  //    })
-  //    .catch((error) => {
-  //      console.error("There was an error!", error);
-  //    });
-  //}, []);
+  React.useEffect(() => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/universities" +
+          "/" +
+          uniID +
+          "/"
+      )
+      .then((response) => {
+        setuniInfo(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
 
-  //if (!allUniversities) return null;
-  //console.log(allUniversities);
+  if (!uniInfo) return null;
+  //console.log(uniInfo);
 
   const statisticTitles = [
     "Total Students",
@@ -33,7 +41,12 @@ export default function UniversityPage() {
     "Ranking (2024)",
     "Total Shared Programs",
   ];
-  const statistics = [840, 250, 56, 5];
+  const statistics = [
+    uniInfo.total_student_count,
+    uniInfo.international_student_count,
+    uniInfo.rank,
+    0, //to be replaced
+  ];
 
   return (
     <Box sx={{ overflowX: "hidden" }}>
@@ -54,7 +67,7 @@ export default function UniversityPage() {
           width={"100%"}
         >
           <Box className="uni-image" width={"100%"}>
-            <img src="src\assets\images\CroppedUniImage.jpg" width={"100%"} />
+            <img src={uniInfo.image} width={"100%"} />
           </Box>
           <Box
             className="statistics"
@@ -87,11 +100,7 @@ export default function UniversityPage() {
                 alignItems={"center"}
                 marginBottom={"0.8rem"}
               >
-                <img
-                  src="src\assets\icons\acadia-university.webp"
-                  width={"80%"}
-                  height={"80%"}
-                />
+                <img src={uniInfo.icon} width={"80%"} height={"80%"} />
               </Box>
               <Typography
                 className="title"
@@ -100,7 +109,7 @@ export default function UniversityPage() {
                 fontSize={"1.5rem"}
                 color={"#F2F2F2"}
               >
-                Acadia University
+                {uniInfo.name}
               </Typography>
               <Box
                 className="loc-icon-and-tex"
@@ -113,7 +122,7 @@ export default function UniversityPage() {
                   variant="h6"
                   fontSize={"1rem"}
                 >
-                  Nova Scotia, Canada
+                  {uniInfo.city}, {uniInfo.country}
                 </Typography>
               </Box>
             </Box>
@@ -164,27 +173,11 @@ export default function UniversityPage() {
                   fontWeight: "bold",
                 }}
               >
-                About Acadia University
+                About {uniInfo.name}
               </Divider>
               <Box padding={"1rem"}>
                 <Typography className="uni-description" fontSize={"1rem"}>
-                  Acadia University is a prestigious Canadian institution
-                  located in the scenic town of Wolfville, Nova Scotia. Founded
-                  in 1838, Acadia has a long-standing reputation for academic
-                  excellence, innovation, and community engagement. The
-                  university offers a diverse range of undergraduate and
-                  graduate programs across various disciplines, including arts,
-                  sciences, professional studies, and more. With a commitment to
-                  personalized education and small class sizes, Acadia provides
-                  a supportive and inclusive learning environment that fosters
-                  critical thinking, creativity, and collaboration. The
-                  university's beautiful campus, nestled in the picturesque
-                  Annapolis Valley, offers a vibrant and close-knit community
-                  where students can immerse themselves in a rich academic and
-                  social experience. Acadia University is dedicated to preparing
-                  its students for success by providing them with the knowledge,
-                  skills, and experiences necessary to thrive in their chosen
-                  careers and contribute meaningfully to society.
+                  {uniInfo.description}
                 </Typography>
               </Box>
             </Box>
@@ -241,7 +234,7 @@ export default function UniversityPage() {
                     display={"inline"}
                     fontSize={"1.3rem"}
                   >
-                    5 active programs
+                    0 active programs
                   </Box>{" "}
                   from profs of this university
                 </Typography>
@@ -276,7 +269,7 @@ export default function UniversityPage() {
                     display={"inline"}
                     fontSize={"1.3rem"}
                   >
-                    19 Students
+                    0 Students
                   </Box>{" "}
                   have been admitted via 7Apply so far
                 </Typography>

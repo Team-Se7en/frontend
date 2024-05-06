@@ -12,6 +12,7 @@ import {
   Deadline,
   StyledCardActions,
 } from "./ProgramCard-styles";
+import { Link } from "react-router-dom";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -63,17 +64,22 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                       " " +
                       props.professor.user.last_name}
                   </Typography>
-                  <Box
-                    className="icon-uni"
-                    display={"flex"}
-                    flexDirection={"row"}
-                    gap={"0.2rem"}
+                  <Link
+                    to={{ pathname: "/universitypage" }}
+                    state={props.university_id}
                   >
-                    <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
-                    <Typography variant="body2" fontSize={"0.8rem"}>
-                      {props.university_name}
-                    </Typography>
-                  </Box>
+                    <Box
+                      className="icon-uni"
+                      display={"flex"}
+                      flexDirection={"row"}
+                      gap={"0.2rem"}
+                    >
+                      <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
+                      <Typography variant="body2" fontSize={"0.8rem"}>
+                        {props.university_name}
+                      </Typography>
+                    </Box>
+                  </Link>
                 </ProfAndUni>
               </ProgramInfo>
             </Box>

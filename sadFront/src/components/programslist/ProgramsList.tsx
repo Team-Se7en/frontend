@@ -20,7 +20,7 @@ export function ProgramsList() {
   }, []);
 
   if (!allPrograms) return null;
-  console.log(allPrograms);
+  //console.log(allPrograms);
   return (
     <Box
       width="90%"
