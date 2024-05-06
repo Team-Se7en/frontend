@@ -1,3 +1,4 @@
+import React from "react";
 import Footer from "../../components/footer/footer/footer";
 import Navbar from "../../components/navbar/navbar/navbar";
 import { Box } from "@mui/material";
@@ -5,8 +6,27 @@ import { ProgramsList } from "../../components/programslist/ProgramsList";
 import { Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Divider } from "@mui/material";
+import axios from "axios";
+import { University } from "../../models/University";
+import { Button } from "@mui/material";
 
 export default function UniversityPage() {
+  //const [allUniversities, setAllUniversities] = React.useState<University[]>();
+
+  //React.useEffect(() => {
+  //  axios
+  //    .get("https://seven-apply.liara.run/eduportal/universities")
+  //    .then((response) => {
+  //      setAllUniversities(response.data);
+  //    })
+  //    .catch((error) => {
+  //      console.error("There was an error!", error);
+  //    });
+  //}, []);
+
+  //if (!allUniversities) return null;
+  //console.log(allUniversities);
+
   const statisticTitles = [
     "Total Students",
     "International Students",
@@ -25,7 +45,7 @@ export default function UniversityPage() {
         marginTop={"4rem"}
         width={"100%"}
         sx={{ backgroundColor: "#fafafa" }}
-        gap={"1rem"}
+        gap={"2rem"}
       >
         <Box
           className="top-info"
@@ -118,7 +138,9 @@ export default function UniversityPage() {
           display={"flex"}
           flexDirection={"row"}
           paddingLeft={"10%"}
+          paddingRight={"10%"}
           paddingTop={"2rem"}
+          gap={"4rem"}
         >
           <Box
             className="left-side"
@@ -138,13 +160,13 @@ export default function UniversityPage() {
                   fontFamily: "roboto",
                   fontSize: "1.1rem",
                   color: "#6e6e6e",
-                  marginBottom: "2rem",
+                  marginBottom: "1rem",
                   fontWeight: "bold",
                 }}
               >
                 About Acadia University
               </Divider>
-              <Box>
+              <Box padding={"1rem"}>
                 <Typography className="uni-description" fontSize={"1rem"}>
                   Acadia University is a prestigious Canadian institution
                   located in the scenic town of Wolfville, Nova Scotia. Founded
@@ -182,7 +204,98 @@ export default function UniversityPage() {
               <ProgramsList></ProgramsList>
             </Box>
           </Box>
-          <Box className="right-side"></Box>
+          <Box className="right-side" width={"40%"}>
+            <Box
+              className="top-locked"
+              padding={"5%"}
+              width={"80%"}
+              maxHeight={"25rem"}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              gap={"2rem"}
+              sx={{
+                backgroundColor: "white",
+                borderStyle: "solid",
+                borderWidth: "1px",
+                borderColor: "#BFBFBF",
+              }}
+              borderRadius={"1rem"}
+            >
+              <Box
+                className="about-programs"
+                width={"85%"}
+                display={"flex"}
+                justifyContent={"center"}
+                flexDirection={"column"}
+                gap={"0.7rem"}
+              >
+                <Typography
+                  variant="h6"
+                  fontSize={"1.1rem"}
+                  textAlign={"center"}
+                >
+                  Here exist{" "}
+                  <Box
+                    fontWeight={"bold"}
+                    display={"inline"}
+                    fontSize={"1.3rem"}
+                  >
+                    5 active programs
+                  </Box>{" "}
+                  from profs of this university
+                </Typography>
+                <Box className="button-container" textAlign={"center"}>
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    sx={{
+                      borderRadius: "0.3rem",
+                      width: "90%",
+                    }}
+                  >
+                    Go to active programs
+                  </Button>
+                </Box>
+              </Box>
+              <Box
+                className="about-addmissions"
+                width={"85%"}
+                display={"flex"}
+                justifyContent={"center"}
+                flexDirection={"column"}
+                gap={"0.7rem"}
+              >
+                <Typography
+                  variant="h6"
+                  fontSize={"1.1rem"}
+                  textAlign={"center"}
+                >
+                  <Box
+                    fontWeight={"bold"}
+                    display={"inline"}
+                    fontSize={"1.3rem"}
+                  >
+                    19 Students
+                  </Box>{" "}
+                  have been admitted via 7Apply so far
+                </Typography>
+                <Box className="button-container" textAlign={"center"}>
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    sx={{
+                      borderRadius: "0.3rem",
+                      width: "90%",
+                      backgroundColor: "#0F1035",
+                    }}
+                  >
+                    See History Of Admissions
+                  </Button>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </Box>
       <Footer />

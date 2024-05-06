@@ -29,7 +29,7 @@ export const DeaedLineAndButton = styled(Box)(({ theme }) => ({
   gap: "1rem",
   textAlign: "center",
   alignItems: "center",
-  width: "25%",
+  width: "30%",
 
   [theme.breakpoints.down("lg")]: {
     flexDirection: "row",
