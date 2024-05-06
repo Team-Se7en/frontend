@@ -13,3 +13,6 @@ export { default as CardBackground } from "./card-background.png"
 export { default as ProfessorHomePage} from "./ProfessorHomePage.png"
 export { default as ChartImage } from './chart-image.png'
 export { default as LandingImage } from './landing-image.png'
+export { default as TopUniversitiesImage } from './top-universities-image.png'
+export { default as TopStudentsImage } from './top-students-image.png'
+export { default as TopProfessorsImage } from './top-professors-image.png'

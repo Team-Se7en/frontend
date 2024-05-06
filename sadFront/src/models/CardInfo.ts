@@ -1,5 +1,6 @@
 import { Professor } from "./Professor";
 import { Status } from "./Status";
+import { University } from "./University";
 
 
 export interface CardInfo {

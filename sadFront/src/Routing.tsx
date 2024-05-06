@@ -4,7 +4,6 @@ import { StudentEditProfile } from "./pages/editProfile/StudentEditProfile";
 import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import { Forgot } from "./pages/forgot-pass/Forgotpassword/ForgotPassword";
 import Newpassword from "./pages/forgot-pass/Newpassword/Newpassword";
-import Landing from "./pages/home/Landing.page/Landing";
 import { ProfessorHomePage } from "./pages/home/Professor/ProfessorHomePage";
 import StudentHomepage from "./pages/home/Student/StudentHomepage";
 import { ProfessorSignup } from "./pages/signup/professor-signup/ProfessorSignup";
@@ -13,6 +12,8 @@ import { SignupVerification } from "./pages/signup/SignupVerification";
 import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
 import { Login } from "./pages/login/Login";
 import { Home } from "./pages/home/Home";
+import { ViewCV } from "./pages/editProfile/CV/ViewCV";
+import { EditCV } from "./pages/editProfile/CV/EditCV";
 import UniversityPage from "./pages/university/University";
 
 export default function Routing() {
@@ -30,6 +31,8 @@ export default function Routing() {
           element={<ProfessorEditProfile />}
         />
         <Route path="student/editProfile" element={<StudentEditProfile />} />
+        <Route path="cv/view" element={<ViewCV />} />
+        <Route path="cv/edit" element={<EditCV />} />
         <Route path="forgot-pass" element={<Forgot />} />
         <Route path="verification" element={<Verification />} />
         <Route

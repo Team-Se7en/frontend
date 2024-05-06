@@ -1,123 +1,222 @@
-import { LineChart } from "@mui/x-charts";
-import { StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent } from "./Home-styles";
-import { Box, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
-import theme from "../../Theme";
-import Styles from "../../Styles";
-import clsx from "clsx";
-import { Spacer } from "../../components/ui/Spacer";
-import { useState, useEffect } from "react";
 import "../../assets/fonts/CalligraphyFLF.css";
 import "../../assets/fonts/GreatVibes-Regular.css";
-import Navbar from "../../components/navbar/navbar/navbar";
+import "../../assets/fonts/CalligraphyFLF.css";
+import "../../assets/fonts/GreatVibes-Regular.css";
+
+import { Box, Fade, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
+import { HomeStyles, StyledTopEntities, TopProfessorsSideImage, TopStudentsSideImage, TopUniversitiesSideImage } from "./Home-styles";
+import { StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent } from "./Home-styles";
+import { useEffect, useState } from "react";
+
 import Footer from "../../components/footer/footer/footer";
-import  Search from "../../components/Search/Search";
+import { LandingInfo } from "../../models/LandingInfo";
+import { LineChart } from "@mui/x-charts";
+import { Loading } from "../../components/ui/Loading";
+import Navbar from "../../components/navbar/navbar/navbar";
+import { Spacer } from "../../components/ui/Spacer";
+import Styles from "../../Styles";
+import clsx from "clsx";
+import { getLandingInfo } from "../../services/landing.service";
+import theme from "../../Theme";
 
 
 export function Home() {
-
-  const [count, setCount] = useState(0);
+  const [studentCount, setStudentCount] = useState<number>(0);
+  const [professorCount, setProfessorCount] = useState<number>(0);
+  const [landingInfo, setLandingInfo] = useState<LandingInfo>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let start = 0;
-    const increment = Math.ceil(400 / 100);
 
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= 400) {
-        setCount(400);
-        clearInterval(timer);
-      } else {
-        setCount(start);
-      }
-    }, 1);
+    const fetchLandingInfo = async () => {
+      const result = await getLandingInfo();
+      setLandingInfo(result.data);
+      setLoading(false);
+    };
 
-    return () => clearInterval(timer);
-  }, []);
+    if (!landingInfo) {
+      fetchLandingInfo();
+    }
+  },);
+
+  useEffect(() => {
+    if (!loading && landingInfo) {
+      let startStudent = 0;
+      let startProfessor = 0;
+      const incrementStudent = Math.ceil(landingInfo.student_count / 100);
+      const incrementProfessor = Math.ceil(landingInfo.professor_count / 100);
+
+      const timerStudent = setInterval(() => {
+        startStudent += incrementStudent;
+        if (startStudent >= landingInfo.student_count) {
+          setStudentCount(landingInfo.student_count);
+          clearInterval(timerStudent);
+        } else {
+          setStudentCount(startStudent);
+        }
+      }, 10);
+
+      const timerProfessor = setInterval(() => {
+        startProfessor += incrementProfessor;
+        if (startProfessor >= landingInfo.professor_count) {
+          setProfessorCount(landingInfo.professor_count);
+          clearInterval(timerProfessor);
+        } else {
+          setProfessorCount(startProfessor);
+        }
+      }, 10);
+
+      return () => {clearInterval(timerProfessor), clearInterval(timerStudent)};
+    }
+  }, [loading, landingInfo]);
 
   const globalClasses = Styles();
+  const homeClasses = HomeStyles();
 
   return (
     <>
-      <Navbar showAuthButtons={true} />
-      <Box sx={{height:'100px'}}></Box>
-      <Search />
-      <StyledIntro>
-        
-        <Grow
-          in={true}
-          style={{ transformOrigin: '0 0 0' }}
-          {...({ timeout: 1000 })}
-        >
-          <Box>
-            <StyledSiteName variant="h3">
-              SevenApply
-            </StyledSiteName>
-          </Box>
-        </Grow>
+      <Navbar showAuthButtons={true} showAuthButton={true} />
+      <Box sx={{ height: '100px' }}></Box>
 
-        <StyledGlobe />
+      {
+        loading
+          ?
+          <Loading />
+          :
+          <>
 
-        <Link href="/signup">
-          <StyledJoinUsText fontFamily="CalligraphyFLF" variant="h4">
-            Join Us Now!
-          </StyledJoinUsText>
-        </Link>
+            <StyledIntro>
 
-
-        <StyledDetailContainer>
-
-          <Box className={clsx(globalClasses.flexColumn, globalClasses.fullyCenter)} gap={2} width={'60%'} minWidth={'300px'}>
-            <LineChart height={250} grid={{ horizontal: true }} series={[
-              { curve: "linear", data: [0, 20, 2, 6, 3, 9.3], color: theme.palette.chartColor, showMark: false },
-            ]} leftAxis={null} bottomAxis={null} sx={{ backgroundColor: '#0E1C36', borderRadius: theme.shape.borderRadius }} />
-            <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} gap={'8px'}>
-              <StyledSuprisedStudent />
-              <Slide direction="up" mountOnEnter unmountOnExit in={true} {...({ timeout: 400 })}>
-                <Typography variant="h6">
-                  Site's Growth Over Time
-                </Typography>
-              </Slide>
-              <StyledSuprisedStudent />
-            </Box>
-          </Box>
-
-          <Box className={clsx(globalClasses.flexColumn)}>
-            {/* <Collapse mountOnEnter unmountOnExit in={true} orientation="horizontal" style={{ transitionDelay: '400ms' }}> */}
-            <StyledSlogan variant="h5" textAlign={'center'}>
-              Apply to The Seven Continets With Us!
-            </StyledSlogan>
-            {/* </Collapse> */}
-            <Spacer />
-            <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} marginBlockEnd={6} marginInlineStart={3} marginInlineEnd={3}>
-
-              <Tooltip title="site's professors">
-                <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)} width={'45%'}>
-                  <StyledProfessorIcon />
-                  <Slide direction="right" mountOnEnter unmountOnExit in={true} {...({ timeout: 400 })}>
-                    <Typography variant="h6">
-                      {count}
-                    </Typography>
-                  </Slide>
+              <Grow
+                in={!loading}
+                style={{ transformOrigin: '0 0 0' }}
+                {...({ timeout: 1000 })}
+              >
+                <Box>
+                  <StyledSiteName variant="h3">
+                    SevenApply
+                  </StyledSiteName>
                 </Box>
-              </Tooltip>
+              </Grow>
 
-              <Tooltip title="site's students">
-                <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)} width={'45%'}>
-                  <StyledStudentIcon />
-                  <Slide direction="left" mountOnEnter unmountOnExit in={true} {...({ timeout: 400 })}>
-                    <Typography variant="h6">
-                      {count}
-                    </Typography>
-                  </Slide>
+              <StyledGlobe />
+
+              <Link href="/signup">
+                <StyledJoinUsText fontFamily="CalligraphyFLF" variant="h4">
+                  Join Us Now!
+                </StyledJoinUsText>
+              </Link>
+
+
+              <StyledDetailContainer>
+
+                <Box className={clsx(globalClasses.flexColumn, globalClasses.fullyCenter)} gap={2} width={'60%'} minWidth={'300px'}>
+                  <LineChart height={250} xAxis={[{data: landingInfo?.growth.map(x => x[0])}]} series={[
+                    { curve: "linear", data: landingInfo?.growth.map(x => x[1]), color: theme.palette.chartColor, showMark: false, },
+                  ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }} className={clsx(homeClasses.chartStyle)} />
+                  <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} gap={'8px'}>
+                    <StyledSuprisedStudent />
+                    <Slide direction="up" mountOnEnter unmountOnExit in={!loading} {...({ timeout: 1000 })}>
+                      <Typography variant="h6">
+                        Site's Growth Over Time
+                      </Typography>
+                    </Slide>
+                    <StyledSuprisedStudent />
+                  </Box>
                 </Box>
-              </Tooltip>
-            </Box>
-          </Box>
+
+                <Box className={clsx(globalClasses.flexColumn)}>
+                  {/* <Collapse mountOnEnter unmountOnExit in={!loading} orientation="horizontal" style={{ transitionDelay: '400ms' }}> */}
+                  <StyledSlogan variant="h5" textAlign={'center'}>
+                    Apply to The Seven Continets With Us!
+                  </StyledSlogan>
+                  {/* </Collapse> */}
+                  <Spacer />
+                  <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} marginBlockEnd={6} marginInlineStart={3} marginInlineEnd={3}>
+
+                    <Tooltip title="site's professors">
+                      <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)} width={'45%'}>
+                        <Grow in={!loading}
+                          style={{ transformOrigin: 'bottom' }}
+                          {...({ timeout: 1000 })}>
+                          <StyledProfessorIcon />
+                        </Grow>
+                        <Slide direction="right" mountOnEnter unmountOnExit in={!loading} {...({ timeout: 1000 })}>
+                          <Typography variant="h6">
+                            {professorCount}
+                          </Typography>
+                        </Slide>
+                      </Box>
+                    </Tooltip>
+
+                    <Tooltip title="site's students">
+                      <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)} width={'45%'}>
+                        <Grow in={!loading}
+                          style={{ transformOrigin: 'bottom' }}
+                          {...({ timeout: 1000 })}>
+                          <StyledStudentIcon />
+                        </Grow>
+                        <Slide direction="left" mountOnEnter unmountOnExit in={!loading} {...({ timeout: 1000 })}>
+                          <Typography variant="h6">
+                            {studentCount}
+                          </Typography>
+                        </Slide>
+                      </Box>
+                    </Tooltip>
+                  </Box>
+                </Box>
 
 
-        </StyledDetailContainer>
+              </StyledDetailContainer>
 
-      </StyledIntro >
+            </StyledIntro >
+
+            <StyledTopEntities>
+              {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
+          Top Universities
+        </Divider> */}
+
+              <Fade in={!loading} style={{ transitionDelay: '1000ms' }}>
+                <TopUniversitiesSideImage orientation="horizontal" in={!loading} />
+              </Fade>
+
+              <Box height={8}>
+
+              </Box>
+            </StyledTopEntities>
+
+
+            <StyledTopEntities sx={{ display: 'flex', flexDirection: 'row-reverse !important' }}>
+              {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
+          Top Professors
+        </Divider> */}
+
+              <Fade in={!loading} style={{ transitionDelay: '1000ms' }}>
+                <TopProfessorsSideImage orientation="horizontal" in={!loading} />
+              </Fade>
+
+              <Box height={8}>
+
+              </Box>
+            </StyledTopEntities>
+
+            <StyledTopEntities>
+              {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
+          Top Students
+        </Divider> */}
+
+              <Fade in={!loading} style={{ transitionDelay: '1000ms' }}>
+                <TopStudentsSideImage orientation="horizontal" in={!loading} />
+              </Fade>
+
+              <Box height={8}>
+
+              </Box>
+
+            </StyledTopEntities>
+          </>
+      }
+
       <Footer />
     </>
   )

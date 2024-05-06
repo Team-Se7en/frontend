@@ -57,7 +57,7 @@ export const StyledCardActions = styled(CardActions)(() => ({
 }));
 
 export const StyledTag = styled(Chip)(() => ({
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     // borderColor: theme.palette.iconButton,
 }));
 

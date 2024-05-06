@@ -10,12 +10,15 @@ interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
   showAuthButtons: boolean;
+  showAuthButton: boolean;
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, showAuthButtons }) => {
+const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, showAuthButtons,showAuthButton }) => {
   return (
     <Drawer  anchor="right" open={open} onClose={onClose}>
       <List>
+      {showAuthButton && (
+        <>
         <ListItem  button component={Link} to="/students" onClick={onClose}>
           <ListItemText  primary="Students" />
         </ListItem>
@@ -25,6 +28,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose, showAuthButtons 
         <ListItem button component={Link} to="/institutions" onClick={onClose}>
           <ListItemText primary="Institutions" />
         </ListItem>
+        </>
+        )}
         {showAuthButtons && (
           <>
           

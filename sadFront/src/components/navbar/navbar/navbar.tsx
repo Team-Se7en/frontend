@@ -14,7 +14,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MobileMenu from "./MobileMenu";
 
-function Navbar({ showAuthButtons = false }) {
+function Navbar({ showAuthButtons = false,showAuthButton = false }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const classes = useStyles();
   const isMobile = useMediaQuery("(max-width:960px)");
@@ -32,13 +32,14 @@ function Navbar({ showAuthButtons = false }) {
       <div
         style={{
           position:'fixed',
+          zIndex: '2',
           backgroundColor: "#0F1035",
           color: "#FFF5EE",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           width:'100%',
-          height:'60px',
+          height:'82px',
         }}
       >
         <span style={{ flex: "0.2 1 auto" }}></span>
@@ -68,10 +69,11 @@ function Navbar({ showAuthButtons = false }) {
                 open={drawerOpen}
                 onClose={handleDrawerClose}
                 showAuthButtons={showAuthButtons}
+                showAuthButton={showAuthButton}
               />
             </Hidden>
             </Grid>
-          ) : (
+          ) : ( showAuthButton &&
             <Hidden smDown>
               <Grid container spacing={2}>
                 <Grid item

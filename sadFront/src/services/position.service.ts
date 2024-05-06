@@ -15,6 +15,16 @@ export const getProfessorRecentPositions = async () => {
     }
 };
 
+export const getProfessorPositions = async () => {
+    try {
+        const result = await client.get(`/eduportal/professors/my_positions`);
+        return result;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
 export const deletePosition = async (id: number) => {
     try {
         const result = await client.delete(`/eduportal/positions/${id}`);
@@ -37,7 +47,7 @@ export const getPositionFullInfoProfessor = async (id: number) => {
 
 export const updatePosition = async (id: number, model: ProfessorCardViewFullInfo) => {
     try {
-        const result = await client.put(`/eduportal/positions/${id}`, model);
+        const result = await client.put(`/eduportal/positions/${id}/`, model);
         return result;
     } catch (e) {
         console.error(e);
