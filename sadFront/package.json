@@ -30,15 +30,18 @@
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
     "js-cookie": "^3.0.5",
+    "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.22.3",
     "react-toastify": "^10.0.5",
     "styled-component": "^2.8.0",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.12",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",

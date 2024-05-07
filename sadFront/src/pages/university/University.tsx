@@ -10,6 +10,15 @@ import axios from "axios";
 import { University } from "../../models/University";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+
+const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+  e.preventDefault();
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 export default function UniversityPage() {
   const [uniInfo, setuniInfo] = React.useState<University>();
@@ -181,7 +190,22 @@ export default function UniversityPage() {
                 </Typography>
               </Box>
             </Box>
-            <Box>
+            <Box className="map-section">
+              <Divider
+                textAlign="left"
+                sx={{
+                  fontFamily: "roboto",
+                  fontSize: "1.1rem",
+                  color: "#6e6e6e",
+                  marginBottom: "2rem",
+                  fontWeight: "bold",
+                }}
+              >
+                Where is it?
+              </Divider>
+              <Box className="map" width={"50rem"} height={"20rem"}></Box>
+            </Box>
+            <Box id="active-programs">
               <Divider
                 textAlign="left"
                 sx={{
@@ -240,6 +264,7 @@ export default function UniversityPage() {
                 </Typography>
                 <Box className="button-container" textAlign={"center"}>
                   <Button
+                    onClick={(e) => onNavClick(e, "active-programs")}
                     variant="contained"
                     disableElevation
                     sx={{
