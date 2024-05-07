@@ -8,7 +8,7 @@ import ProfessorPositionsFilter from "../../../components/ProfessorPositionsFilt
 import ProfessorPositionsSort from "../../../components/ProfessorPositionsSort/ProfessorPositionsSort";
 import ProfessorRequestFilter from "../../../components/ProfessorRequestFilter/ProfessorRequestFilter";
 import ProgramCard from "../../../components/programcard/ProgramCard";
-import Search from "../../../components/Search_professor/Search";
+import SearchStudent from "../../../components/Search_professor/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
@@ -29,7 +29,7 @@ export function ProfessorHomePage() {
                 }}/>
                 
                 <div style={{marginTop:'20px',width:'100% '}}>
-                <Search/>
+                <SearchStudent/>
                 
                 </div>
                 <div style={{marginTop:'12px'}}>

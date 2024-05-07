@@ -2,7 +2,7 @@ import { Box} from "@mui/material";
 import { ProgramsList } from "../../../components/programslist/ProgramsList";
 
 import Footer from "../../../components/footer/footer/footer";
-import  Search from "../../../components/Search/Search";
+import  SearchStudent from "../../../components/Search_student/Search";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
 
 
@@ -13,7 +13,7 @@ export default function StudentHomepage() {
       <StudentHeader/>
       </div>
       <div style={{marginTop:'100px'}}>
-      <Search />
+      <SearchStudent />
       </div>
       <Box
         className="main"
