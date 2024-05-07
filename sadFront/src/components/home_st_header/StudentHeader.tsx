@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 const pages = ['Home', 'Positions','University'];
-const settings = ['Profile', 'Add Program', 'Logout'];
+const settings = ['Profile', 'Logout'];
 
 function StudentHeader() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);

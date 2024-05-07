@@ -14,8 +14,7 @@ import { Login } from "./pages/login/Login";
 import { Home } from "./pages/home/Home";
 import { ViewCV } from "./pages/editProfile/CV/ViewCV";
 import { EditCV } from "./pages/editProfile/CV/EditCV";
-
-
+import { StudentAccept } from "./pages/accept-sudent/StudentAccept";
 
 export default function Routing() {
     return (
@@ -35,7 +34,7 @@ export default function Routing() {
                 <Route path="verification" element={<Verification />} />
                 <Route path="password/reset/confirm/:uid/:token" element={<Newpassword />} />
                 <Route path="activate/:uid/:token" element={<SignupVerification />} />
-
+                <Route path="studentaccept" element={<StudentAccept />} />
                 <Route path="" element={<Home />} />
                 <Route path="newpassword" element={<Newpassword />} />
                 <Route path="professorhomepage" element={<ProfessorHomePage />} />

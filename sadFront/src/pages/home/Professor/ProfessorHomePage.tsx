@@ -8,7 +8,7 @@ import ProfessorPositionsFilter from "../../../components/ProfessorPositionsFilt
 import ProfessorPositionsSort from "../../../components/ProfessorPositionsSort/ProfessorPositionsSort";
 import ProfessorRequestFilter from "../../../components/ProfessorRequestFilter/ProfessorRequestFilter";
 import ProgramCard from "../../../components/programcard/ProgramCard";
-import Search from "../../../components/Search/Search";
+import Search from "../../../components/Search_professor/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";

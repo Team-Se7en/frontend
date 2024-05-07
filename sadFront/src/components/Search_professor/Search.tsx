@@ -5,11 +5,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
 
-interface SearchResult {
-  id: number;
-  name: string;
-}
-
 const SearchContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
@@ -45,28 +40,23 @@ const ErrorMessage = styled('p')({
   color: 'red',
 });
 
-const Underline = styled('div')({
-  width: '60%',
-  borderBottom: '2px solid white', // Change the color or size as needed
-  marginBottom: '16px',
-});
-
-const Search: React.FC = () => {
+const SearchStudent: React.FC = () => {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const [results, setResults] = useState<any[]>([]); // اینجا interface SearchResult برداشته شده است
   const [error, setError] = useState<string>('');
-  const [isTyping, setIsTyping] = useState<boolean>(false);
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   const handleSearch = async () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get(`https://api.example.com/search?q=${query}`);
-      setResults(response.data.results);
-      if (response.data.results.length === 0) {
+      const response = await axios.get(`https://seven-apply.liara.run/eduportal/?q=${query}`); // اینجا آدرس API واقعی خودتان را قرار دهید
+      setResults(response.data);
+      if (response.data.length === 0) {
         setError('No results found.');
+      } else {
+        setError('');
       }
     } catch (error) {
       console.error('Error fetching search results:', error);
@@ -77,41 +67,36 @@ const Search: React.FC = () => {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    setIsTyping(true);
     if (event.key === 'Enter') {
       handleSearch();
     }
-    if (timer) {
-      clearTimeout(timer);
-    }
-    setTimer(
-      setTimeout(() => {
-        setIsTyping(false);
-        handleSearch();
-      }, 500)
-    );
   };
 
   const handleClear = () => {
     setQuery('');
-    setIsTyping(false);
-    if (timer) {
-      clearTimeout(timer);
-    }
   };
 
   useEffect(() => {
     if (timer) {
-      return () => {
-        clearTimeout(timer);
-      };
+      clearTimeout(timer);
     }
-  }, [timer]);
+    if (query.trim() !== '') {
+      setTimer(setTimeout(handleSearch, 500));
+    } else {
+      setResults([]);
+      setError('');
+    }
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [query, timer]);
 
   return (
     <SearchContainer>
       <TextField
-        style={{width:'60%',marginLeft:'78px'}} // Responsive width
+        style={{ width: '60%', marginLeft: '78px' }}
         label="Search"
         variant="outlined"
         value={query}
@@ -121,12 +106,7 @@ const Search: React.FC = () => {
           endAdornment: (
             <React.Fragment>
               {query && (
-                <IconButton
-                  edge="end"
-                  aria-label="clear"
-                  onClick={handleClear}
-                  size="small"
-                >
+                <IconButton edge="end" aria-label="clear" onClick={handleClear} size="small">
                   <ClearIcon />
                 </IconButton>
               )}
@@ -139,23 +119,17 @@ const Search: React.FC = () => {
       />
       {loading && <CircularProgress />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      {isTyping && !results.length && (
-        <Underline />
-      )}
-      {results.length > 0 && (
+      {results.length > 0 && !loading && (
         <SearchResultList>
-          {results.map((result) => (
+          {results.map((result: any) => ( // اینجا هم نوع داده تغییر کرده است
             <SearchResultItem key={result.id}>
               <HighlightedText>{result.name}</HighlightedText>
             </SearchResultItem>
           ))}
         </SearchResultList>
       )}
-      {!results.length && !isTyping && query && (
-        <ErrorMessage>No results found.</ErrorMessage>
-      )}
     </SearchContainer>
   );
 };
 
-export default Search;
+export default SearchStudent;
