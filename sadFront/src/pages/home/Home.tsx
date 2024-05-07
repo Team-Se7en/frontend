@@ -1,30 +1,21 @@
 import { LineChart } from "@mui/x-charts";
-import { HomeStyles, StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent, StyledTopEntities, TopProfessorsSideImage, TopStudentsSideImage, TopUniversitiesSideImage } from "./Home-styles";
-import { Box, Card, Fade, Grow, Link, Slide, Slider, Tooltip, Typography } from "@mui/material";
-import theme from "../../Theme";
-import Styles from "../../Styles";
-import clsx from "clsx";
-import { Spacer } from "../../components/ui/Spacer";
-import { useState, useEffect } from "react";
+
 import "../../assets/fonts/CalligraphyFLF.css";
 import "../../assets/fonts/GreatVibes-Regular.css";
 
-import { Box, Fade, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
-import { HomeStyles, StyledTopEntities, TopProfessorsSideImage, TopStudentsSideImage, TopUniversitiesSideImage } from "./Home-styles";
-import { StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent } from "./Home-styles";
-import { useEffect, useState } from "react";
-
-import Footer from "../../components/footer/footer/footer";
-import { LandingInfo } from "../../models/LandingInfo";
-import { LineChart } from "@mui/x-charts";
-import { Loading } from "../../components/ui/Loading";
-import Navbar from "../../components/navbar/navbar/navbar";
-import { Spacer } from "../../components/ui/Spacer";
-import Styles from "../../Styles";
-import clsx from "clsx";
-import { getLandingInfo } from "../../services/landing.service";
-import { Loading } from "../../components/ui/Loading";
+import { Box, Card, Fade, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
+import { HomeStyles, StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent, StyledTopEntities, TopProfessorsSideImage, TopStudentsSideImage, TopUniversitiesSideImage } from "./Home-styles";
 import Carousel from 'react-material-ui-carousel';
+import clsx from "clsx";
+import { useState, useEffect } from "react";
+import Footer from "../../components/footer/footer/footer";
+import Navbar from "../../components/navbar/navbar/navbar";
+import { Loading } from "../../components/ui/Loading";
+import { Spacer } from "../../components/ui/Spacer";
+import { LandingInfo } from "../../models/LandingInfo";
+import { getLandingInfo } from "../../services/landing.service";
+import Styles from "../../Styles";
+import theme from "../../Theme";
 
 export function Home() {
   const [studentCount, setStudentCount] = useState<number>(0);
