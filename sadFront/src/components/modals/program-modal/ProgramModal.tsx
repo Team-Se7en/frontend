@@ -1,11 +1,27 @@
-import { useMediaQuery, Button, Modal, Backdrop, Fade, Box, Avatar, Typography, Divider } from "@mui/material";
+import {
+  useMediaQuery,
+  Button,
+  Modal,
+  Backdrop,
+  Fade,
+  Box,
+  Avatar,
+  Typography,
+  Divider,
+} from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { ConvDate } from "../../../lib/DateConvertor";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import { style } from "./ProgramModal-styles";
-import { KeyboardArrowRight, Today, AccessAlarms, AccessTime, Paid } from "@mui/icons-material";
-
+import {
+  KeyboardArrowRight,
+  Today,
+  AccessAlarms,
+  AccessTime,
+  Paid,
+} from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 export default function TransitionsModal(props: StudentCardViewFullInfo) {
   const [open, setOpen] = React.useState(false);
@@ -107,7 +123,19 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                       </Button>
                     </Box>
                     <Typography color="text.secondary">
-                      Associate Professor at {props.professor.university}
+                      Associate Professor at{" "}
+                      <Link
+                        to={{ pathname: "/universitypage" }}
+                        state={props.university_id}
+                      >
+                        <Typography
+                          color="text.secondary"
+                          display={"inline"}
+                          fontWeight={"bold"}
+                        >
+                          {props.university_name}
+                        </Typography>
+                      </Link>
                     </Typography>
                     <Typography color="text.secondary">
                       {ConvDate(props.start_date, "week diff")}w
@@ -191,44 +219,6 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   <Typography>Fee: </Typography>
                   <Typography fontWeight={"bold"}>{props.fee} Rials</Typography>
                 </Box>
-              </Box>
-              <Divider
-                textAlign="left"
-                sx={{
-                  fontFamily: "roboto",
-                  fontSize: "1rem",
-                  color: "#404040",
-                }}
-              >
-                About {props.professor.university}
-              </Divider>
-              <Box
-                id="about-uni"
-                padding={"0.5rem"}
-                display={"flex"}
-                flexDirection={"column"}
-                gap={"1rem"}
-                alignItems={"center"}
-              >
-                <Typography>
-                  Queen’s university (https://www.queensu.ca/) has over 180
-                  years’ history and is one of Canada’s oldest universities. It
-                  is a public research university famous for many subjects such
-                  as engineering, science, and business. As of 2023, five Nobel
-                  Laureates and one Turing Award winner have been affiliated
-                  with the university. Queen’s University’s campus is located by
-                  the Ontario Lake and is one of the most beautiful campuses in
-                  Canada. Queen’s University is located in Kingston, a tourist
-                  hotspot, and is situated between several big cities in
-                  Canada: Toronto, Montreal, and Ottawa, which are centers for
-                  artificial intelligence research and dynamic cities to live
-                  and visit.
-                </Typography>
-                <img
-                  src="https://www.globaladmissions.com/uploads/school_pictures/Campus_1.jpg?auto=format,enhance,redeye,compress,true"
-                  alt="Queen's University"
-                  width={"90%"}
-                />
               </Box>
             </Box>
 

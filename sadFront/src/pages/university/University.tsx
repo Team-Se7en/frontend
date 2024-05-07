@@ -10,7 +10,7 @@ import axios from "axios";
 import { University } from "../../models/University";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+//import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
   e.preventDefault();

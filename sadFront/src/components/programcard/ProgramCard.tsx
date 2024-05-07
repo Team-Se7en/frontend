@@ -75,7 +75,11 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                       gap={"0.2rem"}
                     >
                       <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
-                      <Typography variant="body2" fontSize={"0.8rem"}>
+                      <Typography
+                        variant="body2"
+                        fontSize={"0.8rem"}
+                        color={"black"}
+                      >
                         {props.university_name}
                       </Typography>
                     </Box>
