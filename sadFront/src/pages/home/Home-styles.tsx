@@ -1,4 +1,4 @@
-import { Box, Collapse, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 import theme from "../../Theme";
 import { ChartImage, LandingImage, TopProfessorsImage, TopStudentsImage, TopUniversitiesImage } from "../../assets/images";
@@ -122,16 +122,17 @@ export const HomeStyles = makeStyles(() =>
 );
 
 export const StyledTopEntities = styled(Box)(() => ({
-    margin: '2rem auto',
+    margin: '8rem auto 4rem auto',
     width: '80%',
     // minHeight: '12rem',
     // display: 'flex',
     // justifyContent: 'center',
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
 }));
 
-export const TopUniversitiesSideImage = styled(Collapse)(() => ({
+export const TopUniversitiesSideImage = styled(Box)(() => ({
     backgroundImage: `url(${TopUniversitiesImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -146,7 +147,7 @@ export const TopUniversitiesSideImage = styled(Collapse)(() => ({
     borderRadius: '4px',
 }));
 
-export const TopStudentsSideImage = styled(Collapse)(() => ({
+export const TopStudentsSideImage = styled(Box)(() => ({
     backgroundImage: `url(${TopStudentsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -161,7 +162,7 @@ export const TopStudentsSideImage = styled(Collapse)(() => ({
     borderRadius: '4px',
 }));
 
-export const TopProfessorsSideImage = styled(Collapse)(() => ({
+export const TopProfessorsSideImage = styled(Box)(() => ({
     backgroundImage: `url(${TopProfessorsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
