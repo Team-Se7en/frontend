@@ -10,6 +10,7 @@ import axios from "axios";
 import { University } from "../../models/University";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import ProgramCard from "../../components/programcard/ProgramCard";
 //import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
@@ -54,7 +55,7 @@ export default function UniversityPage() {
     uniInfo.total_student_count,
     uniInfo.international_student_count,
     uniInfo.rank,
-    0, //to be replaced
+    uniInfo.position_count,
   ];
 
   return (
@@ -65,6 +66,7 @@ export default function UniversityPage() {
         display={"flex"}
         flexDirection={"column"}
         marginTop={"4rem"}
+        paddingBottom={"4rem"}
         width={"100%"}
         sx={{ backgroundColor: "#fafafa" }}
         gap={"2rem"}
@@ -137,6 +139,7 @@ export default function UniversityPage() {
             </Box>
             {statisticTitles.map((title, index) => (
               <Box
+                key={"index"}
                 display={"flex"}
                 flexDirection={"column"}
                 alignItems={"center"}
@@ -218,7 +221,34 @@ export default function UniversityPage() {
               >
                 Active Programs Here
               </Divider>
-              <ProgramsList></ProgramsList>
+              <Box
+                className="recent-programs"
+                display={"flex"}
+                flexDirection={"column"}
+                gap={"0.5rem"}
+              >
+                {uniInfo.recent_positions.map((program, index) => (
+                  <ProgramCard
+                    key={index}
+                    professor={program.professor}
+                    id={program.id}
+                    status={program.status}
+                    title={program.title}
+                    tags={program.tags}
+                    fee={program.fee}
+                    position_start_date={program.position_start_date}
+                    position_end_date={program.position_end_date}
+                    updated_at={program.updated_at}
+                    start_date={program.start_date}
+                    end_date={program.end_date}
+                    created_at={program.created_at}
+                    description="" //Will be assigned in modal
+                    capacity={0} //Will be assigned in modal
+                    university_name={program.university_name}
+                    university_id={program.university_id}
+                  />
+                ))}
+              </Box>
             </Box>
           </Box>
           <Box className="right-side" width={"40%"}>
@@ -258,7 +288,7 @@ export default function UniversityPage() {
                     display={"inline"}
                     fontSize={"1.3rem"}
                   >
-                    0 active programs
+                    {uniInfo.recent_positions.length} active programs
                   </Box>{" "}
                   from profs of this university
                 </Typography>
