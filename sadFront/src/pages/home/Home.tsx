@@ -1,6 +1,6 @@
 import { LineChart } from "@mui/x-charts";
 import { HomeStyles, StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent, StyledTopEntities, TopProfessorsSideImage, TopStudentsSideImage, TopUniversitiesSideImage } from "./Home-styles";
-import { Box, Fade, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
+import { Box, Card, Fade, Grow, Link, Slide, Slider, Tooltip, Typography } from "@mui/material";
 import theme from "../../Theme";
 import Styles from "../../Styles";
 import clsx from "clsx";
@@ -14,6 +14,7 @@ import Search from "../../components/Search/Search";
 import { LandingInfo } from "../../models/LandingInfo";
 import { getLandingInfo } from "../../services/landing.service";
 import { Loading } from "../../components/ui/Loading";
+import Carousel from 'react-material-ui-carousel';
 
 export function Home() {
   const [studentCount, setStudentCount] = useState<number>(0);
@@ -61,9 +62,40 @@ export function Home() {
         }
       }, 10);
 
-      return () => {clearInterval(timerProfessor), clearInterval(timerStudent)};
+      return () => { clearInterval(timerProfessor), clearInterval(timerStudent) };
     }
   }, [loading, landingInfo]);
+
+  const [isTopUniversitiesVisible, setIsTopUniversitiesVisible] = useState(false);
+  const [isTopProfessorsVisible, setIsTopProfessorsVisible] = useState(false);
+  const [isTopStudentsVisible, setIsTopStudentsVisible] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      const scrollPosition = window.scrollY + window.innerHeight;
+
+      const topUnversitiesSectionOffset = document.getElementById('top-universities')?.offsetTop ?? 0;
+      const topProfessorsSectionOffset = document.getElementById('top-professors')?.offsetTop ?? 0;
+      const topStudentsSectionOffset = document.getElementById('top-students')?.offsetTop ?? 0;
+
+      if (scrollPosition > topUnversitiesSectionOffset) {
+        setIsTopUniversitiesVisible(true);
+      }
+
+      if (scrollPosition > topProfessorsSectionOffset) {
+        setIsTopProfessorsVisible(true);
+      }
+
+      if (scrollPosition > topStudentsSectionOffset) {
+        setIsTopStudentsVisible(true);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const globalClasses = Styles();
   const homeClasses = HomeStyles();
@@ -105,9 +137,8 @@ export function Home() {
 
 
               <StyledDetailContainer>
-
                 <Box className={clsx(globalClasses.flexColumn, globalClasses.fullyCenter)} gap={2} width={'60%'} minWidth={'300px'}>
-                  <LineChart height={250} xAxis={[{data: landingInfo?.growth.map(x => x[0])}]} series={[
+                  <LineChart height={250} series={[
                     { curve: "linear", data: landingInfo?.growth.map(x => x[1]), color: theme.palette.chartColor, showMark: false, },
                   ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }} className={clsx(homeClasses.chartStyle)} />
                   <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} gap={'8px'}>
@@ -167,49 +198,67 @@ export function Home() {
 
             </StyledIntro >
 
-            <StyledTopEntities>
-              {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
-          Top Universities
-        </Divider> */}
+            <Fade in={!loading && isTopUniversitiesVisible} style={{ transitionDelay: '1000ms' }}>
+              <StyledTopEntities id="top-universities">
 
-              <Fade in={!loading} style={{ transitionDelay: '1000ms' }}>
-                <TopUniversitiesSideImage orientation="horizontal" in={!loading} />
-              </Fade>
+                <TopUniversitiesSideImage />
 
-              <Box height={8}>
+                <Box width={'40%'}>
+                  <Carousel>
+                    {landingInfo?.top_universities.map((item, index) => (
+                      <Card sx={{ height: '22rem'}}>
+                        <Typography>
+                          {item.name}
+                        </Typography>
 
-              </Box>
-            </StyledTopEntities>
+                      </Card>
+                    ))}
+                  </Carousel>
+                </Box>
+              </StyledTopEntities>
+            </Fade>
 
 
-            <StyledTopEntities sx={{ display: 'flex', flexDirection: 'row-reverse !important' }}>
-              {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
-          Top Professors
-        </Divider> */}
+            <Fade in={!loading && isTopProfessorsVisible} style={{ transitionDelay: '1000ms' }}>
+              <StyledTopEntities id="top-professors">
 
-              <Fade in={!loading} style={{ transitionDelay: '1000ms' }}>
-                <TopProfessorsSideImage orientation="horizontal" in={!loading} />
-              </Fade>
+                <TopProfessorsSideImage />
 
-              <Box height={8}>
+                <Box width={'40%'}>
+                  <Carousel>
+                    {landingInfo?.top_professors.map((item, index) => (
+                      <Card sx={{ height: '22rem'}}>
+                        <Typography>
+                          {item[0].user?.first_name}
+                        </Typography>
 
-              </Box>
-            </StyledTopEntities>
+                      </Card>
+                    ))}
+                  </Carousel>
+                </Box>
+              </StyledTopEntities>
+            </Fade>
 
-            <StyledTopEntities>
-              {/* <Divider orientation="horizontal" variant="middle" sx={{ mb: 1 }}>
-          Top Students
-        </Divider> */}
+            <Fade in={!loading && isTopStudentsVisible} style={{ transitionDelay: '1000ms' }}>
+              <StyledTopEntities id="top-students">
 
-              <Fade in={!loading} style={{ transitionDelay: '1000ms' }}>
-                <TopStudentsSideImage orientation="horizontal" in={!loading} />
-              </Fade>
+                <TopStudentsSideImage />
 
-              <Box height={8}>
+                <Box width={'40%'}>
+                  <Carousel>
+                    {landingInfo?.top_students.map((item, index) => (
+                      <Card sx={{ height: '22rem'}}>
+                        <Typography>
+                          {item[0].user?.first_name}
+                        </Typography>
 
-              </Box>
+                      </Card>
+                    ))}
+                  </Carousel>
+                </Box>
 
-            </StyledTopEntities>
+              </StyledTopEntities>
+            </Fade>
           </>
       }
 
