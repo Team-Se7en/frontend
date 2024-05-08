@@ -58,7 +58,7 @@ export function ProfessorHomePage() {
             <Box style={{marginTop:'70px'}}>
             <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-between" sx={{ gap: '8px' }}>
             
-            <ProfessorPositionFilter/>
+            <ProfessorPositionsFilter/>
                 <Box className={globalClasses.flexColumn}>
                         
                     <Box className={clsx(globalClasses.flexRow)}>
@@ -74,19 +74,9 @@ export function ProfessorHomePage() {
                     </Box>
                     <Box>
 
-                        {showContent(currentHeader)}
-            {/* <StudentCard name={"Ali Alizadeh"} university={"Iust"} status={"pending"}
-                        field={"Computer Science"} positionTitle={"Software"} requestDate={"5/4/2024"}
-                        fee={"15000"} startDate={"1/1/2025"}
-                        coverLetter={"I’m living the dream.I’ve always been a great problem solver, an independent introvert, and a technophile obsessed with the latest devices. Today, I’m open to working as a software engineer, and I get to show off all these elements of who I am."}/> */}
             </Box>
                 </Box>
             </Box>
-
-
-
-            {/* <Box><ProgramsList/></Box> */}
-            {/* <Box><ProgramCard professor={undefined} description={""} capacity={0} id={0} title={""} status={"d:/project/university_project/Sad/frontend/sadFront/src/models/Status".Open} start_date={undefined} end_date={undefined} tags={[]} fee={0} position_start_date={undefined} position_end_date={undefined}/></Box> */}
 
 
             

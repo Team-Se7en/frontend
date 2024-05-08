@@ -1,6 +1,12 @@
 import { Box, Button, Checkbox, Divider, FormControlLabel, Grid, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 interface FilterProps {
     onProfessorFilter: (filter: FilterOptions) => void;
 }
@@ -39,115 +45,129 @@ const ProfessorPositionsFilter: React.FC<FilterProps> = ({ onProfessorFilter }) 
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', padding:'64px', border: '1px solid #ccc', borderRadius: '8px'}}>
-            <Typography variant="h5">Filter</Typography>
+
+        <Accordion>
+
+            <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1-content"
+            >
+            Filter
+            </AccordionSummary>
+            <AccordionDetails>
             <Divider sx={{ width: '100%', my: 2 }} />
 
-            <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+<Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+    <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
 
-                    <Typography variant="body1">Term</Typography>
-                    <FormControlLabel
-                        control={<Checkbox checked={term.includes('spring')}
-                        onChange={() => setTerm(prev => prev.includes('spring') ? prev.filter(t => t !== 'spring') : [...prev, 'spring'])}
-                        sx={{
-                            '& .MuiSvgIcon-root': {
-                                fontSize: '1rem' 
-                            }
-                        }}
-                        />}
-                        label="Spring"
-                        sx={{
-                            '& .MuiFormControlLabel-label': {
-                                fontSize: '0.8rem'
-                            }
-                        }}
-                    />
+        <Typography variant="body1">Term</Typography>
+        <FormControlLabel
+            control={<Checkbox checked={term.includes('spring')}
+            onChange={() => setTerm(prev => prev.includes('spring') ? prev.filter(t => t !== 'spring') : [...prev, 'spring'])}
+            sx={{
+                '& .MuiSvgIcon-root': {
+                    fontSize: '1rem' 
+                }
+            }}
+            />}
+            label="Spring"
+            sx={{
+                '& .MuiFormControlLabel-label': {
+                    fontSize: '0.8rem'
+                }
+            }}
+        />
 
-                    
-                    <FormControlLabel
-                        control={<Checkbox checked={term.includes('autumn')}
-                        onChange={() => setTerm(prev => prev.includes('autumn') ? prev.filter(t => t !== 'autumn') : [...prev, 'autumn'])}
-                        sx={{
-                            '& .MuiSvgIcon-root': {
-                                fontSize: '1rem' 
-                            }
-                        }}
-                        />}
-                        label="Autumn"
-                        sx={{
-                            '& .MuiFormControlLabel-label': {
-                                fontSize: '0.8rem'
-                            }
-                        }}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox checked={term.includes('summer')}
-                        onChange={() => setTerm(prev => prev.includes('summer') ? prev.filter(t => t !== 'summer') : [...prev, 'summer'])}
-                        sx={{
-                            '& .MuiSvgIcon-root': {
-                                fontSize: '1rem' 
-                            }
-                        }}
-                        />}
-                        label="Summer"
-                        sx={{
-                            '& .MuiFormControlLabel-label': {
-                                fontSize: '0.8rem'
-                            }
-                        }}
-                    />
+        
+        <FormControlLabel
+            control={<Checkbox checked={term.includes('autumn')}
+            onChange={() => setTerm(prev => prev.includes('autumn') ? prev.filter(t => t !== 'autumn') : [...prev, 'autumn'])}
+            sx={{
+                '& .MuiSvgIcon-root': {
+                    fontSize: '1rem' 
+                }
+            }}
+            />}
+            label="Autumn"
+            sx={{
+                '& .MuiFormControlLabel-label': {
+                    fontSize: '0.8rem'
+                }
+            }}
+        />
+        <FormControlLabel
+            control={<Checkbox checked={term.includes('summer')}
+            onChange={() => setTerm(prev => prev.includes('summer') ? prev.filter(t => t !== 'summer') : [...prev, 'summer'])}
+            sx={{
+                '& .MuiSvgIcon-root': {
+                    fontSize: '1rem' 
+                }
+            }}
+            />}
+            label="Summer"
+            sx={{
+                '& .MuiFormControlLabel-label': {
+                    fontSize: '0.8rem'
+                }
+            }}
+        />
 
-                </Grid>
-                <Divider sx={{ width: '100%', my: 2 }} />
+    </Grid>
+    <Divider sx={{ width: '100%', my: 2 }} />
 
-                <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+    <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
 
-                    <Typography variant="body1">Year</Typography>
-                    
-                    {[2024, 2025, 2026].map((y) => (
-                        <FormControlLabel
-                            key={y}
-                            control={<Checkbox checked={year.includes(y)} onChange={() => setYear(prev => prev.includes(y) ? prev.filter(n => n !== y) : [...prev, y])} />}
-                            label={y.toString()}
-                            sx={{
-                                '& .MuiFormControlLabel-label': {
-                                    fontSize: '0.8rem'
-                                }
-                            }}
-                        />
-                    ))}
-                </Grid>
-                <Divider sx={{ width: '100%', my: 2 }} />
+        <Typography variant="body1">Year</Typography>
+        
+        {[2024, 2025, 2026].map((y) => (
+            <FormControlLabel
+                key={y}
+                control={<Checkbox checked={year.includes(y)} onChange={() => setYear(prev => prev.includes(y) ? prev.filter(n => n !== y) : [...prev, y])} />}
+                label={y.toString()}
+                sx={{
+                    '& .MuiFormControlLabel-label': {
+                        fontSize: '0.8rem'
+                    }
+                }}
+            />
+        ))}
+    </Grid>
+    <Divider sx={{ width: '100%', my: 2 }} />
 
-                <Grid item xs={12} md={4}>
+    <Grid item xs={12} md={4}>
 
-                    <Typography sx={{ marginBottom: '48px',}}>Fee</Typography>
-                    <Slider 
-                        sx={{marginTop:'16px', color: '#0F1035', width:'200px',}}
-                        value={[feeMin, feeMax]}
-                        onChange={(_, newValue) => {
-                        if (Array.isArray(newValue) && newValue.length === 2) {
-                                setFeeMin(newValue[0]);
-                                setFeeMax(newValue[1]);
-                            }
-                        }}
-                        min={0}
-                        max={500}
-                        valueLabelDisplay="on"
-                    />
-                    <Typography  sx={{ color: 'gray',width:'200px', }}>{`Fee Range: ${feeMin}$ - ${feeMax}$`}</Typography>
+        <Typography sx={{ marginBottom: '48px',}}>Fee</Typography>
+        <Slider 
+            sx={{marginTop:'16px', color: '#0F1035', width:'200px',}}
+            value={[feeMin, feeMax]}
+            onChange={(_, newValue) => {
+            if (Array.isArray(newValue) && newValue.length === 2) {
+                    setFeeMin(newValue[0]);
+                    setFeeMax(newValue[1]);
+                }
+            }}
+            min={0}
+            max={500}
+            valueLabelDisplay="on"
+        />
+        <Typography  sx={{ color: 'gray',width:'200px', }}>{`Fee Range: ${feeMin}$ - ${feeMax}$`}</Typography>
 
-                </Grid>
-            </Grid>
-            <Divider sx={{ width: '100%', my: 2 }} />
+    </Grid>
+</Grid>
+<Divider sx={{ width: '100%', my: 2 }} />
 
-            <Grid sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-            <Button onClick={handleApplyFilter} sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#0F1035'}}>Apply</Button>
-            <Button onClick={handleResetFilter} sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#7FC7D9 '}}>Reset</Button>
-            </Grid>
+<Grid sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+<Button onClick={handleApplyFilter} sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#0F1035'}}>Apply</Button>
+<Button onClick={handleResetFilter} sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#7FC7D9 '}}>Reset</Button>
+</Grid>
 
-        </Box>
+</AccordionDetails>
+        </Accordion>
+</Box>
+
+                
     );
 };
 
 export default ProfessorPositionsFilter;
+
