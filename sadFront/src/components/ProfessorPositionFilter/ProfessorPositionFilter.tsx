@@ -1,6 +1,12 @@
 import { Box, Button, Checkbox, Divider, FormControlLabel, Grid, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 interface FilterProps {
     onProfessorFilter: (filter: FilterOptions) => void;
 }
@@ -39,8 +45,16 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', padding:'64px', border: '1px solid #ccc', borderRadius: '8px'}}>
-            <Typography variant="h5">Filter</Typography>
-            <Divider sx={{ width: '100%', my: 2 }} />
+            <Accordion>
+
+            <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1-content"
+            >
+            Filter
+            </AccordionSummary>
+            <AccordionDetails>
+                <Divider sx={{ width: '100%', my: 2 }} />
 
             <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
@@ -155,7 +169,10 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
             sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#7FC7D9 '}}>
             Reset</Button>
             </Grid>
-
+            
+            </AccordionDetails>
+        </Accordion>
+        
         </Box>
     );
 };

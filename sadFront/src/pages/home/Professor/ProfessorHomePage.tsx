@@ -18,64 +18,33 @@ import Styles from "../../../Styles";
 import { clsx } from "clsx";
 import { useState } from "react";
 
-interface showContentProps {
-    header: string;
-}
-
-function showContent(header: string) {
-    switch (header) {
-        case 'Home':
-            return (
-                <>
-                    <ProfessorRecentPositions />
-                </>
-            )
-
-
-        default:
-            return (
-                <></>
-            )
-    }
-}
-
 export function ProfessorHomePage() {
 
     const [currentHeader, setCurrentHeader] = useState('Home');
     
-    const headerChange = (header: string) => {
-        setCurrentHeader(header);
-    }
-
     const globalClasses = Styles();
 
     return (
         <Box>
             <CssBaseline />
             
-            <ProfessorHeader changeHeader={headerChange}/>
+            <ProfessorHeader/>
 
-            <Box style={{marginTop:'70px'}}>
-            <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-between" sx={{ gap: '8px' }}>
-            
-            <ProfessorPositionsFilter/>
-                <Box className={globalClasses.flexColumn}>
-                        
-                    <Box className={clsx(globalClasses.flexRow)}>
-                <Box style={{marginTop:'20px',width:'100% '}}>
+            {/* <Box style={{marginTop:'100px'}}> */}
+            <Box style={{ marginTop: '100px', display: 'flex', flexDirection: 'column' , width: '100%',}}>
+
+                
+            {/* <Box sx={{ gap: '8px' }}> */}
+            <Box display="flex" justifyContent="flex-end">
+
                 <Search/>
                 </Box>
                 
-                <Box style={{marginTop:'12px'}}>
-                <ProfessorPositionSort/>
-                </Box>
+            <Box display="flex" flexDirection="column" alignItems="flex-start">
 
-                
-                    </Box>
-                    <Box>
+            <ProfessorPositionFilter/>
+            <ProfessorPositionSort/>
 
-            </Box>
-                </Box>
             </Box>
 
 

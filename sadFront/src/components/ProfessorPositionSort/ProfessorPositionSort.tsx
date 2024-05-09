@@ -52,11 +52,9 @@ const ProfessorPositionSort: React.FC = () => {
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width: 250 }}>
+            <FormControl sx={{ m: 1, width: 355 }}>
                 <InputLabel id="demo-single-select-label">Sort By</InputLabel>
                 <Select
-                    labelId="demo-single-select-label"
-                    id="demo-single-select"
                     value={personName}
                     onChange={handleChange}
                     input={<OutlinedInput id="select-single" label="Sort Criteria" />}
