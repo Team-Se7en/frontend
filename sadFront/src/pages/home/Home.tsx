@@ -3,8 +3,8 @@ import { LineChart } from "@mui/x-charts";
 import "../../assets/fonts/CalligraphyFLF.css";
 import "../../assets/fonts/GreatVibes-Regular.css";
 
-import { Box, Card, Fade, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
-import { HomeStyles, StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent, StyledTopEntities, TopProfessorsSideImage, TopStudentsSideImage, TopUniversitiesSideImage } from "./Home-styles";
+import { Box, Card, Divider, Fade, Grow, Link, Slide, Tooltip, Typography } from "@mui/material";
+import { HomeStyles, StyledDetailContainer, StyledGlobe, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledSiteName, StyledSlogan, StyledStudentIcon, StyledSuprisedStudent, StyledTopCarouselSlide, StyledTopSectionDivider, StyledTopEntities, TopProfessorsSectionImage, TopStudentsSectionImage, TopUniversitiesSectionImage } from "./Home-styles";
 import Carousel from 'react-material-ui-carousel';
 import clsx from "clsx";
 import { useState, useEffect } from "react";
@@ -104,15 +104,27 @@ export function Home() {
   return (
     <>
       <Navbar showAuthButtons={true} showAuthButton={true} />
-      <Box sx={{ height: '100px' }}></Box>
+      {/* <Box sx={{ height: '100px' }}></Box> */}
 
       {
         loading
           ?
           <Loading />
           :
-          <>
+          <Box sx={{ backgroundColor: theme.palette.backgroundColor2 }}>
+            <Carousel PrevIcon={null} NextIcon={null} cycleNavigation >
+              <StyledTopCarouselSlide>
+                ow
+              </StyledTopCarouselSlide>
 
+              <StyledTopCarouselSlide>
+                ee
+              </StyledTopCarouselSlide>
+
+              <StyledTopCarouselSlide>
+
+              </StyledTopCarouselSlide>
+            </Carousel>
             <StyledIntro>
 
               <Grow
@@ -198,15 +210,20 @@ export function Home() {
 
             </StyledIntro >
 
-            <Fade in={!loading && isTopUniversitiesVisible} style={{ transitionDelay: '1000ms' }}>
-              <StyledTopEntities id="top-universities">
+            <StyledTopSectionDivider id="top-universities">
+              Top Unviersities
+            </StyledTopSectionDivider>
 
-                <TopUniversitiesSideImage />
+            <Fade in={!loading && isTopUniversitiesVisible} style={{ transitionDelay: '1000ms' }}>
+              {/* <StyledTopEntities id="top-universities"> */}
+
+              <TopUniversitiesSectionImage>
+
 
                 <Box width={'40%'}>
                   <Carousel>
                     {landingInfo?.top_universities.map((item, index) => (
-                      <Card sx={{ height: '22rem'}}>
+                      <Card sx={{ height: '22rem' }}>
                         <Typography>
                           {item.name}
                         </Typography>
@@ -215,19 +232,22 @@ export function Home() {
                     ))}
                   </Carousel>
                 </Box>
-              </StyledTopEntities>
+              </TopUniversitiesSectionImage>
+              {/* </StyledTopEntities> */}
             </Fade>
 
-
+            <StyledTopSectionDivider id="top-professors">
+              Top Professors
+            </StyledTopSectionDivider>
             <Fade in={!loading && isTopProfessorsVisible} style={{ transitionDelay: '1000ms' }}>
-              <StyledTopEntities id="top-professors">
 
-                <TopProfessorsSideImage />
+                <TopProfessorsSectionImage>
+
 
                 <Box width={'40%'}>
                   <Carousel>
                     {landingInfo?.top_professors.map((item, index) => (
-                      <Card sx={{ height: '22rem'}}>
+                      <Card sx={{ height: '22rem' }}>
                         <Typography>
                           {item[0].user?.first_name}
                         </Typography>
@@ -236,18 +256,22 @@ export function Home() {
                     ))}
                   </Carousel>
                 </Box>
-              </StyledTopEntities>
+                </TopProfessorsSectionImage>
+
             </Fade>
 
+            <StyledTopSectionDivider id="top-students">
+              Top Students
+            </StyledTopSectionDivider>
             <Fade in={!loading && isTopStudentsVisible} style={{ transitionDelay: '1000ms' }}>
-              <StyledTopEntities id="top-students">
 
-                <TopStudentsSideImage />
+                <TopStudentsSectionImage>
+
 
                 <Box width={'40%'}>
                   <Carousel>
                     {landingInfo?.top_students.map((item, index) => (
-                      <Card sx={{ height: '22rem'}}>
+                      <Card sx={{ height: '22rem' }}>
                         <Typography>
                           {item[0].user?.first_name}
                         </Typography>
@@ -256,10 +280,10 @@ export function Home() {
                     ))}
                   </Carousel>
                 </Box>
+                </TopStudentsSectionImage>
 
-              </StyledTopEntities>
             </Fade>
-          </>
+          </Box>
       }
 
       <Footer />
