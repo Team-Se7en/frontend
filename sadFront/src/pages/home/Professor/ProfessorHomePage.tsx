@@ -17,14 +17,6 @@ import Styles from "../../../Styles";
 import { clsx } from "clsx";
 import { useState } from "react";
 
-// import Search from "../../../components/Search/Search";
-
-
-
-
-
-
-
 export function ProfessorHomePage() {
 
     const [currentHeader, setCurrentHeader] = useState('Home');
@@ -34,7 +26,7 @@ export function ProfessorHomePage() {
     return (
         <Box sx={{
             width: '100%',
-            minHeight: '100vh',
+            height: 'auto',
             backgroundImage: `url(${ProfessorHomePage1})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
@@ -46,18 +38,17 @@ export function ProfessorHomePage() {
 
             <Box>
                 <ProfessorHeader />
-
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', }}>
 
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px", }}>
-                    {/* <Search /> */}
+                    <Search />
                 </Box>
 
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: '1px', }}>
 
-                    {/* <ProfessorPositionFilter /> */}
+                    <ProfessorPositionFilter />
                     <ProfessorPositionSort />
                     {/* <ProfessorPositions queryParams={{ fee: 100 }}/> */}
 

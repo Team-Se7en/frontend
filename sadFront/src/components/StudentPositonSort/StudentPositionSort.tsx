@@ -29,7 +29,7 @@ const names: string[] = [
 
 interface StyleProps {
     name: string;
-    personName: string; // Now a single string
+    personName: string;
 }
 
 function getStyles({ name, personName }: StyleProps, theme: Theme) {
@@ -48,15 +48,15 @@ const StudentPositionSort: React.FC = () => {
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width: 250 }}>
+            <FormControl sx={{ m: 1, width:'380px' ,margin: "32px", borderRadius: '8px',paddingBottom:"256px", }}>
                 <InputLabel id="demo-single-select-label">Sort By</InputLabel>
                 <Select
-                    labelId="demo-single-select-label"
-                    id="demo-single-select"
                     value={personName}
                     onChange={handleChange}
                     input={<OutlinedInput id="select-single" label="Sort Criteria" />}
                     MenuProps={MenuProps}
+                    sx = {{backgroundColor:'white'}}                
+
                 >
                     {names.map((name) => (
                         <MenuItem
@@ -67,6 +67,8 @@ const StudentPositionSort: React.FC = () => {
                             {name}
                         </MenuItem>
                     ))}
+
+                    
                 </Select>
             </FormControl>
         </Box>

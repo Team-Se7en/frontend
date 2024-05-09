@@ -1,6 +1,12 @@
 import { Box, Button, Checkbox, Divider, FormControlLabel, Grid, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 interface FilterProps {
     onProfessorFilter: (filter: FilterOptions) => void;
 }
@@ -52,13 +58,29 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
     };
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', padding:'64px', border: '1px solid #ccc', borderRadius: '8px'}}>
-            <Typography variant="h5">Filter</Typography>
-            <Divider sx={{ width: '100%', my: 2 }} />
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
+        justifyContent: 'flex-start', borderRadius: '8px', marginLeft:'32px',
+        width: '25%',height: '25%',
+        }}>
+
+        <Accordion sx = {{width: '100%',}}>
+
+        <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        // aria-controls="panel1-content"
+        sx={{display: 'flex', padding:'16px', width: '100%', height: '100%'}}
+        >
+        Filter
+
+        </AccordionSummary>
+        <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
+
+        <AccordionDetails>
+            
             
             <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
             <Grid item xs={12} md={4}>
-                    <Typography variant="body1">Is filled</Typography>
+                    <Typography>Is filled</Typography>
                     {isfilledOptions.map((isfilledOptions) => (
                         <FormControlLabel
                             key={isfilledOptions}
@@ -71,7 +93,7 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
                         />
                     ))}
                 </Grid>
-                <Divider sx={{ width: '100%', my: 2 }} />
+                <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                     
@@ -127,7 +149,7 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
                     />
 
                 </Grid>
-                <Divider sx={{ width: '100%', my: 2 }} />
+                <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                     <Typography variant="body1">Year</Typography>
@@ -150,7 +172,7 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
                         />
                     ))}
                 </Grid>
-                <Divider sx={{ width: '100%', my: 2 }} />
+                <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
                 <Grid item xs={12} md={4}>
 
@@ -174,7 +196,7 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
 
                 </Grid>
             </Grid>
-            <Divider sx={{ width: '100%', my: 2 }} />
+            <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
             <Grid sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                 
@@ -187,6 +209,10 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
             Reset</Button>
             </Grid>
 
+            </AccordionDetails>
+
+        </Accordion>
+        
         </Box>
     );
 };
