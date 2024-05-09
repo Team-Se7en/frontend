@@ -1,6 +1,12 @@
 import { Box, Button, Checkbox, Divider, FormControlLabel, Grid, Slider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 interface FilterProps {
     onProfessorFilter: (filter: FilterOptions) => void;
 }
@@ -38,13 +44,27 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
     };
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', padding:'64px', border: '1px solid #ccc', borderRadius: '8px'}}>
-            <Typography variant="h5">Filter</Typography>
-            <Divider sx={{ width: '100%', my: 2 }} />
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
+        justifyContent: 'flex-start', borderRadius: '8px', marginLeft:'32px',
+        width: '25%',height: '25%',
+        }}>
+            <Accordion sx = {{width: '100%',}}>
 
-            <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+            <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            // aria-controls="panel1-content"
+            sx={{display: 'flex', padding:'16px', width: '100%', height: '100%'}}
+            >
+            Filter
+
+            </AccordionSummary>
+            <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
+
+            <AccordionDetails>
+
+            <Grid spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                    <Typography variant="body1">Term</Typography>
+                    <Typography>Term</Typography>
                     <FormControlLabel
                         control={<Checkbox checked={term.includes('spring')}
                         onChange={() => setTerm(prev => prev.includes('spring') ? prev.filter(t => t !== 'spring') : [...prev, 'spring'])}
@@ -96,10 +116,10 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
                     />
 
                 </Grid>
-                <Divider sx={{ width: '100%', my: 2 }} />
+                <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                    <Typography variant="body1">Year</Typography>
+                    <Typography>Year</Typography>
                     {[2024, 2025, 2026].map((y) => (
                         <FormControlLabel
                             key={y}
@@ -119,7 +139,7 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
                         />
                     ))}
                 </Grid>
-                <Divider sx={{ width: '100%', my: 2 }} />
+                <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
                 <Grid item xs={12} md={4}>
 
@@ -142,8 +162,10 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
                     <Typography  sx={{ color: 'gray', width:'200px',}}>{`Fee Range: ${feeMin}$ - ${feeMax}$`}</Typography>
 
                 </Grid>
+                <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
+
             </Grid>
-            <Divider sx={{ width: '100%', my: 2 }} />
+
 
             <Grid sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                 
@@ -156,6 +178,11 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
             Reset</Button>
             </Grid>
 
+            
+            </AccordionDetails>
+
+        </Accordion>
+        
         </Box>
     );
 };

@@ -4,6 +4,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Theme, useTheme } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
+import { Divider } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -52,25 +53,30 @@ const ProfessorPositionSort: React.FC = () => {
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width: 250 }}>
-                <InputLabel id="demo-single-select-label">Sort By</InputLabel>
+            <FormControl sx={{ m: 1, width:'380px' ,margin: "32px", borderRadius: '8px',paddingBottom:"256px", }}>
+                <InputLabel>Sort By</InputLabel>
                 <Select
-                    labelId="demo-single-select-label"
-                    id="demo-single-select"
                     value={personName}
                     onChange={handleChange}
                     input={<OutlinedInput id="select-single" label="Sort Criteria" />}
                     MenuProps={MenuProps}
-                >
+                    sx = {{backgroundColor:'white'}}                
+                    >
+                        
                     {names.map((name) => (
+                        
+                        
                         <MenuItem
                             key={name}
                             value={name}
                             style={getStyles({ name, personName }, theme)}
+                            
                         >
                             {name}
                         </MenuItem>
                     ))}
+
+
                 </Select>
             </FormControl>
         </Box>
