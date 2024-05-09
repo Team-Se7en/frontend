@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import styled from "styled-components";
 import theme from "../../Theme";
 import { ChartImage, LandingImage, TopProfessorsImage, TopStudentsImage, TopUniversitiesImage } from "../../assets/images";
@@ -6,6 +6,11 @@ import { ProfessorIcon, StudentIcon, SuprisedStudentIcon } from "../../assets/ic
 import "../../assets/fonts/CalligraphyFLF.css";
 import "./Home-animations.css"
 import { makeStyles, createStyles } from "@mui/styles";
+
+export const StyledTopCarouselSlide = styled(Box)(() => ({
+    height: '30rem',
+    backgroundColor: theme.palette.backgroundColor2,
+}));
 
 export const StyledIntro = styled(Box)(() => ({
     border: `1px solid ${theme.palette.borderColor}`,
@@ -132,47 +137,43 @@ export const StyledTopEntities = styled(Box)(() => ({
     justifyContent: 'space-between',
 }));
 
-export const TopUniversitiesSideImage = styled(Box)(() => ({
+export const TopUniversitiesSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopUniversitiesImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    width: 'calc(100% - 30rem) !important',
-    maxWidth: '40rem',
-    minWidth: '20rem !important',
-    // height: 'auto',
-    aspectRatio: '16 / 9',
+    aspectRatio: '1',
     backgroundPosition: 'bottom',
-    // borderTopRightRadius: '50%',
-    // borderBottomRightRadius: '50%'
-    borderRadius: '4px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 }));
 
-export const TopStudentsSideImage = styled(Box)(() => ({
+export const TopStudentsSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopStudentsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    width: 'calc(100% - 30rem) !important',
-    maxWidth: '40rem',
-    minWidth: '20rem !important',
-    // height: 'auto',
-    aspectRatio: '16 / 9',
-    backgroundPosition: 'center',
-    // borderTopRightRadius: '50%',
-    // borderBottomRightRadius: '50%'
-    borderRadius: '4px',
+    aspectRatio: '1',
+    backgroundPosition: 'bottom',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 }));
 
-export const TopProfessorsSideImage = styled(Box)(() => ({
+export const TopProfessorsSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopProfessorsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    width: 'calc(100% - 30rem) !important',
-    maxWidth: '40rem',
-    minWidth: '20rem !important',
-    // height: 'auto',
-    aspectRatio: '16 / 9',
-    backgroundPosition: 'top',
-    // borderTopRightRadius: '50%',
-    // borderBottomRightRadius: '50%'
-    borderRadius: '4px',
+    aspectRatio: '1',
+    backgroundPosition: 'bottom',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+}));
+
+export const StyledTopSectionDivider = styled(Divider)(() => ({
+    fontSize: '24px',
+    color: 'white',
+    "&::before, &::after": {
+        borderColor: "white",
+      },
 }));
