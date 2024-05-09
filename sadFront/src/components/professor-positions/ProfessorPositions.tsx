@@ -1,5 +1,6 @@
 import { Box, Divider } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import { getProfessorPositions } from "../../services/position.service";
 import { ProfessorRequestCard } from "../professor-request-card/ProfessorRequestCard";

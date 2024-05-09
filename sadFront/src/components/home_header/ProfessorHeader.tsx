@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -11,19 +12,24 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 const pages = ['Home', 'Positions', 'Requests', 'University'];
 const settings = ['Profile', 'Add Program', 'Logout'];
 
-function ProfessorHeader() {
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+function ProfessorHeader(props: ProfessorHeaderProps) {
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
+    const navigate = useNavigate();
+    const [activeComponent, setActiveComponent] = useState('Home');
+
+
+    const handleOpenNavMenu = (event: { currentTarget: React.SetStateAction<null>; }) => {
         setAnchorElNav(event.currentTarget);
     };
 
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    const handleOpenUserMenu = (event: { currentTarget: React.SetStateAction<null>; }) => {
         setAnchorElUser(event.currentTarget);
     };
 
@@ -35,12 +41,22 @@ function ProfessorHeader() {
         setAnchorElUser(null);
     };
 
+    const handlePageClick = (page: string) => {
+        props.changeHeader(page);
+        if (page === 'University') {
+            navigate('/university');
+        } else {
+            console.log("Navigate to:", page);
+        }
+        handleCloseNavMenu();
+    };
+
     return (
-        <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#0F1035',color:'#FFF5EE',height:'60px' }}>
+        <AppBar sx={{ display: 'flex',width: '100%', backgroundColor: '#0F1035',color:'#FFF5EE',height:'10%' }}>
             <Container maxWidth="xl" sx={{ backgroundColor: '#0F1035',color:'#FFF5EE' }}>
                 <Toolbar disableGutters>
-                <span style={{ flex: "0.1 1 auto" }}></span>
-                <div style={{marginLeft:'22px'}}>
+                <Box style={{ flex: "flex-end" }}></Box>
+                <Box style={{marginLeft:'2px'}}>
                     <Typography
                         variant="h6"
                         noWrap
@@ -49,8 +65,18 @@ function ProfessorHeader() {
                     >
                         7Apply
                     </Typography>
-                    </div>
+                    </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' ,},}}>
+                        {pages.map((page) => (
+                            <Button
+                                key={page}
+                                onClick={() => handlePageClick(page)}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                {page}
+                            </Button>
+                        ))}
+                        
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -96,9 +122,9 @@ function ProfessorHeader() {
                                 textTransform: "none",
                                 transition: '0.3s',
                                 ":hover": {
-                                  color: 'black',
-                                  bgcolor: 'white',
-                                  ml: 1,
+                                    color: 'black',
+                                    bgcolor: 'white',
+                                    ml: 1,
                                 } }}
                             >
                                 {page}
@@ -151,7 +177,13 @@ function ProfessorHeader() {
                     </Box>
                 </Toolbar>
             </Container>
+            {/* <Box>
+                <ProfessorHeader setActiveComponent={setActiveComponent} />
+                {renderComponent()}
+            </Box> */}
         </AppBar>
+
+
     );
 }
 
