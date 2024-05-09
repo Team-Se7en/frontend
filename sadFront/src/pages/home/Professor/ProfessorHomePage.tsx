@@ -6,14 +6,11 @@ import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter
 import ProfessorPositionSort from "../../../components/ProfessorPositionSort/ProfessorPositionSort";
 import ProfessorPositionsFilter from "../../../components/ProfessorPositionsFilter/ProfessorPositionsFilter";
 import ProfessorPositionsSort from "../../../components/ProfessorPositionsSort/ProfessorPositionsSort";
-import { ProfessorRecentPositions } from "../../../components/professor-recent-positions/ProfessorRecentPositions";
 import ProfessorRequestFilter from "../../../components/ProfessorRequestFilter/ProfessorRequestFilter";
 import ProgramCard from "../../../components/programcard/ProgramCard";
 import { ProgramsList } from "../../../components/programslist/ProgramsList";
 import Search from "../../../components/Search/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
-import StudentRequestFilter from "../../../components/StudentRequestFilter/StudentRequestFilter";
-import StudentRequestSort from "../../../components/StudentRequestSort/StudentRequestSort";
 import Styles from "../../../Styles";
 import { clsx } from "clsx";
 import { useState } from "react";
@@ -26,31 +23,32 @@ export function ProfessorHomePage() {
 
     return (
         <Box>
+
             <CssBaseline />
-            
+
+            <Box>
             <ProfessorHeader/>
 
-            {/* <Box style={{marginTop:'100px'}}> */}
-            <Box style={{ marginTop: '100px', display: 'flex', flexDirection: 'column' , width: '100%',}}>
+            </Box>
 
-                
-            {/* <Box sx={{ gap: '8px' }}> */}
-            <Box display="flex" justifyContent="flex-end">
+            <Box sx={{ display: 'flex', flexDirection: 'column' , width: '100%',}}>
 
+            <Box sx ={{display:"flex",flexDirection:"column" ,alignItems:"center", justifyContent: "flex-end",marginTop: "100px",}}>
                 <Search/>
-                </Box>
+            </Box>
                 
-            <Box display="flex" flexDirection="column" alignItems="flex-start">
+            <Box sx ={{display:"flex",flexDirection:"column" ,alignItems:"flex-start",marginTop: '1px',}}>
 
             <ProfessorPositionFilter/>
             <ProfessorPositionSort/>
 
             </Box>
-
-
-            
             </Box>
-            <Footer/>
+
+            <Box sx={{margintop:"128px"}}>
+                <Footer/>
+            </Box>
+
         </Box>
 
     );

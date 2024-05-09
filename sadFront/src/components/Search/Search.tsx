@@ -7,7 +7,6 @@ import axios from 'axios';
 interface SearchResult {
   id: number;
   name: string;
-  // Add more fields as needed
 }
 
 const SearchContainer = styled('div')({
@@ -51,7 +50,6 @@ const Search: React.FC = () => {
   const handleSearch = async () => {
     setLoading(true);
     setError('');
-    // Mock API call
     try {
       const response = await axios.get(`https://api.example.com/search?q=${query}`);
       setResults(response.data.results);
@@ -75,7 +73,7 @@ const Search: React.FC = () => {
   return (
     <SearchContainer>
       <TextField
-        style={{width:'60%',marginLeft:'78px'}} // Responsive width
+        style={{width:'100%'}} // Responsive width
         label="Search"
         variant="outlined"
         value={query}
@@ -95,7 +93,6 @@ const Search: React.FC = () => {
         <SearchResultList>
           {results.map((result) => (
             <SearchResultItem key={result.id}>
-              {/* Highlighted text */}
               <HighlightedText>{result.name}</HighlightedText>
             </SearchResultItem>
           ))}

@@ -4,6 +4,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Theme, useTheme } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
+import { Divider } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -52,7 +53,7 @@ const ProfessorPositionSort: React.FC = () => {
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width: 355 }}>
+            <FormControl sx={{ m: 1, width: 355 ,margin: "32px", borderRadius: '8px',paddingBottom:"256px"}}>
                 <InputLabel id="demo-single-select-label">Sort By</InputLabel>
                 <Select
                     value={personName}
@@ -61,14 +62,19 @@ const ProfessorPositionSort: React.FC = () => {
                     MenuProps={MenuProps}
                 >
                     {names.map((name) => (
+                        
+                        
                         <MenuItem
                             key={name}
                             value={name}
                             style={getStyles({ name, personName }, theme)}
+                            
                         >
                             {name}
                         </MenuItem>
                     ))}
+
+
                 </Select>
             </FormControl>
         </Box>
