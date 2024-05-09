@@ -14,14 +14,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
-// import ProgramCard from '../programcard/ProgramCard';
-// import { ProgramsList } from '../programslist/ProgramsList';
-// import StudentCard from '../studentcard/StudentCard';
-
-
-
-
-
 const pages = ['Home', 'Positions', 'Requests', 'University'];
 const settings = ['Profile', 'Add Program', 'Logout'];
 
@@ -62,25 +54,12 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
         handleCloseNavMenu();
     };
 
-    // const renderComponent = () => {
-    //     switch (activeComponent) {
-    //         case 'Home':
-    //             return <ProgramCard professor={undefined} description={''} capacity={0} id={0} title={''} status={"d:/project/university_project/Sad/frontend/sadFront/src/models/Status".Open} start_date={undefined} end_date={undefined} tags={[]} fee={0} position_start_date={undefined} position_end_date={undefined} />;
-    //         case 'Positions':
-    //             return <ProgramsList />;
-    //         case 'Requests':
-    //             return <StudentCard name={''} university={''} status={''} field={''} positionTitle={''} requestDate={''} fee={''} startDate={''} coverLetter={''} />;
-    //         default:
-    //             return <Box>Select a page</Box>;
-    //     }
-    // };
-
     return (
-        <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#0F1035',color:'#FFF5EE',height:'60px' }}>
+        <AppBar sx={{ display: 'flex',width: '100%', backgroundColor: '#0F1035',color:'#FFF5EE',height:'10%' }}>
             <Container maxWidth="xl" sx={{ backgroundColor: '#0F1035',color:'#FFF5EE' }}>
                 <Toolbar disableGutters>
-                <Box style={{ flex: "0.1 1 auto" }}></Box>
-                <Box style={{marginLeft:'22px'}}>
+                <Box style={{ flex: "flex-end" }}></Box>
+                <Box style={{marginLeft:'2px'}}>
                     <Typography
                         variant="h6"
                         noWrap

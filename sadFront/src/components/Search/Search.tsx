@@ -13,11 +13,17 @@ const SearchContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
+  backgroundColor:'white',
+  width: '40%',
+  marginBottom:'10px',
+  borderRadius:'8px'
 });
 
 const SearchButton = styled(Button)({
   marginLeft: '8px',
   backgroundColor: '#00004b',
+  borderRadius:'8px'
+
 });
 
 const HighlightedText = styled('span')({
@@ -30,7 +36,7 @@ const SearchResultList = styled('ul')({
 });
 const SearchResultItem = styled('li')({
   padding: '8px',
-  borderRadius: '4px',
+  borderRadius: '8px',
   backgroundColor: '#f0f0f0',
   marginBottom: '8px',
   display: 'flex',

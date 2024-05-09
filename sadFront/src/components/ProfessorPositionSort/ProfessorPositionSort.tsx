@@ -53,14 +53,16 @@ const ProfessorPositionSort: React.FC = () => {
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width: 355 ,margin: "32px", borderRadius: '8px',paddingBottom:"256px"}}>
-                <InputLabel id="demo-single-select-label">Sort By</InputLabel>
+            <FormControl sx={{ m: 1, width:'380px' ,margin: "32px", borderRadius: '8px',paddingBottom:"256px", }}>
+                <InputLabel>Sort By</InputLabel>
                 <Select
                     value={personName}
                     onChange={handleChange}
                     input={<OutlinedInput id="select-single" label="Sort Criteria" />}
                     MenuProps={MenuProps}
-                >
+                    sx = {{backgroundColor:'white'}}                
+                    >
+                        
                     {names.map((name) => (
                         
                         

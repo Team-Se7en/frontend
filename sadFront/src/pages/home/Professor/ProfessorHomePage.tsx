@@ -2,6 +2,7 @@ import { Box, CssBaseline, Typography } from "@mui/material";
 
 import Footer from "../../../components/footer/footer/footer";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
+import { ProfessorHomePage1 } from "../../../assets/images";
 import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter/ProfessorPositionFilter";
 import ProfessorPositionSort from "../../../components/ProfessorPositionSort/ProfessorPositionSort";
 import ProfessorPositionsFilter from "../../../components/ProfessorPositionsFilter/ProfessorPositionsFilter";
@@ -22,7 +23,15 @@ export function ProfessorHomePage() {
     const globalClasses = Styles();
 
     return (
-        <Box>
+        <Box sx={{
+            width: '100%',
+            minHeight: '100vh',
+            backgroundImage: `url(${ProfessorHomePage1})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed',
+        }}>
 
             <CssBaseline />
 

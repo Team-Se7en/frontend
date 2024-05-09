@@ -44,12 +44,15 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
     };
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', margin: "32px", padding:'64px', border: '1px solid #ccc', borderRadius: '8px',backgroundColor:"#0F1035"}}>
-            <Accordion>
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
+        justifyContent: 'flex-start', borderRadius: '8px', marginLeft:'32px',
+        width: '25%',height: '25%',
+        }}>
+            <Accordion sx = {{width: '100%',}}>
 
             <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
+            // aria-controls="panel1-content"
             sx={{display: 'flex', padding:'16px', width: '100%', height: '100%'}}
             >
             Filter
@@ -59,7 +62,7 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
 
             <AccordionDetails>
 
-            <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+            <Grid spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                     <Typography>Term</Typography>
                     <FormControlLabel
