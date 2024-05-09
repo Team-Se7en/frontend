@@ -1,5 +1,6 @@
 import client from "../Http/axios";
 import { ProfessorCardViewFullInfo } from "../models/CardInfo";
+import { ProfessorPositionsQueryParams } from "../models/QueryParams";
 
 export interface GetProfessorPositionsRequestModel {
     professorId: number;
@@ -15,9 +16,9 @@ export const getProfessorRecentPositions = async () => {
     }
 };
 
-export const getProfessorPositions = async () => {
+export const getProfessorPositions = async (queryParams?: ProfessorPositionsQueryParams) => {
     try {
-        const result = await client.get(`/eduportal/professors/my_positions`);
+        const result = await client.get(`/eduportal/prof_own_position_filter/`, { params: queryParams });
         return result;
     } catch (e) {
         console.error(e);

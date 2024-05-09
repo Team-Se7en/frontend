@@ -14,6 +14,7 @@ import StudentPositionFilter from "../../../components/StudentPositionFilter/Stu
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
 import StudentRequestFilter from "../../../components/StudentRequestFilter/StudentRequestFilter";
 import StudentRequestSort from "../../../components/StudentRequestSort/StudentRequestSort";
+import { ProfessorPositions } from "../../../components/professor-positions/ProfessorPositions";
 
 export function ProfessorHomePage() {
     return (
@@ -35,6 +36,7 @@ export function ProfessorHomePage() {
                 <div style={{marginTop:'12px'}}>
                 <ProfessorPositionSort/>
                 </div>
+                {/* <ProfessorPositions queryParams={{ fee: 100 }}/> */}
 
             {/* <ProfessorPositionFilter onProfessorFilter={function (): void {
                     throw new Error("Function not implemented.");

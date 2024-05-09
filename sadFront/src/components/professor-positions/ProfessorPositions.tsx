@@ -1,25 +1,28 @@
 import { Box, Divider } from "@mui/material";
 import { useState, useEffect } from "react";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
-import { getProfessorRecentPositions } from "../../services/position.service";
+import { getProfessorPositions } from "../../services/position.service";
 import { ProfessorRequestCard } from "../professor-request-card/ProfessorRequestCard";
+import { ProfessorPositionsQueryParams } from "../../models/QueryParams";
 
+export interface ProfessorPositionsProps {
+    queryParams?: ProfessorPositionsQueryParams;
+}
 
-export function ProfessorRecentPositions() {
-    const [professorPositions, setProfessorPositions] = useState<ProfessorCardViewShortInfo[]>([]);
+export function ProfessorPositions(props: ProfessorPositionsProps) {
+    const [positions, setPositions] = useState<ProfessorCardViewShortInfo[]>([]);
 
     useEffect(() => {
         const fetchRecentPositions = async () => {
-            const result = await getProfessorRecentPositions();
-            setProfessorPositions(result.data)
+            const result = await getProfessorPositions(props.queryParams);
+            setPositions(result.data)
         };
 
         fetchRecentPositions();
-    }, []);
+    }, [props.queryParams]);
 
     const handlePositionDelete = (id: number) => {
-        setProfessorPositions(professorPositions.filter(p => p.id != id));
-        console.log(id);
+        setPositions(positions.filter(p => p.id != id));
     }
 
     return (
@@ -32,7 +35,7 @@ export function ProfessorRecentPositions() {
             <Divider
                 textAlign="left"
                 sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e", paddingTop: "20px" }}>
-                Recent Positions
+                Own Positions
             </Divider>
             <Box
                 height={"30rem"}
@@ -46,7 +49,7 @@ export function ProfessorRecentPositions() {
                 overflow={"auto"}
             >
                 {
-                    professorPositions.map(position => (
+                    positions.map(position => (
                         <ProfessorRequestCard key={position.id} model={position} onDelete={handlePositionDelete}/>
                     ))
                 }
