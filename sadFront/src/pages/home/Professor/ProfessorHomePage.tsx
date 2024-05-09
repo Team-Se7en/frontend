@@ -10,7 +10,7 @@ import ProfessorPositionsSort from "../../../components/ProfessorPositionsSort/P
 import ProfessorRequestFilter from "../../../components/ProfessorRequestFilter/ProfessorRequestFilter";
 import ProgramCard from "../../../components/programcard/ProgramCard";
 import { ProgramsList } from "../../../components/programslist/ProgramsList";
-import Search from "../../../components/Search/Search";
+import Search from "../../../components/Search_professor/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
 import Styles from "../../../Styles";
 import { clsx } from "clsx";

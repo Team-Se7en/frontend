@@ -2,7 +2,9 @@ import { Box, CssBaseline } from "@mui/material";
 
 import Footer from "../../../components/footer/footer/footer";
 import { ProgramsList } from "../../../components/programslist/ProgramsList";
-import  Search from "../../../components/Search/Search";
+import React from "react";
+import  Search from "../../../components/Search_student/Search";
+import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
@@ -23,7 +25,7 @@ export default function StudentHomepage() {
   }, []);
 
   if (!allPrograms) return null;
-  //console.log(allPrograms);
+  console.log(allPrograms);
 
   return (
     <Box>
