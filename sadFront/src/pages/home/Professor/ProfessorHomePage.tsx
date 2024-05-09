@@ -5,17 +5,25 @@ import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
 import { ProfessorHomePage1 } from "../../../assets/images";
 import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter/ProfessorPositionFilter";
 import ProfessorPositionSort from "../../../components/ProfessorPositionSort/ProfessorPositionSort";
+import { ProfessorPositions } from "../../../components/professor-positions/ProfessorPositions";
 import ProfessorPositionsFilter from "../../../components/ProfessorPositionsFilter/ProfessorPositionsFilter";
 import ProfessorPositionsSort from "../../../components/ProfessorPositionsSort/ProfessorPositionsSort";
 import ProfessorRequestFilter from "../../../components/ProfessorRequestFilter/ProfessorRequestFilter";
 import ProgramCard from "../../../components/programcard/ProgramCard";
 import { ProgramsList } from "../../../components/programslist/ProgramsList";
-// import Search from "../../../components/Search/Search";
+import Search from "../../../components/Search_professor/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
 import Styles from "../../../Styles";
 import { clsx } from "clsx";
 import { useState } from "react";
-import { ProfessorPositions } from "../../../components/professor-positions/ProfessorPositions";
+
+// import Search from "../../../components/Search/Search";
+
+
+
+
+
+
 
 export function ProfessorHomePage() {
 

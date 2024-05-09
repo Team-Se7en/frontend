@@ -2,13 +2,20 @@ import { Box, CssBaseline } from "@mui/material";
 
 import Footer from "../../../components/footer/footer/footer";
 import { ProgramsList } from "../../../components/programslist/ProgramsList";
-// import  Search from "../../../components/Search/Search";
+import React from "react";
+import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
 import axios from "axios";
-import React from "react";
-import { StudentCardViewFullInfo } from "../../../models/CardInfo";
+
+// import  Search from "../../../components/Search/Search";
+
+
+
+
+
+
 
 export default function StudentHomepage() {
   const [allPrograms, setAllPrograms] =
@@ -26,7 +33,7 @@ export default function StudentHomepage() {
   }, []);
 
   if (!allPrograms) return null;
-  //console.log(allPrograms);
+  console.log(allPrograms);
 
   return (
     <Box>
