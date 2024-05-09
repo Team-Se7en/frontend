@@ -10,7 +10,7 @@ import ProfessorPositionsSort from "../../../components/ProfessorPositionsSort/P
 import ProfessorRequestFilter from "../../../components/ProfessorRequestFilter/ProfessorRequestFilter";
 import ProgramCard from "../../../components/programcard/ProgramCard";
 import { ProgramsList } from "../../../components/programslist/ProgramsList";
-import Search from "../../../components/Search/Search";
+// import Search from "../../../components/Search/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
 import Styles from "../../../Styles";
 import { clsx } from "clsx";
@@ -44,7 +44,7 @@ export function ProfessorHomePage() {
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', }}>
 
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px", }}>
-                    <Search />
+                    {/* <Search /> */}
                 </Box>
 
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: '1px', }}>
