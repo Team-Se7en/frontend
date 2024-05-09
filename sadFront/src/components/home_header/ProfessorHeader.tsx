@@ -17,9 +17,6 @@ import { useNavigate } from 'react-router-dom';
 const pages = ['Home', 'Positions', 'Requests', 'University'];
 const settings = ['Profile', 'Add Program', 'Logout'];
 
-export interface ProfessorHeaderProps {
-    changeHeader: (header: string) => void;
-}
 
 function ProfessorHeader(props: ProfessorHeaderProps) {
     const [anchorElNav, setAnchorElNav] = useState(null);
