@@ -48,23 +48,22 @@ export default function StudentHomepage() {
         <StudentHeader/>
       </Box>
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginTop: '10px' }}>
 
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px", }}>
-
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px",marginBottom: "20px", }}>
           <Search />
-          
-          {/* <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px", }}>
-            <ProgramsList></ProgramsList>
-          </Box> */}
+          </Box>
 
-        </Box>
+          <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: '1px', }}>
+              <StudentPositionFilter/>
+              <StudentPositionSort/>
+          </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: '1px', }}>
-            <StudentPositionFilter/>
-            <StudentPositionSort/>
-            
-        </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '80%' }}>
+            <ProgramsList/>
+          </Box>
+
+
       </Box>
 
       

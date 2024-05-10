@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
-import axios from "axios";
+import ProgramCard from "../programcard/ProgramCard";
 import React from "react";
 import { StudentCardViewFullInfo } from "../../models/CardInfo";
-import ProgramCard from "../programcard/ProgramCard";
+import axios from "axios";
 
 export function ProgramsList() {
   const [allPrograms, setAllPrograms] =
@@ -20,13 +20,12 @@ export function ProgramsList() {
   }, []);
 
   if (!allPrograms) return null;
-  //console.log(allPrograms);
   return (
     <Box
       width="90%"
-      maxWidth={"45rem"}
+      maxWidth={"55rem"}
       minWidth={"20rem"}
-      sx={{ backgroundColor: "#fafafa" }}
+      sx={{ backgroundColor: "#365486" }}
     >
       <Box
         my={4}
