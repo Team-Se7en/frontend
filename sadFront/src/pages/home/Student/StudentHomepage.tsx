@@ -51,7 +51,13 @@ export default function StudentHomepage() {
       <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', }}>
 
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px", }}>
+
           <Search />
+          
+          {/* <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px", }}>
+            <ProgramsList></ProgramsList>
+          </Box> */}
+
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: '1px', }}>
@@ -60,15 +66,6 @@ export default function StudentHomepage() {
             
         </Box>
       </Box>
-    {/* </Box> */}
-      
-      {/* <Box
-        display={"flex"}
-        justifyContent={"center"}
-      >
-        <ProgramsList></ProgramsList>
-
-      </Box> */}
 
       
       <Box sx={{ margintop: "128px" }}>
