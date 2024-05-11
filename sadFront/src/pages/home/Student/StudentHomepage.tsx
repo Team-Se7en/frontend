@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { ProgramsList } from "../../../components/programslist/ProgramsList";
+import ProgramsList from "../../../components/programslist/ProgramsList";
 import React from "react";
 import Footer from "../../../components/footer/footer/footer";
 import  SearchStudent from "../../../components/Search_student/Search";
@@ -10,12 +10,16 @@ import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 export default function StudentHomepage() {
   const [allPrograms, setAllPrograms] =
     React.useState<StudentCardViewFullInfo[]>();
-
+  const [condition,setcondition]=React.useState<boolean>(true);
   React.useEffect(() => {
     axios
       .get("https://seven-apply.liara.run/eduportal/positions")
       .then((response) => {
+        if(condition===true)
+      {
         setAllPrograms(response.data);
+        setcondition(false);
+      }
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -31,7 +35,7 @@ export default function StudentHomepage() {
         <StudentHeader />
       </div>
       <div style={{marginTop:'100px'}}>
-      <SearchStudent />
+      <SearchStudent setData={setAllPrograms} />
       </div>
       <Box
         className="main"
@@ -41,7 +45,7 @@ export default function StudentHomepage() {
         justifyContent={"center"}
         paddingTop={"2rem"}
       >
-        <ProgramsList></ProgramsList>
+        <ProgramsList allPrograms={allPrograms}/>
       </Box>
       <Footer />
     </div>
