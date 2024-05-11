@@ -1,23 +1,27 @@
 import { Box } from "@mui/material";
-import axios from "axios";
+// import axios from "axios";
 import React from "react";
 import { StudentCardViewFullInfo } from "../../models/CardInfo";
 import ProgramCard from "../programcard/ProgramCard";
 
-export function ProgramsList() {
-  const [allPrograms, setAllPrograms] =
-    React.useState<StudentCardViewFullInfo[]>();
-
-  React.useEffect(() => {
-    axios
-      .get("https://seven-apply.liara.run/eduportal/positions")
-      .then((response) => {
-        setAllPrograms(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  }, []);
+interface SendData {
+  allPrograms: StudentCardViewFullInfo[];
+}
+const ProgramsList:React.FC<SendData>=({allPrograms})=>
+  {
+  // const [allPrograms, setAllPrograms] =
+  //   React.useState<StudentCardViewFullInfo[]>();
+  
+  // React.useEffect(() => {
+  //   axios
+  //     .get("https://seven-apply.liara.run/eduportal/positions")
+  //     .then((response) => {
+  //       setAllPrograms(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was an error!", error);
+  //     });
+  // }, []);
 
   if (!allPrograms) return null;
   //console.log(allPrograms);
@@ -62,3 +66,4 @@ export function ProgramsList() {
     </Box>
   );
 }
+export default ProgramsList;
