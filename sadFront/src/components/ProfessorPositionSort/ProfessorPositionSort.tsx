@@ -31,6 +31,10 @@ const names: string[] = [
     'Farthest Start Date Position',
 ];
 
+interface ProfessorPositionSortProps {
+    onSortChange: (sortValue: string) => void;
+}
+
 interface StyleProps {
     name: string;
     personName: string;
@@ -42,12 +46,14 @@ function getStyles({ name, personName }: StyleProps, theme: Theme) {
     };
 }
 
-const ProfessorPositionSort: React.FC = () => {
+const ProfessorPositionSort: React.FC<ProfessorPositionSortProps> = ({ onSortChange }) => {
     const theme = useTheme();
     const [personName, setPersonName] = React.useState<string>('');
 
     const handleChange = (event: SelectChangeEvent<string>) => {
-        setPersonName(event.target.value as string);
+        const newSortValue = event.target.value as string;
+        setPersonName(newSortValue);
+        onSortChange(newSortValue);
     };
 
     return (

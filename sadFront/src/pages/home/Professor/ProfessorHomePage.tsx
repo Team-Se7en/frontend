@@ -1,4 +1,5 @@
 import { Box, CssBaseline, Typography } from "@mui/material";
+import { SetStateAction, useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
@@ -12,13 +13,26 @@ import Search from "../../../components/Search_professor/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
 import Styles from "../../../Styles";
 import { clsx } from "clsx";
-import { useState } from "react";
 
 export function ProfessorHomePage() {
 
-    const [currentHeader, setCurrentHeader] = useState('Home');
+    const [filterOptions, setFilterOptions] = useState({});
+    const [sortOptions, setSortOptions] = useState({});
 
-    const globalClasses = Styles();
+    const handleFilterChange = (newFilterOptions: SetStateAction<{}>) => {
+        setFilterOptions(newFilterOptions);
+    };
+
+    const handleSortChange = (newSortOptions: SetStateAction<{}>) => {
+        setSortOptions(newSortOptions);
+    };
+
+    // Combine filter and sort options into queryParams
+    const queryParams = {
+        ...filterOptions,
+        ...sortOptions
+    };
+    
 
     return (
         <Box sx={{
@@ -45,15 +59,15 @@ export function ProfessorHomePage() {
 
                 <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: '1px', }}>
 
-                    <ProfessorPositionFilter/>
-                    <ProfessorPositionSort/>
-                    {/* <ProfessorPositions queryParams={{ fee: 100 }}/> */}
+                <ProfessorPositionFilter onProfessorFilter={handleFilterChange} />
+                <ProfessorPositionSort onSortChange={handleSortChange} />
 
                 </Box>
 
                 <Box sx={{ display: 'flex',  alignItems: "flex-end",justifyContent: 'flex-end', width: '80%' }}>
-                {/* <ProgramsList/> */}
-                <ProfessorPositions/>
+                {/* <ProfessorPositions/> */}
+                <ProfessorPositions queryParams={queryParams} />
+
                 </Box>
                 
             </Box>
