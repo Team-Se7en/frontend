@@ -20,6 +20,15 @@ const MenuProps = {
     },
 };
 
+let userScores: { [key: string]: string } = {
+    "Max Fee": "fee",
+    "Min Fee": "-fee",
+    "Max Request": "request_count",
+    "Min Request": "-request_count",
+    "Earliest Request Date": "date_applied",
+    "Latest Request Date": "-date_applied",
+  };
+  
 const names: string[] = [
     'Min Request',
     'Max Request',
@@ -30,7 +39,6 @@ const names: string[] = [
     'Closest Start Date Position',
     'Farthest Start Date Position',
 ];
-
 interface ProfessorPositionSortProps {
     onSortChange: (sortValue: string) => void;
 }
@@ -73,7 +81,7 @@ const ProfessorPositionSort: React.FC<ProfessorPositionSortProps> = ({ onSortCha
                         
                         <MenuItem
                             key={name}
-                            value={name}
+                            value={userScores[name]}
                             style={getStyles({ name, personName }, theme)}
                             
                         >

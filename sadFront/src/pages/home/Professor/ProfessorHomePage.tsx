@@ -1,5 +1,5 @@
 import { Box, CssBaseline, Typography } from "@mui/material";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
@@ -13,25 +13,18 @@ import Search from "../../../components/Search_professor/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
 import Styles from "../../../Styles";
 import { clsx } from "clsx";
+import { start } from "repl";
 
 export function ProfessorHomePage() {
 
-    const [filterOptions, setFilterOptions] = useState({});
-    const [sortOptions, setSortOptions] = useState({});
+    const [filterOptions, setFilterOptions] = useState({term : "", feeMax: 9999999999 , feeMin: 0, year: ""});
+    const [sortOptions, setSortOptions] = useState("");
+    const [cards, setCards] = useState({term : "", ordering: "", feeMax: 9999999999 , feeMin: 0, year: ""});
 
-    const handleFilterChange = (newFilterOptions: SetStateAction<{}>) => {
-        setFilterOptions(newFilterOptions);
-    };
-
-    const handleSortChange = (newSortOptions: SetStateAction<{}>) => {
-        setSortOptions(newSortOptions);
-    };
-
-    // Combine filter and sort options into queryParams
-    const queryParams = {
-        ...filterOptions,
-        ...sortOptions
-    };
+    useEffect(() => {
+        console.log(filterOptions)
+        setCards({...cards, term: filterOptions.term[0], feeMax: filterOptions.feeMax, feeMin: filterOptions.feeMin,  year: filterOptions.year[0]});
+    }, [sortOptions, filterOptions]);
     
 
     return (
@@ -59,14 +52,14 @@ export function ProfessorHomePage() {
 
                 <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: '1px', }}>
 
-                <ProfessorPositionFilter onProfessorFilter={handleFilterChange} />
-                <ProfessorPositionSort onSortChange={handleSortChange} />
+                <ProfessorPositionFilter onProfessorFilter={setFilterOptions} />
+                <ProfessorPositionSort onSortChange={setSortOptions} />
 
                 </Box>
 
                 <Box sx={{ display: 'flex',  alignItems: "flex-end",justifyContent: 'flex-end', width: '80%' }}>
                 {/* <ProfessorPositions/> */}
-                <ProfessorPositions queryParams={queryParams} />
+                <ProfessorPositions queryParams={cards} />
 
                 </Box>
                 
