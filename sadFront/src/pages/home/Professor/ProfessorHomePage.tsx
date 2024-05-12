@@ -1,4 +1,4 @@
-import { Box, CssBaseline, Typography } from "@mui/material";
+import { Box, CssBaseline, Grid, Typography } from "@mui/material";
 import { SetStateAction, useEffect, useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
@@ -50,22 +50,27 @@ export function ProfessorHomePage() {
                     <Search />
                 </Box>
 
-                <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: '1px', }}>
+                <Box sx={{ width: '100%', display: "flex", flexDirection: "row",justifyContent: "center", marginTop: '1px', gap: '30px',paddingRight: '100px'}}>
 
+                    
+                <Box sx={{ display: "flex", flexDirection: "column",justifyContent: "center", marginTop: '1px',marginBottom: "auto",paddingRight: '100px'}}>
+                
                 <ProfessorPositionFilter onProfessorFilter={setFilterOptions} />
+                
                 <ProfessorPositionSort onSortChange={setSortOptions} />
-
                 </Box>
-
-                <Box sx={{ display: 'flex',  alignItems: "flex-end",justifyContent: 'flex-end', width: '80%' }}>
-                {/* <ProfessorPositions/> */}
+                
+                {/* <Box sx ={{Width: '100%',}}> */}
                 <ProfessorPositions queryParams={cards} />
+                {/* </Box> */}
+
 
                 </Box>
+
                 
             </Box>
 
-            <Box sx={{ margintop: "128px" }}>
+            <Box sx={{ paddingTop: "128px" }}>
                 <Footer />
             </Box>
 

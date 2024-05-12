@@ -48,7 +48,7 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
         justifyContent: 'flex-start', borderRadius: '8px', marginLeft:'32px',
-        width: '25%',height: '25%',
+        width: '75%',height: '25%',
         }}>
             <Accordion sx = {{width: '100%',}}>
 
