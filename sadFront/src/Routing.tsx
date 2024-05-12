@@ -14,6 +14,7 @@ import StudentHomepage from "./pages/home/Student/StudentHomepage";
 import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
 import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import UniversityPage from "./pages/university/University";
+import { StudentAccept } from "./pages/accept-sudent/StudentAccept";
 
 export default function Routing() {
   return (
@@ -38,12 +39,14 @@ export default function Routing() {
         />
         <Route path="activate/:uid/:token" element={<SignupVerification />} />
 
-        <Route path="" element={<Home />} />
-        <Route path="newpassword" element={<Newpassword />} />
-        <Route path="professorhomepage" element={<ProfessorHomePage />} />
-        <Route path="studenthomepage" element={<StudentHomepage />} />
-        <Route path="universitypage" element={<UniversityPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
+ 
+                <Route path="" element={<Home />} />
+                <Route path="newpassword" element={<Newpassword />} />
+                <Route path="professorhomepage" element={<ProfessorHomePage />} />
+                <Route path="studenthomepage" element={<StudentHomepage />} />
+                <Route path="studentaccept" element={<StudentAccept />} />
+                <Route path="universitypage" element={<UniversityPage />} />
+            </Routes>
+        </BrowserRouter>
+    )
 }
