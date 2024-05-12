@@ -6,13 +6,14 @@ import AccordionActions from '@mui/material/AccordionActions';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Height } from '@mui/icons-material';
 
 interface FilterProps {
     onProfessorFilter: (filter: FilterOptions) => void;
 }
 
 interface FilterOptions {
-    term: ('spring' | 'summer' | 'autumn')[];
+    term: ('spring' | 'summer' | 'winter')[];
     feeMin: number;
     feeMax: number;
     year: number[];
@@ -21,10 +22,10 @@ interface FilterOptions {
 const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
     const [term, setTerm] = useState<FilterOptions['term']>([]);
     const [feeMin, setFeeMin] = useState<number>(0);
-    const [feeMax, setFeeMax] = useState<number>(500);
+    const [feeMax, setFeeMax] = useState<number>(30000);
     const [year, setYear] = useState<number[]>([]);
     const [reset, setReset] = useState<boolean>(false);
-
+    const [expanded, setExpanded] = useState<boolean>(true);
 
     const handleApplyFilter = () => {
         const filter: FilterOptions = {
@@ -39,27 +40,49 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
     const handleResetFilter = () => {
         setTerm([]);
         setFeeMin(0);
-        setFeeMax(500);
+        setFeeMax(30000);
         setYear([]);
-        onProfessorFilter({ term: [], feeMin: 0, feeMax: 500, year: [] });
+        onProfessorFilter({ term: [], feeMin: 0, feeMax: 30000, year: [] });
 
+    };
+
+    const handleToggleAccordion = () => {
+        setExpanded(prev => !prev);
     };
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
         justifyContent: 'flex-start', borderRadius: '8px', marginLeft:'32px',
-        width: '75%',height: '25%',
+        width: '85%',height: '25%',
         }}>
-            <Accordion sx = {{width: '100%',}}>
 
+            <Accordion expanded={expanded} onChange={handleToggleAccordion} sx = {{width: '100%',}}>
+                
+            <Grid sx={{display: 'flex', flexDirection:'row'}}>
+                
             <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            // aria-controls="panel1-content"
             sx={{display: 'flex', padding:'16px', width: '100%', height: '100%'}}
             >
             Filter
 
             </AccordionSummary>
+            
+            <Grid sx = {{display: 'flex', flexDirection:'row', paddingTop:'24px'}}>
+            <Button onClick={handleApplyFilter}
+            size="small"
+            sx={{ color:'white', backgroundColor:'#0F1035', fontSize: '0.75rem', margin: '4px 4px', height: '32px'}}>
+            Apply</Button>
+            
+            <Button onClick={handleResetFilter}
+            size="small"
+            sx={{color:'white', backgroundColor:'#7FC7D9', fontSize: '0.75rem', margin: '4px 4px', height: '32px'}}>
+            Reset</Button>
+                
+            </Grid>
+            
+            </Grid>
+            
             <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
             <AccordionDetails>
@@ -85,15 +108,15 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
                     />
                     
                     <FormControlLabel
-                        control={<Checkbox checked={term.includes('autumn')}
-                        onChange={() => setTerm(prev => prev.includes('autumn') ? prev.filter(t => t !== 'autumn') : [...prev, 'autumn'])}
+                        control={<Checkbox checked={term.includes('winter')}
+                        onChange={() => setTerm(prev => prev.includes('winter') ? prev.filter(t => t !== 'winter') : [...prev, 'winter'])}
                         sx={{
                             '& .MuiSvgIcon-root': {
                                 fontSize: '1rem' 
                             }
                         }}
                         />}
-                        label="Autumn"
+                        label="Winter"
                         sx={{
                             '& .MuiFormControlLabel-label': {
                                 fontSize: '0.8rem'
@@ -157,29 +180,15 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
                                 }
                             }}
                             min={0}
-                            max={500}
+                            max={30000}
                             valueLabelDisplay="on"
                         />
 
                     <Typography  sx={{ color: 'gray', width:'200px',}}>{`Fee Range: ${feeMin}$ - ${feeMax}$`}</Typography>
 
                 </Grid>
-                <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
             </Grid>
-
-
-            <Grid sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                
-            <Button onClick={handleApplyFilter}
-            sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#0F1035'}}>
-            Apply</Button>
-            
-            <Button onClick={handleResetFilter}
-            sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#7FC7D9 '}}>
-            Reset</Button>
-            </Grid>
-
             
             </AccordionDetails>
 

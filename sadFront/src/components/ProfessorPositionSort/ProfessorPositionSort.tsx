@@ -27,8 +27,8 @@ let userScores: { [key: string]: string } = {
     "Min Request": "-request_count",
     "Earliest Request Date": "date_applied",
     "Latest Request Date": "-date_applied",
-  };
-  
+};
+
 const names: string[] = [
     'Min Request',
     'Max Request',
@@ -66,7 +66,7 @@ const ProfessorPositionSort: React.FC<ProfessorPositionSortProps> = ({ onSortCha
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width:'380px' ,margin: "32px", borderRadius: '8px',paddingBottom:"256px", }}>
+            <FormControl sx={{ m: 1, width:'350px' ,margin: "32px", borderRadius: '8px', }}>
                 <InputLabel>Sort By</InputLabel>
                 <Select
                     value={personName}

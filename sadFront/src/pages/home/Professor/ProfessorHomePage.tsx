@@ -46,7 +46,7 @@ export function ProfessorHomePage() {
 
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginTop: '10px' }}>
 
-                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px",marginBottom: "20px", }}>
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px",marginBottom: "20px", marginLeft:'450px' }}>
                     <Search />
                 </Box>
 
@@ -54,17 +54,12 @@ export function ProfessorHomePage() {
 
                     
                 <Box sx={{ display: "flex", flexDirection: "column",justifyContent: "center", marginTop: '1px',marginBottom: "auto",paddingRight: '100px'}}>
-                
-                <ProfessorPositionFilter onProfessorFilter={setFilterOptions} />
-                
-                <ProfessorPositionSort onSortChange={setSortOptions} />
+                    <ProfessorPositionSort onSortChange={setSortOptions} />
+                    <ProfessorPositionFilter onProfessorFilter={setFilterOptions} />
                 </Box>
                 
-                {/* <Box sx ={{Width: '100%',}}> */}
                 <ProfessorPositions queryParams={cards} />
-                {/* </Box> */}
-
-
+                
                 </Box>
 
                 
