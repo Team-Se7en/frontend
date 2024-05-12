@@ -1,3 +1,8 @@
 export interface ProfessorPositionsQueryParams {
-    fee: number;
+    feeMax?: number;
+    feeMin?: number;
+    year?: number;
+    term?: string;
+    ordering?: string;
+    
 }

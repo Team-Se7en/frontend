@@ -52,7 +52,7 @@ const ErrorMessage = styled('p')({
   color: 'red',
 });
 
-const SearchStudent: React.FC = () => {
+const SearchProfessor: React.FC = () => {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<any[]>([]); // اینجا interface SearchResult برداشته شده است
@@ -144,4 +144,4 @@ const SearchStudent: React.FC = () => {
   );
 };
 
-export default SearchStudent;
+export default SearchProfessor;

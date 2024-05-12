@@ -41,6 +41,8 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) =
         setFeeMin(0);
         setFeeMax(500);
         setYear([]);
+        onProfessorFilter({ term: [], feeMin: 0, feeMax: 500, year: [] });
+
     };
 
     return (

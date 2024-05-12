@@ -1,6 +1,6 @@
-import client from "../Http/axios";
 import { ProfessorCardViewFullInfo } from "../models/CardInfo";
 import { ProfessorPositionsQueryParams } from "../models/QueryParams";
+import client from "../Http/axios";
 
 export interface GetProfessorPositionsRequestModel {
     professorId: number;
@@ -18,7 +18,13 @@ export const getProfessorRecentPositions = async () => {
 
 export const getProfessorPositions = async (queryParams?: ProfessorPositionsQueryParams) => {
     try {
-        const result = await client.get(`/eduportal/prof_own_position_filter/`, { params: queryParams });
+        const result = await client.get(`/eduportal/prof_own_position_filter/`, { params: {
+            "term": queryParams?.term,
+            "ordering": queryParams?.ordering,
+            "fee__gte": queryParams?.feeMin,
+            "fee__lte": queryParams?.feeMax,
+            "position_start_date__year":  queryParams?.year,
+        } });
         return result;
     } catch (e) {
         console.error(e);

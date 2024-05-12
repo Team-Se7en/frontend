@@ -1,19 +1,16 @@
 import { Box, CssBaseline } from "@mui/material";
+
 import Footer from "../../../components/footer/footer/footer";
 import ProgramsList from "../../../components/programslist/ProgramsList";
 import React from "react";
+import Search from "../../../components/Search_student/Search";
+import SearchStudent from "../../../components/Search_student/Search";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
+import { StudentHomePage1 } from "../../../assets/images";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
 import axios from "axios";
-import SearchStudent from "../../../components/Search_student/Search";
-
-
-
-
-
-
 
 export default function StudentHomepage() {
   const [allPrograms, setAllPrograms] =
@@ -38,46 +35,45 @@ export default function StudentHomepage() {
   console.log(allPrograms);
 
   return (
-    // <Box>
-    //   <CssBaseline />
-
-    //   <StudentHeader/>
-      
-    //   <Box style={{marginTop:'70px'}}>
-    //   <Box display="flex" flexDirection="row" alignItems="flex-start" justifyContent="space-between" sx={{ gap: '8px' }}>
-
-    //   {/* <StudentPositionFilter/> */}
-
-
-    //     <Box style={{marginTop:'20px',width:'100% '}}>
-    //             <Search/>
-    //     </Box>
-
-    //     <Box style={{marginTop:'12px'}}>
-    //             <StudentPositionSort/>
-    //     </Box>
-
-    //   </Box>
-    //   </Box>
-    <div>
-      <div>
-        <StudentHeader />
-      </div>
-      <div style={{marginTop:'100px'}}>
-      <SearchStudent setData={setAllPrograms} />
-      </div>
-      <Box
-        className="main"
-        sx={{ backgroundColor: "#fafafa" }}
-        marginTop={"0.5rem"}
-        display={"flex"}
-        justifyContent={"center"}
-        paddingTop={"2rem"}
-      >
-        <ProgramsList allPrograms={allPrograms}/>
+    <Box sx={{
+      width: '100%',
+      height: 'auto',
+      backgroundImage: `url(${StudentHomePage1})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed',
+  }}>
+    <CssBaseline />
+    
+      <Box>
+        <StudentHeader/>
       </Box>
-      <Footer />
-      </div>
+      
+      <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginTop: '10px' }}>
+
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px",marginBottom: "20px", }}>
+          <Search />
+          </Box>
+
+          <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: '1px', }}>
+              <StudentPositionFilter/>
+              <StudentPositionSort/>
+          </Box>
+
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '80%' }}>
+            <ProgramsList/>
+          </Box>
+
+
+      </Box>
+
+      
+      <Box sx={{ margintop: "128px" }}>
+        <Footer />
+      </Box>
+      
+    </Box>
 
   );
 }
