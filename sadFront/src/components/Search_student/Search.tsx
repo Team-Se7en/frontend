@@ -22,23 +22,7 @@ const SearchButton = styled(Button)({
   borderRadius:'8px'
 });
 
-const HighlightedText = styled('span')({
-  fontWeight: 'bold',
-});
-const SearchResultItem = styled('li')({
-  padding: '8px',
-  borderRadius: '8px',
-  backgroundColor: '#f0f0f0',
-  marginBottom: '8px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
-const SearchResultList = styled('ul')({
-  listStyle: 'none',
-  padding: 0,
-  margin: '16px 0',
-});
+
 
 
 const ErrorMessage = styled('p')({

@@ -6,7 +6,7 @@ const StudentSignUpStyles = makeStyles(() =>
             backgroundColor:"#696969",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            height: '120vh',
+            height: '105vh',
             width: '100vm',
             display: "flex",
             alignItems: "center",

@@ -1,15 +1,12 @@
 import { Button, CircularProgress, TextField, styled } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import axios from 'axios';
+import { ProfessorCardViewShortInfo } from '../../models/CardInfo';
 
-interface SearchResult {
-  id: number;
-  name: string;
-}
+
+
 
 const SearchContainer = styled('div')({
   display: 'flex',
@@ -28,83 +25,57 @@ const SearchButton = styled(Button)({
 
 });
 
-const HighlightedText = styled('span')({
-  fontWeight: 'bold',
-});
 
-const SearchResultList = styled('ul')({
-  listStyle: 'none',
-  padding: 0,
-  margin: '16px 0',
-});
-
-const SearchResultItem = styled('li')({
-  padding: '8px',
-  borderRadius: '8px',
-  backgroundColor: '#f0f0f0',
-  marginBottom: '8px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
 
 const ErrorMessage = styled('p')({
   color: 'red',
 });
-
-const SearchProfessor: React.FC = () => {
+interface SendData {
+  setData: (data: ProfessorCardViewShortInfo[]) => void;
+}
+const SearchProfessor: React.FC<SendData> = ({ setData }) => {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<any[]>([]); // اینجا interface SearchResult برداشته شده است
+  const [results, setResults] = useState<ProfessorCardViewShortInfo[]>([]);
   const [error, setError] = useState<string>('');
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
-  const handleSearch = async () => {
-    setLoading(true);
-    setError('');
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      fetchSearchResults();
+    }, 300); 
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [query]);
+
+  const fetchSearchResults = async () => {
     try {
-      const response = await axios.get(`https://seven-apply.liara.run/eduportal/?q=${query}`); // اینجا آدرس API واقعی خودتان را قرار دهید
-      setResults(response.data);
-      if (response.data.length === 0) {
-        setError('No results found.');
+      setLoading(true);
+      setError('');
+
+      const response = await fetch(`https://seven-apply.liara.run/eduportal/professors?search=${query}`);
+      const data: ProfessorCardViewShortInfo[] = await response.json();
+
+      if (data && data.length > 0) {
+        setData(data);
+        setResults(data);
       } else {
-        setError('');
+        setResults([]);
       }
     } catch (error) {
-      console.error('Error fetching search results:', error);
-      setError('An error occurred while fetching search results.');
+      setError('An error occurred while fetching data.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleSearch();
-    }
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
   };
 
   const handleClear = () => {
     setQuery('');
+    setResults([]);
   };
-
-  useEffect(() => {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    if (query.trim() !== '') {
-      setTimer(setTimeout(handleSearch, 500));
-    } else {
-      setResults([]);
-      setError('');
-    }
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, [query, timer]);
-
   return (
     <SearchContainer>
       <TextField
@@ -112,8 +83,7 @@ const SearchProfessor: React.FC = () => {
         label="Search"
         variant="outlined"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
+        onChange={handleInputChange}
         InputProps={{
           endAdornment: (
             <React.Fragment>
@@ -122,7 +92,7 @@ const SearchProfessor: React.FC = () => {
                   <ClearIcon />
                 </IconButton>
               )}
-              <SearchButton variant="contained" onClick={handleSearch} disabled={loading}>
+              <SearchButton variant="contained" onClick={fetchSearchResults} disabled={loading}>
                 {loading ? <CircularProgress size={24} color="inherit" /> : <SearchIcon />}
               </SearchButton>
             </React.Fragment>
@@ -131,17 +101,10 @@ const SearchProfessor: React.FC = () => {
       />
       {loading && <CircularProgress />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      {results.length > 0 && !loading && (
-        <SearchResultList>
-          {results.map((result: any) => ( // اینجا هم نوع داده تغییر کرده است
-            <SearchResultItem key={result.id}>
-              <HighlightedText>{result.name}</HighlightedText>
-            </SearchResultItem>
-          ))}
-        </SearchResultList>
+      {!results.length && query && (
+        <ErrorMessage>No results found.</ErrorMessage>
       )}
     </SearchContainer>
   );
-};
-
+}
 export default SearchProfessor;

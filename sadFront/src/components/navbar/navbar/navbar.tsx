@@ -6,7 +6,6 @@ import {
   Button,
   Grid,
   Avatar,
-  Box,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
@@ -96,9 +95,6 @@ function Navbar({
                           ml: 1,
                         },
                       }}
-                      // style={{
-
-                      // }}
                     >
                       Students
                     </Button>
@@ -162,20 +158,8 @@ function Navbar({
               ></Avatar>
           </>
         )}
-        {/* <div style={{ margin: "0 2rem" }}>
-          <Hidden smDown>
-            <div className={classes.searchBar}>
-              <InputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                className={classes.searchInput}
-              />
-              <IconButton className={classes.searchIcon}>
-                <SearchIcon />
-              </IconButton>
-            </div>
-          </Hidden>
-        </div> */}
+
+
         <span style={{ flex: "1 1 auto" }}></span>
 
         <div
