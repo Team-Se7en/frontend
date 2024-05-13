@@ -8,6 +8,7 @@ import { getProfessorPositions } from "../../services/position.service";
 
 export interface ProfessorPositionsProps {
     queryParams?: ProfessorPositionsQueryParams;
+    modelToAdd?: ProfessorCardViewShortInfo;
 }
 
 export function ProfessorPositions(props: ProfessorPositionsProps) {
@@ -25,6 +26,12 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
     const handlePositionDelete = (id: number) => {
         setPositions(positions.filter(p => p.id != id));
     }
+
+    useEffect(() => {
+        if (props.modelToAdd) {
+            setPositions(positions.concat(props.modelToAdd));
+        }
+    }, [props.modelToAdd]);
 
     return (    
         <Box
