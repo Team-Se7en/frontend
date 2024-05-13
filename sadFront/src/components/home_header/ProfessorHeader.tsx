@@ -17,6 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import NotificationsMenu from "../notifications-menu/NotificationsMenu";
 
 const pages = ["Home", "Positions", "Requests", "University"];
 const settings = ["Profile", "Add Program", "Logout"];
@@ -179,17 +180,7 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
               ))}
             </Box>
 
-            <Box className="notifications-icon-and-badge">
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </Box>
+            <NotificationsMenu />
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
