@@ -10,12 +10,13 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Modal } from "@mui/material";
+import { Badge, Modal } from "@mui/material";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const pages = ["Home", "Positions", "Requests", "University"];
 const settings = ["Profile", "Add Program", "Logout"];
@@ -176,6 +177,18 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
                   {page}
                 </Button>
               ))}
+            </Box>
+
+            <Box className="notifications-icon-and-badge">
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
