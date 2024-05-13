@@ -3,10 +3,12 @@ import Box from "@mui/material/Box";
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { Badge, Button, Divider, Typography } from "@mui/material";
+import { Badge, Button, Typography } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import CircleIcon from "@mui/icons-material/Circle";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import { StyledNotification } from "./NotificationsMenu-styles";
 
 export default function NotificationsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -17,6 +19,8 @@ export default function NotificationsMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const myNotifs = [1, 2, 3, 4];
+
   return (
     <React.Fragment>
       <Box
@@ -46,7 +50,6 @@ export default function NotificationsMenu() {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -54,12 +57,6 @@ export default function NotificationsMenu() {
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             backgroundColor: "#0F1035",
             mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
             "&::before": {
               content: '""',
               display: "block",
@@ -68,7 +65,7 @@ export default function NotificationsMenu() {
               right: 14,
               width: 10,
               height: 10,
-              bgcolor: "background.paper",
+              bgcolor: "#0F1035",
               transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
@@ -79,67 +76,81 @@ export default function NotificationsMenu() {
       >
         <Box
           className="menu-container"
-          width={"22rem"}
+          width={"24rem"}
           display={"felx"}
           flexDirection={"column"}
           padding={"1rem"}
         >
-          <Box
-            className="notifs"
-            display={"flex"}
-            flexDirection={"column"}
-            gap={"2rem"}
-            maxHeight={"35rem"}
-            overflow={"auto"}
-          >
+          {myNotifs.length > 0 ? (
             <Box
-              className="notif-body"
               display={"flex"}
-              flexDirection={"row"}
-              padding={"0.5rem"}
-              borderBottom={"1px solid gray"}
+              flexDirection={"column"}
+              maxHeight={"30rem"}
+              overflow={"auto"}
             >
-              <Box className="left-main">
-                <Box className="notif-icon-and-text">
-                  <CampaignIcon
-                    sx={{
-                      color: "white",
-                      marginRight: "0.5rem",
-                      marginBottom: "-0.3rem",
-                    }}
-                  />
-                  <Typography
-                    color={"white"}
-                    display={"inline"}
-                    fontSize={"0.85rem"}
+              {myNotifs.map((notif, index) => (
+                <StyledNotification key={index} className="notif-body">
+                  <Box className="left-main">
+                    <Box className="notif-icon-and-text">
+                      <CampaignIcon
+                        sx={{
+                          color: "white",
+                          marginRight: "0.5rem",
+                          marginBottom: "-0.3rem",
+                        }}
+                      />
+                      <Typography
+                        color={"white"}
+                        display={"inline"}
+                        fontSize={"0.85rem"}
+                      >
+                        Xiaodan Xiou opened a new position in Data Science field
+                        at Massachusetts Institute of Technology. You can apply
+                        your request before 16’s November.
+                      </Typography>
+                    </Box>
+                    <Box className="notif-target-button" textAlign={"right"}>
+                      <Button
+                        variant="text"
+                        sx={{ color: "white", fontSize: "0.8rem" }}
+                      >
+                        View Position
+                      </Button>
+                    </Box>
+                  </Box>
+                  <Box
+                    className="right-circle"
+                    width={"7rem"}
+                    textAlign={"center"}
                   >
-                    Xiaodan Xiou opened a new position in Data Science field at
-                    Massachusetts Institute of Technology. You can apply your
-                    request before 16’s November.
-                  </Typography>
-                </Box>
-                <Box className="notif-target-button" textAlign={"right"}>
-                  <Button
-                    variant="text"
-                    sx={{ color: "white", fontSize: "0.8rem" }}
-                  >
-                    View Position
-                  </Button>
-                </Box>
-              </Box>
-              <Box className="right-circle" width={"5rem"} textAlign={"center"}>
-                <Tooltip title="Mark As Seen">
-                  <CircleIcon
-                    sx={{
-                      color: "#4472C4",
-                      fontSize: "1.3rem",
-                      cursor: "pointer",
-                    }}
-                  />
-                </Tooltip>
-              </Box>
+                    <Tooltip title="Mark As Seen">
+                      <CircleIcon
+                        sx={{
+                          color: "#4472C4",
+                          fontSize: "1.3rem",
+                          cursor: "pointer",
+                          marginTop: "0.5rem",
+                        }}
+                      />
+                    </Tooltip>
+                  </Box>
+                </StyledNotification>
+              ))}
             </Box>
-          </Box>
+          ) : (
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+            >
+              <CircleNotificationsIcon
+                sx={{ color: "#F2F2F2", fontSize: "8rem" }}
+              />
+              <Typography color={"#F2F2F2"} fontSize={"0.9rem"}>
+                You have no unseen notification.
+              </Typography>
+            </Box>
+          )}
           <Box
             className="all-notifs-button"
             marginTop={"1rem"}
