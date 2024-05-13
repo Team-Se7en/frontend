@@ -48,7 +48,7 @@ const StudentPositionSort: React.FC = () => {
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width:'380px' ,margin: "32px", borderRadius: '8px',paddingBottom:"256px", }}>
+            <FormControl sx={{ m: 1, width:'350px' ,margin: "32px", borderRadius: '8px' }}>
                 <InputLabel id="demo-single-select-label">Sort By</InputLabel>
                 <Select
                     value={personName}

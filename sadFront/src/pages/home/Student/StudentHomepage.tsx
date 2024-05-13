@@ -57,8 +57,8 @@ export default function StudentHomepage() {
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: '1px', }}>
-              <StudentPositionFilter/>
               <StudentPositionSort/>
+              <StudentPositionFilter/>
           </Box>
 
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '80%' }}>
