@@ -6,14 +6,14 @@ export interface CardInfo {
     title: string;
     capacity: number;
     status: Status;
-    created_at: Date;
+    // created_at: Date;
     end_date: Date;
     tags: string[];
     fee: number;
     start_date: Date;
     position_start_date: Date;
     position_end_date: Date;
-    updated_at: Date;
+    // updated_at: Date;
 }
 
 export interface ProfessorCardViewShortInfo extends CardInfo {

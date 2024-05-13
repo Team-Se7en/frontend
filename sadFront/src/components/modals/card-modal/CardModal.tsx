@@ -1,17 +1,18 @@
-import { Box, TextField, FormControl, Typography, TextareaAutosize, Grid, Select, MenuItem, FormHelperText, ButtonGroup } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { Bounce, toast } from "react-toastify";
+import { Box, ButtonGroup, FormControl, FormHelperText, Grid, MenuItem, Select, TextField, TextareaAutosize, Typography } from "@mui/material";
+import { CancelButton, SaveButton, StyledTag, Wrapper } from "./CardModal-styles";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo } from "../../../models/CardInfo";
+import { createPosition, getPositionFullInfoProfessor, updatePosition } from "../../../services/position.service";
+import { useEffect, useState } from "react";
+
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Loading } from "../../ui/Loading";
+import { Status } from "../../../models/Status";
+import Styles from "../../../Styles";
 import clsx from "clsx";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
-import { toast, Bounce } from "react-toastify";
-import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo } from "../../../models/CardInfo";
-import { Status } from "../../../models/Status";
-import { getPositionFullInfoProfessor, updatePosition, createPosition } from "../../../services/position.service";
-import Styles from "../../../Styles";
 import theme from "../../../Theme";
-import { Wrapper, StyledTag, CancelButton, SaveButton } from "./CardModal-styles";
-import { Loading } from "../../ui/Loading";
 
 export interface CardModalProps {
     model_id?: number;
@@ -47,6 +48,10 @@ export default function CardModal(props: CardModalProps) {
         if (props.model_id) {
             getModel();
         }
+        else
+        {
+            setLoading(false);
+        }
     }, [props.model_id]);
 
 
@@ -62,7 +67,7 @@ export default function CardModal(props: CardModalProps) {
         position_end_date: new Date(),
         // duration: model?.duration ?? { year: 0, month: 0, day: 0 },
         // university: props.model?.university ?? universities[0],
-        university: undefined,
+        // university: undefined,
         request_count: 0,
         id: 0,
         capacity: 0,
