@@ -41,7 +41,7 @@ export default function StudentHomepage() {
 
 
         <Box style={{marginTop:'20px',width:'100% '}}>
-                <Search/>
+                {/* <Search/> */}
         </Box>
 
         <Box style={{marginTop:'12px'}}>

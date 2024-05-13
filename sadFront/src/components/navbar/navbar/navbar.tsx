@@ -32,7 +32,7 @@ function Navbar({ showAuthButtons = false,showAuthButton = false }) {
       <div
         style={{
           position:'fixed',
-          zIndex: '2',
+          zIndex: '3',
           backgroundColor: "#0F1035",
           color: "#FFF5EE",
           display: "flex",

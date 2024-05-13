@@ -111,8 +111,8 @@ export function Home() {
           ?
           <Loading />
           :
-          <Box sx={{ backgroundColor: theme.palette.backgroundColor2 }}>
-            <Carousel PrevIcon={null} NextIcon={null} cycleNavigation >
+          <Box sx={{ backgroundColor: theme.palette.backgroundColor }}>
+            <Carousel PrevIcon={null} NextIcon={null} cycleNavigation indicators={false}>
               <StyledTopCarouselSlide>
                 ow
               </StyledTopCarouselSlide>
@@ -127,7 +127,7 @@ export function Home() {
             </Carousel>
             <StyledIntro>
 
-              <Grow
+              {/* <Grow
                 in={!loading}
                 style={{ transformOrigin: '0 0 0' }}
                 {...({ timeout: 1000 })}
@@ -137,23 +137,16 @@ export function Home() {
                     SevenApply
                   </StyledSiteName>
                 </Box>
-              </Grow>
+              </Grow> */}
 
               <StyledGlobe />
-
-              <Link href="/signup">
-                <StyledJoinUsText fontFamily="CalligraphyFLF" variant="h4">
-                  Join Us Now!
-                </StyledJoinUsText>
-              </Link>
-
 
               <StyledDetailContainer>
                 <Box className={clsx(globalClasses.flexColumn, globalClasses.fullyCenter)} gap={2} width={'60%'} minWidth={'300px'}>
                   <LineChart height={250} series={[
                     { curve: "linear", data: landingInfo?.growth.map(x => x[1]), color: theme.palette.chartColor, showMark: false, },
                   ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }} className={clsx(homeClasses.chartStyle)} />
-                  <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} gap={'8px'}>
+                  {/* <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} gap={'8px'}>
                     <StyledSuprisedStudent />
                     <Slide direction="up" mountOnEnter unmountOnExit in={!loading} {...({ timeout: 1000 })}>
                       <Typography variant="h6">
@@ -161,16 +154,16 @@ export function Home() {
                       </Typography>
                     </Slide>
                     <StyledSuprisedStudent />
-                  </Box>
+                  </Box> */}
                 </Box>
 
-                <Box className={clsx(globalClasses.flexColumn)}>
+                <Box width={'40%'} className={clsx(globalClasses.flexColumn)} justifyContent={'space-around'}>
                   {/* <Collapse mountOnEnter unmountOnExit in={!loading} orientation="horizontal" style={{ transitionDelay: '400ms' }}> */}
-                  <StyledSlogan variant="h5" textAlign={'center'}>
+                  {/* <StyledSlogan variant="h5" textAlign={'center'}>
                     Apply to The Seven Continets With Us!
-                  </StyledSlogan>
+                  </StyledSlogan> */}
                   {/* </Collapse> */}
-                  <Spacer />
+                  {/* <Spacer /> */}
                   <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} marginBlockEnd={6} marginInlineStart={3} marginInlineEnd={3}>
 
                     <Tooltip title="site's professors">
@@ -203,8 +196,13 @@ export function Home() {
                       </Box>
                     </Tooltip>
                   </Box>
-                </Box>
 
+                  <Link href="/signup" lineHeight={0} sx={{ textDecoration: 'none', }}>
+                  <StyledJoinUsText fontFamily="CalligraphyFLF" variant="h4" textAlign={'center'}>
+                    Join Us Now!
+                  </StyledJoinUsText>
+                </Link>
+                </Box>
 
               </StyledDetailContainer>
 
@@ -241,7 +239,7 @@ export function Home() {
             </StyledTopSectionDivider>
             <Fade in={!loading && isTopProfessorsVisible} style={{ transitionDelay: '1000ms' }}>
 
-                <TopProfessorsSectionImage>
+              <TopProfessorsSectionImage>
 
 
                 <Box width={'40%'}>
@@ -256,7 +254,7 @@ export function Home() {
                     ))}
                   </Carousel>
                 </Box>
-                </TopProfessorsSectionImage>
+              </TopProfessorsSectionImage>
 
             </Fade>
 
@@ -265,7 +263,7 @@ export function Home() {
             </StyledTopSectionDivider>
             <Fade in={!loading && isTopStudentsVisible} style={{ transitionDelay: '1000ms' }}>
 
-                <TopStudentsSectionImage>
+              <TopStudentsSectionImage>
 
 
                 <Box width={'40%'}>
@@ -280,7 +278,7 @@ export function Home() {
                     ))}
                   </Carousel>
                 </Box>
-                </TopStudentsSectionImage>
+              </TopStudentsSectionImage>
 
             </Fade>
           </Box>
