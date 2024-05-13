@@ -10,15 +10,17 @@ import { makeStyles, createStyles } from "@mui/styles";
 export const StyledTopCarouselSlide = styled(Box)(() => ({
     height: '30rem',
     backgroundColor: theme.palette.backgroundColor2,
+    color: 'white',
 }));
 
 export const StyledIntro = styled(Box)(() => ({
     border: `1px solid ${theme.palette.borderColor}`,
-    width: '80%',
-    margin: '10rem auto 5rem auto',
+    width: '60%',
+    margin: '-10rem auto 5rem auto',
     borderRadius: theme.shape.borderRadius,
     position: 'relative',
-    minHeight: '20rem',
+    zIndex: '2',
+    minHeight: '15rem',
     background: `linear-gradient(to bottom right, white 25%, #AFCBFF)`
 }));
 
@@ -50,7 +52,7 @@ export const StyledDetailContainer = styled(Box)(() => ({
     flexDirection: 'row',
     // width: '80%',
     // marginLeft: 'auto !important',
-    margin: '2rem 12rem 2rem 11rem',
+    margin: '2rem 12rem 2rem 0',
     gap: '1rem',
     justifyContent: 'space-between',
 }));
@@ -93,14 +95,14 @@ export const StyledSuprisedStudent = styled(Box)(() => ({
 }));
 
 export const StyledJoinUsText = styled(Typography)(() => ({
-    position: 'absolute',
+    // position: 'absolute',
     right: '1rem',
     bottom: '1rem',
-    transition: 'transform 0.3s ease-in-out',
+    // transition: 'transform 0.3s ease-in-out',
     '&:hover': {
         cursor: 'pointer',
     },
-    animation: 'bounce 1s ease-in-out infinite',
+    // animation: 'bounce 1s ease-in-out infinite',
 }));
 
 export const StyledSlogan = styled(Typography)(() => ({
@@ -141,7 +143,7 @@ export const TopUniversitiesSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopUniversitiesImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    aspectRatio: '1',
+    aspectRatio: '16 / 7',
     backgroundPosition: 'bottom',
     display: 'flex',
     justifyContent: 'center',
@@ -152,7 +154,7 @@ export const TopStudentsSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopStudentsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    aspectRatio: '1',
+    aspectRatio: '17 / 7',
     backgroundPosition: 'bottom',
     display: 'flex',
     justifyContent: 'center',
@@ -163,7 +165,7 @@ export const TopProfessorsSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopProfessorsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    aspectRatio: '1',
+    aspectRatio: '16 / 7',
     backgroundPosition: 'bottom',
     display: 'flex',
     justifyContent: 'center',

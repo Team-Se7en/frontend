@@ -36,8 +36,8 @@ function Navbar({
     <div className={classes.container}>
       <div
         style={{
-          position: "fixed",
-          zIndex: "2",
+          position:'fixed',
+          zIndex: '3',
           backgroundColor: "#0F1035",
           color: "#FFF5EE",
           display: "flex",
