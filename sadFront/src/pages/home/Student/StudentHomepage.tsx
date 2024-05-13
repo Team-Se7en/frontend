@@ -3,7 +3,6 @@ import { Box, CssBaseline } from "@mui/material";
 import Footer from "../../../components/footer/footer/footer";
 import ProgramsList from "../../../components/programslist/ProgramsList";
 import React from "react";
-import Search from "../../../components/Search_student/Search";
 import SearchStudent from "../../../components/Search_student/Search";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
@@ -53,7 +52,7 @@ export default function StudentHomepage() {
       <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginTop: '10px' }}>
 
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px",marginBottom: "20px", }}>
-          <Search />
+          <SearchStudent setData={setAllPrograms} />
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: '1px', }}>
@@ -62,7 +61,7 @@ export default function StudentHomepage() {
           </Box>
 
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '80%' }}>
-            <ProgramsList/>
+            <ProgramsList allPrograms={allPrograms} />
           </Box>
 
 
