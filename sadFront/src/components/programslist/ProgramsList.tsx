@@ -61,8 +61,8 @@ const ProgramsList:React.FC<SendData>=({allPrograms})=>
             start_date={program.start_date}
             end_date={program.end_date}
             created_at={program.created_at}
-            description="" //Will be assigned in modal
-            capacity={0} //Will be assigned in modal
+            description=""
+            capacity={0}
             university_name={program.university_name}
             university_id={program.university_id}
           />
