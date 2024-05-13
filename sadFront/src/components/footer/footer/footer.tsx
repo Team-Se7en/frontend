@@ -1,15 +1,16 @@
 import {
-  Typography,
-  IconButton,
-  Button,
-  Grid,
   Box,
+  Button,
   Container,
+  Grid,
+  IconButton,
+  Typography,
 } from "@mui/material";
-import TwitterIcon from "@mui/icons-material/Twitter";
+
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import useStyles from "./footer-styles";
 
 function Footer() {

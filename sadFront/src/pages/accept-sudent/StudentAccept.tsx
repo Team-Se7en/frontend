@@ -6,6 +6,8 @@ import {
   Grid,
   TextField,
   Button,
+  Rating,
+  Pagination,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -18,16 +20,11 @@ import Footer from "../../components/footer/footer/footer";
 
 export function StudentAccept() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    proposal: "",
-    Criticism: "",
-    AdvantagesandDisadvantages: "",
+    ratings: [0, 0, 0, 0, 0, 0], // initialize all ratings with 0
+    comment: "",
   });
-  // const [signupError, setsignupError] = useState("");
-  // const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     const lowercasedValue = name === "email" ? value.toLowerCase() : value;
 
@@ -37,142 +34,156 @@ export function StudentAccept() {
     });
   };
 
-  const handleSubmit = (event: any) => {
+  const handleRatingChange = (newValue, index) => {
+    const updatedRatings = [...formData.ratings];
+    updatedRatings[index] = newValue;
+    setFormData({
+      ...formData,
+      ratings: updatedRatings,
+    });
+  };
+  
+
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = {
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      is_student: true,
-      proposal: formData.proposal,
-      Criticism: formData.Criticism,
-      AdvantagesandDisadvantages: formData.AdvantagesandDisadvantages,
+      ratings: formData.ratings,
+      comment: formData.comment,
     };
 
     console.log("Request Data:", data);
-        const redirect = () => {
-          window.location.href = "/studenthomepage";
-        };
+    const redirect = () => {
+      window.location.href = "/studenthomepage";
+    };
 
-        setTimeout(redirect, 3000);
+    setTimeout(redirect, 3000);
 
-        toast.success("send Successful!", {
-          position: "top-left",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+    toast.success("Send Successful!", {
+      position: "top-left",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
-
   const StudentSignUpClasses = StudentSignUpStyles();
+  const [page, setPage] = useState(1);
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   return (
     <>
-      <Navbar />
+      <Navbar showAuth={true} />
       <Box className={StudentSignUpClasses.Studentaccept}>
         <ToastContainer transition={Flip} />
         <Container component="main" maxWidth="xs">
           <CssBaseline />
-          <Box className={StudentSignUpClasses.wrapper}>
-            <div>
-            <Typography style={{display:"flex",justifyContent:'center'}}  component="h1" variant="h5">
+          <Box  sx={{ display: 'flex', flexDirection:'column'}} className={StudentSignUpClasses.wrapper}>
+            <Typography
+              style={{ display: "flex", justifyContent: "center" }}
+              component="h1"
+              variant="h5"
+            >
               Student proposal
             </Typography>
-            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ my: 3}}>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="fname"
-                    name="firstName"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                  />
-                </Grid>
+                {/* <Grid item xs={12} sm={6}></Grid>
 
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="lname"
-                    name="lastName"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                  />
+                <Grid item xs={12} sm={6}></Grid>
+
+                <Grid item xs={12}></Grid>
+
+                <Grid item xs={12}></Grid>
+
+                <Grid item xs={12}></Grid> */}
+
+                {page === 1 && (
+                  <Grid pl={4} pt={4}>
+                {[0, 1, 2, 3, 4, 5].map((index) => (
+                  <Grid item xs={12} key={index}>
+                    {index === 0 && (
+                      <Typography variant="h6" gutterBottom>
+                        First question
+                      </Typography>
+                    )}
+                    {index === 1 && (
+                      <Typography variant="h6" gutterBottom>
+                        Second question
+                      </Typography>
+                    )}
+                    {index === 2 && (
+                      <Typography variant="h6" gutterBottom>
+                        Third question
+                      </Typography>
+                    )}
+                    {index === 3 && (
+                      <Typography variant="h6" gutterBottom>
+                        Fourth question
+                      </Typography>
+                    )}
+                    {index === 4 && (
+                      <Typography variant="h6" gutterBottom>
+                        Fifth question
+                      </Typography>
+                    )}
+                    {index === 5 && (
+                      <Typography variant="h6" gutterBottom>
+                        Sixth question
+                      </Typography>
+                    )}
+
+                    <Rating
+                      name={`rating-${index}`}
+                      precision={0.5}
+                      value={formData.ratings[index]}
+                      onChange={(event, newValue) =>
+                        handleRatingChange(newValue, index)
+                      }
+                      sx={{ fontSize: 35 }}
+                    />
+                  </Grid>
+                ))}
                 </Grid>
+                )}
+                {page === 2 && (
 
                 <Grid item xs={12}>
                   <TextField
                     multiline
                     rows={4}
                     defaultValue="Default Value"
-                    autoComplete="proposal"
-                    name="proposal"
-                    required
+                    autoComplete="comment"
+                    name="comment"
                     fullWidth
-                    id="proposal"
-                    label="proposal"
-                    value={formData.proposal}
+                    id="comment"
+                    label="Comment"
+                    value={formData.comment}
                     onChange={handleInputChange}
                   />
                 </Grid>
-
-                <Grid item xs={12}>
-                <TextField
-                    multiline
-                    rows={4}
-                    defaultValue="Default Value"
-                    autoComplete="Criticism"
-                    name="Criticism"
-                    required
-                    fullWidth
-                    id="Criticism"
-                    label="Criticism"
-                    value={formData.Criticism}
-                    onChange={handleInputChange}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                <TextField
-                    multiline
-                    rows={4}
-                    defaultValue="Default Value"
-                    autoComplete="AdvantagesandDisadvantages"
-                    name="AdvantagesandDisadvantages"
-                    required
-                    fullWidth
-                    id="AdvantagesandDisadvantages"
-                    label="Advantages and Disadvantages"
-                    value={formData.AdvantagesandDisadvantages}
-                    onChange={handleInputChange}
-                  />
-                </Grid>
+)}
               </Grid>
-
-              <Button
-                className={StudentSignUpClasses.button1}
-                type="submit"
                 
-              >
-                send
+              {page === 3 && (
+                  <div>
+                    <div style={{display:'flex',justifyContent:'center',marginTop:'20px'}}>        
+                <Typography variant="h4" color="initial">tanks</Typography>
+                </div>          
+              <Button className={StudentSignUpClasses.button1} type="submit">
+                Send
               </Button>
-
-              <Grid container justifyContent="center" paddingTop="5px">
-                <Grid item></Grid>
-              </Grid>
+              </div>  
+              )}
+              <div style={{display:'flex',justifyContent:'flex-end'}}>
+                <Pagination style={{marginTop:'20px'}}  count={3} color="primary" page={page} onChange={handleChange} />
+                </div>
             </Box>
-            </div>
           </Box>
         </Container>
       </Box>

@@ -4,7 +4,6 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Theme, useTheme } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
-import { Divider } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,6 +20,15 @@ const MenuProps = {
     },
 };
 
+let userScores: { [key: string]: string } = {
+    "Max Fee": "fee",
+    "Min Fee": "-fee",
+    "Max Request": "request_count",
+    "Min Request": "-request_count",
+    "Earliest Request Date": "date_applied",
+    "Latest Request Date": "-date_applied",
+};
+
 const names: string[] = [
     'Min Request',
     'Max Request',
@@ -31,6 +39,9 @@ const names: string[] = [
     'Closest Start Date Position',
     'Farthest Start Date Position',
 ];
+interface ProfessorPositionSortProps {
+    onSortChange: (sortValue: string) => void;
+}
 
 interface StyleProps {
     name: string;
@@ -43,17 +54,19 @@ function getStyles({ name, personName }: StyleProps, theme: Theme) {
     };
 }
 
-const ProfessorPositionSort: React.FC = () => {
+const ProfessorPositionSort: React.FC<ProfessorPositionSortProps> = ({ onSortChange }) => {
     const theme = useTheme();
     const [personName, setPersonName] = React.useState<string>('');
 
     const handleChange = (event: SelectChangeEvent<string>) => {
-        setPersonName(event.target.value as string);
+        const newSortValue = event.target.value as string;
+        setPersonName(newSortValue);
+        onSortChange(newSortValue);
     };
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width:'380px' ,margin: "32px", borderRadius: '8px',paddingBottom:"256px", }}>
+            <FormControl sx={{ m: 1, width:'350px' ,margin: "32px", borderRadius: '8px', }}>
                 <InputLabel>Sort By</InputLabel>
                 <Select
                     value={personName}
@@ -68,7 +81,7 @@ const ProfessorPositionSort: React.FC = () => {
                         
                         <MenuItem
                             key={name}
-                            value={name}
+                            value={userScores[name]}
                             style={getStyles({ name, personName }, theme)}
                             
                         >

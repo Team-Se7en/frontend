@@ -1,20 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, CircularProgress, styled } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Button, CircularProgress, TextField, styled } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 import { StudentCardViewFullInfo } from "../../models/CardInfo";
 
 const SearchContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
+  backgroundColor:'white',
+  width: '40%',
+  marginBottom:'10px',
+  borderRadius:'8px'
 });
 
 const SearchButton = styled(Button)({
   marginLeft: '8px',
   backgroundColor: '#00004b',
+  borderRadius:'8px'
 });
+
+
+
 
 const ErrorMessage = styled('p')({
   color: 'red',
@@ -71,7 +80,7 @@ const SearchStudent: React.FC<SendData> = ({ setData }) => {
   return (
     <SearchContainer>
       <TextField
-        style={{ width: '60%', marginLeft: '78px' }}
+        style={{ width: '100%'}}
         label="Search"
         variant="outlined"
         value={query}

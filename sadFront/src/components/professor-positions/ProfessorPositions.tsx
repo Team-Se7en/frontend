@@ -2,12 +2,13 @@ import { Box, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
-import { getProfessorPositions } from "../../services/position.service";
-import { ProfessorRequestCard } from "../professor-request-card/ProfessorRequestCard";
 import { ProfessorPositionsQueryParams } from "../../models/QueryParams";
+import { ProfessorRequestCard } from "../professor-request-card/ProfessorRequestCard";
+import { getProfessorPositions } from "../../services/position.service";
 
 export interface ProfessorPositionsProps {
     queryParams?: ProfessorPositionsQueryParams;
+    modelToAdd?: ProfessorCardViewShortInfo;
 }
 
 export function ProfessorPositions(props: ProfessorPositionsProps) {
@@ -26,7 +27,13 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
         setPositions(positions.filter(p => p.id != id));
     }
 
-    return (
+    useEffect(() => {
+        if (props.modelToAdd) {
+            setPositions(positions.concat(props.modelToAdd));
+        }
+    }, [props.modelToAdd]);
+
+    return (    
         <Box
             width={"60%"}
             minWidth={"30rem"}
