@@ -20,6 +20,13 @@ const MenuProps = {
     },
 };
 
+let userScores: { [key: string]: string } = {
+    "Max Fee": "fee",
+    "Min Fee": "-fee",
+    "Earliest Request Date": "date_applied",
+    "Latest Request Date": "-date_applied",
+};
+
 const names: string[] = [
     'Min Fee',
     'Max Fee',
@@ -27,6 +34,9 @@ const names: string[] = [
     'Farthest Start Date Position',
 ];
 
+interface StudentPositionSortProps {
+    onSortChange: (sortValue: string) => void;
+}
 interface StyleProps {
     name: string;
     personName: string;
@@ -38,13 +48,15 @@ function getStyles({ name, personName }: StyleProps, theme: Theme) {
     };
 }
 
-const StudentPositionSort: React.FC = () => {
+const StudentPositionSort: React.FC<StudentPositionSortProps> = ({ onSortChange }) => {
     const theme = useTheme();
     const [personName, setPersonName] = React.useState<string>(''); // Now a single string
 
     const handleChange = (event: SelectChangeEvent<string>) => {
-        setPersonName(event.target.value as string);
-    };
+        const newSortValue = event.target.value as string;
+        setPersonName(newSortValue);
+        onSortChange(newSortValue);
+        };
 
     return (
         <Box>
@@ -61,7 +73,7 @@ const StudentPositionSort: React.FC = () => {
                     {names.map((name) => (
                         <MenuItem
                             key={name}
-                            value={name}
+                            value={userScores[name]}
                             style={getStyles({ name, personName }, theme)}
                         >
                             {name}
@@ -76,3 +88,4 @@ const StudentPositionSort: React.FC = () => {
 }
 
 export default StudentPositionSort;
+

@@ -16,11 +16,11 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface FilterProps {
-    onProfessorFilter: (filter: FilterOptions) => void;
+    onStudentFilter: (filter: FilterOptions) => void;
 }
 
 interface FilterOptions {
-    isfilled: ('Yes' | 'No')[];
+    filled: number;
     term: ('spring' | 'summer' | 'winter')[];
     feeMin: number;
     feeMax: number;
@@ -28,44 +28,53 @@ interface FilterOptions {
 }
 
 const StudentPositionFilter: React.FC<FilterProps> = ({
-    onProfessorFilter }) => {
+    onStudentFilter }) => {
     const [term, setTerm] = useState<FilterOptions['term']>([]);
     const [feeMin, setFeeMin] = useState<number>(0);
-    const [feeMax, setFeeMax] = useState<number>(500);
+    const [feeMax, setFeeMax] = useState<number>(30000);
     const [year, setYear] = useState<number[]>([]);
-    const [isfilled, setIsfilled] = useState<FilterOptions['isfilled']>([]);
+    const [filled, setfilled] = useState<number>(-1);
     const isfilledOptions: ('Yes' | 'No')[] = ['Yes', 'No'];
     const [expanded, setExpanded] = useState<boolean>(true);
 
     const toggleIsfilledOption = (option: 'Yes' | 'No') => {
-        setIsfilled(prev => {
-            const isOptionSelected = prev.includes(option);
-            if (isOptionSelected) {
-                return prev.filter(item => item !== option);
+            if (option === 'Yes') {
+                if (filled === 1) {
+                    setfilled(-1);
+                }
+                else{
+                    setfilled(1);
+
+                }
+                
             } else {
-                return [...prev, option];
-            }
-        });
+                if (filled === 0) {
+                    setfilled(-1);
+                }
+                else{
+                    setfilled(0);
+
+                }            }
     };
 
     const handleApplyFilter = () => {
         const filter: FilterOptions = {
-            isfilled,
+            filled,
             term,
             feeMin,
             feeMax,
             year,
         };
-        onProfessorFilter(filter);
+        onStudentFilter(filter);
     };
 
     const handleResetFilter = () => {
-        setIsfilled([]);
+        setfilled(-1);
         setTerm([]);
         setFeeMin(0);
         setFeeMax(30000);
         setYear([]);
-        onProfessorFilter({ term: [], feeMin: 0, feeMax: 30000, year: [] });
+        onStudentFilter({ term: [], feeMin: 0, feeMax: 30000, year: [],filled:0 });
 
     };
 
@@ -156,9 +165,10 @@ const StudentPositionFilter: React.FC<FilterProps> = ({
             md={4}>
                 <Typography>Is filled</Typography>
                 {isfilledOptions.map((isfilledOptions) => (
+
                     <FormControlLabel
                         key={isfilledOptions}
-                        control={<Checkbox checked={isfilled.includes(isfilledOptions)}
+                        control={<Checkbox checked={filled == -1 ?false: (isfilledOptions === 'Yes' ? (filled ? true : false) : (filled ? false : true))}
                             onChange={() => toggleIsfilledOption(isfilledOptions)}
                             sx={{ '& .MuiSvgIcon-root': { fontSize: '1rem' } }}
                         />}

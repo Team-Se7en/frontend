@@ -1,11 +1,9 @@
 import { Box, CssBaseline } from "@mui/material";
+import React, { useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
-import { Padding } from "@mui/icons-material";
 import ProfessorCard from "../../../components/professorcard/ProfessorCard";
-import ProgramCard from "../../../components/programcard/ProgramCard";
 import ProgramsList from "../../../components/programslist/ProgramsList";
-import React from "react";
 import Search from "../../../components/Search_student/Search";
 import SearchStudent from "../../../components/Search_student/Search";
 import StudentCard from "../../../components/studentcard/StudentCard";
@@ -14,29 +12,38 @@ import StudentHeader from "../../../components/home_st_header/StudentHeader";
 import { StudentHomePage1 } from "../../../assets/images";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
+import { StudentPositions } from "../../../components/studentpositions/StudentPositions";
 import axios from "axios";
 
 export default function StudentHomepage() {
   const [allPrograms, setAllPrograms] =
     React.useState<StudentCardViewFullInfo[]>();
-  const [condition,setcondition]=React.useState<boolean>(true);
-  React.useEffect(() => {
-    axios
-      .get("https://seven-apply.liara.run/eduportal/positions")
-      .then((response) => {
-        if(condition===true)
-      {
-        setAllPrograms(response.data);
-        setcondition(false);
-      }
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  }, []);
 
-  if (!allPrograms) return null;
-  // console.log(allPrograms);
+    const [filterOptions, setFilterOptions] = useState({
+      term: "",
+      feeMax: 9999999999,
+      feeMin: 0,
+      year: "",
+      filled: 0,
+    });
+
+  const [sortOptions, setSortOptions] = useState("");
+  const [condition,setcondition]=React.useState<boolean>(true);
+
+  const [cards, setCards] = useState([]);
+
+  React.useEffect(() => {
+
+    setCards({
+      ...cards,
+      term: filterOptions.term[0],
+      feeMax: filterOptions.feeMax,
+      feeMin: filterOptions.feeMin,
+      year: filterOptions.year[0],
+      filled: filterOptions.filled,
+    });
+  }, [sortOptions, filterOptions]);
+    
 
   return (
     <Box 
@@ -97,13 +104,13 @@ export default function StudentHomepage() {
               paddingRight: "100px",
             }}
           >
-            <StudentPositionSort/>
-            <StudentPositionFilter/>
+            <StudentPositionSort onSortChange={setSortOptions}/>
+            <StudentPositionFilter onStudentFilter={setFilterOptions}/>
 
           </Box>
-          {/* <ProgramsList allPrograms={[]}/> */}
-          <ProfessorCard/>
-          <StudentCard/>
+          <StudentPositions queryParams={cards}/>
+          {/* <ProfessorCard/>
+          <StudentCard/> */}
         </Box>
       </Box>
 
