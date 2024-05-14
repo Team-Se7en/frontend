@@ -9,19 +9,19 @@ import { getProfessorPositions } from "../../services/position.service";
 export interface ProfessorPositionsProps {
     queryParams?: ProfessorPositionsQueryParams;
     modelToAdd?: ProfessorCardViewShortInfo;
+    data:ProfessorCardViewShortInfo[];
 }
 
 export function ProfessorPositions(props: ProfessorPositionsProps) {
     const [positions, setPositions] = useState<ProfessorCardViewShortInfo[]>([]);
 
     useEffect(() => {
-        const fetchRecentPositions = async () => {
-            const result = await getProfessorPositions(props.queryParams);
-            setPositions(result.data)
-        };
+            setPositions(props.data);
+            console.log(props.data);
+           // console.log(positions);
 
-        fetchRecentPositions();
-    }, [props.queryParams]);
+        // }
+        },[props.queryParams,props.data]);
 
     const handlePositionDelete = (id: number) => {
         setPositions(positions.filter(p => p.id != id));

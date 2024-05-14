@@ -1,6 +1,6 @@
 import { Box, CssBaseline } from "@mui/material";
 import { useEffect, useState } from "react";
-
+import SearchProfessor from "../../../components/Search_professor/Search";
 import Footer from "../../../components/footer/footer/footer";
 import { ProfessorCardViewShortInfo } from "../../../models/CardInfo";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
@@ -8,8 +8,7 @@ import { ProfessorHomePage1 } from "../../../assets/images";
 import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter/ProfessorPositionFilter";
 import ProfessorPositionSort from "../../../components/ProfessorPositionSort/ProfessorPositionSort";
 import { ProfessorPositions } from "../../../components/professor-positions/ProfessorPositions";
-import Search from "../../../components/Search_professor/Search";
-
+import { getProfessorPositions } from "../../../services/position.service";
 export function ProfessorHomePage() {
   const [filterOptions, setFilterOptions] = useState({
     term: "",
@@ -19,7 +18,8 @@ export function ProfessorHomePage() {
   });
   const [sortOptions, setSortOptions] = useState("");
   const [cards, setCards] = useState({});
-
+  const [data,setdata]=useState<ProfessorCardViewShortInfo[]>([]);
+  
   useEffect(() => {
     console.log(filterOptions);
     setCards({
@@ -29,10 +29,20 @@ export function ProfessorHomePage() {
       feeMin: filterOptions.feeMin,
       year: filterOptions.year[0],
     });
-  }, [sortOptions, filterOptions]);
+            const fetchRecentPositions = async () => {
+            const result = await getProfessorPositions();
+            if(data.length==0)
+        {
+            setdata(result.data)
+            console.log("11111");
+        }
+        console.log(data);
+      //  console.log(result.data);
+}
+fetchRecentPositions();
+}, [sortOptions, filterOptions]);
 
   const [modelToAdd, setModelToAdd] = useState<ProfessorCardViewShortInfo>();
-
   const handleProfessorPositionAddition = (
     model: ProfessorCardViewShortInfo
   ) => {
@@ -78,9 +88,9 @@ export function ProfessorHomePage() {
             marginLeft: "450px",
           }}
         >
-          <Search />
+          
+          <SearchProfessor setData={setdata}/>
         </Box>
-
         <Box
           sx={{
             width: "100%",
@@ -106,7 +116,7 @@ export function ProfessorHomePage() {
             <ProfessorPositionFilter onProfessorFilter={setFilterOptions} />
           </Box>
 
-          <ProfessorPositions modelToAdd={modelToAdd} queryParams={cards} />
+          <ProfessorPositions data={data} modelToAdd={modelToAdd} queryParams={cards} />
         </Box>
       </Box>
 

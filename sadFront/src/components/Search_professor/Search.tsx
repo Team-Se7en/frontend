@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { ProfessorCardViewShortInfo } from '../../models/CardInfo';
+import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo } from '../../models/CardInfo';
+import axios from 'axios';
+import client from '../../Http/axios';
 
 
 
@@ -51,16 +53,19 @@ const SearchProfessor: React.FC<SendData> = ({ setData }) => {
     try {
       setLoading(true);
       setError('');
+      const response = await client.get(`eduportal/prof_own_position_search?search=${query}`);
+      const data: ProfessorCardViewShortInfo[] = await response.data;
+      console.log(data);
+      setData(data);
+      setResults(data);
+      return response;
 
-      const response = await fetch(`https://seven-apply.liara.run/eduportal/professors?search=${query}`);
-      const data: ProfessorCardViewShortInfo[] = await response.json();
-
-      if (data && data.length > 0) {
-        setData(data);
-        setResults(data);
-      } else {
-        setResults([]);
-      }
+      // if (data && data.length > 0) {
+      //   setData(data);
+      //   setResults(data);
+      // } else {
+      //   setResults([]);
+      // }
     } catch (error) {
       setError('An error occurred while fetching data.');
     } finally {

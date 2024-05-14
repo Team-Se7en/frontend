@@ -17,12 +17,33 @@ import StudentSignUpStyles from "./StudentAccept-styles";
 
 import Navbar from "../../components/navbar/navbar/navbar";
 import Footer from "../../components/footer/footer/footer";
+import React from "react";
+
+const labels : {[index: string]: string } = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
 
 export function StudentAccept() {
   const [formData, setFormData] = useState({
     ratings: [0, 0, 0, 0, 0, 0], // initialize all ratings with 0
     comment: "",
+     getLabelText(value: number) {
+      return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+    },
+    HoverRating() {
+      const [value, setValue] = React.useState<number | null>(2);
+      const [hover, setHover] = React.useState(-1);},
   });
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -93,19 +114,9 @@ export function StudentAccept() {
             </Typography>
             <Box component="form" onSubmit={handleSubmit} sx={{ my: 3}}>
               <Grid container spacing={2}>
-                {/* <Grid item xs={12} sm={6}></Grid>
-
-                <Grid item xs={12} sm={6}></Grid>
-
-                <Grid item xs={12}></Grid>
-
-                <Grid item xs={12}></Grid>
-
-                <Grid item xs={12}></Grid> */}
-
                 {page === 1 && (
                   <Grid pl={4} pt={4}>
-                {[0, 1, 2, 3, 4, 5].map((index) => (
+                {[0, 1, 2, 3, 4].map((index) => (
                   <Grid item xs={12} key={index}>
                     {index === 0 && (
                       <Typography variant="h6" gutterBottom>
@@ -132,21 +143,23 @@ export function StudentAccept() {
                         Fifth question
                       </Typography>
                     )}
-                    {index === 5 && (
-                      <Typography variant="h6" gutterBottom>
-                        Sixth question
-                      </Typography>
-                    )}
-
+                  <div style={{display:'flex'}}>
                     <Rating
                       name={`rating-${index}`}
                       precision={0.5}
                       value={formData.ratings[index]}
                       onChange={(event, newValue) =>
+                        
                         handleRatingChange(newValue, index)
+                        
                       }
                       sx={{ fontSize: 35 }}
-                    />
+                      />
+                      {formData.ratings[index] !== null && <Box ml={4} >{labels[formData.ratings[index]]}</Box>}
+                      </div>
+                      
+                
+                
                   </Grid>
                 ))}
                 </Grid>
