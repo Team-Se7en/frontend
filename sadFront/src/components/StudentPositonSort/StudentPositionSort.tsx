@@ -54,7 +54,7 @@ const StudentPositionSort: React.FC<StudentPositionSortProps> = ({ onSortChange 
 
     const handleChange = (event: SelectChangeEvent<string>) => {
         const newSortValue = event.target.value as string;
-        console.log(event);
+        // console.log(event);
         setPersonName(newSortValue);
         onSortChange(newSortValue);
         };

@@ -1,6 +1,6 @@
 import { Box, CssBaseline } from "@mui/material";
 import { useEffect, useState } from "react";
-import SearchProfessor from "../../../components/Search_professor/Search";
+
 import Footer from "../../../components/footer/footer/footer";
 import { ProfessorCardViewShortInfo } from "../../../models/CardInfo";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
@@ -8,7 +8,9 @@ import { ProfessorHomePage1 } from "../../../assets/images";
 import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter/ProfessorPositionFilter";
 import ProfessorPositionSort from "../../../components/ProfessorPositionSort/ProfessorPositionSort";
 import { ProfessorPositions } from "../../../components/professor-positions/ProfessorPositions";
+import SearchProfessor from "../../../components/Search_professor/Search";
 import { getProfessorPositions } from "../../../services/position.service";
+
 export function ProfessorHomePage() {
   const [filterOptions, setFilterOptions] = useState({
     term: "",
@@ -21,7 +23,6 @@ export function ProfessorHomePage() {
   const [data,setdata]=useState<ProfessorCardViewShortInfo[]>([]);
   
   useEffect(() => {
-    console.log(filterOptions);
     setCards({
       ...cards,
       term: filterOptions.term[0],
@@ -36,11 +37,10 @@ export function ProfessorHomePage() {
             if(data.length==0)
         {
             setdata(result.data)
-            console.log("11111");
         }
         console.log(data);
-      //  console.log(result.data);
 }
+
 fetchRecentPositions();
 }, [sortOptions, filterOptions]);
 
