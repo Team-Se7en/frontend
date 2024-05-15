@@ -20,6 +20,13 @@ const MenuProps = {
     },
 };
 
+let userScores: { [key: string]: string } = {
+    "Max Fee": "-fee",
+    "Min Fee": "fee",
+    "Closest Start Date Position": "date_applied",
+    "Farthest Start Date Position": "-date_applied",
+};
+
 const names: string[] = [
     'Min Fee',
     'Max Fee',
@@ -27,6 +34,9 @@ const names: string[] = [
     'Farthest Start Date Position',
 ];
 
+interface StudentPositionSortProps {
+    onSortChange: (sortValue: string) => void;
+}
 interface StyleProps {
     name: string;
     personName: string;
@@ -38,17 +48,20 @@ function getStyles({ name, personName }: StyleProps, theme: Theme) {
     };
 }
 
-const StudentPositionSort: React.FC = () => {
+const StudentPositionSort: React.FC<StudentPositionSortProps> = ({ onSortChange }) => {
     const theme = useTheme();
-    const [personName, setPersonName] = React.useState<string>(''); // Now a single string
+    const [personName, setPersonName] = React.useState<string>('');
 
     const handleChange = (event: SelectChangeEvent<string>) => {
-        setPersonName(event.target.value as string);
-    };
+        const newSortValue = event.target.value as string;
+        console.log(event);
+        setPersonName(newSortValue);
+        onSortChange(newSortValue);
+        };
 
     return (
         <Box>
-            <FormControl sx={{ m: 1, width:'380px' ,margin: "32px", borderRadius: '8px',paddingBottom:"256px", }}>
+            <FormControl sx={{ m: 1, width:'350px' ,margin: "32px", borderRadius: '8px' }}>
                 <InputLabel id="demo-single-select-label">Sort By</InputLabel>
                 <Select
                     value={personName}
@@ -61,7 +74,7 @@ const StudentPositionSort: React.FC = () => {
                     {names.map((name) => (
                         <MenuItem
                             key={name}
-                            value={name}
+                            value={userScores[name]}
                             style={getStyles({ name, personName }, theme)}
                         >
                             {name}
@@ -76,3 +89,4 @@ const StudentPositionSort: React.FC = () => {
 }
 
 export default StudentPositionSort;
+

@@ -8,7 +8,6 @@ const client: AxiosInstance = axios.create({
 
 client.interceptors.request.use((config: any) => {
     const token = Cookies.get("token");
-    console.log('token', token);
     if (token) {
         config.headers.Authorization = `JWT ${token}`;        
     }

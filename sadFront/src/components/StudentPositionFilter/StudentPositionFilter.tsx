@@ -1,106 +1,198 @@
-import { Box, Button, Checkbox, Divider, FormControlLabel, Grid, Slider, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    Checkbox,
+    Divider,
+    FormControlLabel,
+    Grid,
+    Slider,
+    Typography
+} from '@mui/material';
 import React, { useState } from 'react';
 
 import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface FilterProps {
-    onProfessorFilter: (filter: FilterOptions) => void;
+    onStudentFilter: (filter: FilterOptions) => void;
 }
 
 interface FilterOptions {
-    isfilled: ('Yes' | 'No')[];
-    term: ('spring' | 'summer' | 'autumn')[];
+    filled: number;
+    term: ('spring' | 'summer' | 'winter')[];
     feeMin: number;
     feeMax: number;
     year: number[];
 }
 
-const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => {
+const StudentPositionFilter: React.FC<FilterProps> = ({
+    onStudentFilter }) => {
     const [term, setTerm] = useState<FilterOptions['term']>([]);
     const [feeMin, setFeeMin] = useState<number>(0);
-    const [feeMax, setFeeMax] = useState<number>(500);
+    const [feeMax, setFeeMax] = useState<number>(30000);
     const [year, setYear] = useState<number[]>([]);
-    const [isfilled, setIsfilled] = useState<FilterOptions['isfilled']>([]);
+    const [filled, setfilled] = useState<number>(-1);
     const isfilledOptions: ('Yes' | 'No')[] = ['Yes', 'No'];
+    const [expanded, setExpanded] = useState<boolean>(true);
 
     const toggleIsfilledOption = (option: 'Yes' | 'No') => {
-        setIsfilled(prev => {
-            const isOptionSelected = prev.includes(option);
-            if (isOptionSelected) {
-                return prev.filter(item => item !== option);
+            if (option === 'Yes') {
+                if (filled === 1) {
+                    setfilled(-1);
+                }
+                else{
+                    setfilled(1);
+
+                }
+                
             } else {
-                return [...prev, option];
-            }
-        });
+                if (filled === 0) {
+                    setfilled(-1);
+                }
+                else{
+                    setfilled(0);
+
+                }            }
     };
 
     const handleApplyFilter = () => {
         const filter: FilterOptions = {
-            isfilled,
+            filled,
             term,
             feeMin,
             feeMax,
             year,
         };
-        onProfessorFilter(filter);
+        onStudentFilter(filter);
     };
 
     const handleResetFilter = () => {
-        setIsfilled([]);
+        setfilled(-1);
         setTerm([]);
         setFeeMin(0);
-        setFeeMax(500);
+        setFeeMax(30000);
         setYear([]);
+        onStudentFilter({ term: [], feeMin: 0, feeMax: 30000, year: [],filled:0 });
+
     };
 
+
+    const handleToggleAccordion = () => {
+        setExpanded((prev) => !prev);
+    };
+    
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
-        justifyContent: 'flex-start', borderRadius: '8px', marginLeft:'32px',
-        width: '25%',height: '25%',
+        <Box
+        sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        borderRadius: '8px', marginLeft:'32px',
+        width: '85%',height: '25%',
         }}>
 
-        <Accordion sx = {{width: '100%',}}>
-
+<Accordion
+        expanded={expanded}
+        onChange={handleToggleAccordion}
+        sx={{ width: "100%" }}
+        >
+            
+        <Grid sx={{ display: "flex", flexDirection: "row" }}>
         <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        // aria-controls="panel1-content"
-        sx={{display: 'flex', padding:'16px', width: '100%', height: '100%'}}
+        sx={{
+            display: "flex",
+            padding: "16px",
+            width: "100%",
+            height: "100%",
+        }}
         >
         Filter
-
         </AccordionSummary>
+        
+        <Grid
+            sx={{ display: "flex", flexDirection: "row", paddingTop: "24px" }}
+        >
+            <Button
+                onClick={handleApplyFilter}
+                size="small"
+                sx={{
+                color: "white",
+                backgroundColor: "#0F1035",
+                fontSize: "0.75rem",
+                margin: "4px 4px",
+                height: "32px",
+            }}
+            >
+            Apply
+            </Button>
+
+            <Button
+                onClick={handleResetFilter}
+                size="small"
+                sx={{
+                color: "white",
+                backgroundColor: "#7FC7D9",
+                fontSize: "0.75rem",
+                margin: "4px 4px",
+                height: "32px",
+            }}
+            >
+                Reset
+            </Button>
+        </Grid>
+        </Grid>
+
+        
         <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
         <AccordionDetails>
+
+            <Grid
+            spacing={2}
+            sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start'}}>
+                
+            <Grid
+            item
+            xs={12}
+            md={4}>
+                <Typography>Is filled</Typography>
+                {isfilledOptions.map((isfilledOptions) => (
+
+                    <FormControlLabel
+                        key={isfilledOptions}
+                        control={<Checkbox checked={filled == -1 ?false: (isfilledOptions === 'Yes' ? (filled ? true : false) : (filled ? false : true))}
+                            onChange={() => toggleIsfilledOption(isfilledOptions)}
+                            sx={{ '& .MuiSvgIcon-root': { fontSize: '1rem' } }}
+                        />}
+                        label={isfilledOptions.charAt(0).toUpperCase() + isfilledOptions.slice(1)}
+                        sx={{ '& .MuiFormControlLabel-label': { fontSize: '0.8rem' } }}
+                    />
+                ))}
+            </Grid>
             
-            
-            <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-            <Grid item xs={12} md={4}>
-                    <Typography>Is filled</Typography>
-                    {isfilledOptions.map((isfilledOptions) => (
-                        <FormControlLabel
-                            key={isfilledOptions}
-                            control={<Checkbox checked={isfilled.includes(isfilledOptions)}
-                                onChange={() => toggleIsfilledOption(isfilledOptions)}
-                                sx={{ '& .MuiSvgIcon-root': { fontSize: '1rem' } }}
-                            />}
-                            label={isfilledOptions.charAt(0).toUpperCase() + isfilledOptions.slice(1)}
-                            sx={{ '& .MuiFormControlLabel-label': { fontSize: '0.8rem' } }}
-                        />
-                    ))}
-                </Grid>
                 <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                     
-                    <Typography variant="body1">Term</Typography>
+                    <Typography>Term</Typography>
                     <FormControlLabel
-                        control={<Checkbox checked={term.includes('spring')}
-                        onChange={() => setTerm(prev => prev.includes('spring') ? prev.filter(t => t !== 'spring') : [...prev, 'spring'])}
+                        control={
+                        <Checkbox checked={term.includes('spring')}
+                        onChange={() =>
+                            setTerm(prev => prev.includes('spring')
+                            ? prev.filter(t => t !== 'spring')
+                            : [...prev, 'spring']
+                        )
+                    
+                    }
                         sx={{
                             '& .MuiSvgIcon-root': {
                                 fontSize: '1rem' 
@@ -116,15 +208,15 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
                     />
                     
                     <FormControlLabel
-                        control={<Checkbox checked={term.includes('autumn')}
-                        onChange={() => setTerm(prev => prev.includes('autumn') ? prev.filter(t => t !== 'autumn') : [...prev, 'autumn'])}
+                        control={<Checkbox checked={term.includes('winter')}
+                        onChange={() => setTerm(prev => prev.includes('winter') ? prev.filter(t => t !== 'winter') : [...prev, 'winter'])}
                         sx={{
                             '& .MuiSvgIcon-root': {
                                 fontSize: '1rem' 
                             }
                         }}
                         />}
-                        label="Autumn"
+                        label="winter"
                         sx={{
                             '& .MuiFormControlLabel-label': {
                                 fontSize: '0.8rem'
@@ -152,11 +244,17 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
                 <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
 
                 <Grid item xs={12} md={4} sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                    <Typography variant="body1">Year</Typography>
+                    <Typography >Year</Typography>
                     {[2024, 2025, 2026].map((y) => (
                         <FormControlLabel
                             key={y}
-                            control={<Checkbox checked={year.includes(y)} onChange={() => setYear(prev => prev.includes(y) ? prev.filter(n => n !== y) : [...prev, y])}
+                            control={
+                            <Checkbox checked={year.includes(y)}
+                            onChange={() =>
+                                setYear(prev => prev.includes(y)
+                                ? prev.filter(n => n !== y)
+                                : [...prev, y])}
+                                
                             sx={{
                                 '& .MuiSvgIcon-root': {
                                     fontSize: '1rem' 
@@ -188,25 +286,15 @@ const StudentPositionFilter: React.FC<FilterProps> = ({ onProfessorFilter }) => 
                                 }
                             }}
                             min={0}
-                            max={500}
+                            max={30000}
                             valueLabelDisplay="on"
                         />
 
-                    <Typography  sx={{ color: 'gray', width:'200px',}}>{`Fee Range: ${feeMin}$ - ${feeMax}$`}</Typography>
+                    <Typography 
+                    sx={{ color: 'gray', width:'200px',}}
+                    >{`Fee: ${feeMin}$ - ${feeMax}$`}</Typography>
 
                 </Grid>
-            </Grid>
-            <Divider sx={{ width: '100%', my: 2 ,backgroundColor:"#0F1035"}} />
-
-            <Grid sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                
-            <Button onClick={handleApplyFilter}
-            sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#0F1035'}}>
-            Apply</Button>
-            
-            <Button onClick={handleResetFilter}
-            sx={{ marginTop: '16px', marginRight: '16px', color:'white', backgroundColor:'#7FC7D9 '}}>
-            Reset</Button>
             </Grid>
 
             </AccordionDetails>

@@ -6,7 +6,7 @@ const StudentSignUpStyles = makeStyles(() =>
             backgroundColor:"#696969",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            height: '105vh',
+            height: '104vh',
             width: '100vm',
             display: "flex",
             alignItems: "center",
@@ -16,7 +16,7 @@ const StudentSignUpStyles = makeStyles(() =>
         wrapper: {
             width:"200%",
             marginLeft:"-200px",
-            marginTop:"100px",
+            marginTop:"50px",
             display: "flex",
             
            

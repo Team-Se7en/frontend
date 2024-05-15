@@ -1,18 +1,19 @@
-import { Box, Avatar, Typography, Icon, Stack, Chip } from "@mui/material";
-import { ConvDate } from "../../lib/DateConvertor";
-import { StudentCardViewFullInfo } from "../../models/CardInfo";
-import ProgramModal from "../modals/program-modal/ProgramModal";
+import { Avatar, Box, Chip, Icon, Stack, Typography } from "@mui/material";
 import {
-  StyledProgramCard,
-  StyledCardContent,
-  ProgramInfo,
-  ProfAndUni,
   BottemInfo,
-  DeaedLineAndButton,
   Deadline,
+  DeaedLineAndButton,
+  ProfAndUni,
+  ProgramInfo,
   StyledCardActions,
+  StyledCardContent,
+  StyledProgramCard,
 } from "./ProgramCard-styles";
+
+import { ConvDate } from "../../lib/DateConvertor";
 import { Link } from "react-router-dom";
+import ProgramModal from "../modals/program-modal/ProgramModal";
+import { StudentCardViewFullInfo } from "../../models/CardInfo";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
@@ -211,9 +212,9 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                   fee={props.fee}
                   start_date={props.start_date}
                   tags={props.tags}
-                  updated_at={props.updated_at}
+                  // updated_at={props.updated_at}
                   end_date={props.end_date}
-                  created_at={props.created_at}
+                  // created_at={props.created_at}
                   university_name={props.university_name}
                   university_id={props.university_id}
                 ></ProgramModal>

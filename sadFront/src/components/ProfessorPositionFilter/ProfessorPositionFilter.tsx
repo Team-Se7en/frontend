@@ -11,11 +11,9 @@ import {
 import React, { useState } from "react";
 
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Height } from "@mui/icons-material";
 
 interface FilterProps {
   onProfessorFilter: (filter: FilterOptions) => void;

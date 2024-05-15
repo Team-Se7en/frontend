@@ -9,19 +9,19 @@ import { getProfessorPositions } from "../../services/position.service";
 export interface ProfessorPositionsProps {
     queryParams?: ProfessorPositionsQueryParams;
     modelToAdd?: ProfessorCardViewShortInfo;
+    data:ProfessorCardViewShortInfo[];
 }
 
 export function ProfessorPositions(props: ProfessorPositionsProps) {
     const [positions, setPositions] = useState<ProfessorCardViewShortInfo[]>([]);
 
     useEffect(() => {
-        const fetchRecentPositions = async () => {
-            const result = await getProfessorPositions(props.queryParams);
-            setPositions(result.data)
-        };
+            setPositions(props.data);
+            console.log(props.data);
+           // console.log(positions);
 
-        fetchRecentPositions();
-    }, [props.queryParams]);
+        // }
+        },[props.queryParams,props.data]);
 
     const handlePositionDelete = (id: number) => {
         setPositions(positions.filter(p => p.id != id));
@@ -38,11 +38,12 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
             width={"60%"}
             minWidth={"30rem"}
             maxWidth={"50rem"}
-            sx={{ backgroundColor: "#fafafa" }}
+            sx={{ backgroundColor: "#fff" }}
         >
             <Divider
                 textAlign="left"
-                sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e", paddingTop: "20px" }}>
+                sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e", paddingTop: "20px",
+            }}>
                 Own Positions
             </Divider>
             <Box
