@@ -9,6 +9,7 @@ import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter
 import ProfessorPositionSort from "../../../components/ProfessorPositionSort/ProfessorPositionSort";
 import { ProfessorPositions } from "../../../components/professor-positions/ProfessorPositions";
 import SearchProfessor from "../../../components/Search_professor/Search";
+import StudentCard from "../../../components/studentcard/StudentCard";
 import { getProfessorPositions } from "../../../services/position.service";
 
 export function ProfessorHomePage() {
@@ -93,6 +94,7 @@ fetchRecentPositions();
           
           <SearchProfessor setData={setdata}/>
         </Box>
+        
         <Box
           sx={{
             width: "100%",
@@ -120,6 +122,12 @@ fetchRecentPositions();
 
           <ProfessorPositions data={data} modelToAdd={modelToAdd} queryParams={cards} />
         </Box>
+
+        <Box>
+        <StudentCard/>
+        </Box>
+
+
       </Box>
 
       <Box sx={{ paddingTop: "128px" }}>

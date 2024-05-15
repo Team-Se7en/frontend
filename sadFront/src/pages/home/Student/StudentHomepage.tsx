@@ -5,7 +5,6 @@ import Footer from "../../../components/footer/footer/footer";
 import ProfessorCard from "../../../components/professorcard/ProfessorCard";
 import ProgramsList from "../../../components/programslist/ProgramsList";
 import SearchStudent from "../../../components/Search_student/Search";
-import StudentCard from "../../../components/studentcard/StudentCard";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
 import { StudentHomePage1 } from "../../../assets/images";
@@ -69,9 +68,19 @@ export default function StudentHomepage() {
         marginTop: '10px'
         }}>
 
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px",marginBottom: "20px", }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            marginTop: "100px",
+            marginBottom: "20px",
+            marginLeft: "450px",
+          }}
+        >
           <SearchStudent setData={setAllPrograms} />
-          </Box>
+        </Box>
 
         <Box
           sx={{
@@ -99,9 +108,13 @@ export default function StudentHomepage() {
 
           </Box>
           <StudentPositions queryParams={cards}/>
-          {/* <ProfessorCard/>
-          <StudentCard/> */}
+          
         </Box>
+
+        <Box>
+        <ProfessorCard/>
+        </Box>
+
       </Box>
 
       <Box sx={{ margintop: "128px" }}>

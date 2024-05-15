@@ -22,9 +22,6 @@ const SearchButton = styled(Button)({
   borderRadius:'8px'
 });
 
-
-
-
 const ErrorMessage = styled('p')({
   color: 'red',
 });
@@ -51,7 +48,6 @@ const SearchStudent: React.FC<SendData> = ({ setData }) => {
     try {
       setLoading(true);
       setError('');
-
       const response = await fetch(`https://seven-apply.liara.run/eduportal/positions?search=${query}`);
       const data: StudentCardViewFullInfo[] = await response.json();
 
