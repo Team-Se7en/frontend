@@ -38,11 +38,12 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
             width={"60%"}
             minWidth={"30rem"}
             maxWidth={"50rem"}
-            sx={{ backgroundColor: "#fafafa" }}
+            sx={{ backgroundColor: "#fff" }}
         >
             <Divider
                 textAlign="left"
-                sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e", paddingTop: "20px" }}>
+                sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e", paddingTop: "20px",
+            }}>
                 Own Positions
             </Divider>
             <Box

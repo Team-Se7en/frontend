@@ -28,6 +28,8 @@ export function ProfessorHomePage() {
       feeMax: filterOptions.feeMax,
       feeMin: filterOptions.feeMin,
       year: filterOptions.year[0],
+      ordering: sortOptions,
+
     });
             const fetchRecentPositions = async () => {
             const result = await getProfessorPositions();
