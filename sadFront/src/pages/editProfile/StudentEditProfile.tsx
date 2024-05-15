@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import client from "../../Http/axios";
 import Styles from "../../Styles";
 import EditProfileStyles from "./EditProfile-styles";
-import { StudentProfileImage } from "../../assets/images";
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 
 export function StudentEditProfile() {
@@ -139,8 +139,16 @@ export function StudentEditProfile() {
                 <Box
                     className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)}
                 >
+                    
                     <Box className={clsx(editProfileStyles.uperImage)}>
-                        <img src={StudentProfileImage} className={clsx(editProfileStyles.profileImage)}></img>
+                        <div>
+                        <img  className={clsx(editProfileStyles.profileImage)}></img>
+                        </div>
+                        <div style={{marginBottom:'110px',marginLeft:'-152px'}}>
+                    <Button>
+                        <PhotoCameraIcon ></PhotoCameraIcon>
+                        </Button>
+                        </div>
                         {/* <Typography fontSize={30}>Welcome</Typography> */}
                     </Box>
                     <Box sx={{ width: '100%' }}>

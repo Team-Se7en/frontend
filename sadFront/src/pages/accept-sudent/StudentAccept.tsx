@@ -39,9 +39,6 @@ export function StudentAccept() {
      getLabelText(value: number) {
       return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
     },
-    HoverRating() {
-      const [value, setValue] = React.useState<number | null>(2);
-      const [hover, setHover] = React.useState(-1);},
   });
 
 
@@ -110,7 +107,7 @@ export function StudentAccept() {
               component="h1"
               variant="h5"
             >
-              Student proposal
+              Share your experience
             </Typography>
             <Box component="form" onSubmit={handleSubmit} sx={{ my: 3}}>
               <Grid container spacing={2}>
@@ -119,28 +116,28 @@ export function StudentAccept() {
                 {[0, 1, 2, 3, 4].map((index) => (
                   <Grid item xs={12} key={index}>
                     {index === 0 && (
-                      <Typography variant="h6" gutterBottom>
-                        First question
+                      <Typography style={{marginTop:'1px'}} variant="h6" gutterBottom>
+                        How complete and useful were the explanations and details written about this position?
                       </Typography>
                     )}
                     {index === 1 && (
-                      <Typography variant="h6" gutterBottom>
-                        Second question
+                      <Typography style={{marginTop:'1px'}} variant="h6" gutterBottom>
+                        How satisfied were you with the communication process with the professor?
                       </Typography>
                     )}
                     {index === 2 && (
-                      <Typography variant="h6" gutterBottom>
-                        Third question
+                      <Typography style={{marginTop:'1px'}} variant="h6" gutterBottom>
+                        How much were you satisfied with the professor's response speed?
                       </Typography>
                     )}
                     {index === 3 && (
-                      <Typography variant="h6" gutterBottom>
-                        Fourth question
+                      <Typography style={{marginTop:'1px'}} variant="h6" gutterBottom>
+                        How much do you offer for this position?
                       </Typography>
                     )}
                     {index === 4 && (
-                      <Typography variant="h6" gutterBottom>
-                        Fifth question
+                      <Typography style={{marginTop:'1px'}} variant="h6" gutterBottom>
+                        How easy did our site make your work?
                       </Typography>
                     )}
                   <div style={{display:'flex'}}>
@@ -153,9 +150,9 @@ export function StudentAccept() {
                         handleRatingChange(newValue, index)
                         
                       }
-                      sx={{ fontSize: 35 }}
+                      sx={{ fontSize: 35,marginTop:'3px' }}
                       />
-                      {formData.ratings[index] !== null && <Box ml={4} >{labels[formData.ratings[index]]}</Box>}
+                      {formData.ratings[index] !== null && <Box ml={4} mt={1} >{labels[formData.ratings[index]]}</Box>}
                       </div>
                       
                 
@@ -175,18 +172,17 @@ export function StudentAccept() {
                     name="comment"
                     fullWidth
                     id="comment"
-                    label="Comment"
+                    label="Share any criticism or suggestion you have about your application process with us"
                     value={formData.comment}
                     onChange={handleInputChange}
                   />
                 </Grid>
 )}
-              </Grid>
-                
+              </Grid> 
               {page === 3 && (
                   <div>
                     <div style={{display:'flex',justifyContent:'center',marginTop:'20px'}}>        
-                <Typography variant="h4" color="initial">tanks</Typography>
+                <Typography variant="h4" color="initial">Thank you for giving us your time :)</Typography>
                 </div>          
               <Button className={StudentSignUpClasses.button1} type="submit">
                 Send
