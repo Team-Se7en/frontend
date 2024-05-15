@@ -93,7 +93,7 @@ export default function NotificationsMenu() {
             >
               {myNotifs.map((notif, index) => (
                 <StyledNotification key={index} className="notif-body">
-                  <Box className="left-main">
+                  <Box>
                     <Box className="notif-icon-and-text">
                       <CampaignIcon
                         sx={{
