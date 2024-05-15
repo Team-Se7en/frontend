@@ -1,6 +1,7 @@
-import { ProfessorCardViewFullInfo } from "../models/CardInfo";
+import { createPositionRequestModel, ProfessorCardViewFullInfo } from "../models/CardInfo";
 import { ProfessorPositionsQueryParams } from "../models/QueryParams";
 import client from "../Http/axios";
+import { formatTime } from "../lib/format-time";
 
 export interface GetProfessorPositionsRequestModel {
     professorId: number;
@@ -64,7 +65,8 @@ export const updatePosition = async (id: number, model: ProfessorCardViewFullInf
 
 export const createPosition = async (model: ProfessorCardViewFullInfo) => {
     try {
-        const result = await client.post(`/eduportal/positions`, model);
+        console.log(model);
+        const result = await client.post(`/eduportal/positions/`, model);
         return result;
     } catch (e) {
         console.error(e);
