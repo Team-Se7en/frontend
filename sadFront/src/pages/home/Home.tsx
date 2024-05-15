@@ -20,6 +20,8 @@ import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem
 import { UniversityCard } from "../../components/university-card/UnversityCard";
 import { ProfessorCard } from "../../components/professor-card/ProfessorCard";
 import { StudentCard } from "../../components/student-card/StudentCard";
+import { ProfessorRequestCard } from "../../components/professor-request-card/ProfessorRequestCard";
+import ProgramCard from "../../components/programcard/ProgramCard";
 
 export function Home() {
   const [studentCount, setStudentCount] = useState<number>(0);
@@ -130,41 +132,39 @@ export function Home() {
           <Box sx={{ backgroundColor: theme.palette.backgroundColor }}>
             <Carousel IndicatorIcon={null} animation="slide" PrevIcon={null} NextIcon={null} cycleNavigation indicators={false}>
             <StyledTopCarouselSlide>
-                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '7rem', pl: '6rem' }}>
+                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '7rem', pl: '10%' }}>
                   <StyledSlideshowUniversityImage />
                   <Box className={clsx(globalClasses.flexColumn)} marginBottom={'auto'} marginTop={'8rem'}>
                     <Typography variant="h3">
-                      Apply to positions from Different Universities
+                      Positions From Various Universities
                     </Typography>
                   </Box>
                 </Box>
               </StyledTopCarouselSlide>
 
               <StyledTopCarouselSlide>
-                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '7rem', pl: '6rem' }}>
+                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '7rem', pl: '10%' }}>
                   <StyledSlideshowProfessorImage />
                   <Box className={clsx(globalClasses.flexColumn)} marginBottom={'auto'} marginTop={'8rem'}>
                     <Typography variant="h3">
                       Define Various Tasks!
                     </Typography>
+                    {/* <ProfessorRequestCard model={}/> */}
                   </Box>
                 </Box>
               </StyledTopCarouselSlide>
 
               <StyledTopCarouselSlide>
-                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '7rem', pl: '6rem' }}>
+                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '7rem', pl: '10%' }}>
                   <StyledSlideshowStudentImage />
                   <Box className={clsx(globalClasses.flexColumn)} marginBottom={'auto'} marginTop={'8rem'}>
                     <Typography variant="h3">
                       Ease the Pain of Applying
                     </Typography>
+                    {/* <ProgramCard /> */}
                   </Box>
                 </Box>
               </StyledTopCarouselSlide>
-
-              {/* <StyledTopCarouselSlide>
-
-              </StyledTopCarouselSlide> */}
             </Carousel>
             <StyledIntro maxWidth={'md'}>
 
