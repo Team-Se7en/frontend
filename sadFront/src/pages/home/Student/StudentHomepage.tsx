@@ -41,6 +41,7 @@ export default function StudentHomepage() {
       feeMin: filterOptions.feeMin,
       year: filterOptions.year[0],
       filled: filterOptions.filled,
+      ordering: sortOptions,
     });
   }, [sortOptions, filterOptions]);
     

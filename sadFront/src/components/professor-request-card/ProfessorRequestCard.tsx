@@ -1,20 +1,20 @@
-import { EditRounded, DeleteRounded, AccessTimeRounded, EventRounded, SchoolRounded, AttachMoneyRounded, FullscreenExitOutlined, FullscreenRounded, CloseRounded } from "@mui/icons-material";
-import { Box, Tooltip, Typography, IconButton, Grid, Button, Dialog, DialogActions, Modal } from "@mui/material";
-import clsx from "clsx";
-import { useState } from "react";
-import { toast, Bounce } from "react-toastify";
-import { formatTime } from "../../lib/format-time";
-import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
-import { deletePosition } from "../../services/position.service";
-import Styles from "../../Styles";
-import theme from "../../Theme";
-import DeleteDialog from "../dialogs/delete-dialog/DeleteDialog";
-import ProfessorRequestCardDialog from "../dialogs/professor-request-card-dialog/ProfessorRequestCardDialog";
-import CardModal from "../modals/card-modal/CardModal";
-import { Spacer } from "../ui/Spacer";
-import { StatusCircle } from "../ui/status-circle/StatusCircle";
+import { AccessTimeRounded, AttachMoneyRounded, CloseRounded, DeleteRounded, EditRounded, EventRounded, FullscreenExitOutlined, FullscreenRounded, SchoolRounded } from "@mui/icons-material";
+import { Bounce, toast } from "react-toastify";
+import { Box, Button, Dialog, DialogActions, Grid, IconButton, Modal, Tooltip, Typography } from "@mui/material";
 import { StyledCard, StyledCardContent, StyledTag } from "./ProfessorRequestCard-styles";
 
+import CardModal from "../modals/card-modal/CardModal";
+import DeleteDialog from "../dialogs/delete-dialog/DeleteDialog";
+import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
+import ProfessorRequestCardDialog from "../dialogs/professor-request-card-dialog/ProfessorRequestCardDialog";
+import { Spacer } from "../ui/Spacer";
+import { StatusCircle } from "../ui/status-circle/StatusCircle";
+import Styles from "../../Styles";
+import clsx from "clsx";
+import { deletePosition } from "../../services/position.service";
+import { formatTime } from "../../lib/format-time";
+import theme from "../../Theme";
+import { useState } from "react";
 
 export interface ProfessorRequestCardProps {
     model: ProfessorCardViewShortInfo;

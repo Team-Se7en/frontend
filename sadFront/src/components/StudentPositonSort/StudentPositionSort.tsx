@@ -21,10 +21,10 @@ const MenuProps = {
 };
 
 let userScores: { [key: string]: string } = {
-    "Max Fee": "fee",
-    "Min Fee": "-fee",
-    "Earliest Request Date": "date_applied",
-    "Latest Request Date": "-date_applied",
+    "Max Fee": "-fee",
+    "Min Fee": "fee",
+    "Closest Start Date Position": "date_applied",
+    "Farthest Start Date Position": "-date_applied",
 };
 
 const names: string[] = [
@@ -50,10 +50,11 @@ function getStyles({ name, personName }: StyleProps, theme: Theme) {
 
 const StudentPositionSort: React.FC<StudentPositionSortProps> = ({ onSortChange }) => {
     const theme = useTheme();
-    const [personName, setPersonName] = React.useState<string>(''); // Now a single string
+    const [personName, setPersonName] = React.useState<string>('');
 
     const handleChange = (event: SelectChangeEvent<string>) => {
         const newSortValue = event.target.value as string;
+        console.log(event);
         setPersonName(newSortValue);
         onSortChange(newSortValue);
         };

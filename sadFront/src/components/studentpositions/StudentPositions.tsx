@@ -36,16 +36,18 @@ export function StudentPositions(props: StudentPositionsProps) {
         width="90%"
         maxWidth={"55rem"}
         minWidth={"20rem"}
-        sx={{ backgroundColor: "#365486" }}
+        sx={{ backgroundColor: "#fff" }}
         >
         <Box
-            my={4}
-            display="flex"
-            flexDirection={"column"}
-            alignItems={"center"}
-            gap={"0.2rem"}
-            p={2}
-            padding={"0rem"}
+                height={"30rem"}
+                my={4}
+                display="flex"
+                flexDirection={"column"}
+                alignItems={"center"}
+                gap={"0.2rem"}
+                p={2}
+                padding={"0rem"}
+                overflow={"auto"}
         >
             {positions.map((program, index) => (
             <ProgramCard
