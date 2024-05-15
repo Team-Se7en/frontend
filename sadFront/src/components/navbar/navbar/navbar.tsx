@@ -138,6 +138,7 @@ function Navbar({
             )
           )}
         </div>
+        <span style={{ flex: "1 1 auto" }}></span>
         {showAuth && (
           <>     
           
@@ -158,10 +159,6 @@ function Navbar({
               ></Avatar>
           </>
         )}
-
-
-        <span style={{ flex: "1 1 auto" }}></span>
-
         <div
           style={{
             margin: "0 2rem",
