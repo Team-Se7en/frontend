@@ -11,6 +11,7 @@ import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import { StyledNotification } from "./NotificationsMenu-styles";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { Link } from "react-router-dom";
 
 export default function NotificationsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -183,9 +184,11 @@ export default function NotificationsMenu() {
             marginTop={"1rem"}
             textAlign={"center"}
           >
-            <Button variant="outlined" sx={{ color: "white" }}>
-              See All Notifications
-            </Button>
+            <Link to="/notifications">
+              <Button variant="outlined" sx={{ color: "white" }}>
+                See All Notifications
+              </Button>
+            </Link>
           </Box>
         </Box>
       </Menu>
