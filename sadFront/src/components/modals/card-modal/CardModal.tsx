@@ -106,6 +106,23 @@ export default function CardModal(props: CardModalProps) {
         }
         else {
             createPosition(model);
+            
+            const createdModel : ProfessorCardViewShortInfo = {
+                capacity: model.capacity,
+                end_date: model.end_date,
+                fee: model.fee,
+                id: model.id,
+                position_end_date: model.position_end_date,
+                position_start_date: model.position_start_date,
+                request_count: model.request_count,
+                start_date: model.start_date,
+                status: model.status,
+                tags: model.tags,
+                title: model.title,
+                university_name: model.university?.name ?? '',   
+            }
+
+            props.onAddUpdate(createdModel);
             props.onClose();
         }
     };

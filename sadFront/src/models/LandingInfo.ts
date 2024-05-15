@@ -11,3 +11,15 @@ export interface LandingInfo {
     top_students: [Student, number][];
     top_universities: University[];
 }
+
+export interface TopUniversityModel {
+    
+}
+
+export interface TopStudentModel {
+    
+}
+
+export interface TopStudentModel {
+
+}

@@ -39,3 +39,15 @@ export interface StudentCardViewFullInfo extends CardInfo {
     university_name: string;
     university_id: string;
 }
+
+export interface createPositionRequestModel {
+    title: string;
+    description: string;
+    capacity: number;
+    end_date: string;
+    tags: string[];
+    fee: number;
+    start_date: string;
+    position_start_date: string;
+    position_end_date: string;
+}

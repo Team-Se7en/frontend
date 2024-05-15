@@ -1,27 +1,30 @@
 import { Box, Divider, Typography } from "@mui/material";
 import styled from "styled-components";
 import theme from "../../Theme";
-import { ChartImage, LandingImage, TopProfessorsImage, TopStudentsImage, TopUniversitiesImage } from "../../assets/images";
+import { ChartImage, LandingImage, ProfessorTimelineImage, SlideshowProfessorImage, SlideshowStudentImage, SlideshowUniversityImage, StudentTimelineImage, TopProfessorsImage, TopStudentsImage, TopUniversitiesImage, WhyusProfessorImage, WhyusStudentImage } from "../../assets/images";
 import { ProfessorIcon, StudentIcon, SuprisedStudentIcon } from "../../assets/icons";
 import "../../assets/fonts/CalligraphyFLF.css";
 import "./Home-animations.css"
 import { makeStyles, createStyles } from "@mui/styles";
 
 export const StyledTopCarouselSlide = styled(Box)(() => ({
-    height: '30rem',
+    height: '40rem',
     backgroundColor: theme.palette.backgroundColor2,
     color: 'white',
 }));
 
 export const StyledIntro = styled(Box)(() => ({
-    border: `1px solid ${theme.palette.borderColor}`,
+    // border: `1px solid ${theme.palette.borderColor}`,
     width: '60%',
-    margin: '-10rem auto 5rem auto',
-    borderRadius: theme.shape.borderRadius,
+    margin: '-2rem auto 5rem auto',
+    borderBottomLeftRadius: theme.shape.borderRadius,
+    borderBottomRightRadius: theme.shape.borderRadius,
     position: 'relative',
     zIndex: '2',
-    minHeight: '15rem',
-    background: `linear-gradient(to bottom right, white 25%, #AFCBFF)`
+    minHeight: '18rem',
+    backgroundColor: theme.palette.backgroundColor,
+    boxShadow: theme.shadows[4],
+    // background: `linear-gradient(to bottom right, white 25%, #AFCBFF)`
 }));
 
 export const StyledSiteName = styled(Typography)(() => ({
@@ -52,7 +55,8 @@ export const StyledDetailContainer = styled(Box)(() => ({
     flexDirection: 'row',
     // width: '80%',
     // marginLeft: 'auto !important',
-    margin: '2rem 12rem 2rem 0',
+    margin: '2rem 0',
+    padding: '2rem',
     gap: '1rem',
     justifyContent: 'space-between',
 }));
@@ -102,6 +106,8 @@ export const StyledJoinUsText = styled(Typography)(() => ({
     '&:hover': {
         cursor: 'pointer',
     },
+    // color: '#000 !important',
+    // color: 'gray',
     // animation: 'bounce 1s ease-in-out infinite',
 }));
 
@@ -143,39 +149,115 @@ export const TopUniversitiesSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopUniversitiesImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    aspectRatio: '16 / 7',
-    backgroundPosition: 'bottom',
+    // aspectRatio: '16 / 7',
+    backgroundPosition: 'top',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    position: 'relative',
 }));
 
 export const TopStudentsSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopStudentsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    aspectRatio: '17 / 7',
-    backgroundPosition: 'bottom',
+    // aspectRatio: '17 / 7',
+    backgroundPosition: 'top',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    position: 'relative',
 }));
 
 export const TopProfessorsSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopProfessorsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    aspectRatio: '16 / 7',
-    backgroundPosition: 'bottom',
+    // aspectRatio: '16 / 7',
+    backgroundPosition: 'top',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    position: 'relative',
 }));
 
-export const StyledTopSectionDivider = styled(Divider)(() => ({
-    fontSize: '24px',
-    color: 'white',
-    "&::before, &::after": {
-        borderColor: "white",
-      },
+export const StyledTopSectionTitle = styled(Typography)(() => ({
+    fontSize: '4rem',
+    position: 'absolute',
+    top: '1rem',
+    textShadow: '-1px 1px 10px rgba(0, 0, 0, 0.75)',
+}));
+
+export const StyledTimelineProfessor = styled(Box)(() => ({
+    backgroundImage: `url(${ProfessorTimelineImage})`,
+    backgroundSize: 'cover',
+    aspectRatio: '1',
+    // width: '50%'
+    height: '100%',
+}));
+
+export const StyledTimelineStudent = styled(Box)(() => ({
+    backgroundImage: `url(${StudentTimelineImage})`,
+    backgroundSize: 'cover',
+    aspectRatio: '1',
+    // width: '50%'
+    height: '100%',
+}));
+
+export const StyledWhyusProfessorImage = styled(Box)(() => ({
+    backgroundImage: `url(${WhyusProfessorImage})`,
+    backgroundSize: 'cover',
+    aspectRatio: '1',
+    // width: '50%'
+    height: '100%',
+}));
+
+export const StyledWhyusStudentImage = styled(Box)(() => ({
+    backgroundImage: `url(${WhyusStudentImage})`,
+    backgroundSize: 'cover',
+    aspectRatio: '1',
+    // width: '50%'
+    height: '100%',
+}));
+
+export const StyledSlideshowUniversityImage = styled(Box)(() => ({
+    backgroundImage: `url(${SlideshowUniversityImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: 'calc(100% - 5rem)',
+    aspectRatio: '1',
+    marginTop: 'auto',  
+    borderRadius: theme.shape.borderRadius,
+}));
+
+export const StyledSlideshowProfessorImage = styled(Box)(() => ({
+    backgroundImage: `url(${SlideshowProfessorImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: 'calc(100% - 5rem)',
+    aspectRatio: '1',
+    marginTop: 'auto',  
+    borderRadius: theme.shape.borderRadius,
+}));
+
+export const StyledSlideshowStudentImage = styled(Box)(() => ({
+    backgroundImage: `url(${SlideshowStudentImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: 'calc(100% - 5rem)',
+    aspectRatio: '1',
+    marginTop: 'auto',  
+    borderRadius: theme.shape.borderRadius,
 }));

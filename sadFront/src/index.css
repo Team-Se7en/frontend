@@ -37,3 +37,11 @@ input {
     overflow: scroll !important;
     height: 100%;
 }
+
+.css-16de339-MuiTimelineItem-root::before {
+    flex: none !important;
+}
+
+.css-1ms7hib-MuiTimelineItem-root::before {
+    flex: none !important;
+}

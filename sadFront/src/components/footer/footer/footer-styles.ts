@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   // },
   footerWrapper: {
     color: '#FFF5EE',
-    borderTop: '1px solid #ddd',
+    // borderTop: '1px solid #ddd',
     width: '100%',
     margin: '0 0',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
