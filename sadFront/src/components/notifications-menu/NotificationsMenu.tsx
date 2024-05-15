@@ -13,7 +13,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { NotificationsCount } from "../../models/Notifications";
+import { Notifications } from "../../models/Notifications";
 
 export default function NotificationsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,14 +24,16 @@ export default function NotificationsMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [notifsCount, setnotifsCount] = React.useState<NotificationsCount>();
+  const [notifsCount, setnotifsCount] = React.useState<Notifications[]>();
 
   React.useEffect(() => {
     axios
-      .get("https://seven-apply.liara.run/eduportal/notifications/new_count/")
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
+      )
       .then((response) => {
-        setnotifsCount(response.data);
-        //console.log(response.data);
+        //setnotifsCount(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -59,7 +61,7 @@ export default function NotificationsMenu() {
             aria-expanded={open ? "true" : undefined}
             sx={{ color: "white" }}
           >
-            <Badge badgeContent={notifsCount?.count} color="error">
+            <Badge badgeContent={100} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>
