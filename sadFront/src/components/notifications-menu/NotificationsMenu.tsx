@@ -12,6 +12,8 @@ import { StyledNotification } from "./NotificationsMenu-styles";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { NotificationsCount } from "../../models/Notifications";
 
 export default function NotificationsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -22,7 +24,22 @@ export default function NotificationsMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [notifsCount, setnotifsCount] = React.useState<NotificationsCount>();
+
+  React.useEffect(() => {
+    axios
+      .get("https://seven-apply.liara.run/eduportal/notifications/new_count/")
+      .then((response) => {
+        setnotifsCount(response.data);
+        //console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
+
   const myNotifs = [1, 2, 3, 4];
+  //console.log(notifsCount);
 
   return (
     <React.Fragment>
@@ -42,7 +59,7 @@ export default function NotificationsMenu() {
             aria-expanded={open ? "true" : undefined}
             sx={{ color: "white" }}
           >
-            <Badge badgeContent={17} color="error">
+            <Badge badgeContent={notifsCount?.count} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>
