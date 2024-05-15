@@ -9,6 +9,8 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import CircleIcon from "@mui/icons-material/Circle";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import { StyledNotification } from "./NotificationsMenu-styles";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 export default function NotificationsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -119,9 +121,11 @@ export default function NotificationsMenu() {
                     </Box>
                   </Box>
                   <Box
-                    className="right-circle"
+                    className="right-circle-and-ribbon"
                     width={"7rem"}
-                    textAlign={"center"}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    alignItems={"center"}
                   >
                     <Tooltip title="Mark As Seen">
                       <CircleIcon
@@ -133,6 +137,29 @@ export default function NotificationsMenu() {
                         }}
                       />
                     </Tooltip>
+                    {1 > 0 ? (
+                      <Tooltip title="Bookmark this notification">
+                        <BookmarkBorderIcon
+                          sx={{
+                            color: "white",
+                            fontSize: "1.3rem",
+                            cursor: "pointer",
+                            marginTop: "0.5rem",
+                          }}
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="Delete from bookmarks">
+                        <BookmarkIcon
+                          sx={{
+                            color: "white",
+                            fontSize: "1.3rem",
+                            cursor: "pointer",
+                            marginTop: "0.5rem",
+                          }}
+                        />
+                      </Tooltip>
+                    )}
                   </Box>
                 </StyledNotification>
               ))}
