@@ -79,7 +79,7 @@ function Navbar({
           ) : (
             showAuthButton && (
               <Hidden smDown>
-                <Grid container spacing={2}>
+                {/* <Grid container spacing={2}>
                   <Grid item>
                     <Button
                       color="inherit"
@@ -92,7 +92,7 @@ function Navbar({
                         ":hover": {
                           color: "black",
                           bgcolor: "white",
-                          ml: 1,
+                          // ml: 1,
                         },
                       }}
                     >
@@ -109,7 +109,7 @@ function Navbar({
                         ":hover": {
                           color: "black",
                           bgcolor: "white",
-                          ml: 1,
+                          // ml: 1,
                         },
                       }}
                     >
@@ -126,14 +126,14 @@ function Navbar({
                         ":hover": {
                           color: "black",
                           bgcolor: "white",
-                          ml: 1,
+                          // ml: 1,
                         },
                       }}
                     >
                       Institutions
                     </Button>
                   </Grid>
-                </Grid>
+                </Grid> */}
               </Hidden>
             )
           )}
