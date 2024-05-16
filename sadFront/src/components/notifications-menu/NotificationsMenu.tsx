@@ -14,6 +14,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Notifications } from "../../models/Notifications";
+import { GenerateNotifText } from "../../lib/NotifText";
 
 export default function NotificationsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,7 +25,7 @@ export default function NotificationsMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [notifsCount, setnotifsCount] = React.useState<Notifications[]>();
+  const [notifs, setnotifs] = React.useState<Notifications[]>();
 
   React.useEffect(() => {
     axios
@@ -32,17 +33,18 @@ export default function NotificationsMenu() {
         "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
       )
       .then((response) => {
-        //setnotifsCount(response.data);
-        console.log(response.data);
+        setnotifs(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error!", error);
       });
   }, []);
 
-  const myNotifs = [1, 2, 3, 4];
-  //console.log(notifsCount);
+  //const myNotifs = [1, 2, 3, 4];
+  console.log(notifs);
 
+  if (!notifs) return null;
   return (
     <React.Fragment>
       <Box
@@ -61,7 +63,7 @@ export default function NotificationsMenu() {
             aria-expanded={open ? "true" : undefined}
             sx={{ color: "white" }}
           >
-            <Badge badgeContent={100} color="error">
+            <Badge badgeContent={notifs.length} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>
@@ -103,14 +105,14 @@ export default function NotificationsMenu() {
           flexDirection={"column"}
           padding={"1rem"}
         >
-          {myNotifs.length > 0 ? (
+          {notifs.length > 0 ? (
             <Box
               display={"flex"}
               flexDirection={"column"}
               maxHeight={"30rem"}
               overflow={"auto"}
             >
-              {myNotifs.map((notif, index) => (
+              {notifs.map((notif, index) => (
                 <StyledNotification key={index} className="notif-body">
                   <Box>
                     <Box className="notif-icon-and-text">
@@ -126,9 +128,7 @@ export default function NotificationsMenu() {
                         display={"inline"}
                         fontSize={"0.85rem"}
                       >
-                        Xiaodan Xiou opened a new position in Data Science field
-                        at Massachusetts Institute of Technology. You can apply
-                        your request before 16’s November.
+                        {GenerateNotifText(notif)}
                       </Typography>
                     </Box>
                     <Box className="notif-target-button" textAlign={"right"}>
@@ -142,10 +142,10 @@ export default function NotificationsMenu() {
                   </Box>
                   <Box
                     className="right-circle-and-ribbon"
-                    width={"7rem"}
                     display={"flex"}
                     flexDirection={"column"}
                     alignItems={"center"}
+                    marginLeft={"0.6rem"}
                   >
                     <Tooltip title="Mark As Seen">
                       <CircleIcon

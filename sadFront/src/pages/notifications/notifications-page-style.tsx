@@ -6,6 +6,7 @@ export const StyledNotification = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   padding: "0.6rem",
   borderBottom: "1px solid #F2F2F2",
+  justifyContent: "space-between",
   backgroundColor: "white",
 
   "&:hover": {

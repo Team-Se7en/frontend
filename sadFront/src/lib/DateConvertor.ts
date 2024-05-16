@@ -30,4 +30,6 @@ export function ConvDate (date: Date, type: string) {
         (new Date()).valueOf() - date.valueOf()
       ) /
         (1000 * 3600 * 24 * 7))
+    if (type == "day and month")
+      return(dateSplited[2] + " " + months[Number(dateSplited[1]) - 1])
     }

@@ -11,6 +11,9 @@ import CircleIcon from "@mui/icons-material/Circle";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
+import { Notifications } from "../../models/Notifications";
+import { GenerateNotifText } from "../../lib/NotifText";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -56,7 +59,57 @@ export default function NotificationsPage() {
     setValue(newValue);
   };
 
-  const myNotifs = [1, 2, 3, 4];
+  //const myNotifs = [1, 2, 3, 4];
+
+  const [newNotifs, setnewNotifs] = React.useState<Notifications[]>();
+  const [allNotifs, setallNotifs] = React.useState<Notifications[]>();
+  const [markedNotifs, setmarkedNotifs] = React.useState<Notifications[]>();
+
+  React.useEffect(() => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
+      )
+      .then((response) => {
+        setnewNotifs(response.data);
+        //console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/all_notifications/"
+      )
+      .then((response) => {
+        setallNotifs(response.data);
+        //console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/bookmarked_notifications/"
+      )
+      .then((response) => {
+        setmarkedNotifs(response.data);
+        //console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
+
+  if (!newNotifs) return null;
+  if (!allNotifs) return null;
+  if (!markedNotifs) return null;
 
   return (
     <Box sx={{ overflowX: "hidden", backgroundColor: "#F2F2F2" }}>
@@ -98,6 +151,7 @@ export default function NotificationsPage() {
                 borderStyle: "solid",
                 borderWidth: "1px",
                 borderColor: "divider",
+                backgroundColor: "white",
                 borderRadius: "0.2rem",
                 minHeight: "13rem",
                 maxHeight: "30rem",
@@ -106,10 +160,10 @@ export default function NotificationsPage() {
                 overflow: "auto",
               }}
             >
-              {myNotifs.map((notif, index) => (
+              {newNotifs.map((notif, index) => (
                 <StyledNotification key={index} className="notif-body">
                   <Box className="left-main" paddingLeft={"1rem"}>
-                    <Box className="notif-icon-and-text">
+                    <Box className="notif-icon-and-text" width={"100%"}>
                       <CampaignIcon
                         sx={{
                           color: "black",
@@ -122,9 +176,7 @@ export default function NotificationsPage() {
                         display={"inline"}
                         fontSize={"0.85rem"}
                       >
-                        Xiaodan Xiou opened a new position in Data Science field
-                        at Massachusetts Institute of Technology. You can apply
-                        your request before 16’s November.
+                        {GenerateNotifText(notif)}
                       </Typography>
                     </Box>
                     <Box className="notif-target-button" textAlign={"right"}>
@@ -138,7 +190,8 @@ export default function NotificationsPage() {
                   </Box>
                   <Box
                     className="right-circle-and-ribbon"
-                    width={"7rem"}
+                    marginLeft={"1rem"}
+                    marginRight={"0.7rem"}
                     display={"flex"}
                     flexDirection={"column"}
                     alignItems={"center"}
@@ -197,6 +250,7 @@ export default function NotificationsPage() {
                 borderStyle: "solid",
                 borderWidth: "1px",
                 borderColor: "divider",
+                backgroundColor: "white",
                 borderRadius: "0.2rem",
                 minHeight: "13rem",
                 maxHeight: "30rem",
@@ -205,7 +259,7 @@ export default function NotificationsPage() {
                 overflow: "auto",
               }}
             >
-              {myNotifs.map((notif, index) => (
+              {allNotifs.map((notif, index) => (
                 <StyledNotification key={index} className="notif-body">
                   <Box className="left-main" paddingLeft={"1rem"}>
                     <Box className="notif-icon-and-text">
@@ -221,9 +275,7 @@ export default function NotificationsPage() {
                         display={"inline"}
                         fontSize={"0.85rem"}
                       >
-                        Xiaodan Xiou opened a new position in Data Science field
-                        at Massachusetts Institute of Technology. You can apply
-                        your request before 16’s November.
+                        {GenerateNotifText(notif)}
                       </Typography>
                     </Box>
                     <Box className="notif-target-button" textAlign={"right"}>
@@ -237,7 +289,8 @@ export default function NotificationsPage() {
                   </Box>
                   <Box
                     className="right-circle-and-ribbon"
-                    width={"7rem"}
+                    marginLeft={"1rem"}
+                    marginRight={"0.7rem"}
                     display={"flex"}
                     flexDirection={"column"}
                     alignItems={"center"}
@@ -287,6 +340,7 @@ export default function NotificationsPage() {
                 borderStyle: "solid",
                 borderWidth: "1px",
                 borderColor: "divider",
+                backgroundColor: "white",
                 borderRadius: "0.2rem",
                 minHeight: "13rem",
                 maxHeight: "30rem",
@@ -295,7 +349,7 @@ export default function NotificationsPage() {
                 overflow: "auto",
               }}
             >
-              {myNotifs.map((notif, index) => (
+              {markedNotifs.map((notif, index) => (
                 <StyledNotification key={index} className="notif-body">
                   <Box className="left-main" paddingLeft={"1rem"}>
                     <Box className="notif-icon-and-text">
@@ -311,9 +365,7 @@ export default function NotificationsPage() {
                         display={"inline"}
                         fontSize={"0.85rem"}
                       >
-                        Xiaodan Xiou opened a new position in Data Science field
-                        at Massachusetts Institute of Technology. You can apply
-                        your request before 16’s November.
+                        {GenerateNotifText(notif)}
                       </Typography>
                     </Box>
                     <Box className="notif-target-button" textAlign={"right"}>
@@ -327,7 +379,8 @@ export default function NotificationsPage() {
                   </Box>
                   <Box
                     className="right-circle-and-ribbon"
-                    width={"7rem"}
+                    marginLeft={"1rem"}
+                    marginRight={"0.7rem"}
                     display={"flex"}
                     flexDirection={"column"}
                     alignItems={"center"}
