@@ -21,7 +21,6 @@ export function ProfessorHomePage() {
   const [data,setdata]=useState<ProfessorCardViewShortInfo[]>([]);
   
   useEffect(() => {
-    console.log(filterOptions);
     setCards({
       ...cards,
       term: filterOptions.term[0],
@@ -36,10 +35,7 @@ export function ProfessorHomePage() {
             if(data.length==0)
         {
             setdata(result.data)
-            console.log("11111");
         }
-        console.log(data);
-      //  console.log(result.data);
 }
 fetchRecentPositions();
 }, [sortOptions, filterOptions]);

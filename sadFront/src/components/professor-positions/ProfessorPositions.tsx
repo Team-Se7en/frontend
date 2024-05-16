@@ -17,10 +17,6 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
 
     useEffect(() => {
             setPositions(props.data);
-            console.log(props.data);
-           // console.log(positions);
-
-        // }
         },[props.queryParams,props.data]);
 
     const handlePositionDelete = (id: number) => {

@@ -17,7 +17,7 @@ export const getStudentRecentPositions = async () => {
 
 export const getStudentPositions = async (queryParams?: StudentPositionsQueryParams) => {
     try {
-        var result = await client.get(`/eduportal/stud_position_filter/`, { params: {
+        let result = await client.get(`/eduportal/stud_position_filter/`, { params: {
             "term": queryParams?.term,
             "ordering": queryParams?.ordering,
             "fee__gte": queryParams?.feeMin,
