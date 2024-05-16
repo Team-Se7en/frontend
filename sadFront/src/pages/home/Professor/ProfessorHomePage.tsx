@@ -39,7 +39,6 @@ export function ProfessorHomePage() {
         {
             setdata(result.data)
         }
-        console.log(data);
 }
 
 fetchRecentPositions();

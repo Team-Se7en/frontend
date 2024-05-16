@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
 import ProfessorCard from "../../../components/professorcard/ProfessorCard";
-import ProgramsList from "../../../components/programslist/ProgramsList";
 import SearchStudent from "../../../components/Search_student/Search";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
@@ -11,7 +10,6 @@ import { StudentHomePage1 } from "../../../assets/images";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
 import { StudentPositions } from "../../../components/studentpositions/StudentPositions";
-import axios from "axios";
 
 export default function StudentHomepage() {
   const [allPrograms, setAllPrograms] =
@@ -111,7 +109,7 @@ export default function StudentHomepage() {
           
         </Box>
 
-        <Box>
+        <Box sx = {{display: "flex", flexDirection: "row",}}>
         <ProfessorCard/>
         </Box>
 
