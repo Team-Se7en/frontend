@@ -162,7 +162,7 @@ export default function NotificationsPage() {
             >
               {newNotifs.map((notif, index) => (
                 <StyledNotification key={index} className="notif-body">
-                  <Box className="left-main" paddingLeft={"1rem"}>
+                  <Box className="left-main" paddingLeft={"1rem"} width={"90%"}>
                     <Box className="notif-icon-and-text" width={"100%"}>
                       <CampaignIcon
                         sx={{
@@ -190,7 +190,6 @@ export default function NotificationsPage() {
                   </Box>
                   <Box
                     className="right-circle-and-ribbon"
-                    marginLeft={"1rem"}
                     marginRight={"0.7rem"}
                     display={"flex"}
                     flexDirection={"column"}
@@ -205,7 +204,7 @@ export default function NotificationsPage() {
                         }}
                       />
                     </Tooltip>
-                    {1 > 0 ? (
+                    {!notif.bookmarked ? (
                       <Tooltip title="Bookmark this notification">
                         <BookmarkBorderIcon
                           sx={{
@@ -262,7 +261,7 @@ export default function NotificationsPage() {
               {allNotifs.map((notif, index) => (
                 <StyledNotification key={index} className="notif-body">
                   <Box className="left-main" paddingLeft={"1rem"}>
-                    <Box className="notif-icon-and-text">
+                    <Box className="notif-icon-and-text" width={"90%"}>
                       <CampaignIcon
                         sx={{
                           color: "black",
@@ -289,13 +288,12 @@ export default function NotificationsPage() {
                   </Box>
                   <Box
                     className="right-circle-and-ribbon"
-                    marginLeft={"1rem"}
                     marginRight={"0.7rem"}
                     display={"flex"}
                     flexDirection={"column"}
                     alignItems={"center"}
                   >
-                    {1 > 0 ? (
+                    {!notif.bookmarked ? (
                       <Tooltip title="Bookmark this notification">
                         <BookmarkBorderIcon
                           sx={{
@@ -352,7 +350,7 @@ export default function NotificationsPage() {
               {markedNotifs.map((notif, index) => (
                 <StyledNotification key={index} className="notif-body">
                   <Box className="left-main" paddingLeft={"1rem"}>
-                    <Box className="notif-icon-and-text">
+                    <Box className="notif-icon-and-text" width={"90%"}>
                       <CampaignIcon
                         sx={{
                           color: "black",
@@ -379,13 +377,12 @@ export default function NotificationsPage() {
                   </Box>
                   <Box
                     className="right-circle-and-ribbon"
-                    marginLeft={"1rem"}
                     marginRight={"0.7rem"}
                     display={"flex"}
                     flexDirection={"column"}
                     alignItems={"center"}
                   >
-                    {1 > 0 ? (
+                    {!notif.bookmarked ? (
                       <Tooltip title="Bookmark this notification">
                         <BookmarkBorderIcon
                           sx={{

@@ -19,13 +19,29 @@ import { GenerateNotifText } from "../../lib/NotifText";
 export default function NotificationsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const notifIconHandleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const notifMenuHandleClose = () => {
     setAnchorEl(null);
   };
+  const bookmarkHandleClick = (id: number) => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/" +
+          id +
+          "/toggle_bookmark/"
+      )
+      .then((response) => {
+        console.log(response.data);
+        setRefreshKey((oldKey) => oldKey + 1);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  };
   const [notifs, setnotifs] = React.useState<Notifications[]>();
+  const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
     axios
@@ -39,9 +55,8 @@ export default function NotificationsMenu() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, []);
+  }, [refreshKey]);
 
-  //const myNotifs = [1, 2, 3, 4];
   console.log(notifs);
 
   if (!notifs) return null;
@@ -56,7 +71,7 @@ export default function NotificationsMenu() {
       >
         <Tooltip title="Recent Notifications">
           <IconButton
-            onClick={handleClick}
+            onClick={notifIconHandleClick}
             size="large"
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
@@ -73,7 +88,7 @@ export default function NotificationsMenu() {
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
-        onClose={handleClose}
+        onClose={notifMenuHandleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -157,27 +172,35 @@ export default function NotificationsMenu() {
                         }}
                       />
                     </Tooltip>
-                    {1 > 0 ? (
+                    {!notif.bookmarked ? (
                       <Tooltip title="Bookmark this notification">
-                        <BookmarkBorderIcon
-                          sx={{
-                            color: "white",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
-                          }}
-                        />
+                        <IconButton
+                          onClick={() => bookmarkHandleClick(notif.id)}
+                        >
+                          <BookmarkBorderIcon
+                            sx={{
+                              color: "white",
+                              fontSize: "1.3rem",
+                              cursor: "pointer",
+                              marginTop: "0.5rem",
+                            }}
+                          />
+                        </IconButton>
                       </Tooltip>
                     ) : (
                       <Tooltip title="Delete from bookmarks">
-                        <BookmarkIcon
-                          sx={{
-                            color: "white",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
-                          }}
-                        />
+                        <IconButton
+                          onClick={() => bookmarkHandleClick(notif.id)}
+                        >
+                          <BookmarkIcon
+                            sx={{
+                              color: "white",
+                              fontSize: "1.3rem",
+                              cursor: "pointer",
+                              marginTop: "0.5rem",
+                            }}
+                          />
+                        </IconButton>
                       </Tooltip>
                     )}
                   </Box>
