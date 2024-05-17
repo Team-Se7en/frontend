@@ -10,6 +10,11 @@ const CVStyles = makeStyles(() =>
             height: '100%',
             overflow: 'auto'
         },
+        editBackground: {
+            backgroundColor:'whitesmoke',
+            padding:'3rem',
+            borderRadius:'1rem'
+        }
     })
 );
 

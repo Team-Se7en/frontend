@@ -15,6 +15,8 @@ import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
 import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import UniversityPage from "./pages/university/University";
 import { StudentAccept } from "./pages/accept-sudent/StudentAccept";
+import { EditCV } from "./pages/editProfile/CV/EditCV";
+import { ViewCV } from "./pages/editProfile/CV/ViewCV";
 
 export default function Routing() {
   return (
@@ -26,17 +28,13 @@ export default function Routing() {
         <Route path="signup/student" element={<StudentSignup />} />
         <Route path="signup/professor" element={<ProfessorSignup />} />
         {/* <Route path="signup/verification" element={<SignupVerfication />} /> */}
-        <Route
-          path="professor/editProfile"
-          element={<ProfessorEditProfile />}
-        />
+        <Route path="professor/editProfile" element={<ProfessorEditProfile />} />
         <Route path="student/editProfile" element={<StudentEditProfile />} />
+        <Route path="cv/view" element={<ViewCV />} />
+        <Route path="cv/edit" element={<EditCV />} />
         <Route path="forgot-pass" element={<Forgot />} />
         <Route path="verification" element={<Verification />} />
-        <Route
-          path="password/reset/confirm/:uid/:token"
-          element={<Newpassword />}
-        />
+        <Route path="password/reset/confirm/:uid/:token" element={<Newpassword />} />
         <Route path="activate/:uid/:token" element={<SignupVerification />} />
 
 
