@@ -1,5 +1,5 @@
-import { Box, List, ListItem, ListItemSecondaryAction, ListItemText, MenuItem, Rating, Select } from "@mui/material";
-import { BasicInfo, Skills, Education, WorkExperience, Project, HardSkills, HardSkill } from "../../../models/CVtypes";
+import { Box, List, ListItem, ListItemSecondaryAction, ListItemText, MenuItem,  Select } from "@mui/material";
+import { BasicInfo, Skills, Education, WorkExperience, Project, HardSkill } from "../../../models/CVtypes";
 import React, { useEffect, useState } from "react";
 import {
     TextField,
