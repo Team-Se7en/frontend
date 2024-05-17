@@ -1,4 +1,5 @@
-import { Card, CardContent, CardActions, Chip } from "@mui/material";
+import { Card, CardActions, CardContent, Chip } from "@mui/material";
+
 import styled from "styled-components";
 import theme from "../../Theme";
 
@@ -10,7 +11,7 @@ export const StyledCard = styled(Card)(() => ({
     height: '13rem',
     minHeight: '13rem',
     // maxHeight: '16rem',
-    minWidth: '20rem',
+    minWidth: '32rem',
     width: '90%',
     maxWidth: '45rem',
     // minHeight: '15rem',
@@ -23,6 +24,8 @@ export const StyledCard = styled(Card)(() => ({
     // [theme.breakpoints.between('sm', 'md')]: {
     //     aspectRation: '3 / 1',
     // },
+
+    boxShadow: theme.shadows[12],
 
     [theme.breakpoints.down('sm')]: {
         aspectRatio: '6 / 5',

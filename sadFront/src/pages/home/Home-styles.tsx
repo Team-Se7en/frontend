@@ -1,20 +1,30 @@
 import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 import theme from "../../Theme";
-import { ChartImage, LandingImage, TopProfessorsImage, TopStudentsImage, TopUniversitiesImage } from "../../assets/images";
+import { ChartImage, LandingImage, ProfessorTimelineImage, SlideshowProfessorImage, SlideshowStudentImage, SlideshowUniversityImage, StudentTimelineImage, TopProfessorsImage, TopStudentsImage, TopUniversitiesImage, WhyusProfessorImage, WhyusStudentImage } from "../../assets/images";
 import { ProfessorIcon, StudentIcon, SuprisedStudentIcon } from "../../assets/icons";
 import "../../assets/fonts/CalligraphyFLF.css";
 import "./Home-animations.css"
 import { makeStyles, createStyles } from "@mui/styles";
 
+export const StyledTopCarouselSlide = styled(Box)(() => ({
+    height: '40rem',
+    backgroundColor: theme.palette.backgroundColor2,
+    color: 'white',
+}));
+
 export const StyledIntro = styled(Box)(() => ({
-    border: `1px solid ${theme.palette.borderColor}`,
-    width: '80%',
-    margin: '10rem auto 5rem auto',
-    borderRadius: theme.shape.borderRadius,
+    // border: `1px solid ${theme.palette.borderColor}`,
+    width: '60%',
+    margin: '-2rem auto 5rem auto',
+    borderBottomLeftRadius: theme.shape.borderRadius,
+    borderBottomRightRadius: theme.shape.borderRadius,
     position: 'relative',
-    minHeight: '20rem',
-    background: `linear-gradient(to bottom right, white 25%, #AFCBFF)`
+    zIndex: '2',
+    minHeight: '18rem',
+    backgroundColor: theme.palette.backgroundColor,
+    boxShadow: theme.shadows[4],
+    // background: `linear-gradient(to bottom right, white 25%, #AFCBFF)`
 }));
 
 export const StyledSiteName = styled(Typography)(() => ({
@@ -45,7 +55,8 @@ export const StyledDetailContainer = styled(Box)(() => ({
     flexDirection: 'row',
     // width: '80%',
     // marginLeft: 'auto !important',
-    margin: '2rem 12rem 2rem 11rem',
+    margin: '2rem 0',
+    padding: '2rem',
     gap: '1rem',
     justifyContent: 'space-between',
 }));
@@ -88,14 +99,16 @@ export const StyledSuprisedStudent = styled(Box)(() => ({
 }));
 
 export const StyledJoinUsText = styled(Typography)(() => ({
-    position: 'absolute',
+    // position: 'absolute',
     right: '1rem',
     bottom: '1rem',
-    transition: 'transform 0.3s ease-in-out',
+    // transition: 'transform 0.3s ease-in-out',
     '&:hover': {
         cursor: 'pointer',
     },
-    animation: 'bounce 1s ease-in-out infinite',
+    // color: '#000 !important',
+    // color: 'gray',
+    // animation: 'bounce 1s ease-in-out infinite',
 }));
 
 export const StyledSlogan = styled(Typography)(() => ({
@@ -132,47 +145,129 @@ export const StyledTopEntities = styled(Box)(() => ({
     justifyContent: 'space-between',
 }));
 
-export const TopUniversitiesSideImage = styled(Box)(() => ({
+export const TopUniversitiesSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopUniversitiesImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    width: 'calc(100% - 30rem) !important',
-    maxWidth: '40rem',
-    minWidth: '20rem !important',
-    // height: 'auto',
-    aspectRatio: '16 / 9',
-    backgroundPosition: 'bottom',
-    // borderTopRightRadius: '50%',
-    // borderBottomRightRadius: '50%'
-    borderRadius: '4px',
+    // aspectRatio: '16 / 7',
+    backgroundPosition: 'top',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    position: 'relative',
 }));
 
-export const TopStudentsSideImage = styled(Box)(() => ({
+export const TopStudentsSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopStudentsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    width: 'calc(100% - 30rem) !important',
-    maxWidth: '40rem',
-    minWidth: '20rem !important',
-    // height: 'auto',
-    aspectRatio: '16 / 9',
-    backgroundPosition: 'center',
-    // borderTopRightRadius: '50%',
-    // borderBottomRightRadius: '50%'
-    borderRadius: '4px',
+    // aspectRatio: '17 / 7',
+    backgroundPosition: 'top',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    position: 'relative',
 }));
 
-export const TopProfessorsSideImage = styled(Box)(() => ({
+export const TopProfessorsSectionImage = styled(Box)(() => ({
     backgroundImage: `url(${TopProfessorsImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    width: 'calc(100% - 30rem) !important',
-    maxWidth: '40rem',
-    minWidth: '20rem !important',
-    // height: 'auto',
-    aspectRatio: '16 / 9',
+    // aspectRatio: '16 / 7',
     backgroundPosition: 'top',
-    // borderTopRightRadius: '50%',
-    // borderBottomRightRadius: '50%'
-    borderRadius: '4px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    position: 'relative',
+}));
+
+export const StyledTopSectionTitle = styled(Typography)(() => ({
+    fontSize: '4rem',
+    position: 'absolute',
+    top: '1rem',
+    textShadow: '-1px 1px 10px rgba(0, 0, 0, 0.75)',
+}));
+
+export const StyledTimelineProfessor = styled(Box)(() => ({
+    backgroundImage: `url(${ProfessorTimelineImage})`,
+    backgroundSize: 'cover',
+    aspectRatio: '1',
+    // width: '50%'
+    height: '100%',
+}));
+
+export const StyledTimelineStudent = styled(Box)(() => ({
+    backgroundImage: `url(${StudentTimelineImage})`,
+    backgroundSize: 'cover',
+    aspectRatio: '1',
+    // width: '50%'
+    height: '100%',
+}));
+
+export const StyledWhyusProfessorImage = styled(Box)(() => ({
+    backgroundImage: `url(${WhyusProfessorImage})`,
+    backgroundSize: 'cover',
+    aspectRatio: '1',
+    // width: '50%'
+    height: '100%',
+}));
+
+export const StyledWhyusStudentImage = styled(Box)(() => ({
+    backgroundImage: `url(${WhyusStudentImage})`,
+    backgroundSize: 'cover',
+    aspectRatio: '1',
+    // width: '50%'
+    height: '100%',
+}));
+
+export const StyledSlideshowUniversityImage = styled(Box)(() => ({
+    backgroundImage: `url(${SlideshowUniversityImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: 'calc(100% - 5rem)',
+    aspectRatio: '1',
+    marginTop: 'auto',  
+    borderRadius: theme.shape.borderRadius,
+}));
+
+export const StyledSlideshowProfessorImage = styled(Box)(() => ({
+    backgroundImage: `url(${SlideshowProfessorImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: 'calc(100% - 5rem)',
+    aspectRatio: '1',
+    marginTop: 'auto',  
+    borderRadius: theme.shape.borderRadius,
+}));
+
+export const StyledSlideshowStudentImage = styled(Box)(() => ({
+    backgroundImage: `url(${SlideshowStudentImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: 'calc(100% - 5rem)',
+    aspectRatio: '1',
+    marginTop: 'auto',  
+    borderRadius: theme.shape.borderRadius,
+}));
+
+export const StyledUniversityIcon = styled('img')(() => ({
+    width: '5rem',
+    aspectRatio: '1',
+    transition: 'transform 0.2s ease-in-out',
+    '&:hover': {
+        transform: 'scale(1.2)',
+        cursor: 'pointer',
+    }
 }));

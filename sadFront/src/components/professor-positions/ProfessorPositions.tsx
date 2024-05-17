@@ -9,19 +9,16 @@ import { getProfessorPositions } from "../../services/position.service";
 export interface ProfessorPositionsProps {
     queryParams?: ProfessorPositionsQueryParams;
     modelToAdd?: ProfessorCardViewShortInfo;
+    data:ProfessorCardViewShortInfo[];
 }
 
 export function ProfessorPositions(props: ProfessorPositionsProps) {
     const [positions, setPositions] = useState<ProfessorCardViewShortInfo[]>([]);
 
     useEffect(() => {
-        const fetchRecentPositions = async () => {
-            const result = await getProfessorPositions(props.queryParams);
-            setPositions(result.data)
-        };
+            setPositions(props.data);
 
-        fetchRecentPositions();
-    }, [props.queryParams]);
+        },[props.queryParams,props.data]);
 
     const handlePositionDelete = (id: number) => {
         setPositions(positions.filter(p => p.id != id));
@@ -35,16 +32,17 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
 
     return (    
         <Box
-            width={"60%"}
+            width={"90%"}
             minWidth={"30rem"}
             maxWidth={"50rem"}
-            sx={{ backgroundColor: "#fafafa" }}
+            sx={{ backgroundColor: "#0F1035" }}
         >
-            <Divider
+            {/* <Divider
                 textAlign="left"
-                sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e", paddingTop: "20px" }}>
+                sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e", paddingTop: "20px",
+            }}>
                 Own Positions
-            </Divider>
+            </Divider> */}
             <Box
                 height={"30rem"}
                 my={4}

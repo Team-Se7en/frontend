@@ -1,6 +1,7 @@
+import "@mui/material"
+
 import { createTheme } from "@mui/material";
 import { yellow } from "@mui/material/colors";
-import "@mui/material"
 
 declare module '@mui/material/styles' {
     interface PaletteOptions {
@@ -15,6 +16,7 @@ declare module '@mui/material/styles' {
             rejected?: string;
         };
         backgroundColor?: string;
+        backgroundColor2?: string;
         borderColor?: string;
         chartColor?: string;
     }
@@ -30,6 +32,7 @@ declare module '@mui/material/styles' {
             rejected: string;
         };
         backgroundColor: string;
+        backgroundColor2: string;
         borderColor: string;
         chartColor: string;
     }
@@ -51,9 +54,10 @@ const theme = createTheme({
             rejected: 'red !important',
         },
         backgroundColor: 'white',
+        backgroundColor2: '#0F1035',
         // color1: ''
         borderColor: '#3A506B',
-        chartColor: 'black',
+        chartColor: 'black',  
     }
 });
 

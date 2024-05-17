@@ -36,8 +36,8 @@ function Navbar({
     <div className={classes.container}>
       <div
         style={{
-          position: "fixed",
-          zIndex: "2",
+          position:'fixed',
+          zIndex: '3',
           backgroundColor: "#0F1035",
           color: "#FFF5EE",
           display: "flex",
@@ -79,7 +79,7 @@ function Navbar({
           ) : (
             showAuthButton && (
               <Hidden smDown>
-                <Grid container spacing={2}>
+                {/* <Grid container spacing={2}>
                   <Grid item>
                     <Button
                       color="inherit"
@@ -92,7 +92,7 @@ function Navbar({
                         ":hover": {
                           color: "black",
                           bgcolor: "white",
-                          ml: 1,
+                          // ml: 1,
                         },
                       }}
                     >
@@ -109,7 +109,7 @@ function Navbar({
                         ":hover": {
                           color: "black",
                           bgcolor: "white",
-                          ml: 1,
+                          // ml: 1,
                         },
                       }}
                     >
@@ -126,18 +126,19 @@ function Navbar({
                         ":hover": {
                           color: "black",
                           bgcolor: "white",
-                          ml: 1,
+                          // ml: 1,
                         },
                       }}
                     >
                       Institutions
                     </Button>
                   </Grid>
-                </Grid>
+                </Grid> */}
               </Hidden>
             )
           )}
         </div>
+        <span style={{ flex: "1 1 auto" }}></span>
         {showAuth && (
           <>     
           
@@ -158,10 +159,6 @@ function Navbar({
               ></Avatar>
           </>
         )}
-
-
-        <span style={{ flex: "1 1 auto" }}></span>
-
         <div
           style={{
             margin: "0 2rem",
