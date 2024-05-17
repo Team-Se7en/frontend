@@ -32,3 +32,12 @@ export interface Education {
     end_date?: any
     grade?: number
 }
+
+export interface WorkExperience {
+    id?: number
+    company_name?: string
+    company_website?: string
+    start_date?: any
+    end_date?: any
+    job_title?: string
+}

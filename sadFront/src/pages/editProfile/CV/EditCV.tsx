@@ -1,6 +1,6 @@
 import { Box, List, ListItem, ListItemSecondaryAction, ListItemText } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { BasicInfo, Skills, Education } from "../../../models/CVtypes";
+import { BasicInfo, Skills, Education, WorkExperience } from "../../../models/CVtypes";
 import React, { useEffect, useState } from "react";
 import {
     TextField,
@@ -17,12 +17,11 @@ import client from "../../../Http/axios";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 
 export function EditCV() {
     let currentUser: any
 
-    let educations: Education[] = []
     let hardSkills: HardSkill[] = []
     let projects: Project[] = []
     let workXPs: WorkExperience[] = []
@@ -30,19 +29,58 @@ export function EditCV() {
     let [cvDataBasic, setCVDataBasic] = useState<BasicInfo>({
     });
 
-    const [openExperienceDialog, setOpenExperienceDialog] = useState(false);
-    const [editingExperienceIndex, setEditingExperienceIndex] = useState(-1);
-    const [newExperience, setNewExperience] = useState({
-        companyName: "",
-        companyWebsite: "",
-        startEndDate: "",
-        role: "",
-    });
-
     useEffect(() => {
         getInfo()
     }, [])
 
+    async function getInfo() {
+        try {
+            currentUser = await client.get("/auth/users/me/");
+            const UserPK = currentUser.data.id;
+
+            const basicInfoApiUrl = `/eduportal/students/${UserPK}/CV/`;
+            const basicInfoResponse = await client.get(basicInfoApiUrl);
+            cvDataBasic.title = basicInfoResponse.data.title
+            cvDataBasic.birth_date = basicInfoResponse.data.birth_date
+            cvDataBasic.gender = basicInfoResponse.data.gender
+            cvDataBasic.employment_status = basicInfoResponse.data.employment_status
+            cvDataBasic.soft_skills = basicInfoResponse.data.soft_skills
+            cvDataBasic.about = basicInfoResponse.data.about
+            setSelectedSkills(basicInfoResponse.data.soft_skills)
+            setCVDataBasic({
+                ...cvDataBasic,
+            });
+            // console.log(cvDataBasic)
+
+            const educationApiUrl = `/eduportal/students/${UserPK}/CV/education`;
+            const educationsResponse = await client.get(educationApiUrl);
+            educationList = educationsResponse.data
+            setEducationList(educationsResponse.data)
+            // console.log(educations)
+
+            const hardSkillsApiUrl = `/eduportal/students/${UserPK}/CV/hard-skills`;
+            const hardSkillsResponse = await client.get(hardSkillsApiUrl);
+            hardSkills = hardSkillsResponse.data
+            // console.log(hardSkills)
+
+            const projectsApiUrl = `/eduportal/students/${UserPK}/CV/projects`;
+            const projectsResponse = await client.get(projectsApiUrl);
+            projects = projectsResponse.data
+            // console.log(projects)
+
+            const workXPsApiUrl = `/eduportal/students/${UserPK}/CV/work-xps`;
+            const workXPsResponse = await client.get(workXPsApiUrl);
+            workXPList = workXPsResponse.data
+            setWorkXPList(workXPsResponse.data)
+            console.log(workXPList)
+
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    //---------------------------------- BASIC INFO ----------------------------------
     const handleBasicChange = (event: any) => {
         const { name, value } = event.target;
         setCVDataBasic({
@@ -56,14 +94,9 @@ export function EditCV() {
         cvDataBasic.birth_date = dayjs(newValue.$d).format('YYYY-MM-DD')
     }
 
-    const handleAddExperience = () => {
-        setOpenExperienceDialog(true);
-    };
-
     const handleSave = async () => {
         console.log(cvDataBasic)
         try {
-
             currentUser = await client.get("/auth/users/me/");
             const UserPK = currentUser.data.id;
             const apiURL = `/eduportal/students/${UserPK}/CV/`
@@ -84,87 +117,6 @@ export function EditCV() {
         }
     };
 
-    // const handleSaveExperience = () => {
-    //     if (editingExperienceIndex !== -1) {
-    //         const updatedExperiences = [...cvData.workExperiences];
-    //         updatedExperiences[editingExperienceIndex] = newExperience;
-    //         setCVDataBasic((prevData) => ({
-    //             ...prevData,
-    //             workExperiences: updatedExperiences,
-    //         }));
-    //         setEditingExperienceIndex(-1);
-    //     } else {
-    //         setCVDataBasic((prevData) => ({
-    //             ...prevData,
-    //             workExperiences: [...prevData.workExperiences, newExperience],
-    //         }));
-    //     }
-    //     setNewExperience({
-    //         companyName: "",
-    //         companyWebsite: "",
-    //         startEndDate: "",
-    //         role: "",
-    //     });
-    //     setOpenExperienceDialog(false);
-    // };
-
-    // const handleEditExperience = (index: any) => {
-    //     setNewExperience(cvData.workExperiences[index]);
-    //     setEditingExperienceIndex(index);
-    //     setOpenExperienceDialog(true);
-    // };
-
-    async function getInfo() {
-        try {
-            currentUser = await client.get("/auth/users/me/");
-            const UserPK = currentUser.data.id;
-
-            const basicInfoApiUrl = `/eduportal/students/${UserPK}/CV/`;
-            const basicInfoResponse = await client.get(basicInfoApiUrl);
-            cvDataBasic.title = basicInfoResponse.data.title
-            cvDataBasic.birth_date = basicInfoResponse.data.birth_date
-            cvDataBasic.gender = basicInfoResponse.data.gender
-            cvDataBasic.employment_status = basicInfoResponse.data.employment_status
-            cvDataBasic.soft_skills = basicInfoResponse.data.soft_skills
-            cvDataBasic.about = basicInfoResponse.data.about
-            setSelectedSkills(basicInfoResponse.data.soft_skills)
-            setCVDataBasic({
-                ...cvDataBasic,
-            });
-            console.log(cvDataBasic)
-
-            const educationApiUrl = `/eduportal/students/${UserPK}/CV/education`;
-            const educationsResponse = await client.get(educationApiUrl);
-            educations = educationsResponse.data
-            educationList = educationsResponse.data
-            setEducationList(educationsResponse.data)
-            console.log(educations)
-
-            const hardSkillsApiUrl = `/eduportal/students/${UserPK}/CV/hard-skills`;
-            const hardSkillsResponse = await client.get(hardSkillsApiUrl);
-            hardSkills = hardSkillsResponse.data
-            // console.log(hardSkills)
-
-            const projectsApiUrl = `/eduportal/students/${UserPK}/CV/projects`;
-            const projectsResponse = await client.get(projectsApiUrl);
-            projects = projectsResponse.data
-            // console.log(projects)
-
-            const workXPsApiUrl = `/eduportal/students/${UserPK}/CV/work-xps`;
-            const workXPsResponse = await client.get(workXPsApiUrl);
-            workXPs = workXPsResponse.data
-            // console.log(workXPs)
-
-
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-
-    const navigate = useNavigate();
-    const navigateToViewCV = () => {
-        navigate("/cv/view");
-    }
 
     let [selectedSkills, setSelectedSkills] = useState<number[]>([]);
     const handleSkillClick = (skill: number) => {
@@ -174,6 +126,7 @@ export function EditCV() {
             setSelectedSkills([...selectedSkills, skill]);
         }
     };
+    //---------------------------------- EDUCATION ----------------------------------
 
     let [educationList, setEducationList] = useState<Education[]>([]);
     const [open, setOpen] = useState(false);
@@ -185,33 +138,27 @@ export function EditCV() {
         end_date: "2024-05-17",
         grade: 0,
     });
-    const [editIndex, setEditIndex] = useState<number | null>(null);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleEducationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setEducation({ ...education, [name]: value });
     };
 
     const handleAddEducation = async () => {
         if (education.institute && education.degree) {
-            if (editIndex !== null) {
-                const updatedList = [...educationList];
-                updatedList[editIndex] = education;
-                setEducationList(updatedList);
-                setEditIndex(null);
-            } else {
-                try {
-                    currentUser = await client.get("/auth/users/me/");
-                    const UserPK = currentUser.data.id;
-                    const API_URL = `/eduportal/students/${UserPK}/CV/education/`
-                    const response = client.post(API_URL, education);
-                    console.log(response)
 
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-                setEducationList([...educationList, education]);
+            try {
+                currentUser = await client.get("/auth/users/me/");
+                const UserPK = currentUser.data.id;
+                const API_URL = `/eduportal/students/${UserPK}/CV/education/`
+                const response = client.post(API_URL, education);
+                console.log(response)
+
+            } catch (error) {
+                console.error('Error:', error);
             }
+            setEducationList([...educationList, education]);
+
             setEducation({
                 institute: '',
                 degree: '',
@@ -241,6 +188,68 @@ export function EditCV() {
         updatedList.splice(index, 1);
         setEducationList(updatedList);
     };
+    //---------------------------------- WORK XP ----------------------------------
+    let [workXPList, setWorkXPList] = useState<WorkExperience[]>([]);
+    const [openWorkXP, setOpenWorkXP] = useState(false);
+    const [workXP, setWorkXP] = useState<WorkExperience>({
+        company_name: '',
+        company_website: '',
+        start_date: "2024-05-17",
+        end_date: "2024-05-17",
+        job_title: '',
+    });
+
+    const handleWorkXPChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setWorkXP({ ...workXP, [name]: value });
+    };
+
+    const handleAddWorkXP = async () => {
+        if (workXP.company_name && workXP.company_website) {
+
+            try {
+                currentUser = await client.get("/auth/users/me/");
+                const UserPK = currentUser.data.id;
+                const API_URL = `/eduportal/students/${UserPK}/CV/work-xps/`
+                const response = client.post(API_URL, workXP);
+                console.log(response)
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            setWorkXPList([...workXPList, workXP]);
+
+            setWorkXP({
+                company_name: '',
+                company_website: '',
+                start_date: "2024-05-17",
+                end_date: "2024-05-17",
+                job_title: '',
+            });
+            setOpenWorkXP(false);
+        } else {
+            alert('Please fill the fields');
+        }
+    };
+
+    const handleRemoveWorkXP = async (index: number) => {
+        try {
+            currentUser = await client.get("/auth/users/me/");
+            const UserPK = currentUser.data.id;
+            const API_URL = `/eduportal/students/${UserPK}/CV/work-xps/${workXPList[index].id}/`
+            const response = client.delete(API_URL);
+            console.log(response)
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        const updatedList = [...workXPList];
+        updatedList.splice(index, 1);
+        setWorkXPList(updatedList);
+    };
+
+
+
 
     return (
         <Container maxWidth="md">
@@ -315,32 +324,7 @@ export function EditCV() {
                     </div>
                 </Grid>
                 {/* Work Experiences */}
-                {/* <Grid item xs={12}>
-                    <Typography variant="h5" gutterBottom>
-                        Work Experiences
-                    </Typography>
-                    {cvData.workExperiences.map((experience, index) => (
-                        <div key={index}>
-                            <Typography variant="subtitle1">
-                                {experience.companyName} - {experience.startEndDate}
-                            </Typography>
-                            <IconButton
-                                color="primary"
-                                onClick={() => handleEditExperience(index)}
-                            >
-                                <EditIcon />
-                            </IconButton>
-                        </div>
-                    ))}
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        startIcon={<AddIcon />}
-                        onClick={handleAddExperience}
-                    >
-                        Add Experience
-                    </Button>
-                </Grid> */}
+
 
                 <Grid item xs={12}>
                     <Button variant="contained" color="primary" onClick={handleSave}>
@@ -350,7 +334,7 @@ export function EditCV() {
             </Grid>
 
 
-            <h2>Main Form</h2>
+            <h2>Main Form Education</h2>
             <Button variant="contained" onClick={() => setOpen(true)}>Add Education</Button>
             <h3>Education List</h3>
             <List>
@@ -376,7 +360,7 @@ export function EditCV() {
                                     label="Institute"
                                     name="institute"
                                     value={education.institute}
-                                    onChange={handleChange}
+                                    onChange={handleEducationChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -385,7 +369,7 @@ export function EditCV() {
                                     label="Degree"
                                     name="degree"
                                     value={education.degree}
-                                    onChange={handleChange}
+                                    onChange={handleEducationChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -395,7 +379,7 @@ export function EditCV() {
                                     label="Grade"
                                     name="grade"
                                     value={education.grade}
-                                    onChange={handleChange}
+                                    onChange={handleEducationChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -404,7 +388,7 @@ export function EditCV() {
                                     label="Field of study"
                                     name="field_of_study"
                                     value={education.field_of_study}
-                                    onChange={handleChange}
+                                    onChange={handleEducationChange}
                                 />
                             </Grid>
                         </Grid>
@@ -412,31 +396,60 @@ export function EditCV() {
                 </DialogContent>
                 <Button onClick={handleAddEducation}>Add</Button>
             </Dialog>
-
-
-
             {/* Dialog for adding/editing work experience */}
-            {/* <Dialog
-                open={openExperienceDialog}
-                onClose={() => setOpenExperienceDialog(false)}
-            >
-                <DialogTitle>Add/Edit Work Experience</DialogTitle>
+
+            <h2>Main Form Work XP</h2>
+            <Button variant="contained" onClick={() => setOpenWorkXP(true)}>Add Work XP</Button>
+            <h3>WORK XP List</h3>
+            <List>
+                {workXPList.map((workXP, index) => (
+                    <ListItem key={index}>
+                        <ListItemText primary={`${workXP.company_name}: ${workXP.company_website}`} />
+                        <ListItemSecondaryAction>
+                            <IconButton onClick={() => handleRemoveWorkXP(index)}>
+                                <Delete />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                ))}
+            </List>
+            <Dialog open={openWorkXP} onClose={() => setOpenWorkXP(false)}>
+                <DialogTitle>Add Work XP</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        fullWidth
-                        label="Company Name"
-                        name="companyName"
-                        value={newExperience.companyName}
-                        onChange={(e) =>
-                            setNewExperience({ ...newExperience, companyName: e.target.value })
-                        }
-                    />
+                    <form>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="company name"
+                                    name="company_name"
+                                    value={workXP.company_name}
+                                    onChange={handleWorkXPChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="company website"
+                                    name="company_website"
+                                    value={workXP.company_website}
+                                    onChange={handleWorkXPChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="job title"
+                                    name="job_title"
+                                    value={workXP.job_title}
+                                    onChange={handleWorkXPChange}
+                                />
+                            </Grid>
+                        </Grid>
+                    </form>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setOpenExperienceDialog(false)}>Cancel</Button>
-                    <Button onClick={handleSaveExperience}>Done</Button>
-                </DialogActions>
-            </Dialog> */}
+                <Button onClick={handleAddWorkXP}>Add</Button>
+            </Dialog>
         </Container>
     );
 }
@@ -457,12 +470,5 @@ class Project {
     description: string | undefined
 }
 
-class WorkExperience {
-    id: number | undefined
-    company_name: string | undefined
-    company_website: string | undefined
-    start_date: Date | undefined
-    end_date: Date | undefined
-    job_title: string | undefined
-}
+
 
