@@ -65,6 +65,9 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
 
   const handleSettingClick = (setting: string) => {
     switch (setting) {
+      case "Profile":
+        navigate("/professor/editProfile");
+        break;
       case "Add Program":
         handleModalOpen();
         break;

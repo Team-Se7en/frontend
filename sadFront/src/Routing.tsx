@@ -39,14 +39,14 @@ export default function Routing() {
         />
         <Route path="activate/:uid/:token" element={<SignupVerification />} />
 
- 
-                <Route path="" element={<Home />} />
-                <Route path="newpassword" element={<Newpassword />} />
-                <Route path="professorhomepage" element={<ProfessorHomePage />} />
-                <Route path="studenthomepage" element={<StudentHomepage />} />
-                <Route path="studentaccept" element={<StudentAccept />} />
-                <Route path="universitypage" element={<UniversityPage />} />
-            </Routes>
-        </BrowserRouter>
-    )
+
+        <Route path="" element={<Home />} />
+        <Route path="newpassword" element={<Newpassword />} />
+        <Route path="professorhomepage" element={<ProfessorHomePage />} />
+        <Route path="studenthomepage" element={<StudentHomepage />} />
+        <Route path="studentaccept" element={<StudentAccept />} />
+        <Route path="universitypage" element={<UniversityPage />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }

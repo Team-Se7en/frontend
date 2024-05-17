@@ -50,7 +50,6 @@ export function Home() {
         return { date: value[0], count: value[1] };
       })
       setChartData(_dataset);
-      console.log(_dataset);
     }
   }, [landingInfo])
 
