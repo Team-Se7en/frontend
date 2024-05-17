@@ -33,13 +33,27 @@ export default function NotificationsMenu() {
           "/toggle_bookmark/"
       )
       .then((response) => {
-        console.log(response.data);
         setRefreshKey((oldKey) => oldKey + 1);
       })
       .catch((error) => {
         console.error("There was an error!", error);
       });
   };
+  const markReadHandleClick = (id: number) => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/" +
+          id +
+          "/mark_as_read/"
+      )
+      .then(() => {
+        setRefreshKey((oldKey) => oldKey + 1);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  };
+
   const [notifs, setnotifs] = React.useState<Notifications[]>();
   const [refreshKey, setRefreshKey] = React.useState(0);
 
@@ -173,14 +187,16 @@ export default function NotificationsMenu() {
                     marginLeft={"0.6rem"}
                   >
                     <Tooltip title="Mark As Seen">
-                      <CircleIcon
-                        sx={{
-                          color: "#4472C4",
-                          fontSize: "1.3rem",
-                          cursor: "pointer",
-                          marginTop: "0.5rem",
-                        }}
-                      />
+                      <IconButton onClick={() => markReadHandleClick(notif.id)}>
+                        <CircleIcon
+                          sx={{
+                            color: "#4472C4",
+                            fontSize: "1.3rem",
+                            cursor: "pointer",
+                            marginTop: "0.5rem",
+                          }}
+                        />
+                      </IconButton>
                     </Tooltip>
                     {!notif.bookmarked ? (
                       <Tooltip title="Bookmark this notification">

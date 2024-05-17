@@ -1,4 +1,12 @@
-import { Box, Breadcrumbs, Button, Link, Tooltip } from "@mui/material";
+import {
+  Box,
+  Breadcrumbs,
+  Button,
+  CircularProgress,
+  IconButton,
+  Link,
+  Tooltip,
+} from "@mui/material";
 import Navbar from "../../components/navbar/navbar/navbar";
 import Footer from "../../components/footer/footer/footer";
 import * as React from "react";
@@ -10,10 +18,11 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import CircleIcon from "@mui/icons-material/Circle";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import axios from "axios";
 import { Notifications } from "../../models/Notifications";
 import { GenerateNotifText } from "../../lib/NotifText";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -59,11 +68,50 @@ export default function NotificationsPage() {
     setValue(newValue);
   };
 
-  //const myNotifs = [1, 2, 3, 4];
-
   const [newNotifs, setnewNotifs] = React.useState<Notifications[]>();
   const [allNotifs, setallNotifs] = React.useState<Notifications[]>();
   const [markedNotifs, setmarkedNotifs] = React.useState<Notifications[]>();
+  const [refreshKey, setRefreshKey] = React.useState(0);
+
+  const bookmarkHandleClick = (id: number) => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/" +
+          id +
+          "/toggle_bookmark/"
+      )
+      .then(() => {
+        setRefreshKey((oldKey) => oldKey + 1);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  };
+
+  const markReadHandleClick = (id: number) => {
+    axios
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/" +
+          id +
+          "/mark_as_read/"
+      )
+      .then(() => {
+        setRefreshKey((oldKey) => oldKey + 1);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  };
+
+  const deleteHandleClick = (id: number) => {
+    axios
+      .delete(
+        "https://seven-apply.liara.run/eduportal/notifications/" + id + "/"
+      )
+      .then(() => {
+        setRefreshKey((oldKey) => oldKey + 1);
+      });
+  };
 
   React.useEffect(() => {
     axios
@@ -77,7 +125,7 @@ export default function NotificationsPage() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, []);
+  }, [refreshKey]);
 
   React.useEffect(() => {
     axios
@@ -91,7 +139,7 @@ export default function NotificationsPage() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, []);
+  }, [refreshKey]);
 
   React.useEffect(() => {
     axios
@@ -105,11 +153,12 @@ export default function NotificationsPage() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, []);
+  }, [refreshKey]);
 
-  if (!newNotifs) return null;
-  if (!allNotifs) return null;
-  if (!markedNotifs) return null;
+  const tabsData = [newNotifs, allNotifs, markedNotifs];
+  console.log(tabsData);
+
+  //if (!tabsData) return null;
 
   return (
     <Box sx={{ overflowX: "hidden", backgroundColor: "#F2F2F2" }}>
@@ -144,312 +193,170 @@ export default function NotificationsPage() {
               <Tab label="Bookmarked" {...a11yProps(2)} />
             </Tabs>
           </Box>
-          <CustomTabPanel value={value} index={0}>
-            <Box
-              className="unread-notifications-tab-body"
-              sx={{
-                borderStyle: "solid",
-                borderWidth: "1px",
-                borderColor: "divider",
-                backgroundColor: "white",
-                borderRadius: "0.2rem",
-                minHeight: "13rem",
-                maxHeight: "30rem",
-                //boxShadow: "0px -1px 5px -1px rgba(0,0,0,0.42)",
-                marginBottom: "4rem",
-                overflow: "auto",
-              }}
-            >
-              {newNotifs.map((notif, index) => (
-                <StyledNotification key={index} className="notif-body">
-                  <Box className="left-main" paddingLeft={"1rem"} width={"90%"}>
-                    <Box className="notif-icon-and-text" width={"100%"}>
-                      <CampaignIcon
-                        sx={{
-                          color: "black",
-                          marginRight: "0.5rem",
-                          marginBottom: "-0.3rem",
-                        }}
-                      />
-                      <Typography
-                        color={"black"}
-                        display={"inline"}
-                        fontSize={"0.85rem"}
+          {tabsData.map((tabData, index1) => (
+            <CustomTabPanel key={index1} value={value} index={index1}>
+              <Box
+                className="notifications-tab-body"
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                sx={{
+                  borderStyle: "solid",
+                  borderWidth: "1px",
+                  borderColor: "divider",
+                  backgroundColor: "white",
+                  borderRadius: "0.2rem",
+                  minHeight: "13rem",
+                  maxHeight: "30rem",
+                  padding: "0.5rem",
+                  marginBottom: "4rem",
+                  overflow: "auto",
+                }}
+              >
+                {!tabData ? (
+                  <CircularProgress />
+                ) : tabData.length != 0 ? (
+                  tabData.map((notif, index2) => (
+                    <StyledNotification key={index2} className="notif-body">
+                      <Box
+                        className="left-main"
+                        paddingLeft={"1rem"}
+                        width={"90%"}
                       >
-                        {GenerateNotifText(notif)}
-                      </Typography>
-                    </Box>
-                    <Box className="notif-target-button" textAlign={"right"}>
-                      <Button
-                        variant="text"
-                        sx={{ color: "black", fontSize: "0.8rem" }}
+                        <Box className="notif-icon-and-text" width={"100%"}>
+                          <CampaignIcon
+                            sx={{
+                              color: "black",
+                              marginRight: "0.5rem",
+                              marginBottom: "-0.3rem",
+                            }}
+                          />
+                          <Typography
+                            color={"black"}
+                            display={"inline"}
+                            fontSize={"0.85rem"}
+                          >
+                            {GenerateNotifText(notif)}
+                          </Typography>
+                        </Box>
+                        <Box
+                          className="notif-target-button"
+                          textAlign={"right"}
+                        >
+                          {notif.student && notif.position ? (
+                            <Button
+                              variant="text"
+                              sx={{ color: "black", fontSize: "0.8rem" }}
+                            >
+                              {notif.notification_type == 1
+                                ? "See " + notif.student.name + "'s profile"
+                                : notif.notification_type == 2
+                                ? "Go to position's page"
+                                : notif.notification_type == -2
+                                ? "Explore similar positions"
+                                : notif.notification_type == 3
+                                ? "Message " + notif.student.name
+                                : notif.notification_type == -3
+                                ? "Explore your other requests"
+                                : "See Position"}
+                            </Button>
+                          ) : (
+                            ""
+                          )}
+                        </Box>
+                      </Box>
+                      <Box
+                        className="right-circle-and-ribbon"
+                        marginRight={"0.7rem"}
+                        display={"flex"}
+                        flexDirection={"column"}
+                        alignItems={"center"}
                       >
-                        {notif.notification_type == 1
-                          ? "See " + notif.student.name + "'s profile"
-                          : notif.notification_type == 2
-                          ? "Go to position's page"
-                          : notif.notification_type == -2
-                          ? "Explore similar positions"
-                          : notif.notification_type == 3
-                          ? "Message " + notif.student.name
-                          : notif.notification_type == -3
-                          ? "Explore your other requests"
-                          : "See Position"}
-                      </Button>
-                    </Box>
-                  </Box>
+                        {index1 == 0 ? (
+                          <Tooltip title="Mark As Read">
+                            <IconButton
+                              onClick={() => markReadHandleClick(notif.id)}
+                            >
+                              <CircleIcon
+                                sx={{
+                                  color: "#4472C4",
+                                  fontSize: "1.3rem",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        ) : (
+                          ""
+                        )}
+
+                        {!notif.bookmarked ? (
+                          <Tooltip title="Bookmark this notification">
+                            <IconButton
+                              onClick={() => bookmarkHandleClick(notif.id)}
+                            >
+                              <BookmarkBorderIcon
+                                sx={{
+                                  color: "black",
+                                  fontSize: "1.3rem",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        ) : (
+                          <Tooltip title="Delete from bookmarks">
+                            <IconButton
+                              onClick={() => bookmarkHandleClick(notif.id)}
+                            >
+                              <BookmarkIcon
+                                sx={{
+                                  color: "black",
+                                  fontSize: "1.3rem",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                        <Tooltip title="Delete Notification">
+                          <IconButton
+                            onClick={() => deleteHandleClick(notif.id)}
+                          >
+                            <DeleteOutlineIcon
+                              sx={{
+                                color: "black",
+                                fontSize: "1.3rem",
+                                cursor: "pointer",
+                              }}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
+                    </StyledNotification>
+                  ))
+                ) : (
                   <Box
-                    className="right-circle-and-ribbon"
-                    marginRight={"0.7rem"}
                     display={"flex"}
                     flexDirection={"column"}
                     alignItems={"center"}
                   >
-                    <Tooltip title="Mark As Seen">
-                      <CircleIcon
-                        sx={{
-                          color: "#4472C4",
-                          fontSize: "1.3rem",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </Tooltip>
-                    {!notif.bookmarked ? (
-                      <Tooltip title="Bookmark this notification">
-                        <BookmarkBorderIcon
-                          sx={{
-                            color: "black",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
-                          }}
-                        />
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="Delete from bookmarks">
-                        <BookmarkIcon
-                          sx={{
-                            color: "black",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
-                          }}
-                        />
-                      </Tooltip>
-                    )}
-                    <Tooltip title="Delete Notification">
-                      <DeleteIcon
-                        sx={{
-                          color: "black",
-                          fontSize: "1.3rem",
-                          cursor: "pointer",
-                          marginTop: "0.5rem",
-                        }}
-                      />
-                    </Tooltip>
+                    <CircleNotificationsIcon
+                      sx={{ color: "gray", fontSize: "8rem" }}
+                    />
+                    <Typography color={"gray"} fontSize={"0.9rem"}>
+                      {index1 == 0
+                        ? "There is no unread notification ..."
+                        : index1 == 1
+                        ? "You have not any notifications yet ..."
+                        : "You have no bookmarked notification ..."}
+                    </Typography>
                   </Box>
-                </StyledNotification>
-              ))}
-            </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
-            <Box
-              className="all-notifications-tab-body"
-              sx={{
-                borderStyle: "solid",
-                borderWidth: "1px",
-                borderColor: "divider",
-                backgroundColor: "white",
-                borderRadius: "0.2rem",
-                minHeight: "13rem",
-                maxHeight: "30rem",
-                //boxShadow: "0px -1px 5px -1px rgba(0,0,0,0.42)",
-                marginBottom: "4rem",
-                overflow: "auto",
-              }}
-            >
-              {allNotifs.map((notif, index) => (
-                <StyledNotification key={index} className="notif-body">
-                  <Box className="left-main" paddingLeft={"1rem"}>
-                    <Box className="notif-icon-and-text" width={"90%"}>
-                      <CampaignIcon
-                        sx={{
-                          color: "black",
-                          marginRight: "0.5rem",
-                          marginBottom: "-0.3rem",
-                        }}
-                      />
-                      <Typography
-                        color={"black"}
-                        display={"inline"}
-                        fontSize={"0.85rem"}
-                      >
-                        {GenerateNotifText(notif)}
-                      </Typography>
-                    </Box>
-                    <Box className="notif-target-button" textAlign={"right"}>
-                      <Button
-                        variant="text"
-                        sx={{ color: "black", fontSize: "0.8rem" }}
-                      >
-                        {notif.notification_type == 1
-                          ? "See " + notif.student.name + "'s profile"
-                          : notif.notification_type == 2
-                          ? "Go to position's page"
-                          : notif.notification_type == -2
-                          ? "Explore similar positions"
-                          : notif.notification_type == 3
-                          ? "Message " + notif.student.name
-                          : notif.notification_type == -3
-                          ? "Explore your other requests"
-                          : "See Position"}
-                      </Button>
-                    </Box>
-                  </Box>
-                  <Box
-                    className="right-circle-and-ribbon"
-                    marginRight={"0.7rem"}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    alignItems={"center"}
-                  >
-                    {!notif.bookmarked ? (
-                      <Tooltip title="Bookmark this notification">
-                        <BookmarkBorderIcon
-                          sx={{
-                            color: "black",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
-                          }}
-                        />
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="Delete from bookmarks">
-                        <BookmarkIcon
-                          sx={{
-                            color: "black",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
-                          }}
-                        />
-                      </Tooltip>
-                    )}
-                    <Tooltip title="Delete Notification">
-                      <DeleteIcon
-                        sx={{
-                          color: "black",
-                          fontSize: "1.3rem",
-                          cursor: "pointer",
-                          marginTop: "0.5rem",
-                        }}
-                      />
-                    </Tooltip>
-                  </Box>
-                </StyledNotification>
-              ))}
-            </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={2}>
-            <Box
-              className="bookmarked-notifications-tab-body"
-              sx={{
-                borderStyle: "solid",
-                borderWidth: "1px",
-                borderColor: "divider",
-                backgroundColor: "white",
-                borderRadius: "0.2rem",
-                minHeight: "13rem",
-                maxHeight: "30rem",
-                //boxShadow: "0px -1px 5px -1px rgba(0,0,0,0.42)",
-                marginBottom: "4rem",
-                overflow: "auto",
-              }}
-            >
-              {markedNotifs.map((notif, index) => (
-                <StyledNotification key={index} className="notif-body">
-                  <Box className="left-main" paddingLeft={"1rem"}>
-                    <Box className="notif-icon-and-text" width={"90%"}>
-                      <CampaignIcon
-                        sx={{
-                          color: "black",
-                          marginRight: "0.5rem",
-                          marginBottom: "-0.3rem",
-                        }}
-                      />
-                      <Typography
-                        color={"black"}
-                        display={"inline"}
-                        fontSize={"0.85rem"}
-                      >
-                        {GenerateNotifText(notif)}
-                      </Typography>
-                    </Box>
-                    <Box className="notif-target-button" textAlign={"right"}>
-                      <Button
-                        variant="text"
-                        sx={{ color: "black", fontSize: "0.8rem" }}
-                      >
-                        {notif.notification_type == 1
-                          ? "See " + notif.student.name + "'s profile"
-                          : notif.notification_type == 2
-                          ? "Go to position's page"
-                          : notif.notification_type == -2
-                          ? "Explore similar positions"
-                          : notif.notification_type == 3
-                          ? "Message " + notif.student.name
-                          : notif.notification_type == -3
-                          ? "Explore your other requests"
-                          : "See Position"}
-                      </Button>
-                    </Box>
-                  </Box>
-                  <Box
-                    className="right-circle-and-ribbon"
-                    marginRight={"0.7rem"}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    alignItems={"center"}
-                  >
-                    {!notif.bookmarked ? (
-                      <Tooltip title="Bookmark this notification">
-                        <BookmarkBorderIcon
-                          sx={{
-                            color: "black",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
-                          }}
-                        />
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="Delete from bookmarks">
-                        <BookmarkIcon
-                          sx={{
-                            color: "black",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
-                          }}
-                        />
-                      </Tooltip>
-                    )}
-                    <Tooltip title="Delete Notification">
-                      <DeleteIcon
-                        sx={{
-                          color: "black",
-                          fontSize: "1.3rem",
-                          cursor: "pointer",
-                          marginTop: "0.5rem",
-                        }}
-                      />
-                    </Tooltip>
-                  </Box>
-                </StyledNotification>
-              ))}
-            </Box>
-          </CustomTabPanel>
+                )}
+              </Box>
+            </CustomTabPanel>
+          ))}
         </Box>
       </Box>
       <Footer />

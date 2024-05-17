@@ -3,6 +3,9 @@ import { ConvDate } from "./DateConvertor";
 
 export function GenerateNotifText(notif:Notifications){
     var text = "";
+    if(!notif.student || !notif.position){
+        return "Error: null data detected";
+    }
     if(notif.notification_type == 1){ //Student Created Request
         text = notif.student.name + ", graduated student of " + notif.student.university_name + " requested to your recent program.";
     }
