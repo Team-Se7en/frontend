@@ -10,10 +10,10 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 export function StudentEditProfile() {
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        university: "",
-        ssn: 0,
+        firstName: "student",
+        lastName: "num1",
+        university: "Queen's University",
+        ssn: 13544578211,
     });
     const [EmailResetformData, emailResetFormData] = useState({
         password: "",
@@ -22,7 +22,7 @@ export function StudentEditProfile() {
 
     useEffect(() => {
         showInfo()
-    })
+    }, [])
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
@@ -34,7 +34,6 @@ export function StudentEditProfile() {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(formData);
         const sendingData = {
             university_name: formData.university,
             user: {
@@ -43,9 +42,10 @@ export function StudentEditProfile() {
             },
             ssn: formData.ssn
         }
-
+        console.log(sendingData);
+        
         try {
-            const response = await client.patch('/eduportal/student-profile/me/', sendingData);
+            const response = client.patch('/eduportal/student-profile/me/', sendingData);
             console.log(response)
 
         } catch (error) {
@@ -72,11 +72,13 @@ export function StudentEditProfile() {
     async function showInfo() {
 
         try {
+            const currentUser = await client.get("/auth/users/me/");
             const response = await client.get("/eduportal/userinfo/");
+            setFormData({ ...formData })
             formData.firstName = response.data.first_name
             formData.lastName = response.data.last_name
             formData.ssn = response.data.student.ssn
-            formData.university = response.data.student.university_name
+            // formData.university = response.data.student.university_name
             console.log(response)
 
         } catch (error) {
@@ -139,15 +141,15 @@ export function StudentEditProfile() {
                 <Box
                     className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)}
                 >
-                    
+
                     <Box className={clsx(editProfileStyles.uperImage)}>
                         <div>
-                        <img  className={clsx(editProfileStyles.profileImage)}></img>
+                            <img className={clsx(editProfileStyles.profileImage)}></img>
                         </div>
-                        <div style={{marginBottom:'110px',marginLeft:'-152px'}}>
-                    <Button>
-                        <PhotoCameraIcon ></PhotoCameraIcon>
-                        </Button>
+                        <div style={{ marginBottom: '110px', marginLeft: '-152px' }}>
+                            <Button>
+                                <PhotoCameraIcon ></PhotoCameraIcon>
+                            </Button>
                         </div>
                         {/* <Typography fontSize={30}>Welcome</Typography> */}
                     </Box>
@@ -161,7 +163,7 @@ export function StudentEditProfile() {
                                 </Tabs>
                             </Box>
                             <CustomTabPanel value={value} index={0}>
-                                <Box component="form" onSubmit={handleSubmit} onReset={showInfo} sx={{ mt: 1, overflowX: "hidden" }}>
+                                <Box component="form" onSubmit={handleSubmit} onReset={showInfo} sx={{ pt: 1, overflowX: "hidden" }}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
