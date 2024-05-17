@@ -1,18 +1,3 @@
-export const Skills: any[] = [
-    {
-        name: 'Communication',
-        id: 1
-    },
-    {
-        name: 'Teamwork',
-        id: 2
-    },
-    {
-        name: 'ProblemSolving',
-        id: 3
-    },
-]
-
 export interface BasicInfo {
     id?: number
     title?: string
@@ -41,3 +26,25 @@ export interface WorkExperience {
     end_date?: any
     job_title?: string
 }
+
+export interface Project {
+    id?: number
+    title?: string
+    link?: string
+    description?: string
+}
+
+export const Skills: any[] = [
+    {
+        name: 'Communication',
+        id: 1
+    },
+    {
+        name: 'Teamwork',
+        id: 2
+    },
+    {
+        name: 'ProblemSolving',
+        id: 3
+    },
+]

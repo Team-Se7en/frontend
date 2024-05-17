@@ -1,6 +1,5 @@
 import { Box, List, ListItem, ListItemSecondaryAction, ListItemText } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { BasicInfo, Skills, Education, WorkExperience } from "../../../models/CVtypes";
+import { BasicInfo, Skills, Education, WorkExperience, Project } from "../../../models/CVtypes";
 import React, { useEffect, useState } from "react";
 import {
     TextField,
@@ -23,8 +22,6 @@ export function EditCV() {
     let currentUser: any
 
     let hardSkills: HardSkill[] = []
-    let projects: Project[] = []
-    let workXPs: WorkExperience[] = []
 
     let [cvDataBasic, setCVDataBasic] = useState<BasicInfo>({
     });
@@ -65,14 +62,15 @@ export function EditCV() {
 
             const projectsApiUrl = `/eduportal/students/${UserPK}/CV/projects`;
             const projectsResponse = await client.get(projectsApiUrl);
-            projects = projectsResponse.data
-            // console.log(projects)
+            projectList = projectsResponse.data
+            setProjectList(projectsResponse.data)
+            console.log(projectList)
 
             const workXPsApiUrl = `/eduportal/students/${UserPK}/CV/work-xps`;
             const workXPsResponse = await client.get(workXPsApiUrl);
             workXPList = workXPsResponse.data
             setWorkXPList(workXPsResponse.data)
-            console.log(workXPList)
+            // console.log(workXPList)
 
 
         } catch (error) {
@@ -248,6 +246,61 @@ export function EditCV() {
         setWorkXPList(updatedList);
     };
 
+    //---------------------------------- PROJECT ----------------------------------
+    let [projectList, setProjectList] = useState<Project[]>([]);
+    const [openProject, setOpenProject] = useState(false);
+    const [project, setProject] = useState<Project>({
+        title: '',
+        link: '',
+        description: '',
+    });
+
+    const handleProjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setProject({ ...project, [name]: value });
+    };
+
+    const handleAddProject = async () => {
+        if (project.title && project.description) {
+
+            try {
+                currentUser = await client.get("/auth/users/me/");
+                const UserPK = currentUser.data.id;
+                const API_URL = `/eduportal/students/${UserPK}/CV/projects/`
+                const response = client.post(API_URL, project);
+                console.log(response)
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            setProjectList([...projectList, project]);
+
+            setProject({
+                title: '',
+                link: '',
+                description: '',
+            });
+            setOpenProject(false);
+        } else {
+            alert('Please fill the fields');
+        }
+    };
+
+    const handleRemoveProject = async (index: number) => {
+        try {
+            currentUser = await client.get("/auth/users/me/");
+            const UserPK = currentUser.data.id;
+            const API_URL = `/eduportal/students/${UserPK}/CV/projects/${projectList[index].id}/`
+            const response = client.delete(API_URL);
+            console.log(response)
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        const updatedList = [...projectList];
+        updatedList.splice(index, 1);
+        setProjectList(updatedList);
+    };
 
 
 
@@ -396,8 +449,8 @@ export function EditCV() {
                 </DialogContent>
                 <Button onClick={handleAddEducation}>Add</Button>
             </Dialog>
-            {/* Dialog for adding/editing work experience */}
 
+            {/* Dialog for adding/editing work experience */}
             <h2>Main Form Work XP</h2>
             <Button variant="contained" onClick={() => setOpenWorkXP(true)}>Add Work XP</Button>
             <h3>WORK XP List</h3>
@@ -450,6 +503,60 @@ export function EditCV() {
                 </DialogContent>
                 <Button onClick={handleAddWorkXP}>Add</Button>
             </Dialog>
+
+            {/* Dialog for adding/editing work experience */}
+            <h2>Main Form Project</h2>
+            <Button variant="contained" onClick={() => setOpenProject(true)}>Add Project</Button>
+            <h3>Project List</h3>
+            <List>
+                {projectList.map((project, index) => (
+                    <ListItem key={index}>
+                        <ListItemText primary={`${project.title}: ${project.description}`} />
+                        <ListItemSecondaryAction>
+                            <IconButton onClick={() => handleRemoveProject(index)}>
+                                <Delete />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                ))}
+            </List>
+            <Dialog open={openProject} onClose={() => setOpenProject(false)}>
+                <DialogTitle>Add Project</DialogTitle>
+                <DialogContent>
+                    <form>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Title"
+                                    name="title"
+                                    value={project.title}
+                                    onChange={handleProjectChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Description"
+                                    name="description"
+                                    value={project.description}
+                                    onChange={handleProjectChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Link"
+                                    name="link"
+                                    value={project.link}
+                                    onChange={handleProjectChange}
+                                />
+                            </Grid>
+                        </Grid>
+                    </form>
+                </DialogContent>
+                <Button onClick={handleAddProject}>Add</Button>
+            </Dialog>
         </Container>
     );
 }
@@ -463,12 +570,6 @@ class HardSkill {
     experience_time: 1 | undefined
 }
 
-class Project {
-    id: number | undefined
-    title: string | undefined
-    link: string | undefined
-    description: string | undefined
-}
 
 
 
