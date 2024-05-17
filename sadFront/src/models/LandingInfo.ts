@@ -1,4 +1,4 @@
-import { ProfessorCardViewShortInfo, StudentCardViewFullInfo, StudentCardViewShortInfo } from "./CardInfo";
+import { ProfessorCardViewShortInfo, StudentCardViewShortInfo } from "./CardInfo";
 
 export interface LandingInfo {
     student_count: number;

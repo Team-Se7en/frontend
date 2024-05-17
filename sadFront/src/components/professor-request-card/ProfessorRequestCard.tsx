@@ -101,17 +101,36 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                             </Typography>
                         </Tooltip>
                         <Box sx={{ minWidth: 'fit-content' }}>
-                            <Tooltip title="Edit">
-                                <IconButton disabled={props.disable} onClick={handleModalOpen}>
-                                    <EditRounded sx={{ color: theme.palette.iconButton }} />
-                                </IconButton>
-                            </Tooltip>
+                            {
+                                props.disable ?
+                                    (
+                                        <>
+                                            <IconButton disabled={true} onClick={handleModalOpen}>
+                                                <EditRounded sx={{ color: theme.palette.iconButton }} />
+                                            </IconButton>
 
-                            <Tooltip title="Delete">
-                                <IconButton disabled={props.disable} onClick={handleDeleteDialogOpen}>
-                                    <DeleteRounded sx={{ color: theme.palette.iconButton }} />
-                                </IconButton>
-                            </Tooltip>
+                                            <IconButton disabled={true} onClick={handleDeleteDialogOpen}>
+                                                <DeleteRounded sx={{ color: theme.palette.iconButton }} />
+                                            </IconButton>
+                                        </>
+                                    ) :
+                                    (
+                                        <>
+                                            <Tooltip title="Edit">
+                                                <IconButton onClick={handleModalOpen}>
+                                                    <EditRounded sx={{ color: theme.palette.iconButton }} />
+                                                </IconButton>
+                                            </Tooltip>
+
+                                            <Tooltip title="Delete">
+                                                <IconButton onClick={handleDeleteDialogOpen}>
+                                                    <DeleteRounded sx={{ color: theme.palette.iconButton }} />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </>
+                                    )
+                            }
+
                         </Box>
                     </Box>
 

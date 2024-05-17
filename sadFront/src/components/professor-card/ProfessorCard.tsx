@@ -1,15 +1,14 @@
-import { Box, Card, Typography } from "@mui/material";
-import { Professor } from "../../models/Professor";
+import { Box, Typography } from "@mui/material";
 import { StyledProfessorCard, StyledProfessorImage, StyledWrapper } from "./ProfessorCard-styles";
 import clsx from "clsx";
 import { getFullName } from "../../lib/global-util";
-import theme from "../../Theme";
 import { TopProfessorModel } from "../../models/LandingInfo";
 import Styles from "../../Styles";
 
 
 export interface ProfessorCardProps {
     professor: TopProfessorModel,
+    rgba: string,
 }
 
 export function ProfessorCard(props: ProfessorCardProps) {

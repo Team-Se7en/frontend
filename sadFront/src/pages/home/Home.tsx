@@ -17,7 +17,6 @@ import Styles from "../../Styles";
 import theme from "../../Theme";
 import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineSeparator } from "@mui/lab";
 import { siteUrl } from "../../Http/axios";
-import { useNavigate } from "react-router-dom";
 import ProgramCard from "../../components/programcard/ProgramCard";
 import { ProfessorRequestCard } from "../../components/professor-request-card/ProfessorRequestCard";
 import { UniversityCard } from "../../components/university-card/UnversityCard";
@@ -31,19 +30,35 @@ export function Home() {
   const [professorCount, setProfessorCount] = useState<number>(0);
   const [landingInfo, setLandingInfo] = useState<LandingInfo>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [chartData, setChartData] = useState<{ date: Date, count: number }[]>();
 
   useEffect(() => {
 
     const fetchLandingInfo = async () => {
       const result = await getLandingInfo();
       setLandingInfo(result.data);
-      setLoading(false);
     };
 
     if (!landingInfo) {
       fetchLandingInfo();
     }
   },);
+
+  useEffect(() => {
+    if (landingInfo) {
+      const _dataset = landingInfo?.growth.map(value => {
+        return { date: value[0], count: value[1] };
+      })
+      setChartData(_dataset);
+      console.log(_dataset);
+    }
+  }, [landingInfo])
+
+  useEffect(() => {
+    if (landingInfo && chartData) {
+      setLoading(false);
+    }
+  }, [landingInfo, chartData])
 
   useEffect(() => {
     if (!loading && landingInfo) {
@@ -147,15 +162,10 @@ export function Home() {
                     </Typography>
                     <Grid container spacing={2} marginTop={'1rem'} maxWidth={'50rem'}>
                       {
-                        landingInfo?.random_universities.slice(0, 9).map((item, index) => (
-                          <>
-                            <Grid item xs={2} key={index}>
-                              <StyledUniversityIcon onClick={() => handleUniversityClick(item.id)} src={siteUrl + item.icon} />
-                            </Grid>
-                            <Grid item xs={2} key={index}>
-                              <StyledUniversityIcon onClick={() => handleUniversityClick(item.id)} src={siteUrl + item.icon} />
-                            </Grid>
-                          </>
+                        landingInfo?.random_universities.map((item, index) => (
+                          <Grid item xs={2} key={index}>
+                            <StyledUniversityIcon onClick={() => handleUniversityClick(item.id)} src={siteUrl + item.icon} />
+                          </Grid>
                         ))
                       }
                     </Grid>
@@ -173,8 +183,8 @@ export function Home() {
                     <Box flex={1} className={clsx(globalClasses.flexColumn)}>
                       {
                         landingInfo?.professor_view_positions.map((item, index) => (
-                          <Box flexShrink={1}>
-                            <ProfessorRequestCard key={index} model={item} disable />
+                          <Box flexShrink={1} key={index}>
+                            <ProfessorRequestCard model={item} disable />
                           </Box>
                         ))
                       }
@@ -193,8 +203,8 @@ export function Home() {
                     <Box flex={1} className={clsx(globalClasses.flexColumn)}>
                       {
                         landingInfo?.student_view_positions.map((item, index) => (
-                          <Box flexShrink={1}>
-                            <ProgramCard key={index} professor={item.professor} description={""}
+                          <Box flexShrink={1} key={index}>
+                            <ProgramCard professor={item.professor} description={""}
                               capacity={item.capacity} university_name={item.university_name} university_id={item.university_id}
                               id={0} title={item.title} status={item.status}
                               end_date={item.end_date} tags={item.tags} fee={0}
@@ -212,9 +222,9 @@ export function Home() {
 
               <StyledDetailContainer>
                 <Box className={clsx(globalClasses.flexColumn, globalClasses.fullyCenter)} gap={2} width={'60%'} minWidth={'300px'}>
-                  <LineChart height={300} series={[
-                    { curve: "linear", data: landingInfo?.growth.map(x => x[1]), color: theme.palette.chartColor, showMark: false, },
-                  ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }} className={clsx(homeClasses.chartStyle)} />
+                  <LineChart height={300} dataset={chartData}
+                    series={[{ curve: "linear", dataKey: 'count', color: theme.palette.chartColor, showMark: false, },
+                    ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }} className={clsx(homeClasses.chartStyle)} />
                 </Box>
 
                 <Box width={'40%'} className={clsx(globalClasses.flexColumn)} justifyContent={'space-around'}>
@@ -411,7 +421,7 @@ export function Home() {
                 <Box width={'50%'} sx={{ aspectRatio: '2.5' }}>
                   <Carousel>
                     {landingInfo?.top_professors.map((item, index) => (
-                      <ProfessorCard key={index} professor={item} rgba={getPlacementColor(item.rank)}/>
+                      <ProfessorCard key={index} professor={item} rgba={getPlacementColor(item.rank)} />
                     ))}
                   </Carousel>
                 </Box>
