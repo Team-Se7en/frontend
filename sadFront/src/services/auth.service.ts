@@ -1,6 +1,6 @@
-import client from "Http/axios";
+import client from "../Http/axios";
 
-export const getUserInfo = async() => {
+export const getUserInfo = async () => {
     try {
         const result = await client.get(`/eduportal/userinfo/`);
         return result;

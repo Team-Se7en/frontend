@@ -16,6 +16,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { AuthContextType, useAuth } from "../../hooks/authUtils";
 
 const pages = ["Home", "Positions", "Requests", "University"];
 const settings = ["Profile", "Add Program", "Logout"];
@@ -29,6 +30,8 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
   const [activeComponent, setActiveComponent] = useState("Home");
+
+  const { isLoggedIn, userInfo, _, logout }: AuthContextType = useAuth();
 
   const handleOpenNavMenu = (event: {
     currentTarget: React.SetStateAction<null>;
@@ -64,6 +67,11 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
     switch (setting) {
       case "Add Program":
         handleModalOpen();
+        break;
+
+      case "Logout":
+        logout();
+        navigate("/login");
         break;
     }
   };
