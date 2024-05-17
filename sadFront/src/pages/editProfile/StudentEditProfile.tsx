@@ -6,6 +6,7 @@ import client from "../../Http/axios";
 import Styles from "../../Styles";
 import EditProfileStyles from "./EditProfile-styles";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import { StudentProfileImage } from "../../assets/images";
 
 
 export function StudentEditProfile() {
@@ -144,13 +145,13 @@ export function StudentEditProfile() {
 
                     <Box className={clsx(editProfileStyles.uperImage)}>
                         <div>
-                            <img className={clsx(editProfileStyles.profileImage)}></img>
+                            <img className={clsx(editProfileStyles.profileImage)} src={StudentProfileImage}></img>
                         </div>
-                        <div style={{ marginBottom: '110px', marginLeft: '-152px' }}>
+                        {/* <div style={{ marginBottom: '110px', marginLeft: '-152px' }}>
                             <Button>
                                 <PhotoCameraIcon ></PhotoCameraIcon>
                             </Button>
-                        </div>
+                        </div> */}
                         {/* <Typography fontSize={30}>Welcome</Typography> */}
                     </Box>
                     <Box sx={{ width: '100%' }}>
