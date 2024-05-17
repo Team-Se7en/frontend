@@ -182,12 +182,13 @@ export default function CardModal(props: CardModalProps) {
                     :
                     <>
 
-                        <Box component="form">
+                        <Box component="form" height={'100%'}>
                             <Box sx={{
-                                p: theme.spacing(5),
-                                pt: '4rem',
+                                pl: theme.spacing(5),
+                                pr: theme.spacing(5),
+                                // pt: '0',
                                 overflow: 'scroll',
-                                height: '45rem',
+                                height: 'calc(100% - 3rem)',
                             }} gap={2} className={clsx(globalStyles.flexColumn, globalStyles.fullyCenter)}>
 
                                 <TextField
@@ -320,7 +321,7 @@ export default function CardModal(props: CardModalProps) {
                                 </FormControl>
                             </Box>
 
-                            <ButtonGroup variant="text" fullWidth>
+                            <ButtonGroup variant="text" fullWidth sx={{ height: '3rem' }}>
                                 <CancelButton color="error" disableRipple onClick={props.onClose}>Cancel</CancelButton>
                                 <SaveButton color="success" disableRipple onClick={handleSubmit}>Save</SaveButton>
                             </ButtonGroup>
