@@ -19,6 +19,7 @@ import { useState } from "react";
 export interface ProfessorRequestCardProps {
     model: ProfessorCardViewShortInfo;
     onDelete?: (id: number) => void;
+    disable?: boolean;
 }
 
 export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
@@ -83,26 +84,6 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
 
     const globalStyles = Styles();
 
-    // const fullInfo: ProfessorCardViewFullInfo = {
-    //     description: "description",
-    //     university: {
-    //         name: "IUST",
-    //         description: "Iran University of Science and Technology"
-    //     },
-    //     title: model.title,
-    //     capacity: model.capacity,
-    //     status: model.status,
-    //     start_date: model.start_date,
-    //     end_date: model.end_date,
-    //     tags: model.tags,
-    //     fee: model.fee,
-    //     position_start_date: model.position_start_date,
-    //     // duration: model.duration,
-    //     request_count: 0,
-    //     id: 0,
-    //     position_end_date: model.position_end_date,
-    // }
-
     const handleUpdate = (updatedModel: ProfessorCardViewShortInfo) => {
         setModel(updatedModel);
     }
@@ -121,13 +102,13 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         </Tooltip>
                         <Box sx={{ minWidth: 'fit-content' }}>
                             <Tooltip title="Edit">
-                                <IconButton onClick={handleModalOpen}>
+                                <IconButton disabled={props.disable} onClick={handleModalOpen}>
                                     <EditRounded sx={{ color: theme.palette.iconButton }} />
                                 </IconButton>
                             </Tooltip>
 
                             <Tooltip title="Delete">
-                                <IconButton onClick={handleDeleteDialogOpen}>
+                                <IconButton disabled={props.disable} onClick={handleDeleteDialogOpen}>
                                     <DeleteRounded sx={{ color: theme.palette.iconButton }} />
                                 </IconButton>
                             </Tooltip>
@@ -150,7 +131,9 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                             </Typography>
                         </Box>
                         <Spacer />
-                        <StatusCircle status={model.status} />
+                        <Box minWidth={'4.5rem'} display={'flex'} justifyContent={'flex-end'}>
+                            <StatusCircle status={model.status} />
+                        </Box>
                     </Box>
 
                     <Tooltip title={model.university_name}>
@@ -175,13 +158,13 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                         </Typography>
 
                         <Typography variant="body1">
-                            Requested: {model.request_count}
+                            Requested: {props.disable ? '?' : model.request_count}
                         </Typography>
                     </Box>
 
-                    <Box gap={1} className={globalStyles.flexRow}>
+                    {/* <Box gap={1} className={globalStyles.flexRow}>
 
-                        {/* <Box gap={0.5} className={globalStyles.flexRow}>
+                        <Box gap={0.5} className={globalStyles.flexRow}>
 
                             <HourglassTopRounded sx={{ color: theme.palette.iconButton }} />
                             <Typography>
@@ -195,13 +178,13 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                                     model.duration.day ? ` ${model.duration.day}d` : ''
                                 }
                             </Typography>
-                        </Box> */}
-                    </Box>
+                        </Box>
+                    </Box> */}
 
                     <Grid container spacing={1} sx={{ overflow: 'hidden', height: '2.5rem', mt: '0 !important' }}>
                         <Grid item>
                             <Typography sx={{ pt: '4px' }}>
-                                Tags:
+                                Topics:
                             </Typography>
                         </Grid>
 
@@ -215,7 +198,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
 
                         <Spacer />
                         <Grid sx={{ pt: '4px' }}>
-                            <Button onClick={handleDialogOpen} sx={{ color: 'darkblue' }} className={clsx(globalStyles.justifySelfBottom)} variant="text" disableRipple>Learn More</Button>
+                            <Button disabled={props.disable} onClick={handleDialogOpen} sx={{ color: 'darkblue' }} className={clsx(globalStyles.justifySelfBottom)} variant="text" disableRipple>Learn More</Button>
                         </Grid>
 
                     </Grid>
@@ -246,7 +229,7 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
             </Dialog>
 
             <Modal open={modalOpen} onClose={handleModalClose} sx={{ m: 2, borderRadius: '4px', height: '90%' }}>
-                <CardModal model_id={model.id} onClose={handleModalClose} onAddUpdate={handleUpdate}/>
+                <CardModal model_id={model.id} onClose={handleModalClose} onAddUpdate={handleUpdate} />
             </Modal>
 
             <Dialog open={deleteDialogOpen} onClose={handleDeleteDialogClose} fullWidth maxWidth='sm'>

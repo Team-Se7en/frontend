@@ -17,6 +17,7 @@ export interface CardInfo {
 }
 
 export interface ProfessorCardViewShortInfo extends CardInfo {
+    university_id: number;
     university_name: string;
     request_count: number;
 }

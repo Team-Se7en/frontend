@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosInstance } from "axios";
 
 import Cookies from "js-cookie";
-import { formatDateForApi, formatDatesInData, formatTime } from "../lib/format-time";
+import { formatDatesInData } from "../lib/format-time";
 
-const siteUrl = "https://seven-apply.liara.run/";
+export const siteUrl = "https://seven-apply.liara.run/";
 
 const client: AxiosInstance = axios.create({
     baseURL: siteUrl,
