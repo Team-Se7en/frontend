@@ -24,6 +24,8 @@ import { StudentCard } from "../../components/student-card/StudentCard";
 import "./Home.css"
 import { getPlacementColor } from "../../lib/global-util";
 import { ProfessorCard } from "../../components/professor-card/ProfessorCard";
+import { Link as Link2 } from "react-router-dom";
+
 
 export function Home() {
   const [studentCount, setStudentCount] = useState<number>(0);
@@ -163,7 +165,12 @@ export function Home() {
                       {
                         landingInfo?.random_universities.map((item, index) => (
                           <Grid item xs={2} key={index}>
-                            <StyledUniversityIcon onClick={() => handleUniversityClick(item.id)} src={siteUrl + item.icon} />
+                            <Link2
+                              to={{ pathname: "/universitypage" }}
+                              state={item.id}
+                            >
+                              <StyledUniversityIcon src={siteUrl + item.icon} />
+                            </Link2>
                           </Grid>
                         ))
                       }

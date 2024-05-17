@@ -15,6 +15,8 @@ import { deletePosition } from "../../services/position.service";
 import { formatTime } from "../../lib/format-time";
 import theme from "../../Theme";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 export interface ProfessorRequestCardProps {
     model: ProfessorCardViewShortInfo;
@@ -91,7 +93,6 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
     return (
         <>
             <StyledCard className={clsx(globalStyles.flexColumn)}>
-                {/* <StyledBackgroundImage /> */}
                 <StyledCardContent className={clsx(globalStyles.flexColumn)}>
 
                     <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween, globalStyles.vCenter)}>
@@ -158,9 +159,15 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                     <Tooltip title={model.university_name}>
                         <Box gap={1} className={globalStyles.flexRow} sx={{ mt: 0.5 }}>
                             <SchoolRounded sx={{ color: theme.palette.iconButton }} />
-                            <Typography variant="body1" textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
-                                {model.university_name}
-                            </Typography>
+                            <Link
+                                to={{ pathname: "/universitypage" }}
+                                state={props.model.university_id}
+                            >
+                                <Typography
+                                variant="body1" textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
+                                    {model.university_name}
+                                </Typography>
+                            </Link>
                         </Box>
                     </Tooltip>
 
@@ -180,25 +187,6 @@ export function ProfessorRequestCard(props: ProfessorRequestCardProps) {
                             Requested: {props.disable ? '?' : model.request_count}
                         </Typography>
                     </Box>
-
-                    {/* <Box gap={1} className={globalStyles.flexRow}>
-
-                        <Box gap={0.5} className={globalStyles.flexRow}>
-
-                            <HourglassTopRounded sx={{ color: theme.palette.iconButton }} />
-                            <Typography>
-                                {
-                                    model.duration.year ? ` ${model.duration.year}y,` : ''
-                                }
-                                {
-                                    model.duration.month ? ` ${model.duration.month}m,` : ''
-                                }
-                                {
-                                    model.duration.day ? ` ${model.duration.day}d` : ''
-                                }
-                            </Typography>
-                        </Box>
-                    </Box> */}
 
                     <Grid container spacing={1} sx={{ overflow: 'hidden', height: '2.5rem', mt: '0 !important' }}>
                         <Grid item>
