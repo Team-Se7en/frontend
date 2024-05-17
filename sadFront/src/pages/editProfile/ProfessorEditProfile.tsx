@@ -10,16 +10,16 @@ import { ProfessorProfileImage } from "../../assets/images";
 
 export function ProfessorEditProfile() {
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        department: "",
-        university: "",
+        firstName: "professor",
+        lastName: "prof1",
+        department: "Mathematic",
+        university: "MIT University",
         // birthdate: null,
     });
 
     useEffect(() => {
         showInfo()
-    })
+    }, [])
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
@@ -59,9 +59,10 @@ export function ProfessorEditProfile() {
             const response = await client.get("/eduportal/userinfo/");
             formData.firstName = response.data.first_name
             formData.lastName = response.data.last_name
-            formData.department = response.data.professor.department
-            formData.university = response.data.professor.university
+            // formData.department = response.data.professor.department
+            // formData.university = response.data.professor.university
             // formData.birthdate = response.data.professor.birth_date
+            setFormData({ ...formData })
             console.log(response.data)
 
         } catch (error) {
@@ -82,7 +83,7 @@ export function ProfessorEditProfile() {
     const navigateToHome = () => {
         navigate("/professorhomepage");
     }
-    
+
     const globalClasses = Styles();
     const editProfileStyles = EditProfileStyles();
 
@@ -102,12 +103,12 @@ export function ProfessorEditProfile() {
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                     <Tab label="Edit Profile" {...a11yProps(0)} />
-                                    <Tab label="My Positions" {...a11yProps(1)} />
+                                    {/* <Tab label="My Positions" {...a11yProps(1)} /> */}
                                     {/* <Tab label="Reset Email" {...a11yProps(2)} /> */}
                                 </Tabs>
                             </Box>
                             <CustomTabPanel value={value} index={0}>
-                                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                                <Box component="form" onSubmit={handleSubmit} sx={{ pt: 1 }}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
