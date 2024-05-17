@@ -37,17 +37,21 @@ const theme = createTheme({
 });
 
 export default function ProfessorCard() {
+
+  interface University {
+    name?: string,
+    country?: string,
+    city?: string,
+  }
   interface Professor {
-    "professor_name": string,
-    "major": string,
-    "university": {
-      "name"?: string,
-      "country"?: string,
-      "city"?: string
-    },
-    "department"?: string,
-    "project_num": number,
+    professor_name: string,
+    major: string,
+    university?: University,
+    department?: string,
+    project_num: number,
 }
+
+
   
 
   const [topProfessors, setTopProfessors] = useState<Professor[]>([]);
@@ -74,21 +78,34 @@ export default function ProfessorCard() {
   }, []);
 
   return (
+
+
     <ThemeProvider theme={theme}>
-      <Box sx={{ maxWidth: 600, mx: 'auto', mt: 5, p: 2, borderRadius: 2, width:'100%' }}>
+    <Box
+    height={"30rem"}
+    my={4}
+    display="flex"
+    flexDirection={"column"}
+    alignItems={"flex-end"}
+    gap="1rem"
+    p={2}
+    padding={"0rem"}
+    overflow={"auto"}
+    >
+      <Box sx={{ maxWidth: 700, mx: 'auto', mt: 1, p: 1, borderRadius: 2, width:'100%', pb: 7 }}>
         {topProfessors.map((prof)=>(
-          <Card raised>
+          <Card raised sx={{ mb: 2 }}>
           <CardContent>
             <Typography variant="h5">
               {prof.professor_name}
             </Typography>
             
-            <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
+            <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5,color: 'secondary' }}>
               <WorkIcon sx={{ mr: 1 }} /> {prof.major}
             </Typography>
             
             <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-              <SchoolIcon sx={{ mr: 1 }} /> {prof.university.name}
+              <SchoolIcon sx={{ mr: 1 }} /> {prof.university?.name || 'N/A'}
             </Typography>
 
             <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
@@ -100,7 +117,7 @@ export default function ProfessorCard() {
             </Typography>
             
             <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-              <LocationOnIcon sx={{ mr: 1 }} /> Location: {prof.university.country}
+              <LocationOnIcon sx={{ mr: 1 }} /> Location: {prof.department || 'N/A'}
             </Typography>
             
           </CardContent>
@@ -110,6 +127,9 @@ export default function ProfessorCard() {
         ))}
         
       </Box>
+      </Box>
+
     </ThemeProvider>
+
   );
 }

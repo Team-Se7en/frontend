@@ -17,10 +17,7 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
 
     useEffect(() => {
             setPositions(props.data);
-            console.log(props.data);
-           // console.log(positions);
 
-        // }
         },[props.queryParams,props.data]);
 
     const handlePositionDelete = (id: number) => {
@@ -35,17 +32,17 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
 
     return (    
         <Box
-            width={"60%"}
+            width={"90%"}
             minWidth={"30rem"}
             maxWidth={"50rem"}
-            sx={{ backgroundColor: "#fff" }}
+            sx={{ backgroundColor: "#0F1035" }}
         >
-            <Divider
+            {/* <Divider
                 textAlign="left"
                 sx={{ fontFamily: "Arial", fontSize: "1rem", color: "#6e6e6e", paddingTop: "20px",
             }}>
                 Own Positions
-            </Divider>
+            </Divider> */}
             <Box
                 height={"30rem"}
                 my={4}

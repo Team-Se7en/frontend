@@ -119,13 +119,17 @@ fetchRecentPositions();
             <ProfessorPositionFilter onProfessorFilter={setFilterOptions} />
           </Box>
 
+        <Box sx = {{width: "100%"}}>
           <ProfessorPositions data={data} modelToAdd={modelToAdd} queryParams={cards} />
+
+
+        <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
+          <StudentCard/>
         </Box>
 
-        <Box>
-        <StudentCard/>
         </Box>
 
+      </Box>
 
       </Box>
 

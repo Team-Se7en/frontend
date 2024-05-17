@@ -105,17 +105,25 @@ export default function StudentHomepage() {
             <StudentPositionFilter onStudentFilter={setFilterOptions}/>
 
           </Box>
+
+          <Box sx = {{width: "100%"}}>
           <StudentPositions queryParams={cards}/>
+
+          <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
+            <ProfessorCard/>
+          </Box>
+
+            
+          </Box>
+
           
         </Box>
 
-        <Box sx = {{display: "flex", flexDirection: "row",}}>
-        <ProfessorCard/>
-        </Box>
+
 
       </Box>
 
-      <Box sx={{ margintop: "128px" }}>
+      <Box sx={{ paddingTop: "128px" }}>
         <Footer />
       </Box>
     </Box>

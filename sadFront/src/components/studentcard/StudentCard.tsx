@@ -37,16 +37,18 @@ const theme = createTheme({
     });
 
     export default function StudentCard() {
+
+    interface University {
+            name?: string,
+            country?: string,
+            city?: string,
+        }
     
     interface Student {
-        "student_name": string,
-        "major": string,
-        "university": {
-            "name"?: string,
-            "country"?: string,
-            "city"?: string,
-        },
-        "gpa": number,
+        student_name: string,
+        major: string,
+        university?: University,
+        gpa: number,
 }
 
     const [topStudents, setTopStudents] = useState<Student[]>([]);
@@ -75,9 +77,20 @@ const theme = createTheme({
 
     return (
     <ThemeProvider theme={theme}>
-    <Box sx={{ maxWidth: 600, mx: 'auto', mt: 5, p: 2, borderRadius: 2 }}>
+    <Box
+    height={"30rem"}
+    my={4}
+    display="flex"
+    flexDirection={"column"}
+    alignItems={"flex-end"}
+    gap="1rem"
+    p={2}
+    padding={"0rem"}
+    overflow={"auto"}
+    >
+    <Box sx={{ maxWidth: 700, mx: 'auto', mt: 1, p: 1, borderRadius: 2,width:'100%', pb: 7 }}>
     {topStudents.map((stud)=>(
-        <Card raised>
+        <Card raised sx={{ mb: 2 }}>
         <CardContent>
         <Typography variant="h5">
             {stud.student_name}
@@ -88,7 +101,7 @@ const theme = createTheme({
         </Typography>
 
         <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-            <SchoolIcon sx={{ mr: 1 }} /> {stud.university.name}
+            <SchoolIcon sx={{ mr: 1 }} /> {stud.university?.name || 'N/A'}
         </Typography>
 
         <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
@@ -100,7 +113,7 @@ const theme = createTheme({
         </Typography>
         
         <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-            <LocationOnIcon sx={{ mr: 1 }} /> Location: {stud.university.country}
+            <LocationOnIcon sx={{ mr: 1 }} /> Location: {stud.university?.city || 'N/A'}
         </Typography>
         
         </CardContent>
@@ -109,6 +122,9 @@ const theme = createTheme({
     ))}
     
         </Box>
+
+    </Box>
+
     </ThemeProvider>
     );
 }
