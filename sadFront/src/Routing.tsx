@@ -15,6 +15,8 @@ import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
 import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import UniversityPage from "./pages/university/University";
 import { StudentAccept } from "./pages/accept-sudent/StudentAccept";
+import { EditCV } from "./pages/editProfile/CV/EditCV";
+import { ViewCV } from "./pages/editProfile/CV/ViewCV";
 import NotificationsPage from "./pages/notifications/notifications-page";
 
 export default function Routing() {
@@ -32,6 +34,8 @@ export default function Routing() {
           element={<ProfessorEditProfile />}
         />
         <Route path="student/editProfile" element={<StudentEditProfile />} />
+        <Route path="cv/view" element={<ViewCV />} />
+        <Route path="cv/edit" element={<EditCV />} />
         <Route path="forgot-pass" element={<Forgot />} />
         <Route path="verification" element={<Verification />} />
         <Route

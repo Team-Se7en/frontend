@@ -5,6 +5,9 @@ import clsx from "clsx";
 import Styles from "../../../Styles";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import client from "../../../Http/axios";
+import { BasicInfo, Education, HardSkill, HardSkills, Project, WorkExperience } from "../../../models/CVtypes";
+import { useEffect, useState } from "react";
 
 export function ViewCV() {
     const CVdata = {
@@ -50,6 +53,19 @@ export function ViewCV() {
             }
         ]
     }
+    
+    const softSkillsItem = [
+        'Communication', 'Teamwork', 'ProblemSolving',
+    ]
+
+    let [cvDataBasic, setCVDataBasic] = useState<BasicInfo>({ soft_skills: [] });
+    let [educationList, setEducationList] = useState<Education[]>([]);
+    let [workXPList, setWorkXPList] = useState<WorkExperience[]>([]);
+    let [projectList, setProjectList] = useState<Project[]>([]);
+    let [hardSkillList, setHardSkillList] = useState<HardSkill[]>([]);
+    let [currentUserInfo, setcurrentUserInfo] = useState<any>({});
+
+
     const globalClasses = Styles();
     const cvStyles = CVStyles();
 
@@ -57,6 +73,72 @@ export function ViewCV() {
     const navigateToEditCV = () => {
         navigate("/cv/edit");
     }
+
+    useEffect(() => {
+        getInfo()
+    }, [])
+
+    async function getInfo() {
+        try {
+            const currentUser = await client.get("/auth/users/me/");
+            const UserPK = currentUser.data.id;
+            setcurrentUserInfo(currentUser.data)
+            console.log(currentUserInfo)
+
+            const basicInfoApiUrl = `/eduportal/students/${UserPK}/CV/`;
+            const basicInfoResponse = await client.get(basicInfoApiUrl);
+            cvDataBasic.title = basicInfoResponse.data.title
+            cvDataBasic.birth_date = basicInfoResponse.data.birth_date
+            cvDataBasic.gender = basicInfoResponse.data.gender
+            cvDataBasic.employment_status = basicInfoResponse.data.employment_status
+            cvDataBasic.soft_skills = basicInfoResponse.data.soft_skills
+            cvDataBasic.about = basicInfoResponse.data.about
+            // setSelectedSkills(basicInfoResponse.data.soft_skills)
+            setCVDataBasic({
+                ...cvDataBasic,
+            });
+            console.log(cvDataBasic)
+
+            const educationApiUrl = `/eduportal/students/${UserPK}/CV/education`;
+            const educationsResponse = await client.get(educationApiUrl);
+            educationList = educationsResponse.data
+            setEducationList(educationsResponse.data)
+            console.log(educationList)
+
+            const hardSkillsApiUrl = `/eduportal/students/${UserPK}/CV/hard-skills`;
+            const hardSkillsResponse = await client.get(hardSkillsApiUrl);
+            hardSkillList = hardSkillsResponse.data
+            setHardSkillList(hardSkillsResponse.data)
+            console.log(hardSkillList)
+
+            const projectsApiUrl = `/eduportal/students/${UserPK}/CV/projects`;
+            const projectsResponse = await client.get(projectsApiUrl);
+            projectList = projectsResponse.data
+            setProjectList(projectsResponse.data)
+            console.log(projectList)
+
+            const workXPsApiUrl = `/eduportal/students/${UserPK}/CV/work-xps`;
+            const workXPsResponse = await client.get(workXPsApiUrl);
+            workXPList = workXPsResponse.data
+            setWorkXPList(workXPsResponse.data)
+            console.log(workXPList)
+
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function findHardSkill(id: any): string {
+        HardSkills.forEach(element => {
+            if (id == element.id) {
+                console.log(element)
+                return element.name
+            }
+        });
+        return 'nan'
+    }
+
     return (
         <Box className={clsx(cvStyles.background)}>
             <Grid container sx={{ width: '75%', bgcolor: 'white', height: 'fit-content' }}>
@@ -67,12 +149,12 @@ export function ViewCV() {
                     </Grid>
                     <Grid item xs={12}>
                         <Paper sx={{ padding: '1rem' }} elevation={3}>
-                            <Typography variant="body1" sx={{ fontFamily: 'sans-serif' }}>Email: {CVdata.email}</Typography>
+                            <Typography variant="body1" sx={{ fontFamily: 'sans-serif' }}>Email: {currentUserInfo.email}</Typography>
                             <Typography variant="body1" sx={{ fontFamily: 'Helvetica' }}>University: {CVdata.university}</Typography>
-                            <Typography variant="body1">Birthdate: {CVdata.birthdate}</Typography>
-                            <Typography variant="body1">Gender: {CVdata.gender}</Typography>
-                            <Typography variant="body1">Job: {CVdata.job}</Typography>
-                            <Typography variant="body1">About Me: {CVdata.aboutme}</Typography>
+                            <Typography variant="body1">Birthdate: {cvDataBasic.birth_date}</Typography>
+                            <Typography variant="body1">Gender: {cvDataBasic.gender ? 'male' : 'female'}</Typography>
+                            <Typography variant="body1">Job: {cvDataBasic.employment_status == 1 ? 'Employed' : 'Unemployed'}</Typography>
+                            <Typography variant="body1">About Me: {cvDataBasic.about}</Typography>
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
@@ -80,9 +162,9 @@ export function ViewCV() {
                             <Typography variant="h5" fontWeight={'600'}>
                                 Technical Skills</Typography>
                             <List>
-                                {CVdata.technicalSkills.map((skill, index) => (
+                                {hardSkillList.map((skill, index) => (
                                     <ListItem key={index}>
-                                        <ListItemText primary={skill} />
+                                        <ListItemText primary={HardSkills[skill.technology!]} />
                                     </ListItem>
                                 ))}
                             </List>
@@ -92,9 +174,9 @@ export function ViewCV() {
                         <Paper sx={{ padding: '1rem' }} elevation={3}>
                             <Typography variant="h5" fontWeight={'600'}>Soft Skills</Typography>
                             <List>
-                                {CVdata.softSkills.map((skill, index) => (
+                                {cvDataBasic.soft_skills!.map((skill, index) => (
                                     <ListItem key={index}>
-                                        <ListItemText primary={skill} />
+                                        <ListItemText primary={softSkillsItem[skill - 1]} />
                                     </ListItem>
                                 ))}
                             </List>
@@ -124,21 +206,21 @@ export function ViewCV() {
                 </Grid>
                 <Grid item container spacing={2} sx={{ width: '60%', height: 'fit-content', marginInlineStart: '4%' }}>
                     <Grid item xs={12} sx={{ margin: '4rem 0 1rem' }}>
-                        <Typography variant="h2" fontWeight={'bold'} color={'rgb(84, 71, 179)'} sx={{ fontFamily: 'Arial' }}>{CVdata.name}</Typography>
+                        <Typography variant="h2" fontWeight={'bold'} color={'rgb(84, 71, 179)'} sx={{ fontFamily: 'Arial' }}>{currentUserInfo.first_name + ' ' + currentUserInfo.last_name}</Typography>
                         <Divider sx={{ marginTop: '3rem' }}></Divider>
                     </Grid>
                     <Grid item xs={12} sx={{ padding: '1rem' }}>
                         <Typography variant="h5" fontWeight={'600'}> <LabelImportantIcon /> Work Experiences</Typography>
                         <List>
-                            {CVdata.workExperiences.map((experience, index) => (
+                            {workXPList.map((experience, index) => (
                                 <ListItem key={index}>
                                     <ListItemText
-                                        primary={experience.companyName}
+                                        primary={experience.company_name}
                                         secondary={
                                             <>
-                                                <Typography variant="body2">Role: {experience.role}</Typography>
-                                                <Typography variant="body2">Website: {experience.companyWbsite}</Typography>
-                                                <Typography variant="body2">Start-End Date: {experience.startEndDate}</Typography>
+                                                <Typography variant="body2">Role: {experience.job_title}</Typography>
+                                                <Typography variant="body2">Website: {experience.company_website}</Typography>
+                                                <Typography variant="body2">Start-End Date: {experience.start_date + ' to ' + experience.end_date}</Typography>
                                             </>
                                         }
                                     />
@@ -149,15 +231,15 @@ export function ViewCV() {
                     <Grid item xs={12} sx={{ padding: '1rem' }}>
                         <Typography variant="h5" fontWeight={'600'}> <LabelImportantIcon /> Educational Records</Typography>
                         <List>
-                            {CVdata.EducationalRecords.map((record, index) => (
+                            {educationList.map((record, index) => (
                                 <ListItem key={index}>
                                     <ListItemText
-                                        primary={`${record.grade} in ${record.field}`}
+                                        primary={`${record.degree} in ${record.field_of_study}`}
                                         secondary={
                                             <>
-                                                <Typography variant="body2">University: {record.university}</Typography>
-                                                <Typography variant="body2">Date: {record.date}</Typography>
-                                                <Typography variant="body2">GPA: {record.GPA}</Typography>
+                                                <Typography variant="body2">University: {record.institute}</Typography>
+                                                <Typography variant="body2">Date: {record.start_date + ' to ' + record.end_date}</Typography>
+                                                <Typography variant="body2">GPA: {record.grade}</Typography>
                                             </>
                                         }
                                     />
@@ -168,11 +250,14 @@ export function ViewCV() {
                     <Grid item xs={12} sx={{ padding: '1rem' }}>
                         <Typography variant="h5" fontWeight={'600'}><LabelImportantIcon /> Projects</Typography>
                         <List>
-                            {CVdata.projects.map((project, index) => (
+                            {projectList.map((project, index) => (
                                 <ListItem key={index}>
                                     <ListItemText
                                         primary={project.title}
-                                        secondary={`Link: ${project.linkAdress}`}
+                                        secondary={<>
+                                            <Typography variant="body2">Link: {project.link}</Typography>
+                                            <Typography variant="body2">Description: {project.description}</Typography>
+                                        </>}
                                     />
                                 </ListItem>
                             ))}
