@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Notifications } from "../../models/Notifications";
 import { GenerateNotifText } from "../../lib/NotifText";
+import client from "../../Http/axios";
 
 export default function NotificationsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -26,7 +27,7 @@ export default function NotificationsMenu() {
     setAnchorEl(null);
   };
   const bookmarkHandleClick = (id: number) => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/notifications/" +
           id +
@@ -40,7 +41,7 @@ export default function NotificationsMenu() {
       });
   };
   const markReadHandleClick = (id: number) => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/notifications/" +
           id +
@@ -58,7 +59,7 @@ export default function NotificationsMenu() {
   const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
       )
@@ -167,14 +168,14 @@ export default function NotificationsMenu() {
                       >
                         {notif.notification_type == 1
                           ? "See " +
-                            notif.student.user.first_name +
+                            notif.student?.user.first_name +
                             "'s profile"
                           : notif.notification_type == 2
                           ? "Go to position's page"
                           : notif.notification_type == -2
                           ? "Explore similar positions"
                           : notif.notification_type == 3
-                          ? "Message " + notif.student.user.first_name
+                          ? "Message " + notif.student?.user.first_name
                           : notif.notification_type == -3
                           ? "Explore your other requests"
                           : "See Position"}

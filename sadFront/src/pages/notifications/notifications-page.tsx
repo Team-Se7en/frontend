@@ -19,10 +19,10 @@ import CircleIcon from "@mui/icons-material/Circle";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import axios from "axios";
 import { Notifications } from "../../models/Notifications";
 import { GenerateNotifText } from "../../lib/NotifText";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import client from "../../Http/axios";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -74,7 +74,7 @@ export default function NotificationsPage() {
   const [refreshKey, setRefreshKey] = React.useState(0);
 
   const bookmarkHandleClick = (id: number) => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/notifications/" +
           id +
@@ -89,7 +89,7 @@ export default function NotificationsPage() {
   };
 
   const markReadHandleClick = (id: number) => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/notifications/" +
           id +
@@ -104,7 +104,7 @@ export default function NotificationsPage() {
   };
 
   const deleteHandleClick = (id: number) => {
-    axios
+    client
       .delete(
         "https://seven-apply.liara.run/eduportal/notifications/" + id + "/"
       )
@@ -114,7 +114,7 @@ export default function NotificationsPage() {
   };
 
   React.useEffect(() => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
       )
@@ -128,7 +128,7 @@ export default function NotificationsPage() {
   }, [refreshKey]);
 
   React.useEffect(() => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/notifications/all_notifications/"
       )
@@ -142,7 +142,7 @@ export default function NotificationsPage() {
   }, [refreshKey]);
 
   React.useEffect(() => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/notifications/bookmarked_notifications/"
       )
