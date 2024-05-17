@@ -250,13 +250,15 @@ export default function NotificationsPage() {
                               sx={{ color: "black", fontSize: "0.8rem" }}
                             >
                               {notif.notification_type == 1
-                                ? "See " + notif.student.name + "'s profile"
+                                ? "See " +
+                                  notif.student.user.first_name +
+                                  "'s profile"
                                 : notif.notification_type == 2
                                 ? "Go to position's page"
                                 : notif.notification_type == -2
                                 ? "Explore similar positions"
                                 : notif.notification_type == 3
-                                ? "Message " + notif.student.name
+                                ? "Message " + notif.student.user.first_name
                                 : notif.notification_type == -3
                                 ? "Explore your other requests"
                                 : "See Position"}
