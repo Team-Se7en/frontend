@@ -88,6 +88,8 @@ fetchRecentPositions();
             marginTop: "100px",
             marginBottom: "20px",
             marginLeft: "450px",
+            marginRight: 'auto',
+            minWidth: "calc(26rem * (10 / 4))",
           }}
         >
           

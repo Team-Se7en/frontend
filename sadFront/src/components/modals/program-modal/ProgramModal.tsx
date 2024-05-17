@@ -94,7 +94,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                     <Avatar
                       className="avatar"
                       alt="Sauleh Etemadi"
-                      src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1718236800&v=beta&t=_ROkXK-gfaD5ANq-FbDDW13wiIOwX6u9-2fAw_qYKeA"
+                      src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
                       sx={{ height: "auto", width: "100%" }}
                     />
                   </Box>

@@ -18,7 +18,7 @@ export function ProfessorCard(props: ProfessorCardProps) {
     return (
         <StyledWrapper>
             <StyledProfessorCard sx={{ backgroundColor: props.rgba }}>
-                <StyledProfessorImage src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1720051200&v=beta&t=4tA4xwft_oIReUo_P2E6Zcwb7oi598pywErYUhjwZkA" />
+                <StyledProfessorImage src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM" />
                 <Box marginTop={'2.5rem'} gap={3} className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)}>
                     <Typography variant="h3" color={'white'} >
                         {getFullName(props.professor.first_name, props.professor.last_name)}
