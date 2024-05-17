@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { AuthContextType, useAuth } from "../../hooks/authUtils";
+import NotificationsMenu from "../notifications-menu/NotificationsMenu";
 
 const pages = ["Home", "Positions", "University"];
 const settings = ["Profile", "Logout"];
@@ -143,6 +144,8 @@ function StudentHeader() {
               </Button>
             ))}
           </Box>
+
+          <NotificationsMenu />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
