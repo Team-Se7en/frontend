@@ -2,7 +2,6 @@ import React from "react";
 import Footer from "../../components/footer/footer/footer";
 import Navbar from "../../components/navbar/navbar/navbar";
 import { Box } from "@mui/material";
-import { ProgramsList } from "../../components/programslist/ProgramsList";
 import { Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Divider } from "@mui/material";
@@ -238,10 +237,8 @@ export default function UniversityPage() {
                     fee={program.fee}
                     position_start_date={program.position_start_date}
                     position_end_date={program.position_end_date}
-                    updated_at={program.updated_at}
                     start_date={program.start_date}
                     end_date={program.end_date}
-                    created_at={program.created_at}
                     description="" //Will be assigned in modal
                     capacity={0} //Will be assigned in modal
                     university_name={program.university_name}
