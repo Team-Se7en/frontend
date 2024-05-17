@@ -28,7 +28,7 @@ export interface Education {
     institute?: string
     degree?: string
     field_of_study?: string
-    start_date?: Date
-    end_date?: Date
+    start_date?: any
+    end_date?: any
     grade?: number
 }

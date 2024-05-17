@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, List, ListItem, ListItemSecondaryAction, ListItemText } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { BasicInfo, Skills, Education } from "../../../models/CVtypes";
 import React, { useEffect, useState } from "react";
@@ -12,16 +12,15 @@ import {
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogActions,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
 import client from "../../../Http/axios";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { Delete, Edit } from "@mui/icons-material";
 
 export function EditCV() {
+    let currentUser: any
 
     let educations: Education[] = []
     let hardSkills: HardSkill[] = []
@@ -32,21 +31,12 @@ export function EditCV() {
     });
 
     const [openExperienceDialog, setOpenExperienceDialog] = useState(false);
-    const [openEducationDialog, setOpenEducationDialog] = useState(false);
     const [editingExperienceIndex, setEditingExperienceIndex] = useState(-1);
-    const [editingEducationIndex, setEditingEducationIndex] = useState(-1);
     const [newExperience, setNewExperience] = useState({
         companyName: "",
         companyWebsite: "",
         startEndDate: "",
         role: "",
-    });
-    const [newEducation, setNewEducation] = useState({
-        // grade: "",
-        // field: "",
-        // university: "",
-        // date: "",
-        // GPA: "",
     });
 
     useEffect(() => {
@@ -74,7 +64,7 @@ export function EditCV() {
         console.log(cvDataBasic)
         try {
 
-            const currentUser: any = await client.get("/auth/users/me/");
+            currentUser = await client.get("/auth/users/me/");
             const UserPK = currentUser.data.id;
             const apiURL = `/eduportal/students/${UserPK}/CV/`
             const respone = client.patch(apiURL,
@@ -92,10 +82,6 @@ export function EditCV() {
         } catch (error) {
             console.error('Error:', error);
         }
-    };
-
-    const handleAddEducation = () => {
-        setOpenEducationDialog(true);
     };
 
     // const handleSaveExperience = () => {
@@ -122,47 +108,15 @@ export function EditCV() {
     //     setOpenExperienceDialog(false);
     // };
 
-    // const handleSaveEducation = () => {
-    //     if (editingEducationIndex !== -1) {
-    //         const updatedEducations = [...cvData.educationalRecords];
-    //         updatedEducations[editingEducationIndex] = newEducation;
-    //         setCVDataBasic((prevData) => ({
-    //             ...prevData,
-    //             educationalRecords: updatedEducations,
-    //         }));
-    //         setEditingEducationIndex(-1);
-    //     } else {
-    //         setCVDataBasic((prevData) => ({
-    //             ...prevData,
-    //             educationalRecords: [...prevData.educationalRecords, newEducation],
-    //         }));
-    //     }
-    //     setNewEducation({
-    //         grade: "",
-    //         field: "",
-    //         university: "",
-    //         date: "",
-    //         GPA: "",
-    //     });
-    //     setOpenEducationDialog(false);
-    // };
-
     // const handleEditExperience = (index: any) => {
     //     setNewExperience(cvData.workExperiences[index]);
     //     setEditingExperienceIndex(index);
     //     setOpenExperienceDialog(true);
     // };
 
-    const handleEditEducation = (index: any) => {
-        setNewEducation(educations[index]);
-        setEditingEducationIndex(index);
-        setOpenEducationDialog(true);
-    };
-
     async function getInfo() {
-        console.log(Object.assign(Skills))
         try {
-            const currentUser: any = await client.get("/auth/users/me/");
+            currentUser = await client.get("/auth/users/me/");
             const UserPK = currentUser.data.id;
 
             const basicInfoApiUrl = `/eduportal/students/${UserPK}/CV/`;
@@ -182,7 +136,9 @@ export function EditCV() {
             const educationApiUrl = `/eduportal/students/${UserPK}/CV/education`;
             const educationsResponse = await client.get(educationApiUrl);
             educations = educationsResponse.data
-            // console.log(educations)
+            educationList = educationsResponse.data
+            setEducationList(educationsResponse.data)
+            console.log(educations)
 
             const hardSkillsApiUrl = `/eduportal/students/${UserPK}/CV/hard-skills`;
             const hardSkillsResponse = await client.get(hardSkillsApiUrl);
@@ -217,6 +173,73 @@ export function EditCV() {
         } else {
             setSelectedSkills([...selectedSkills, skill]);
         }
+    };
+
+    let [educationList, setEducationList] = useState<Education[]>([]);
+    const [open, setOpen] = useState(false);
+    const [education, setEducation] = useState<Education>({
+        institute: '',
+        degree: '',
+        field_of_study: '',
+        start_date: "2024-05-17",
+        end_date: "2024-05-17",
+        grade: 0,
+    });
+    const [editIndex, setEditIndex] = useState<number | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setEducation({ ...education, [name]: value });
+    };
+
+    const handleAddEducation = async () => {
+        if (education.institute && education.degree) {
+            if (editIndex !== null) {
+                const updatedList = [...educationList];
+                updatedList[editIndex] = education;
+                setEducationList(updatedList);
+                setEditIndex(null);
+            } else {
+                try {
+                    currentUser = await client.get("/auth/users/me/");
+                    const UserPK = currentUser.data.id;
+                    const API_URL = `/eduportal/students/${UserPK}/CV/education/`
+                    const response = client.post(API_URL, education);
+                    console.log(response)
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+                setEducationList([...educationList, education]);
+            }
+            setEducation({
+                institute: '',
+                degree: '',
+                field_of_study: '',
+                start_date: "2024-05-17",
+                end_date: "2024-05-17",
+                grade: 0,
+            });
+            setOpen(false);
+        } else {
+            alert('Please fill the fields');
+        }
+    };
+
+    const handleRemoveEducation = async (index: number) => {
+        try {
+            currentUser = await client.get("/auth/users/me/");
+            const UserPK = currentUser.data.id;
+            const API_URL = `/eduportal/students/${UserPK}/CV/education/${educationList[index].id}/`
+            const response = client.delete(API_URL);
+            console.log(response)
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        const updatedList = [...educationList];
+        updatedList.splice(index, 1);
+        setEducationList(updatedList);
     };
 
     return (
@@ -289,7 +312,6 @@ export function EditCV() {
                                 </Button>
                             ))}
                         </Box>
-                        {/* <div>Selected Skills: {selectedSkills.join(', ')}</div> */}
                     </div>
                 </Grid>
                 {/* Work Experiences */}
@@ -319,49 +341,87 @@ export function EditCV() {
                         Add Experience
                     </Button>
                 </Grid> */}
-                {/* Educational Records */}
-                <Grid item xs={12}>
-                    <Typography variant="h5" gutterBottom>
-                        Educational Records
-                    </Typography>
-                    {educations.map((education, index) => (
-                        <div key={index}>
-                            <Typography variant="subtitle1">
-                                {education.grade} - {education.field_of_study}
-                            </Typography>
-                            <IconButton
-                                color="primary"
-                                onClick={() => handleEditEducation(index)}
-                            >
-                                <EditIcon />
-                            </IconButton>
-                        </div>
-                    ))}
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        startIcon={<AddIcon />}
-                        onClick={handleAddEducation}
-                    >
-                        Add Education
-                    </Button>
-                </Grid>
-                {/* Save button */}
+
                 <Grid item xs={12}>
                     <Button variant="contained" color="primary" onClick={handleSave}>
                         Save
                     </Button>
                 </Grid>
             </Grid>
+
+
+            <h2>Main Form</h2>
+            <Button variant="contained" onClick={() => setOpen(true)}>Add Education</Button>
+            <h3>Education List</h3>
+            <List>
+                {educationList.map((education, index) => (
+                    <ListItem key={index}>
+                        <ListItemText primary={`${education.institute}: ${education.degree}`} />
+                        <ListItemSecondaryAction>
+                            <IconButton onClick={() => handleRemoveEducation(index)}>
+                                <Delete />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                ))}
+            </List>
+            <Dialog open={open} onClose={() => setOpen(false)}>
+                <DialogTitle>Add Education</DialogTitle>
+                <DialogContent>
+                    <form>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Institute"
+                                    name="institute"
+                                    value={education.institute}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Degree"
+                                    name="degree"
+                                    value={education.degree}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    type="number"
+                                    label="Grade"
+                                    name="grade"
+                                    value={education.grade}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Field of study"
+                                    name="field_of_study"
+                                    value={education.field_of_study}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                        </Grid>
+                    </form>
+                </DialogContent>
+                <Button onClick={handleAddEducation}>Add</Button>
+            </Dialog>
+
+
+
             {/* Dialog for adding/editing work experience */}
-            <Dialog
+            {/* <Dialog
                 open={openExperienceDialog}
                 onClose={() => setOpenExperienceDialog(false)}
             >
                 <DialogTitle>Add/Edit Work Experience</DialogTitle>
                 <DialogContent>
-                    {/* Form fields for adding/editing work experience */}
-                    {/* You can customize this with additional fields */}
                     <TextField
                         fullWidth
                         label="Company Name"
@@ -371,38 +431,12 @@ export function EditCV() {
                             setNewExperience({ ...newExperience, companyName: e.target.value })
                         }
                     />
-                    {/* Add more fields for other properties of work experience */}
                 </DialogContent>
-                {/* <DialogActions>
+                <DialogActions>
                     <Button onClick={() => setOpenExperienceDialog(false)}>Cancel</Button>
                     <Button onClick={handleSaveExperience}>Done</Button>
-                </DialogActions> */}
-            </Dialog>
-            {/* Dialog for adding/editing educational record */}
-            <Dialog
-                open={openEducationDialog}
-                onClose={() => setOpenEducationDialog(false)}
-            >
-                <DialogTitle>Add/Edit Educational Record</DialogTitle>
-                <DialogContent>
-                    {/* Form fields for adding/editing educational record */}
-                    {/* You can customize this with additional fields */}
-                    <TextField
-                        fullWidth
-                        label="Grade"
-                        name="grade"
-                        value={newEducation}
-                        onChange={(e) =>
-                            setNewEducation({ ...newEducation, grade: e.target.value })
-                        }
-                    />
-                    {/* Add more fields for other properties of educational record */}
-                </DialogContent>
-                {/* <DialogActions>
-                    <Button onClick={() => setOpenEducationDialog(false)}>Cancel</Button>
-                    <Button onClick={handleSaveEducation}>Done</Button>
-                </DialogActions> */}
-            </Dialog>
+                </DialogActions>
+            </Dialog> */}
         </Container>
     );
 }
