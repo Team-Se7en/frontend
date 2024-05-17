@@ -31,7 +31,7 @@ export default function Routing() {
                 <Route path="professor/editProfile" element={<ProfessorEditProfile />} />
                 <Route path="student/editProfile" element={<StudentEditProfile />} />
                 <Route path="cv/view" element={<ViewCV />} />
-                <Route path="cv/edit" element={<EditCV/>} />
+                <Route path="cv/edit" element={<EditCV />} />
                 <Route path="forgot-pass" element={<Forgot />} />
                 <Route path="verification" element={<Verification />} />
                 <Route path="password/reset/confirm/:uid/:token" element={<Newpassword />} />
