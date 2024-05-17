@@ -60,6 +60,7 @@ const ProfessorPositionSort: React.FC<ProfessorPositionSortProps> = ({ onSortCha
 
     const handleChange = (event: SelectChangeEvent<string>) => {
         const newSortValue = event.target.value as string;
+        console.log(event);
         setPersonName(newSortValue);
         onSortChange(newSortValue);
     };

@@ -23,20 +23,14 @@ export function StudentPositions(props: StudentPositionsProps) {
     }, [props.queryParams]);
 
 
-
-    // useEffect(() => {
-    //     if (props.modelToAdd) {
-    //         setPositions(positions.concat(props.modelToAdd));
-    //     }
-    // }, [props.modelToAdd]);
-
     if (!positions) return null;
     return (
         <Box
         width="90%"
         maxWidth={"55rem"}
         minWidth={"20rem"}
-        sx={{ backgroundColor: "#fff" }}
+        maxHeight={"35rem"}
+        sx={{ backgroundColor: "#0F1035" }}
         >
         <Box
                 height={"30rem"}
@@ -44,7 +38,7 @@ export function StudentPositions(props: StudentPositionsProps) {
                 display="flex"
                 flexDirection={"column"}
                 alignItems={"center"}
-                gap={"0.2rem"}
+                gap={"1rem"}
                 p={2}
                 padding={"0rem"}
                 overflow={"auto"}

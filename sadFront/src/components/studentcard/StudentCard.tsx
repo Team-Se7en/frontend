@@ -1,16 +1,14 @@
-import * as React from 'react';
-
 import { Box, Card, CardContent, ThemeProvider, Typography, createTheme } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SchoolIcon from '@mui/icons-material/School';
 import WorkIcon from '@mui/icons-material/Work';
-import { blueGrey } from '@mui/material/colors';
+import client from '../../Http/axios';
 
-// Create a theme instance
-    const theme = createTheme({
+const theme = createTheme({
     palette: {
     mode: 'light',
     primary: {
@@ -39,47 +37,94 @@ import { blueGrey } from '@mui/material/colors';
     });
 
     export default function StudentCard() {
-    const student = {
-    name: "Ali Alizadeh",
-    university: "Iust",
-    title: "Computer Science student",
-    department:'Cs',
-    gpa: 4,
-    location: "Tehran, Iran"
+
+    interface University {
+            name?: string,
+            country?: string,
+            city?: string,
+        }
+    
+    interface Student {
+        student_name: string,
+        major: string,
+        university?: University,
+        gpa: number,
+}
+
+    const [topStudents, setTopStudents] = useState<Student[]>([]);
+
+
+    const getTopStudent = async () => {
+        try {
+            const result = await client.get(`/eduportal/top_students/`);
+            const values:Student[] = Object.keys(result.data).map(function(key){
+                return result.data[key];
+            });
+            setTopStudents([...values]);
+            console.log(topStudents);
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
     };
+
+    useEffect(() => {
+
+        getTopStudent();
+
+    }, []);
+
 
     return (
     <ThemeProvider theme={theme}>
-    <Box sx={{ maxWidth: 600, mx: 'auto', mt: 5, p: 2, borderRadius: 2 }}>
-    <Card raised>
+    <Box
+    height={"30rem"}
+    my={4}
+    display="flex"
+    flexDirection={"column"}
+    alignItems={"flex-end"}
+    gap="1rem"
+    p={2}
+    padding={"0rem"}
+    overflow={"auto"}
+    >
+    <Box sx={{ maxWidth: 700, mx: 'auto', mt: 1, p: 1, borderRadius: 2,width:'100%', pb: 7 }}>
+    {topStudents.map((stud)=>(
+        <Card raised sx={{ mb: 2 }}>
         <CardContent>
         <Typography variant="h5">
-            {student.name}
+            {stud.student_name}
         </Typography>
 
         <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-            <WorkIcon sx={{ mr: 1 }} /> {student.title}
+            <WorkIcon sx={{ mr: 1 }} /> {stud.major}
         </Typography>
 
         <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-            <SchoolIcon sx={{ mr: 1 }} /> {student.university}
+            <SchoolIcon sx={{ mr: 1 }} /> {stud.university?.name || 'N/A'}
         </Typography>
 
         <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-            <AssuredWorkloadIcon sx={{ mr: 1 }} /> department: {student.department}
+            <AssuredWorkloadIcon sx={{ mr: 1 }} /> department: {stud.major}
         </Typography>
 
         <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-            <DescriptionIcon sx={{ mr: 1 }} /> Gpa: {student.gpa}
+            <DescriptionIcon sx={{ mr: 1 }} /> Gpa: {stud.gpa}
         </Typography>
         
         <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1.5, color: 'secondary' }}>
-            <LocationOnIcon sx={{ mr: 1 }} /> Location: {student.location}
+            <LocationOnIcon sx={{ mr: 1 }} /> Location: {stud.university?.city || 'N/A'}
         </Typography>
         
         </CardContent>
     </Card>
+
+    ))}
+    
+        </Box>
+
     </Box>
+
     </ThemeProvider>
     );
-    }
+}

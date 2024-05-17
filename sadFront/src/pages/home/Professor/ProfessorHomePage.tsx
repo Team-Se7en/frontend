@@ -1,6 +1,6 @@
 import { Box, CssBaseline } from "@mui/material";
 import { useEffect, useState } from "react";
-import SearchProfessor from "../../../components/Search_professor/Search";
+
 import Footer from "../../../components/footer/footer/footer";
 import { ProfessorCardViewShortInfo } from "../../../models/CardInfo";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
@@ -8,7 +8,10 @@ import { ProfessorHomePage1 } from "../../../assets/images";
 import ProfessorPositionFilter from "../../../components/ProfessorPositionFilter/ProfessorPositionFilter";
 import ProfessorPositionSort from "../../../components/ProfessorPositionSort/ProfessorPositionSort";
 import { ProfessorPositions } from "../../../components/professor-positions/ProfessorPositions";
+import SearchProfessor from "../../../components/Search_professor/Search";
+import StudentCard from "../../../components/studentcard/StudentCard";
 import { getProfessorPositions } from "../../../services/position.service";
+
 export function ProfessorHomePage() {
   const [filterOptions, setFilterOptions] = useState({
     term: "",
@@ -37,6 +40,7 @@ export function ProfessorHomePage() {
             setdata(result.data)
         }
 }
+
 fetchRecentPositions();
 }, [sortOptions, filterOptions]);
 
@@ -89,6 +93,7 @@ fetchRecentPositions();
           
           <SearchProfessor setData={setdata}/>
         </Box>
+        
         <Box
           sx={{
             width: "100%",
@@ -114,8 +119,18 @@ fetchRecentPositions();
             <ProfessorPositionFilter onProfessorFilter={setFilterOptions} />
           </Box>
 
+        <Box sx = {{width: "100%"}}>
           <ProfessorPositions data={data} modelToAdd={modelToAdd} queryParams={cards} />
+
+
+        <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
+          <StudentCard/>
         </Box>
+
+        </Box>
+
+      </Box>
+
       </Box>
 
       <Box sx={{ paddingTop: "128px" }}>

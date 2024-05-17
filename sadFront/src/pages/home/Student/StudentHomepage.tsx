@@ -3,16 +3,13 @@ import React, { useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
 import ProfessorCard from "../../../components/professorcard/ProfessorCard";
-import ProgramsList from "../../../components/programslist/ProgramsList";
 import SearchStudent from "../../../components/Search_student/Search";
-import StudentCard from "../../../components/studentcard/StudentCard";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import StudentHeader from "../../../components/home_st_header/StudentHeader";
 import { StudentHomePage1 } from "../../../assets/images";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
 import { StudentPositions } from "../../../components/studentpositions/StudentPositions";
-import axios from "axios";
 
 export default function StudentHomepage() {
   const [allPrograms, setAllPrograms] =
@@ -69,9 +66,19 @@ export default function StudentHomepage() {
         marginTop: '10px'
         }}>
 
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", marginTop: "100px",marginBottom: "20px", }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            marginTop: "100px",
+            marginBottom: "20px",
+            marginLeft: "450px",
+          }}
+        >
           <SearchStudent setData={setAllPrograms} />
-          </Box>
+        </Box>
 
         <Box
           sx={{
@@ -98,13 +105,25 @@ export default function StudentHomepage() {
             <StudentPositionFilter onStudentFilter={setFilterOptions}/>
 
           </Box>
+
+          <Box sx = {{width: "100%"}}>
           <StudentPositions queryParams={cards}/>
-          {/* <ProfessorCard/>
-          <StudentCard/> */}
+
+          <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
+            <ProfessorCard/>
+          </Box>
+
+            
+          </Box>
+
+          
         </Box>
+
+
+
       </Box>
 
-      <Box sx={{ margintop: "128px" }}>
+      <Box sx={{ paddingTop: "128px" }}>
         <Footer />
       </Box>
     </Box>
