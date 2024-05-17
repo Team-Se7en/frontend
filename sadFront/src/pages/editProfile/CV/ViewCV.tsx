@@ -53,6 +53,7 @@ export function ViewCV() {
             }
         ]
     }
+    
     const softSkillsItem = [
         'Communication', 'Teamwork', 'ProblemSolving',
     ]

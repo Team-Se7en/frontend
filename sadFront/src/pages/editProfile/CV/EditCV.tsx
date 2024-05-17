@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemSecondaryAction, ListItemText, MenuItem,  Select } from "@mui/material";
+import { Box, Divider, List, ListItem, ListItemSecondaryAction, ListItemText, MenuItem, Select } from "@mui/material";
 import { BasicInfo, Skills, Education, WorkExperience, Project, HardSkill } from "../../../models/CVtypes";
 import React, { useEffect, useState } from "react";
 import {
@@ -17,6 +17,9 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { Delete } from "@mui/icons-material";
+import CVStyles from "./CV-styles";
+import Styles from "../../../Styles";
+import clsx from "clsx";
 
 export function EditCV() {
     let currentUser: any
@@ -365,345 +368,360 @@ export function EditCV() {
     //     setAge(event.target.value as string);
     // };
 
+    const globalClasses = Styles();
+    const cvStyles = CVStyles();
+
     return (
-        <Container maxWidth="md">
-            <Typography variant="h4" gutterBottom>
-                Edit CV
-            </Typography>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        label="Title"
-                        name="title"
-                        value={cvDataBasic.title || ''}
-                        onChange={handleBasicChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                            label="Birthdate"
-                            name="birth_date"
-                            value={dayjs(cvDataBasic.birth_date)}
-                            onChange={(newValue) => birthdayChange(newValue)}
+        <Box sx={{ backgroundImage: 'linear-gradient(to bottom right,rgb(182, 248, 252), rgb(252, 182, 232))', padding: '3rem' }}>
+            <Container maxWidth="md" className={clsx(cvStyles.editBackground)} >
+                <Typography variant="h2" fontWeight={'bold'} gutterBottom>
+                    Edit CV
+                </Typography>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Title"
+                            name="title"
+                            value={cvDataBasic.title || ''}
+                            onChange={handleBasicChange}
                         />
-                    </LocalizationProvider>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Birthdate"
+                                name="birth_date"
+                                value={dayjs(cvDataBasic.birth_date)}
+                                onChange={(newValue) => birthdayChange(newValue)}
+                            />
+                        </LocalizationProvider>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Select
+                            fullWidth
+                            label="Gender"
+                            name="gender"
+                            value={cvDataBasic.gender}
+                            onChange={handleBasicChange}
+                        >
+                            <MenuItem value={1}>Male</MenuItem>
+                            <MenuItem value={2}>Female</MenuItem>
+                        </Select>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Employment Status"
+                            name="employment_status"
+                            value={cvDataBasic.employment_status || ''}
+                            onChange={handleBasicChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            multiline
+                            minRows={4}
+                            maxRows={8}
+                            label="About Me"
+                            name="about"
+                            value={cvDataBasic.about || ''}
+                            onChange={handleBasicChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <div>
+                            <Box display="flex" justifyContent="center" alignItems="center">
+                                {Skills.map(skill => (
+                                    <Button
+                                        key={skill.id}
+                                        onClick={() => handleSkillClick(skill.id)}
+                                        variant={selectedSkills.includes(skill.id) ? 'contained' : 'outlined'}
+                                        color="primary"
+                                        style={{ margin: '5px' }}
+                                    >
+                                        Skill {skill.name}
+                                    </Button>
+                                ))}
+                            </Box>
+                        </div>
+                    </Grid>
+                    {/* Work Experiences */}
+
+
+                    <Grid item xs={12}>
+                        <Button variant="contained" color="primary" onClick={handleSave}>
+                            Save
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        label="Gender"
-                        name="gender"
-                        value={cvDataBasic.gender || ''}
-                        onChange={handleBasicChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        label="Employment Status"
-                        name="employment_status"
-                        value={cvDataBasic.employment_status || ''}
-                        onChange={handleBasicChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        multiline
-                        minRows={4}
-                        maxRows={8}
-                        label="About Me"
-                        name="about"
-                        value={cvDataBasic.about || ''}
-                        onChange={handleBasicChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <div>
-                        <Box display="flex" justifyContent="center" alignItems="center">
-                            {Skills.map(skill => (
-                                <Button
-                                    key={skill.id}
-                                    onClick={() => handleSkillClick(skill.id)}
-                                    variant={selectedSkills.includes(skill.id) ? 'contained' : 'outlined'}
-                                    color="primary"
-                                    style={{ margin: '5px' }}
-                                >
-                                    Skill {skill.name}
-                                </Button>
-                            ))}
-                        </Box>
-                    </div>
-                </Grid>
-                {/* Work Experiences */}
 
+                <Divider sx={{ padding: '2rem' }}></Divider>
+                <h2>Main Form Education</h2>
+                <Button variant="contained" onClick={() => setOpen(true)}>Add Education</Button>
+                <h3>Education List</h3>
+                <List>
+                    {educationList.map((education, index) => (
+                        <ListItem key={index}>
+                            <ListItemText primary={`${education.institute}: ${education.degree}`} />
+                            <ListItemSecondaryAction>
+                                <IconButton onClick={() => handleRemoveEducation(index)}>
+                                    <Delete />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    ))}
+                </List>
+                <Dialog open={open} onClose={() => setOpen(false)}>
+                    <DialogTitle>Add Education</DialogTitle>
+                    <DialogContent>
+                        <form>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="Institute"
+                                        name="institute"
+                                        value={education.institute}
+                                        onChange={handleEducationChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="Degree"
+                                        name="degree"
+                                        value={education.degree}
+                                        onChange={handleEducationChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        type="number"
+                                        label="Grade"
+                                        name="grade"
+                                        value={education.grade}
+                                        onChange={handleEducationChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="Field of study"
+                                        name="field_of_study"
+                                        value={education.field_of_study}
+                                        onChange={handleEducationChange}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </DialogContent>
+                    <Button onClick={handleAddEducation}>Add</Button>
+                </Dialog>
 
-                <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleSave}>
-                        Save
-                    </Button>
-                </Grid>
-            </Grid>
+                <Divider sx={{ padding: '2rem' }}></Divider>
 
+                {/* Dialog for adding/editing work experience */}
+                <h2>Main Form Work XP</h2>
+                <Button variant="contained" onClick={() => setOpenWorkXP(true)}>Add Work XP</Button>
+                <h3>WORK XP List</h3>
+                <List>
+                    {workXPList.map((workXP, index) => (
+                        <ListItem key={index}>
+                            <ListItemText primary={`${workXP.company_name}: ${workXP.company_website}`} />
+                            <ListItemSecondaryAction>
+                                <IconButton onClick={() => handleRemoveWorkXP(index)}>
+                                    <Delete />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    ))}
+                </List>
+                <Dialog open={openWorkXP} onClose={() => setOpenWorkXP(false)}>
+                    <DialogTitle>Add Work XP</DialogTitle>
+                    <DialogContent>
+                        <form>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="company name"
+                                        name="company_name"
+                                        value={workXP.company_name}
+                                        onChange={handleWorkXPChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="company website"
+                                        name="company_website"
+                                        value={workXP.company_website}
+                                        onChange={handleWorkXPChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="job title"
+                                        name="job_title"
+                                        value={workXP.job_title}
+                                        onChange={handleWorkXPChange}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </DialogContent>
+                    <Button onClick={handleAddWorkXP}>Add</Button>
+                </Dialog>
 
-            <h2>Main Form Education</h2>
-            <Button variant="contained" onClick={() => setOpen(true)}>Add Education</Button>
-            <h3>Education List</h3>
-            <List>
-                {educationList.map((education, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={`${education.institute}: ${education.degree}`} />
-                        <ListItemSecondaryAction>
-                            <IconButton onClick={() => handleRemoveEducation(index)}>
-                                <Delete />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                ))}
-            </List>
-            <Dialog open={open} onClose={() => setOpen(false)}>
-                <DialogTitle>Add Education</DialogTitle>
-                <DialogContent>
-                    <form>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Institute"
-                                    name="institute"
-                                    value={education.institute}
-                                    onChange={handleEducationChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Degree"
-                                    name="degree"
-                                    value={education.degree}
-                                    onChange={handleEducationChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    type="number"
-                                    label="Grade"
-                                    name="grade"
-                                    value={education.grade}
-                                    onChange={handleEducationChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Field of study"
-                                    name="field_of_study"
-                                    value={education.field_of_study}
-                                    onChange={handleEducationChange}
-                                />
-                            </Grid>
-                        </Grid>
-                    </form>
-                </DialogContent>
-                <Button onClick={handleAddEducation}>Add</Button>
-            </Dialog>
+                <Divider sx={{ padding: '2rem' }}></Divider>
 
-            {/* Dialog for adding/editing work experience */}
-            <h2>Main Form Work XP</h2>
-            <Button variant="contained" onClick={() => setOpenWorkXP(true)}>Add Work XP</Button>
-            <h3>WORK XP List</h3>
-            <List>
-                {workXPList.map((workXP, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={`${workXP.company_name}: ${workXP.company_website}`} />
-                        <ListItemSecondaryAction>
-                            <IconButton onClick={() => handleRemoveWorkXP(index)}>
-                                <Delete />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                ))}
-            </List>
-            <Dialog open={openWorkXP} onClose={() => setOpenWorkXP(false)}>
-                <DialogTitle>Add Work XP</DialogTitle>
-                <DialogContent>
-                    <form>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="company name"
-                                    name="company_name"
-                                    value={workXP.company_name}
-                                    onChange={handleWorkXPChange}
-                                />
+                {/* Dialog for adding/editing Project */}
+                <h2>Main Form Project</h2>
+                <Button variant="contained" onClick={() => setOpenProject(true)}>Add Project</Button>
+                <h3>Project List</h3>
+                <List>
+                    {projectList.map((project, index) => (
+                        <ListItem key={index}>
+                            <ListItemText primary={`${project.title}: ${project.description}`} />
+                            <ListItemSecondaryAction>
+                                <IconButton onClick={() => handleRemoveProject(index)}>
+                                    <Delete />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    ))}
+                </List>
+                <Dialog open={openProject} onClose={() => setOpenProject(false)}>
+                    <DialogTitle>Add Project</DialogTitle>
+                    <DialogContent>
+                        <form>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="Title"
+                                        name="title"
+                                        value={project.title}
+                                        onChange={handleProjectChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="Description"
+                                        name="description"
+                                        value={project.description}
+                                        onChange={handleProjectChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="Link"
+                                        name="link"
+                                        value={project.link}
+                                        onChange={handleProjectChange}
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="company website"
-                                    name="company_website"
-                                    value={workXP.company_website}
-                                    onChange={handleWorkXPChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="job title"
-                                    name="job_title"
-                                    value={workXP.job_title}
-                                    onChange={handleWorkXPChange}
-                                />
-                            </Grid>
-                        </Grid>
-                    </form>
-                </DialogContent>
-                <Button onClick={handleAddWorkXP}>Add</Button>
-            </Dialog>
+                        </form>
+                    </DialogContent>
+                    <Button onClick={handleAddProject}>Add</Button>
+                </Dialog>
 
-            {/* Dialog for adding/editing Project */}
-            <h2>Main Form Project</h2>
-            <Button variant="contained" onClick={() => setOpenProject(true)}>Add Project</Button>
-            <h3>Project List</h3>
-            <List>
-                {projectList.map((project, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={`${project.title}: ${project.description}`} />
-                        <ListItemSecondaryAction>
-                            <IconButton onClick={() => handleRemoveProject(index)}>
-                                <Delete />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                ))}
-            </List>
-            <Dialog open={openProject} onClose={() => setOpenProject(false)}>
-                <DialogTitle>Add Project</DialogTitle>
-                <DialogContent>
-                    <form>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Title"
-                                    name="title"
-                                    value={project.title}
-                                    onChange={handleProjectChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Description"
-                                    name="description"
-                                    value={project.description}
-                                    onChange={handleProjectChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Link"
-                                    name="link"
-                                    value={project.link}
-                                    onChange={handleProjectChange}
-                                />
-                            </Grid>
-                        </Grid>
-                    </form>
-                </DialogContent>
-                <Button onClick={handleAddProject}>Add</Button>
-            </Dialog>
+                <Divider sx={{ padding: '2rem' }}></Divider>
 
-            {/* Dialog for adding/editing Hard Skills*/}
-            <h2>Main Form Hard Skills</h2>
-            <Button variant="contained" onClick={() => setOpenHardSkill(true)}>Add Hard Skills</Button>
-            <h3>Hard Skills List</h3>
-            <List>
-                {hardSkillList.map((hardskill, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={`${hardskill.technology}: ${hardskill.skill_level}`} />
-                        <ListItemSecondaryAction>
-                            <IconButton onClick={() => handleRemoveHardSkill(index)}>
-                                <Delete />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                ))}
-            </List>
-            <Dialog open={openHardSkill} onClose={() => setOpenHardSkill(false)}>
-                <DialogTitle>Add Hard Skills</DialogTitle>
-                <DialogContent>
-                    <form>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <Select
-                                    value={hardSkill.technology}
-                                    label="Technology"
-                                    name="technology"
-                                    onChange={handleHardSkillChange}
-                                >
-                                    <MenuItem value={1}>Python</MenuItem>
-                                    <MenuItem value={2}>Django</MenuItem>
-                                    <MenuItem value={3}>Flask</MenuItem>
-                                    <MenuItem value={4}>JavaScript</MenuItem>
-                                    <MenuItem value={5}>React</MenuItem>
-                                    <MenuItem value={6}>Angular</MenuItem>
-                                    <MenuItem value={7}>Vue</MenuItem>
-                                    <MenuItem value={8}>Java</MenuItem>
-                                    <MenuItem value={9}>Spring</MenuItem>
-                                    <MenuItem value={10}>Hibernate</MenuItem>
-                                    <MenuItem value={11}>C</MenuItem>
-                                    <MenuItem value={12}>Cpp</MenuItem>
-                                    <MenuItem value={13}>Csharp</MenuItem>
-                                    <MenuItem value={14}>Dotnet</MenuItem>
-                                    <MenuItem value={15}>Ruby</MenuItem>
-                                    <MenuItem value={16}>Rails</MenuItem>
-                                    <MenuItem value={17}>Php</MenuItem>
-                                    <MenuItem value={18}>Laravel</MenuItem>
-                                    <MenuItem value={19}>Swift</MenuItem>
-                                    <MenuItem value={20}>Kotlin</MenuItem>
-                                    <MenuItem value={21}>Go</MenuItem>
-                                    <MenuItem value={22}>Rust</MenuItem>
-                                    <MenuItem value={23}>Scala</MenuItem>
-                                    <MenuItem value={24}>Groovy</MenuItem>
-                                    <MenuItem value={25}>Typescript</MenuItem>
-                                    <MenuItem value={26}>Nodejs</MenuItem>
-                                    <MenuItem value={27}>Express</MenuItem>
-                                    <MenuItem value={28}>Ruby On Rails</MenuItem>
-                                    <MenuItem value={29}>Sql</MenuItem>
-                                    <MenuItem value={30}>Nosql</MenuItem>
+                {/* Dialog for adding/editing Hard Skills*/}
+                <h2>Main Form Hard Skills</h2>
+                <Button variant="contained" onClick={() => setOpenHardSkill(true)}>Add Hard Skills</Button>
+                <h3>Hard Skills List</h3>
+                <List>
+                    {hardSkillList.map((hardskill, index) => (
+                        <ListItem key={index}>
+                            <ListItemText primary={`${hardskill.technology}: ${hardskill.skill_level}`} />
+                            <ListItemSecondaryAction>
+                                <IconButton onClick={() => handleRemoveHardSkill(index)}>
+                                    <Delete />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    ))}
+                </List>
+                <Dialog open={openHardSkill} onClose={() => setOpenHardSkill(false)}>
+                    <DialogTitle>Add Hard Skills</DialogTitle>
+                    <DialogContent>
+                        <form>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Select
+                                        value={hardSkill.technology}
+                                        label="Technology"
+                                        name="technology"
+                                        onChange={handleHardSkillChange}
+                                    >
+                                        <MenuItem value={1}>Python</MenuItem>
+                                        <MenuItem value={2}>Django</MenuItem>
+                                        <MenuItem value={3}>Flask</MenuItem>
+                                        <MenuItem value={4}>JavaScript</MenuItem>
+                                        <MenuItem value={5}>React</MenuItem>
+                                        <MenuItem value={6}>Angular</MenuItem>
+                                        <MenuItem value={7}>Vue</MenuItem>
+                                        <MenuItem value={8}>Java</MenuItem>
+                                        <MenuItem value={9}>Spring</MenuItem>
+                                        <MenuItem value={10}>Hibernate</MenuItem>
+                                        <MenuItem value={11}>C</MenuItem>
+                                        <MenuItem value={12}>Cpp</MenuItem>
+                                        <MenuItem value={13}>Csharp</MenuItem>
+                                        <MenuItem value={14}>Dotnet</MenuItem>
+                                        <MenuItem value={15}>Ruby</MenuItem>
+                                        <MenuItem value={16}>Rails</MenuItem>
+                                        <MenuItem value={17}>Php</MenuItem>
+                                        <MenuItem value={18}>Laravel</MenuItem>
+                                        <MenuItem value={19}>Swift</MenuItem>
+                                        <MenuItem value={20}>Kotlin</MenuItem>
+                                        <MenuItem value={21}>Go</MenuItem>
+                                        <MenuItem value={22}>Rust</MenuItem>
+                                        <MenuItem value={23}>Scala</MenuItem>
+                                        <MenuItem value={24}>Groovy</MenuItem>
+                                        <MenuItem value={25}>Typescript</MenuItem>
+                                        <MenuItem value={26}>Nodejs</MenuItem>
+                                        <MenuItem value={27}>Express</MenuItem>
+                                        <MenuItem value={28}>Ruby On Rails</MenuItem>
+                                        <MenuItem value={29}>Sql</MenuItem>
+                                        <MenuItem value={30}>Nosql</MenuItem>
 
-                                </Select>
+                                    </Select>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="skill level"
+                                        name="skill_level"
+                                        value={hardSkill.skill_level}
+                                        onChange={handleHardSkillChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="experience time"
+                                        name="experience_time"
+                                        value={hardSkill.experience_time}
+                                        onChange={handleHardSkillChange}
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="skill level"
-                                    name="skill_level"
-                                    value={hardSkill.skill_level}
-                                    onChange={handleHardSkillChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="experience time"
-                                    name="experience_time"
-                                    value={hardSkill.experience_time}
-                                    onChange={handleHardSkillChange}
-                                />
-                            </Grid>
-                        </Grid>
-                    </form>
-                </DialogContent>
-                <Button onClick={handleAddHardSkill}>Add</Button>
-            </Dialog>
-        </Container>
+                        </form>
+                    </DialogContent>
+                    <Button onClick={handleAddHardSkill}>Add</Button>
+                </Dialog>
+            </Container>
+        </Box>
+
     );
 }
 

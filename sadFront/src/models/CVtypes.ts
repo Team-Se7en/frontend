@@ -2,7 +2,7 @@ export interface BasicInfo {
     id?: number
     title?: string
     birth_date?: any
-    gender?: 1
+    gender?: number
     employment_status?: 1
     about?: string
     soft_skills?: []
