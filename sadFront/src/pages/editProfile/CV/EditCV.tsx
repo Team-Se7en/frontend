@@ -1,5 +1,5 @@
-import { Box, List, ListItem, ListItemSecondaryAction, ListItemText } from "@mui/material";
-import { BasicInfo, Skills, Education, WorkExperience, Project } from "../../../models/CVtypes";
+import { Box, List, ListItem, ListItemSecondaryAction, ListItemText, MenuItem, Rating, Select } from "@mui/material";
+import { BasicInfo, Skills, Education, WorkExperience, Project, HardSkills, HardSkill } from "../../../models/CVtypes";
 import React, { useEffect, useState } from "react";
 import {
     TextField,
@@ -57,14 +57,15 @@ export function EditCV() {
 
             const hardSkillsApiUrl = `/eduportal/students/${UserPK}/CV/hard-skills`;
             const hardSkillsResponse = await client.get(hardSkillsApiUrl);
-            hardSkills = hardSkillsResponse.data
-            // console.log(hardSkills)
+            hardSkillList = hardSkillsResponse.data
+            setHardSkillList(hardSkillsResponse.data)
+            console.log(hardSkills)
 
             const projectsApiUrl = `/eduportal/students/${UserPK}/CV/projects`;
             const projectsResponse = await client.get(projectsApiUrl);
             projectList = projectsResponse.data
             setProjectList(projectsResponse.data)
-            console.log(projectList)
+            // console.log(projectList)
 
             const workXPsApiUrl = `/eduportal/students/${UserPK}/CV/work-xps`;
             const workXPsResponse = await client.get(workXPsApiUrl);
@@ -303,6 +304,66 @@ export function EditCV() {
     };
 
 
+    //---------------------------------- PROJECT ----------------------------------
+
+    let [hardSkillList, setHardSkillList] = useState<HardSkill[]>([]);
+    const [openHardSkill, setOpenHardSkill] = useState(false);
+    const [hardSkill, setHardSkill] = useState<HardSkill>({
+        technology: 1,
+        skill_level: 100,
+        experience_time: 1,
+    });
+
+    const handleHardSkillChange = (e: any) => {
+        const { name, value } = e.target;
+        setHardSkill({ ...hardSkill, [name]: value });
+    };
+
+    const handleAddHardSkill = async () => {
+        if (hardSkill.technology && hardSkill.skill_level) {
+
+            try {
+                currentUser = await client.get("/auth/users/me/");
+                const UserPK = currentUser.data.id;
+                const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/`
+                const response = client.post(API_URL, hardSkill);
+                console.log(response)
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            setHardSkillList([...hardSkillList, hardSkill]);
+
+            setHardSkill({
+                technology: 1,
+                skill_level: 100,
+                experience_time: 1,
+            });
+            setOpenHardSkill(false);
+        } else {
+            alert('Please fill the fields');
+        }
+    };
+
+    const handleRemoveHardSkill = async (index: number) => {
+        try {
+            currentUser = await client.get("/auth/users/me/");
+            const UserPK = currentUser.data.id;
+            const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/${hardSkillList[index].id}/`
+            const response = client.delete(API_URL);
+            console.log(response)
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        const updatedList = [...hardSkillList];
+        updatedList.splice(index, 1);
+        setHardSkillList(updatedList);
+    };
+
+    // const handleTechChange = (event: any) => {
+    //     setAge(event.target.value as string);
+    // };
 
     return (
         <Container maxWidth="md">
@@ -504,7 +565,7 @@ export function EditCV() {
                 <Button onClick={handleAddWorkXP}>Add</Button>
             </Dialog>
 
-            {/* Dialog for adding/editing work experience */}
+            {/* Dialog for adding/editing Project */}
             <h2>Main Form Project</h2>
             <Button variant="contained" onClick={() => setOpenProject(true)}>Add Project</Button>
             <h3>Project List</h3>
@@ -557,19 +618,163 @@ export function EditCV() {
                 </DialogContent>
                 <Button onClick={handleAddProject}>Add</Button>
             </Dialog>
+
+            {/* Dialog for adding/editing Hard Skills*/}
+            <h2>Main Form Hard Skills</h2>
+            <Button variant="contained" onClick={() => setOpenHardSkill(true)}>Add Hard Skills</Button>
+            <h3>Hard Skills List</h3>
+            <List>
+                {hardSkillList.map((hardskill, index) => (
+                    <ListItem key={index}>
+                        <ListItemText primary={`${hardskill.technology}: ${hardskill.skill_level}`} />
+                        <ListItemSecondaryAction>
+                            <IconButton onClick={() => handleRemoveHardSkill(index)}>
+                                <Delete />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                ))}
+            </List>
+            <Dialog open={openHardSkill} onClose={() => setOpenHardSkill(false)}>
+                <DialogTitle>Add Hard Skills</DialogTitle>
+                <DialogContent>
+                    <form>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Select
+                                    value={hardSkill.technology}
+                                    label="Technology"
+                                    name="technology"
+                                    onChange={handleHardSkillChange}
+                                >
+                                    <MenuItem value={1}>Python</MenuItem>
+                                    <MenuItem value={2}>Django</MenuItem>
+                                    <MenuItem value={3}>Flask</MenuItem>
+                                    <MenuItem value={4}>JavaScript</MenuItem>
+                                    <MenuItem value={5}>React</MenuItem>
+                                    <MenuItem value={6}>Angular</MenuItem>
+                                    <MenuItem value={7}>Vue</MenuItem>
+                                    <MenuItem value={8}>Java</MenuItem>
+                                    <MenuItem value={9}>Spring</MenuItem>
+                                    <MenuItem value={10}>Hibernate</MenuItem>
+                                    <MenuItem value={11}>C</MenuItem>
+                                    <MenuItem value={12}>Cpp</MenuItem>
+                                    <MenuItem value={13}>Csharp</MenuItem>
+                                    <MenuItem value={14}>Dotnet</MenuItem>
+                                    <MenuItem value={15}>Ruby</MenuItem>
+                                    <MenuItem value={16}>Rails</MenuItem>
+                                    <MenuItem value={17}>Php</MenuItem>
+                                    <MenuItem value={18}>Laravel</MenuItem>
+                                    <MenuItem value={19}>Swift</MenuItem>
+                                    <MenuItem value={20}>Kotlin</MenuItem>
+                                    <MenuItem value={21}>Go</MenuItem>
+                                    <MenuItem value={22}>Rust</MenuItem>
+                                    <MenuItem value={23}>Scala</MenuItem>
+                                    <MenuItem value={24}>Groovy</MenuItem>
+                                    <MenuItem value={25}>Typescript</MenuItem>
+                                    <MenuItem value={26}>Nodejs</MenuItem>
+                                    <MenuItem value={27}>Express</MenuItem>
+                                    <MenuItem value={28}>Ruby On Rails</MenuItem>
+                                    <MenuItem value={29}>Sql</MenuItem>
+                                    <MenuItem value={30}>Nosql</MenuItem>
+
+                                </Select>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="skill level"
+                                    name="skill_level"
+                                    value={hardSkill.skill_level}
+                                    onChange={handleHardSkillChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="experience time"
+                                    name="experience_time"
+                                    value={hardSkill.experience_time}
+                                    onChange={handleHardSkillChange}
+                                />
+                            </Grid>
+                        </Grid>
+                    </form>
+                </DialogContent>
+                <Button onClick={handleAddHardSkill}>Add</Button>
+            </Dialog>
         </Container>
     );
 }
 
 
 
-class HardSkill {
-    id: number | undefined
-    technology: 1 | undefined
-    skill_level: 100 | undefined
-    experience_time: 1 | undefined
-}
 
 
 
+// const [skills, setSkills] = useState(
+//     HardSkills.map((skill) => ({
+//         ...skill,
+//         level: 0,
+//     }))
+// );
+// const [selectedSkill, setSelectedSkill] = useState(null);
 
+// const handleHardSkillClick = (index: any) => {
+//     setSelectedSkill(index === selectedSkill ? null : index);
+// };
+
+// const handleRatingChange = async (index: any, value: any) => {
+//     const updatedSkills = [...skills];
+//     updatedSkills[index].level = value;
+//     setSkills(updatedSkills);
+
+//     console.log(index + '  **  ' + value)
+//     if (value == null) {
+//         try {
+//             currentUser = await client.get("/auth/users/me/");
+//             const UserPK = currentUser.data.id;
+//             const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/${projectList[index].id}/`
+//             const response = client.delete(API_URL);
+//             console.log(response)
+
+//         } catch (error) {
+//             console.error('Error:', error);
+//         }
+//     } else {
+
+//     }
+// };
+
+{/* <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {skills.map((skill, index) => (
+                    <div key={index} style={{ flex: '0 0 25%', maxWidth: '25%' }}>
+                        <Button
+                            variant="outlined"
+                            onClick={() => handleHardSkillClick(index)}
+                            sx={{
+                                marginBottom: '10px',
+                                backgroundColor: [
+                                    '#ffffff',
+                                    '#f0fff0',
+                                    '#98fb98',
+                                    '#32cd32',
+                                    '#008000',
+                                    '#006400',
+                                ][skill.level],
+                            }}
+                        >
+                            {skill.name}
+                        </Button>
+                        {selectedSkill === index && (
+                            <Box component="fieldset" borderColor="transparent">
+                                <Rating
+                                    name="skill-rating"
+                                    value={skill.level}
+                                    onChange={(event, newValue) => handleRatingChange(index, newValue)}
+                                />
+                            </Box>
+                        )}
+                    </div>
+                ))}
+            </div> */}
