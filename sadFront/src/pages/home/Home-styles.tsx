@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 import theme from "../../Theme";
 import { ChartImage, LandingImage, ProfessorTimelineImage, SlideshowProfessorImage, SlideshowStudentImage, SlideshowUniversityImage, StudentTimelineImage, TopProfessorsImage, TopStudentsImage, TopUniversitiesImage, WhyusProfessorImage, WhyusStudentImage } from "../../assets/images";
@@ -260,4 +260,14 @@ export const StyledSlideshowStudentImage = styled(Box)(() => ({
     aspectRatio: '1',
     marginTop: 'auto',  
     borderRadius: theme.shape.borderRadius,
+}));
+
+export const StyledUniversityIcon = styled('img')(() => ({
+    width: '5rem',
+    aspectRatio: '1',
+    transition: 'transform 0.2s ease-in-out',
+    '&:hover': {
+        transform: 'scale(1.2)',
+        cursor: 'pointer',
+    }
 }));

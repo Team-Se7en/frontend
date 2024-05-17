@@ -1,25 +1,37 @@
-import { Professor } from "./Professor";
-import { Student } from "./Student";
-import { University } from "./University";
+import { ProfessorCardViewShortInfo, StudentCardViewFullInfo, StudentCardViewShortInfo } from "./CardInfo";
 
 export interface LandingInfo {
     student_count: number;
     professor_count: number;
     accepted_applications_count: number;
     growth: [Date, number][];
-    top_professors: [Professor, number][];
-    top_students: [Student, number][];
-    top_universities: University[];
+    top_professors: TopProfessorModel[];
+    top_students: TopStudentModel[];
+    top_universities: LandingUniversityModel[];
+    student_view_positions: StudentCardViewShortInfo[];
+    professor_view_positions: ProfessorCardViewShortInfo[];
+    random_universities: LandingUniversityModel[];
 }
 
-export interface TopUniversityModel {
-    
+export interface LandingUniversityModel {
+    id: number;
+    icon: string;
+    rank: 1 | 2 | 3;
+    name: string;
 }
 
 export interface TopStudentModel {
-    
+    id: number;
+    first_name: string;
+    last_name: string;
+    accepted_request_count: number;
+    rank: 1 | 2 | 3;
 }
 
-export interface TopStudentModel {
-
+export interface TopProfessorModel {
+    id: number;
+    first_name: string;
+    last_name: string;
+    accepted_request_count: number;
+    rank: 1 | 2 | 3;
 }
