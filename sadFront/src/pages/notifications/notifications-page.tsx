@@ -132,16 +132,16 @@ export default function NotificationsPage() {
         alignItems={"center"}
         marginTop={"2rem"}
       >
-        <Box sx={{ width: "50%" }}>
+        <Box width={{ xs: "80%", sm: "70%", md: "60%", lg: "50%", xl: "40%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
               value={value}
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="Unread Notifications" {...a11yProps(0)} />
+              <Tab label="Unread" {...a11yProps(0)} />
               <Tab label="All Notifications" {...a11yProps(1)} />
-              <Tab label="Bookmarked Notifications" {...a11yProps(2)} />
+              <Tab label="Bookmarked" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
@@ -184,7 +184,17 @@ export default function NotificationsPage() {
                         variant="text"
                         sx={{ color: "black", fontSize: "0.8rem" }}
                       >
-                        View Position
+                        {notif.notification_type == 1
+                          ? "See " + notif.student.name + "'s profile"
+                          : notif.notification_type == 2
+                          ? "Go to position's page"
+                          : notif.notification_type == -2
+                          ? "Explore similar positions"
+                          : notif.notification_type == 3
+                          ? "Message " + notif.student.name
+                          : notif.notification_type == -3
+                          ? "Explore your other requests"
+                          : "See Position"}
                       </Button>
                     </Box>
                   </Box>
@@ -282,7 +292,17 @@ export default function NotificationsPage() {
                         variant="text"
                         sx={{ color: "black", fontSize: "0.8rem" }}
                       >
-                        View Position
+                        {notif.notification_type == 1
+                          ? "See " + notif.student.name + "'s profile"
+                          : notif.notification_type == 2
+                          ? "Go to position's page"
+                          : notif.notification_type == -2
+                          ? "Explore similar positions"
+                          : notif.notification_type == 3
+                          ? "Message " + notif.student.name
+                          : notif.notification_type == -3
+                          ? "Explore your other requests"
+                          : "See Position"}
                       </Button>
                     </Box>
                   </Box>
@@ -371,7 +391,17 @@ export default function NotificationsPage() {
                         variant="text"
                         sx={{ color: "black", fontSize: "0.8rem" }}
                       >
-                        View Position
+                        {notif.notification_type == 1
+                          ? "See " + notif.student.name + "'s profile"
+                          : notif.notification_type == 2
+                          ? "Go to position's page"
+                          : notif.notification_type == -2
+                          ? "Explore similar positions"
+                          : notif.notification_type == 3
+                          ? "Message " + notif.student.name
+                          : notif.notification_type == -3
+                          ? "Explore your other requests"
+                          : "See Position"}
                       </Button>
                     </Box>
                   </Box>

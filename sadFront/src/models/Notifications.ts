@@ -24,7 +24,7 @@ export interface InNotifStudent{
 export interface Notifications{
     id: number;
     bookmarked: boolean;
-    notification_type: string;
+    notification_type: number;
     position: StudentCardViewFullInfo;
     read: boolean;
     student: InNotifStudent;
