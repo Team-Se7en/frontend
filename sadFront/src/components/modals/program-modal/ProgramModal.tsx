@@ -22,6 +22,9 @@ import {
   Paid,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { applyToPosition } from "../../../services/position.service";
+import { RequestModel } from "../../../models/Request";
 
 export default function TransitionsModal(props: StudentCardViewFullInfo) {
   const [open, setOpen] = React.useState(false);
@@ -29,14 +32,15 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
   const handleClose = () => setOpen(false);
   const isSmallScreen = useMediaQuery("(max-width:800px)");
   const [fullInfo, setFullInfo] = React.useState<StudentCardViewFullInfo>();
+  const [isApplyAvailable, setIsApplyAvailable] = React.useState(false);
 
   React.useEffect(() => {
     axios
       .get(
         "https://seven-apply.liara.run/eduportal/positions" +
-          "/" +
-          props.id +
-          "/"
+        "/" +
+        props.id +
+        "/"
       )
       .then((response) => {
         setFullInfo(response.data);
@@ -47,6 +51,19 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
   }, [props.id]);
 
   if (!fullInfo) return null;
+
+  const handleApply = async () => {
+    const requestModel: RequestModel = {
+      position_id: fullInfo.id,
+    }
+    try {
+      await applyToPosition(requestModel);
+      setIsApplyAvailable(false);
+      toast.success('Request sent successfully');
+    } catch (error) {
+      toast.error('Failed to apply to position');
+    }
+  }
 
   return (
     <div>
@@ -207,7 +224,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                 >
                   <AccessTime sx={{ fontSize: "1.6rem" }} />
                   <Typography>Duration: </Typography>
-                  <Typography fontWeight={"bold"}>{} days</Typography>
+                  <Typography fontWeight={"bold"}>{ } days</Typography>
                 </Box>
                 <Box
                   id="fee"
@@ -241,8 +258,10 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                     borderRadius: "0.5rem 0.5rem 0px 0px",
                     width: "100%",
                   }}
+                  onClick={handleApply}
+                  disabled={isApplyAvailable}
                 >
-                  Apply Now!
+                  {isApplyAvailable ? 'Apply Now!' : 'Already Applied'}
                 </Button>
               </Box>
             </Box>
