@@ -1,6 +1,7 @@
 import { ProfessorCardViewFullInfo } from "../models/CardInfo";
 import { ProfessorPositionsQueryParams } from "../models/QueryParams";
 import client from "../Http/axios";
+import { RequestModel } from "../models/Request";
 
 export interface GetProfessorPositionsRequestModel {
     professorId: number;
@@ -69,5 +70,15 @@ export const createPosition = async (model: ProfessorCardViewFullInfo) => {
     } catch (e) {
         console.error(e);
         throw e;
+    }
+}
+
+export const applyToPosition = async (model: RequestModel) => {
+    try {
+        const result = await client.post(`/eduportal/requests/`, model);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
 }
