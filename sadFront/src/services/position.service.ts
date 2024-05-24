@@ -43,7 +43,7 @@ export const deletePosition = async (id: number) => {
     }
 };
 
-export const getPositionFullInfoProfessor = async (id: number) => {
+export const getPositionFullInfo = async (id: number) => {
     try {
         const result = await client.get(`/eduportal/positions/${id}`);
         return result;

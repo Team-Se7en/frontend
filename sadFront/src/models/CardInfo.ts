@@ -1,5 +1,6 @@
 import { Professor } from "./Professor";
 import { Status } from "./Status";
+import { University } from "./University";
 
 export interface CardInfo {
     id: number;
@@ -20,11 +21,13 @@ export interface ProfessorCardViewShortInfo extends CardInfo {
     university_id: number;
     university_name: string;
     request_count: number;
+    // professor: Professor;
 }
 
 export interface ProfessorCardViewFullInfo extends CardInfo {
     description: string;
     request_count: number;
+    university: University;
 }
 
 export interface StudentCardViewShortInfo extends CardInfo {
@@ -39,6 +42,7 @@ export interface StudentCardViewFullInfo extends CardInfo {
     capacity: number;
     university_name: string;
     university_id: string;
+    university: University;
 }
 
 export interface createPositionRequestModel {

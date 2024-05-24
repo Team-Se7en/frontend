@@ -3,7 +3,7 @@ import { Box, ButtonGroup, FormControl, FormHelperText, Grid, MenuItem, Select, 
 import { CancelButton, SaveButton, StyledTag, Wrapper } from "./CardModal-styles";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { ProfessorCardViewFullInfo, ProfessorCardViewShortInfo } from "../../../models/CardInfo";
-import { createPosition, getPositionFullInfoProfessor, updatePosition } from "../../../services/position.service";
+import { createPosition, getPositionFullInfo, updatePosition } from "../../../services/position.service";
 import { useEffect, useState } from "react";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -50,7 +50,7 @@ export default function CardModal(props: CardModalProps) {
                 if (!props.model_id) {
                     throw new Error('Invalid Id');
                 }
-                const result = await getPositionFullInfoProfessor(props.model_id);
+                const result = await getPositionFullInfo(props.model_id);
                 setModelData(result.data);
                 setLoadingModel(false);
             } catch (e) {

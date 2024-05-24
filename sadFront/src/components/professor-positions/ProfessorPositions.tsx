@@ -1,10 +1,9 @@
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import { ProfessorPositionsQueryParams } from "../../models/QueryParams";
-import { ProfessorRequestCard } from "../professor-request-card/ProfessorRequestCard";
-import { getProfessorPositions } from "../../services/position.service";
+import { ProfessorRequestCard } from "../professor-position-card/ProfessorPositionCard";
 
 export interface ProfessorPositionsProps {
     queryParams?: ProfessorPositionsQueryParams;
@@ -28,7 +27,7 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
         if (props.modelToAdd) {
             setPositions(positions.concat(props.modelToAdd));
         }
-    }, [props.modelToAdd]);
+    }, [positions, props.modelToAdd]);
 
     return (    
         <Box

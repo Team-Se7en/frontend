@@ -9,7 +9,7 @@ import axios from "axios";
 import { University } from "../../models/University";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import ProgramCard from "../../components/programcard/ProgramCard";
+import StudentPositionCard from "../../components/student-position-card/StudentPositionCard";
 //import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
@@ -227,7 +227,7 @@ export default function UniversityPage() {
                 gap={"0.5rem"}
               >
                 {uniInfo.recent_positions.map((program, index) => (
-                  <ProgramCard
+                  <StudentPositionCard
                     key={index}
                     professor={program.professor}
                     id={program.id}

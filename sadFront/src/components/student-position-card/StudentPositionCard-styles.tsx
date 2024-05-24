@@ -1,7 +1,7 @@
 import { Card, CardContent, CardActions, Box } from "@mui/material";
 import styled from "styled-components";
 
-export const StyledProgramCard = styled(Card)(({ theme }) => ({
+export const StyledStudentPositionCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
 
   "&:hover": {

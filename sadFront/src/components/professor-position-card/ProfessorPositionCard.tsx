@@ -1,12 +1,12 @@
 import { AccessTimeRounded, AttachMoneyRounded, CloseRounded, DeleteRounded, EditRounded, EventRounded, FullscreenExitOutlined, FullscreenRounded, SchoolRounded } from "@mui/icons-material";
 import { Bounce, toast } from "react-toastify";
 import { Box, Button, Dialog, DialogActions, Grid, IconButton, Modal, Tooltip, Typography } from "@mui/material";
-import { StyledCard, StyledCardContent, StyledTag } from "./ProfessorRequestCard-styles";
+import { StyledCard, StyledCardContent, StyledTag } from "./ProfessorPositionCard-styles";
 
 import CardModal from "../modals/card-modal/CardModal";
 import DeleteDialog from "../dialogs/delete-dialog/DeleteDialog";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
-import ProfessorRequestCardDialog from "../dialogs/professor-request-card-dialog/ProfessorRequestCardDialog";
+import ProfessorRequestCardDialog from "../dialogs/professor-position-card-dialog/ProfessorPositionCardDialog";
 import { Spacer } from "../ui/Spacer";
 import { StatusCircle } from "../ui/status-circle/StatusCircle";
 import Styles from "../../Styles";
