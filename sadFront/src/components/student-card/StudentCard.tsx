@@ -1,12 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import { siteUrl } from "../../Http/axios";
-import { Student } from "../../models/Student";
 import { StyledStudentCard, StyledStudentImage, StyledWrapper } from "./StudentCard-styles";
 import { TopStudentModel } from "../../models/LandingInfo";
 import { getFullName } from "../../lib/global-util";
 import Styles from "../../Styles";
 import clsx from "clsx";
-import theme from "../../Theme";
 
 
 export interface StudentCardProps {

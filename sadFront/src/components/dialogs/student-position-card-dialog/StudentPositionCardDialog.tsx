@@ -10,7 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { Loading } from "../../ui/Loading";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { RequestModel } from "../../../models/Request";
-import { Status } from "../../../models/Status";
+import { StyledApplyButton } from "./StudentPositionCardDialog-styles";
+import { isApplyDisabled, Status } from "../../../models/Status";
+import { UserType } from "../../../models/UserType";
+import { statusColor } from "../../../lib/status-color";
 
 
 export interface StudentPositionCardDialogProps {
@@ -70,13 +73,14 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
 
         const requestModel: RequestModel = {
             position_id: model.id,
+            cover_letter: 'test',
         }
         try {
             await applyToPosition(requestModel);
             setModelData(_model => {
                 return _model ? {
                     ..._model,
-                    status: Status.Pending
+                    status: Status.PP,
                 }
                     :
                     _model;
@@ -102,7 +106,7 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
                 {model.title}
             </DialogTitle>
 
-            <DialogContent>
+            <DialogContent sx={{ pb: '4rem'}}>
                 <Box
                     id="name-and-button"
                     sx={{ display: "flex" }}
@@ -180,8 +184,8 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
                     </Grid>
 
                     {
-                        model.tags.map(tag => (
-                            <Grid item>
+                        model.tags.map((tag, index) => (
+                            <Grid item key={index}>
                                 <StyledTag label={tag}></StyledTag>
                             </Grid>
                         ))
@@ -219,6 +223,10 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
                         :
                         <></>
                 }
+
+                <StyledApplyButton variant="contained" sx={{ backgroundColor: statusColor(model.status)}} disabled={isApplyDisabled(model.status, UserType.Student)} onClick={handleApply}>
+                    {model.status}
+                </StyledApplyButton>
             </DialogContent>
         </>
     )

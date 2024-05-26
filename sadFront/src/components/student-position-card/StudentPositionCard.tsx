@@ -35,7 +35,7 @@ export default function StudentPositionCard(props: StudentPositionCardProps) {
   }
 
   const handleDialogClose = () => {
-    setDialogClose(false);
+    setDialogOpen(false);
   }
 
   const globalStyles = Styles();
