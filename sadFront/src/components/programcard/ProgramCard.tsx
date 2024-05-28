@@ -43,13 +43,14 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                 className="avatar"
                 alt="Sauleh Etemadi"
                 src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
-                            sx={{
+                sx={{
                   minHeight: "5rem",
                   minWidth: "5rem",
                   margin: "0.5rem",
                   marginBottom: 0,
                 }}
               />
+              <Box className="near-avatar"></Box>
               <ProgramInfo>
                 <Typography
                   variant="h5"

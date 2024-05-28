@@ -3,8 +3,7 @@ import Box from "@mui/material/Box";
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { Badge, Typography } from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import { Avatar, Badge, Divider, Typography } from "@mui/material";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import { StyledChats } from "./ChatBox-styles";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -91,8 +90,39 @@ export default function ChatBox() {
               maxHeight={"30rem"}
               overflow={"auto"}
             >
+              <Divider
+                textAlign="left"
+                sx={{
+                  fontFamily: "roboto",
+                  fontSize: "1rem",
+                  color: "white",
+                  fontWeight: "bold",
+                  marginBottom: "0.5rem",
+                  "&.MuiDivider-root": {
+                    "&::before": {
+                      borderTop: "thin solid white",
+                    },
+                    "&::after": {
+                      borderTop: "thin solid white",
+                    },
+                  },
+                }}
+              >
+                Your Chats
+              </Divider>
               {myChats.map((chat, index) => (
-                <StyledChats key={index} className="chat-body"></StyledChats>
+                <StyledChats key={index} className="chat-body">
+                  <Avatar
+                    className="avatar"
+                    alt="Sauleh Etemadi"
+                    src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
+                    sx={{
+                      minHeight: "4rem",
+                      minWidth: "4rem",
+                      margin: "0.5rem",
+                    }}
+                  />
+                </StyledChats>
               ))}
             </Box>
           ) : (
