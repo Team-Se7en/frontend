@@ -10,15 +10,15 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Badge, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsMenu from "../notifications-menu/NotificationsMenu";
 import { AuthContextType, useAuth } from "../../hooks/authUtils";
+import ChatBox from "../chat-box/ChatBox";
 
 const pages = ["Home", "Positions", "Requests", "University"];
 const settings = ["Profile", "Add Program", "Logout"];
@@ -192,6 +192,7 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
             </Box>
 
             <NotificationsMenu />
+            <ChatBox />
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
