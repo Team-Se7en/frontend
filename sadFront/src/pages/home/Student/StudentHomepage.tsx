@@ -12,8 +12,7 @@ import StudentPositionSort from "../../../components/StudentPositonSort/StudentP
 import { StudentPositions } from "../../../components/studentpositions/StudentPositions";
 
 export default function StudentHomepage() {
-  const [allPrograms, setAllPrograms] =
-    React.useState<StudentCardViewFullInfo[]>();
+  const [data,setdata]=useState<StudentCardViewFullInfo[]>([]);
 
     const [filterOptions, setFilterOptions] = useState({
       term: "",
@@ -24,7 +23,6 @@ export default function StudentHomepage() {
     });
 
   const [sortOptions, setSortOptions] = useState("");
-  const [condition,setcondition]=React.useState<boolean>(true);
 
   const [cards, setCards] = useState([]);
 
@@ -77,7 +75,7 @@ export default function StudentHomepage() {
             marginLeft: "450px",
           }}
         >
-          <SearchStudent setData={setAllPrograms} />
+          <SearchStudent setData={setdata} />
         </Box>
 
         <Box
@@ -107,7 +105,7 @@ export default function StudentHomepage() {
           </Box>
 
           <Box sx = {{width: "100%"}}>
-          <StudentPositions queryParams={cards}/>
+          <StudentPositions data={data} queryParams={cards}/>
 
           <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
             <ProfessorCard/>

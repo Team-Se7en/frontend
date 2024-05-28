@@ -175,7 +175,7 @@ export default function NotificationsPage() {
       </Box>
       <Box
         className="page-body"
-        minHeight={"30rem"}
+        minHeight={"40rem"}
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}

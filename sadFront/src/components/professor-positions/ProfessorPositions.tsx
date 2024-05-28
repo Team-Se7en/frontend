@@ -35,7 +35,7 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
             width={"90%"}
             minWidth={"30rem"}
             maxWidth={"50rem"}
-            sx={{ backgroundColor: "#0F1035" }}
+            sx={{ backgroundColor: "white" }}
         >
             {/* <Divider
                 textAlign="left"
