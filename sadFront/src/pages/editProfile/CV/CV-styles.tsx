@@ -3,7 +3,8 @@ import { makeStyles, createStyles } from "@mui/styles";
 const CVStyles = makeStyles(() =>
     createStyles({
         background: {
-            backgroundImage: 'linear-gradient(to bottom right,rgb(182, 248, 252), rgb(252, 182, 232))',
+            backgroundImage: 'linear-gradient(to bottom left ,#2b364a 30%, #7FC7D9)',
+            // backgroundColor:'#7FC7D9',
             display: 'flex',
             justifyContent: 'center',
             width: '100%',
@@ -11,9 +12,9 @@ const CVStyles = makeStyles(() =>
             overflow: 'auto'
         },
         editBackground: {
-            backgroundColor:'whitesmoke',
-            padding:'3rem',
-            borderRadius:'1rem'
+            backgroundColor: 'whitesmoke',
+            padding: '3rem',
+            borderRadius: '1rem'
         }
     })
 );

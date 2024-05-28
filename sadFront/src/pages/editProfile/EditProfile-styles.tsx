@@ -5,21 +5,23 @@ const EditProfileStyles = makeStyles(() =>
     createStyles({
         wrapper: {
             backgroundColor: 'white',
-            borderRadius: '1rem',
-            padding: '0.2rem',
+            borderRadius: '0.5rem',
+            padding: '0 !important',
             margin: '1rem 0',
             opacity: 0.91,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '45rem !important',
+            minWidth: '30rem !important',
+            width: '70% !important',
             height: 'calc(100vh - 4rem) !important',
             overflow: 'auto'
         },
         background: {
-            backgroundImage: `url(${ProfessorSignUpImage})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
+            // backgroundImage: `url(${ProfessorSignUpImage})`,
+            // backgroundRepeat: "no-repeat",
+            // backgroundSize: "cover",
+            backgroundColor: '#001C30',
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
@@ -31,6 +33,7 @@ const EditProfileStyles = makeStyles(() =>
             width: '100%',
             display: 'flex',
             alignItems: 'center',
+            justifyContent:'center'
         },
         profileImage: {
             height: '7rem',
@@ -39,10 +42,9 @@ const EditProfileStyles = makeStyles(() =>
             borderRadius: '10px',
         },
         lowerButtons: {
-            margin: '1rem 0 !important',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
         }
     })
 );

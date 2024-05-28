@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, Grid, Icon, List, ListItem, ListItemText, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Button, Divider, Grid, Icon, List, ListItem, ListItemText, Paper, Typography, colors } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CVStyles from "./CV-styles";
 import clsx from "clsx";
@@ -8,6 +8,8 @@ import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 import client from "../../../Http/axios";
 import { BasicInfo, Education, HardSkill, HardSkills, Project, WorkExperience } from "../../../models/CVtypes";
 import { useEffect, useState } from "react";
+import { usePDF } from 'react-to-pdf';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export function ViewCV() {
     const CVdata = {
@@ -53,7 +55,7 @@ export function ViewCV() {
             }
         ]
     }
-    
+
     const softSkillsItem = [
         'Communication', 'Teamwork', 'ProblemSolving',
     ]
@@ -72,6 +74,9 @@ export function ViewCV() {
     const navigate = useNavigate();
     const navigateToEditCV = () => {
         navigate("/cv/edit");
+    }
+    const navigateToProfile = () => {
+        navigate("/student/editProfile");
     }
 
     useEffect(() => {
@@ -129,22 +134,32 @@ export function ViewCV() {
         }
     }
 
-    function findHardSkill(id: any): string {
-        HardSkills.forEach(element => {
-            if (id == element.id) {
-                console.log(element)
-                return element.name
-            }
-        });
-        return 'nan'
-    }
+    const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
+    const [showDownloadButton, setShowDownloadButton] = useState(true);
+
+    useEffect(() => {
+        if (!showDownloadButton) {
+            toPDF();
+        }
+        setShowDownloadButton(true)
+    }, [showDownloadButton]);
+
 
     return (
         <Box className={clsx(cvStyles.background)}>
-            <Grid container sx={{ width: '75%', bgcolor: 'white', height: 'fit-content' }}>
+            <Grid ref={targetRef} container sx={{ width: '75%', bgcolor: 'white', height: 'fit-content' }}>
 
-                <Grid item container rowSpacing={2} sx={{ width: '35%', bgcolor: 'rgb(84, 71, 179)', padding: '1rem', justifyContent: 'center' }}>
-                    <Grid item xs={12}>
+                <Grid item container rowSpacing={2} sx={{ width: '35%', bgcolor: '#2b364a', padding: '1rem', justifyContent: 'center' }}>
+
+                    <Grid item xs={12} sx={{display:"flex"}}>
+                        {showDownloadButton && <Box sx={{ paddingTop: '1rem' }}>
+                            <Button
+                                variant="text"
+                                color="primary"
+                                onClick={navigateToProfile}>
+                                <ArrowBackIcon sx={{ color: 'white' }} />
+                            </Button>
+                        </Box>}
                         <AccountBoxIcon sx={{ color: 'white', height: '12rem', width: '12rem', borderRadius: '25%' }} />
                     </Grid>
                     <Grid item xs={12}>
@@ -195,18 +210,24 @@ export function ViewCV() {
                         </Paper>
                     </Grid>
 
-                    <Box sx={{ padding: '2rem' }}>
-                        <Button sx={{ height: '3rem', width: '7rem' }}
+                    {showDownloadButton && <Box sx={{ padding: '2rem' }}>
+                        <Button sx={{ margin: '1rem' }}
                             variant="contained"
                             color="primary"
                             onClick={navigateToEditCV}>
                             Edit CV
                         </Button>
-                    </Box>
+                        <Button sx={{ margin: '1rem' }}
+                            variant="contained"
+                            color="primary"
+                            onClick={() => { setShowDownloadButton(false) }}>
+                            Download CV
+                        </Button>
+                    </Box>}
                 </Grid>
                 <Grid item container spacing={2} sx={{ width: '60%', height: 'fit-content', marginInlineStart: '4%' }}>
                     <Grid item xs={12} sx={{ margin: '4rem 0 1rem' }}>
-                        <Typography variant="h2" fontWeight={'bold'} color={'rgb(84, 71, 179)'} sx={{ fontFamily: 'Arial' }}>{currentUserInfo.first_name + ' ' + currentUserInfo.last_name}</Typography>
+                        <Typography variant="h2" fontWeight={'bold'} color={'#2b364a'} sx={{ fontFamily: 'Arial' }}>{currentUserInfo.first_name + ' ' + currentUserInfo.last_name}</Typography>
                         <Divider sx={{ marginTop: '3rem' }}></Divider>
                     </Grid>
                     <Grid item xs={12} sx={{ padding: '1rem' }}>
