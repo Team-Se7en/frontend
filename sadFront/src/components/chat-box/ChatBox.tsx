@@ -44,17 +44,36 @@ export default function ChatBox() {
     setAnchorE2(null);
   };
 
-  const chatHandleClick = (chatID: number) => {
-    setChatID(chatID);
+  const chatHandleClick = (chat: ChatModel) => {
+    setChatID(chat.id);
     setWhichtab("person");
+    setChatName(chat.group_name);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  };
+
+  const sendHandleClick = (text: string, chatID: number) => {
+    client
+      .post("https://seven-apply.liara.run/eduportal/create_message/", {
+        text: text,
+        related_chat_group: chatID,
+        user: null,
+      })
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   const myChats = [1, 2, 3];
   const [whichtab, setWhichtab] = React.useState("chats");
-  const [chatID, setChatID] = React.useState(0);
+  const [chatID, setChatID] = React.useState(-1);
+  const [chatName, setChatName] = React.useState("");
   const [allowedProfs, setAllowedProfs] = React.useState([1, 2, 3]);
   const [chats, setchats] = React.useState<ChatModel[]>();
   const [messages, setMessages] = React.useState<MessageModel[]>();
+  const [text, setText] = React.useState("");
   //const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
@@ -71,10 +90,10 @@ export default function ChatBox() {
 
   React.useEffect(() => {
     client
-      .get("https://seven-apply.liara.run//eduportal/messages/" + chatID + "/")
+      .get("https://seven-apply.liara.run/eduportal/messages/" + chatID + "/")
       .then((response) => {
         setMessages(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -84,7 +103,8 @@ export default function ChatBox() {
   //console.log(chats);
   //console.log(messages);
 
-  if (!myChats) return null;
+  if (!chats) return null;
+
   return (
     <React.Fragment>
       <Box
@@ -169,11 +189,11 @@ export default function ChatBox() {
                   >
                     Your Chats
                   </Divider>
-                  {myChats.map((chat, index) => (
+                  {chats.map((chat, index) => (
                     <StyledChats
                       key={index}
                       className="chat-body"
-                      onClick={() => chatHandleClick(1)}
+                      onClick={() => chatHandleClick(chat)}
                     >
                       <Avatar
                         className="avatar"
@@ -203,14 +223,14 @@ export default function ChatBox() {
                           justifyContent={"space-between"}
                         >
                           <Typography color={"white"}>
-                            Sauleh Etemadi
+                            {chat.group_name}
                           </Typography>
                           <Typography color={"#D9D9D9"} fontSize={"0.8rem"}>
                             Fri
                           </Typography>
                         </Box>
                         <Typography color={"#D9D9D9"} fontSize={"0.8rem"}>
-                          Hey Pedram! What's up? When will we meet …
+                          {chat.part_of_last_message}
                         </Typography>
                       </Box>
                     </StyledChats>
@@ -262,7 +282,7 @@ export default function ChatBox() {
                       }}
                     >
                       {allowedProfs.map((prof, index) => (
-                        <MenuItem onClick={composeHandleClose}>
+                        <MenuItem key={index} onClick={composeHandleClose}>
                           <Box
                             display={"flex"}
                             flexDirection={"row"}
@@ -335,42 +355,56 @@ export default function ChatBox() {
                         display={"flex"}
                         flexDirection={"column"}
                       >
-                        <Typography color={"white"}>Sauleh Etemadi</Typography>
+                        <Typography color={"white"}>{chatName}</Typography>
                         <Typography color="#D9D9D9" fontSize={"0.7rem"}>
-                          Assistant Professor at IUST
+                          Professor
                         </Typography>
                       </Box>
                     </Box>
-                    <Box className="chat-texts-container" padding={"0.8rem"}>
+                    {messages ? (
                       <Box
-                        className="text-container"
-                        sx={{ backgroundColor: "#DEEBF7" }}
-                        borderRadius={"0.3rem"}
-                        padding={"0.5rem"}
-                        maxWidth={"18rem"}
-                        marginLeft={"4.3rem"}
+                        className="chat-texts-container"
+                        display={"flex"}
+                        flexDirection={"column"}
+                        padding={"0.8rem"}
+                        gap={"0.7rem"}
                       >
-                        <Typography fontSize={"0.7rem"}>
-                          Hello dear professor Etemadi! I’m bothering you
-                          because you have admitted me to your position named
-                          “NLP/ML positions” in IUST. I’m so eager to join you
-                          as soon as possible and I’m preparing myself for a
-                          trip to Tehran. Can I meet you there?
-                        </Typography>
-                        <Box
-                          className="bottom-date"
-                          display={"flex"}
-                          flexDirection={"row-reverse"}
-                        >
-                          <Typography
-                            color="text.secondary"
-                            fontSize={"0.6rem"}
+                        {messages.map((message, index) => (
+                          <Box
+                            key={index}
+                            className="text-container"
+                            sx={{
+                              backgroundColor: message.is_student
+                                ? "#DEEBF7"
+                                : "white",
+                            }}
+                            borderRadius={"0.3rem"}
+                            padding={"0.5rem"}
+                            maxWidth={"18rem"}
+                            marginLeft={message.is_student ? "4.3rem" : "0"}
                           >
-                            May 11, 12:24
-                          </Typography>
-                        </Box>
+                            <Typography fontSize={"0.7rem"}>
+                              {message.text}
+                            </Typography>
+                            <Box
+                              className="bottom-date"
+                              display={"flex"}
+                              flexDirection={"row-reverse"}
+                            >
+                              <Typography
+                                color="text.secondary"
+                                fontSize={"0.6rem"}
+                              >
+                                May 11, 12:24
+                              </Typography>
+                            </Box>
+                          </Box>
+                        ))}
                       </Box>
-                    </Box>
+                    ) : (
+                      <Box></Box>
+                    )}
+
                     <Box
                       className="bottom-input-message"
                       position={"fixed"}
@@ -382,10 +416,13 @@ export default function ChatBox() {
                       <TextField
                         id="standard-basic"
                         label="Type Your Message"
+                        onChange={handleInputChange}
+                        value={text}
                         variant="standard"
                         sx={{ width: "83%" }}
                       />
                       <Button
+                        onClick={() => sendHandleClick(text, chatID)}
                         variant="contained"
                         size="small"
                         sx={{ height: "2.1rem", marginTop: "0.9rem" }}
