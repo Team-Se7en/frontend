@@ -368,6 +368,7 @@ export default function ChatBox() {
                         flexDirection={"column"}
                         padding={"0.8rem"}
                         gap={"0.7rem"}
+                        maxHeight={"28.8rem"}
                       >
                         {messages.map((message, index) => (
                           <Box
