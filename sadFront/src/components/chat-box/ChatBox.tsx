@@ -98,7 +98,7 @@ export default function ChatBox() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, [chatID]);
+  }, [chatID, messages]);
 
   //console.log(chats);
   //console.log(messages);
