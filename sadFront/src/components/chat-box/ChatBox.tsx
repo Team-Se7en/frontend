@@ -17,6 +17,9 @@ import { StyledChats } from "./ChatBox-styles";
 import ChatIcon from "@mui/icons-material/Chat";
 import CreateIcon from "@mui/icons-material/Create";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import client from "../../Http/axios";
+import { ChatModel } from "../../models/Chat";
+import { MessageModel } from "../../models/Message";
 
 export default function ChatBox() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -50,8 +53,36 @@ export default function ChatBox() {
   const [whichtab, setWhichtab] = React.useState("chats");
   const [chatID, setChatID] = React.useState(0);
   const [allowedProfs, setAllowedProfs] = React.useState([1, 2, 3]);
-  //const [chats, setchats] = React.useState<Notifications[]>();
+  const [chats, setchats] = React.useState<ChatModel[]>();
+  const [messages, setMessages] = React.useState<MessageModel[]>();
   //const [refreshKey, setRefreshKey] = React.useState(0);
+
+  React.useEffect(() => {
+    client
+      .get("https://seven-apply.liara.run/eduportal/chat_list/")
+      .then((response) => {
+        setchats(response.data);
+        //console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  });
+
+  React.useEffect(() => {
+    client
+      .get("https://seven-apply.liara.run//eduportal/messages/" + chatID + "/")
+      .then((response) => {
+        setMessages(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, [chatID]);
+
+  //console.log(chats);
+  //console.log(messages);
 
   if (!myChats) return null;
   return (
