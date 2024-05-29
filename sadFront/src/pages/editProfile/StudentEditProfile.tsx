@@ -11,6 +11,7 @@ import { Spacer } from "../../components/ui/Spacer";
 import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import { EditCV, ViewCV } from "../../assets/icons";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 export function StudentEditProfile() {
@@ -23,6 +24,7 @@ export function StudentEditProfile() {
         firstName: "",
         lastName: "",
         ssn: 0,
+        profile_image: "",
     });
 
     const [universities, setUniversities] = useState<{ name: string; id: number }[]>([]);
@@ -31,6 +33,48 @@ export function StudentEditProfile() {
         password: "",
         email: "",
     });
+
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [preview, setPreview] = useState<string | null>();
+  
+    const handleUploadImage = async (imageString) => {
+        console.log('preview', imageString)
+        try {
+            const res = await client.patch("https://seven-apply.liara.run/eduportal/student-profile/me/" , {
+                profile_image: imageString
+            })
+            if (res.status === 200) {
+                // بعد از موفقیت در ذخیره تصویر، حالت (state) را به‌روز کنید
+                setFormData({
+                    ...formData,
+                    profile_image: imageString
+                });
+            console.log('Upload Image Successful',res);
+            }
+        } catch (error) {
+            console.error('Upload Image Error:', error);
+        }
+    }
+
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      setSelectedFile(file);
+      const reader = new FileReader();
+      console.log(selectedFile);
+      reader.onloadend = () => {
+        // console.log(typeof(reader.result));
+        setPreview(reader.result as string);
+        console.log('preview', preview)
+        handleUploadImage(reader.result);
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    };
+    const handleRemoveImage = () => {
+        setSelectedFile(null);
+        setPreview(null);
+    };
 
     useEffect(() => {
         showInfo()
@@ -122,6 +166,7 @@ export function StudentEditProfile() {
             setFormData({ ...formData })
             formData.firstName = response.data.first_name
             formData.lastName = response.data.last_name
+            formData.profile_image= response.data.profile_image
             formData.ssn = response.data.student.ssn
             setSelectedUniversity(response.data.student.university)
             selectedUniversity = response.data.student.university
@@ -132,6 +177,8 @@ export function StudentEditProfile() {
             console.log(universities)
             setLoading(false);
 
+            setPreview(response.data.profile_image);
+            console.log('User Info Loaded', response);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -199,15 +246,29 @@ export function StudentEditProfile() {
                 <Box sx={{ display: 'flex', height: '100%' }}>
                     <Box sx={{ backgroundColor: '#176B87', height: '100%', display: 'flex', flexDirection: 'column' }}>
                         <Box className={clsx(editProfileStyles.uperImage)}>
-                            <div>
-                                <img className={clsx(editProfileStyles.profileImage)} src={StudentProfileImage}></img>
-                            </div>
-                            {/* <div style={{ marginBottom: '110px', marginLeft: '-152px' }}>
-                            <Button>
+                        <div>
+                            <img className={clsx(editProfileStyles.profileImage)} src={preview || formData.profile_image || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="Profile"></img>
+                        </div>
+                        <div style={{ marginBottom: '110px', marginLeft: '-152px' }}>
+                            <Button
+                              component="label"
+                            >
+                                <input
+                                type="file"
+                                accept="image/*"
+                                hidden
+                                onChange={handleFileChange}
+                                />
                                 <PhotoCameraIcon ></PhotoCameraIcon>
                             </Button>
-                        </div> */}
-                            {/* <Typography fontSize={30}>Welcome</Typography> */}
+                        </div>
+                        {/* <Typography fontSize={30}>Welcome</Typography> */}
+                        <div style={{marginLeft:'30px',marginBottom:'110px'}}>
+                            <Button onClick={handleRemoveImage}>
+                            
+                        <CloseIcon></CloseIcon>
+                        </Button>
+                        </div>
                         </Box>
                         <Tabs value={tabValue} onChange={handleTabChange} orientation="vertical" sx={{ minWidth: '12rem' }}>
                             <Tab label="Edit Profile" {...a11yProps(0)} />

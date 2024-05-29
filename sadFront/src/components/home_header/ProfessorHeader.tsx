@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsMenu from "../notifications-menu/NotificationsMenu";
 import { AuthContextType, useAuth } from "../../hooks/authUtils";
+import ChatBoxProf from "../chat-box-professor/chat-box-professor";
 
 const pages = ["Home", "Positions", "Requests", "University"];
 const settings = ["Profile", "Add Program", "Logout"];
@@ -192,6 +193,7 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
             </Box>
 
             <NotificationsMenu />
+            <ChatBoxProf/>
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
