@@ -7,6 +7,7 @@ import Styles from "../../Styles";
 import EditProfileStyles from "./EditProfile-styles";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { StudentProfileImage } from "../../assets/images";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 export function StudentEditProfile() {
@@ -14,12 +15,55 @@ export function StudentEditProfile() {
         firstName: "student",
         lastName: "num1",
         university: "Queen's University",
+        profile_image: "",
         ssn: 13544578211,
     });
     const [EmailResetformData, emailResetFormData] = useState({
         password: "",
         email: "",
     });
+
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [preview, setPreview] = useState<string | null>();
+  
+    const handleUploadImage = async (imageString) => {
+        console.log('preview', imageString)
+        try {
+            const res = await client.patch("https://seven-apply.liara.run/eduportal/student-profile/me/" , {
+                profile_image: imageString
+            })
+            if (res.status === 200) {
+                // بعد از موفقیت در ذخیره تصویر، حالت (state) را به‌روز کنید
+                setFormData({
+                    ...formData,
+                    profile_image: imageString
+                });
+            console.log('Upload Image Successful',res);
+            }
+        } catch (error) {
+            console.error('Upload Image Error:', error);
+        }
+    }
+
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      setSelectedFile(file);
+      const reader = new FileReader();
+      console.log(selectedFile);
+      reader.onloadend = () => {
+        // console.log(typeof(reader.result));
+        setPreview(reader.result as string);
+        console.log('preview', preview)
+        handleUploadImage(reader.result);
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    };
+    const handleRemoveImage = () => {
+        setSelectedFile(null);
+        setPreview(null);
+    };
 
     useEffect(() => {
         showInfo()
@@ -78,10 +122,12 @@ export function StudentEditProfile() {
             setFormData({ ...formData })
             formData.firstName = response.data.first_name
             formData.lastName = response.data.last_name
+            formData.profile_image= response.data.profile_image
             formData.ssn = response.data.student.ssn
             // formData.university = response.data.student.university_name
             console.log(response)
-
+            setPreview(response.data.profile_image);
+            console.log('User Info Loaded', response);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -145,14 +191,28 @@ export function StudentEditProfile() {
 
                     <Box className={clsx(editProfileStyles.uperImage)}>
                         <div>
-                            <img className={clsx(editProfileStyles.profileImage)} src={StudentProfileImage}></img>
+                            <img className={clsx(editProfileStyles.profileImage)} src={preview || formData.profile_image || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="Profile"></img>
                         </div>
-                        {/* <div style={{ marginBottom: '110px', marginLeft: '-152px' }}>
-                            <Button>
+                        <div style={{ marginBottom: '110px', marginLeft: '-152px' }}>
+                            <Button
+                              component="label"
+                            >
+                                <input
+                                type="file"
+                                accept="image/*"
+                                hidden
+                                onChange={handleFileChange}
+                                />
                                 <PhotoCameraIcon ></PhotoCameraIcon>
                             </Button>
-                        </div> */}
+                        </div>
                         {/* <Typography fontSize={30}>Welcome</Typography> */}
+                        <div style={{marginLeft:'30px',marginBottom:'110px'}}>
+                            <Button onClick={handleRemoveImage}>
+                            
+                        <CloseIcon></CloseIcon>
+                        </Button>
+                        </div>
                     </Box>
                     <Box sx={{ width: '100%' }}>
                         <Box >
