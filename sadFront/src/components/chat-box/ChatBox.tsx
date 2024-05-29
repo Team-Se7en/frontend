@@ -6,6 +6,7 @@ import Tooltip from "@mui/material/Tooltip";
 import {
   Avatar,
   Badge,
+  Button,
   Divider,
   MenuItem,
   TextField,
@@ -15,6 +16,7 @@ import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import { StyledChats } from "./ChatBox-styles";
 import ChatIcon from "@mui/icons-material/Chat";
 import CreateIcon from "@mui/icons-material/Create";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 export default function ChatBox() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -28,6 +30,9 @@ export default function ChatBox() {
   const notifMenuHandleClose = () => {
     setAnchorEl(null);
   };
+  const backHandleClick = () => {
+    setWhichtab("chats");
+  };
 
   const composeHandleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorE2(event.currentTarget);
@@ -36,8 +41,13 @@ export default function ChatBox() {
     setAnchorE2(null);
   };
 
+  const chatHandleClick = (chatID: number) => {
+    setChatID(chatID);
+    setWhichtab("person");
+  };
+
   const myChats = [1, 2, 3];
-  const [whichtab, setWhichtab] = React.useState("person");
+  const [whichtab, setWhichtab] = React.useState("chats");
   const [chatID, setChatID] = React.useState(0);
   const [allowedProfs, setAllowedProfs] = React.useState([1, 2, 3]);
   //const [chats, setchats] = React.useState<Notifications[]>();
@@ -129,7 +139,11 @@ export default function ChatBox() {
                     Your Chats
                   </Divider>
                   {myChats.map((chat, index) => (
-                    <StyledChats key={index} className="chat-body">
+                    <StyledChats
+                      key={index}
+                      className="chat-body"
+                      onClick={() => chatHandleClick(1)}
+                    >
                       <Avatar
                         className="avatar"
                         alt="Sauleh Etemadi"
@@ -265,8 +279,16 @@ export default function ChatBox() {
                       sx={{ backgroundColor: "#203864" }}
                       height={"4.4rem"}
                       padding={"0.8rem"}
-                      gap={"0.5rem"}
                     >
+                      <Tooltip title="Back">
+                        <IconButton
+                          onClick={backHandleClick}
+                          size="large"
+                          sx={{ color: "white", padding: "0" }}
+                        >
+                          <ArrowBackIosIcon />
+                        </IconButton>
+                      </Tooltip>
                       <Avatar
                         className="avatar"
                         alt="Sauleh Etemadi"
@@ -274,6 +296,7 @@ export default function ChatBox() {
                         sx={{
                           minHeight: "3.5rem",
                           minWidth: "3.5rem",
+                          marginRight: "0.5rem",
                         }}
                       />
                       <Box
@@ -326,11 +349,18 @@ export default function ChatBox() {
                       flexDirection={"row"}
                     >
                       <TextField
-                        id="outlined-basic"
-                        label="Outlined"
-                        variant="outlined"
-                        sx={{ width: "80%" }}
+                        id="standard-basic"
+                        label="Type Your Message"
+                        variant="standard"
+                        sx={{ width: "83%" }}
                       />
+                      <Button
+                        variant="contained"
+                        size="small"
+                        sx={{ height: "2.1rem", marginTop: "0.9rem" }}
+                      >
+                        Send
+                      </Button>
                     </Box>
                   </Box>
                 </>
