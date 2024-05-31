@@ -7,6 +7,7 @@ import {
   Avatar,
   Badge,
   Button,
+  CircularProgress,
   Divider,
   MenuItem,
   TextField,
@@ -18,7 +19,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import CreateIcon from "@mui/icons-material/Create";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import client from "../../Http/axios";
-import { ChatModel } from "../../models/Chat";
+import { AllowedChats, ChatModel } from "../../models/Chat";
 import { MessageModel } from "../../models/Message";
 
 export default function ChatBox() {
@@ -39,9 +40,32 @@ export default function ChatBox() {
 
   const composeHandleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorE2(event.currentTarget);
+    client
+      .get("https://seven-apply.liara.run/eduportal/student_new_chat/")
+      .then((response) => {
+        setAllowedNewChats(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
-  const composeHandleClose = () => {
-    setAnchorE2(null);
+  const composeHandleClose = (id: number, name: string) => {
+    if (id != -1) {
+      setChatID(id);
+      setChatName(name);
+      setWhichtab("person");
+      client
+        .get(
+          "https://seven-apply.liara.run/eduportal/start_new_chat/" + id + "/"
+        )
+        .then((response) => {})
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    } else {
+      setAnchorE2(null);
+    }
   };
 
   const chatHandleClick = (chat: ChatModel) => {
@@ -70,7 +94,8 @@ export default function ChatBox() {
   const [whichtab, setWhichtab] = React.useState("chats");
   const [chatID, setChatID] = React.useState(-1);
   const [chatName, setChatName] = React.useState("");
-  const [allowedProfs, setAllowedProfs] = React.useState([1, 2, 3]);
+  const [allowedNewChats, setAllowedNewChats] =
+    React.useState<AllowedChats[]>();
   const [chats, setchats] = React.useState<ChatModel[]>();
   const [messages, setMessages] = React.useState<MessageModel[]>();
   const [text, setText] = React.useState("");
@@ -100,10 +125,9 @@ export default function ChatBox() {
       });
   }, [chatID, messages]);
 
-  //console.log(chats);
-  //console.log(messages);
-
   if (!chats) return null;
+
+  //console.log(allowedNewChats);
 
   return (
     <React.Fragment>
@@ -271,7 +295,7 @@ export default function ChatBox() {
                       aria-labelledby="demo-positioned-button"
                       anchorEl={anchorE2}
                       open={composeOpen}
-                      onClose={composeHandleClose}
+                      onClose={() => composeHandleClose(-1, "")}
                       anchorOrigin={{
                         vertical: "top",
                         horizontal: "left",
@@ -281,37 +305,72 @@ export default function ChatBox() {
                         horizontal: "left",
                       }}
                     >
-                      {allowedProfs.map((prof, index) => (
-                        <MenuItem key={index} onClick={composeHandleClose}>
-                          <Box
-                            display={"flex"}
-                            flexDirection={"row"}
-                            alignItems={"center"}
-                            gap={"0.3rem"}
-                          >
-                            <Avatar
-                              className="avatar"
-                              alt="Sauleh Etemadi"
-                              src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
-                              sx={{
-                                minHeight: "1rem",
-                                minWidth: "1rem",
-                              }}
-                            />
-                            <Box>
-                              <Typography fontSize={"0.8rem"}>
-                                Sauleh Etemadi
-                              </Typography>
-                              <Typography
-                                fontSize={"0.6rem"}
-                                color="text.secondary"
+                      {allowedNewChats ? (
+                        allowedNewChats.length != 0 ? (
+                          allowedNewChats.map((prof, index) => (
+                            <MenuItem
+                              key={index}
+                              onClick={() =>
+                                composeHandleClose(prof.id, prof.name)
+                              }
+                            >
+                              <Box
+                                display={"flex"}
+                                flexDirection={"row"}
+                                alignItems={"center"}
+                                gap={"0.3rem"}
                               >
-                                IUST
-                              </Typography>
-                            </Box>
+                                <Avatar
+                                  className="avatar"
+                                  alt="Sauleh Etemadi"
+                                  src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
+                                  sx={{
+                                    minHeight: "1rem",
+                                    minWidth: "1rem",
+                                  }}
+                                />
+                                <Box>
+                                  <Typography fontSize={"0.8rem"}>
+                                    {prof.name}
+                                  </Typography>
+                                  <Typography
+                                    fontSize={"0.6rem"}
+                                    color="text.secondary"
+                                  >
+                                    {prof.university}
+                                  </Typography>
+                                </Box>
+                              </Box>
+                            </MenuItem>
+                          ))
+                        ) : (
+                          <Box
+                            width={"13rem"}
+                            height={"4rem"}
+                            display={"flex"}
+                            flexDirection={"column"}
+                            justifyContent={"center"}
+                            alignItems={"center"}
+                            padding={"2rem"}
+                            textAlign={"center"}
+                          >
+                            <Typography fontSize={"0.8rem"}>
+                              There is no remaining allowed chats
+                            </Typography>
                           </Box>
-                        </MenuItem>
-                      ))}
+                        )
+                      ) : (
+                        <Box
+                          width={"13rem"}
+                          height={"4rem"}
+                          display={"flex"}
+                          flexDirection={"column"}
+                          justifyContent={"center"}
+                          alignItems={"center"}
+                        >
+                          <CircularProgress />
+                        </Box>
+                      )}
                     </Menu>
                   </Box>
                 </Box>

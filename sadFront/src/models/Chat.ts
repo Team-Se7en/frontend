@@ -7,3 +7,9 @@ export interface ChatModel {
     chat_enable: boolean;
     unseen_messages_flag: string;
 }
+
+export interface AllowedChats {
+    id: number;
+    name: string;
+    university: string;
+}
