@@ -17,9 +17,10 @@ export interface StudentCardProps {
 }
 
 export function StudentCard(props: StudentCardProps) {
-    const [buttonLoading, setButtonLoading] = useState<boolean>();
+    const [buttonLoading, setButtonLoading] = useState<boolean>(false);
 
     const handleRequestAccept = async () => {
+        setButtonLoading(true);
         await professorAcceptRequest(props.model.id).then(() => {
             props.model.status = Status.SP;
             props.requestStatusChange?.(Status.PA)
@@ -34,13 +35,30 @@ export function StudentCard(props: StudentCardProps) {
                 progress: undefined,
                 theme: "dark",
             });
+        }).finally(() => {
+            setButtonLoading(false);
         });
     };
 
     const handleRequestReject = async () => {
-        await professorRejectRequest(props.model.id);
-        props.model.status = Status.PR;
-        props.requestStatusChange?.(Status.PR)
+        setButtonLoading(true);
+        await professorRejectRequest(props.model.id).then(() => {
+            props.model.status = Status.PR;
+            props.requestStatusChange?.(Status.PR)
+        }).catch(() => {
+            toast.error("Problem has occured", {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }).finally(() => {
+            setButtonLoading(false);
+        });
     };
 
     const globalClasses = Styles();
@@ -60,7 +78,7 @@ export function StudentCard(props: StudentCardProps) {
                     {props.model.cover_letter}
                 </Typography>
                 {
-                    props.model.status == Status.PP || props.model.status == Status.SA ?
+                    !buttonLoading && (props.model.status == Status.PP || props.model.status == Status.SA) ?
                         (
                             <ButtonGroup variant="contained" sx={{ ml: 'auto', mt: '0.5rem' }}>
                                 <Button color="error" onClick={handleRequestReject}>

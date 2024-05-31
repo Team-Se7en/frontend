@@ -42,6 +42,8 @@ export default function CardModal(props: CardModalProps) {
         request_count: 0,
         id: 0,
         capacity: 0,
+        // university: null,
+        requests: [],
     });
 
     useEffect(() => {
@@ -127,6 +129,7 @@ export default function CardModal(props: CardModalProps) {
                 tags: model.tags,
                 title: model.title,
                 university_name: model.university?.name ?? '',
+                university_id: 0
             }
 
             props.onAddUpdate(updatedModel)
@@ -148,6 +151,7 @@ export default function CardModal(props: CardModalProps) {
                 tags: model.tags,
                 title: model.title,
                 university_name: model.university?.name ?? '',
+                university_id: 0
             }
 
             props.onAddUpdate(createdModel);

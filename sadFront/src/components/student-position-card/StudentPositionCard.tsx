@@ -10,7 +10,7 @@ import { useState } from "react";
 import { StudentPositionCardDialog } from "../dialogs/student-position-card-dialog/StudentPositionCardDialog";
 import clsx from "clsx";
 import Styles from "../../Styles";
-import { getPositionDuration, PositionDuration } from "../../models/PositionDurations";
+import { getPositionDuration } from "../../models/PositionDurations";
 import { AccessTimeRounded, AttachMoneyRounded, CloseRounded, EventRounded, FullscreenExitOutlined, FullscreenRounded, SchoolRounded } from "@mui/icons-material";
 import theme from "../../Theme";
 import { formatTime } from "../../lib/format-time";

@@ -14,3 +14,7 @@ export interface RequestingStudent {
     cover_letter: string;
     share_with_others: boolean;
 }
+
+export interface StudentRequest { 
+    id: number;
+}

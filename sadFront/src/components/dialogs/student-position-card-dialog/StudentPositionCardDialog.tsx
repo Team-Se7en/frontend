@@ -1,4 +1,4 @@
-import { DialogTitle, DialogContent, Divider, Box, Collapse, Typography, Grid, Button, useMediaQuery } from "@mui/material";
+import { DialogTitle, DialogContent, Divider, Box, Collapse, Typography, Grid, Button, useMediaQuery, Tooltip } from "@mui/material";
 import { formatTime } from "../../../lib/format-time";
 import { StyledTag } from "../../professor-position-card/ProfessorPositionCard-styles";
 import { StyledShowButton } from "../professor-position-card-dialog/ProfessorPositionCardDialog-styles";
@@ -8,27 +8,28 @@ import { applyToPosition, getPositionFullInfo } from "../../../services/position
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../ui/Loading";
-import { KeyboardArrowRight } from "@mui/icons-material";
+import { ArrowForward, KeyboardArrowRight } from "@mui/icons-material";
 import { RequestModel } from "../../../models/Request";
-import { StyledApplyButton } from "./StudentPositionCardDialog-styles";
-import { getStatusText, isApplyDisabled, Status } from "../../../models/Status";
-import { UserType } from "../../../models/UserType";
+import { StyledApplyButton, StyledButtonGroup } from "./StudentPositionCardDialog-styles";
+import { getStatusText, Status } from "../../../models/Status";
 import { statusColor } from "../../../lib/status-color";
 import { getPositionDuration } from "../../../models/PositionDurations";
-
+import theme from "../../../Theme";
+import { studentAcceptRequest, studentRejectRequest } from "../../../services/request.service";
 
 export interface StudentPositionCardDialogProps {
     model_id: number;
 }
 
 export function StudentPositionCardDialog(props: StudentPositionCardDialogProps) {
-    const croppedLength = 200;
+    const croppedLength = 240;
 
     const isSmallScreen = useMediaQuery("(max-width:800px)");
 
     const navigate = useNavigate();
     const [model, setModelData] = useState<StudentCardViewFullInfo>();
     const [loading, setLoading] = useState(true);
+    const [buttonLoading, setButtonLoading] = useState<boolean>(false);
 
     const [descriptionExpanded, setDescriptionExpanded] = useState(false);
     const handleDescriptionExpandClick = () => {
@@ -69,6 +70,10 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
         }
     }, [props.model_id]);
 
+    if (!model) {
+        return <Loading />;
+    }
+
     const handleApply = async () => {
         if (!model) return;
 
@@ -76,21 +81,75 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
             position_id: model.id,
             cover_letter: 'test',
         }
-        try {
-            await applyToPosition(requestModel);
+
+        setButtonLoading(true);
+        await applyToPosition(requestModel).then(() => {
             setModelData(_model => {
                 return _model ? {
                     ..._model,
-                    status:     P,
+                    status: Status.PP,
                 }
                     :
                     _model;
             });
             toast.success('Request sent successfully');
-        } catch (error) {
-            toast.error('Failed to apply to position');
-        }
+        }).catch(() => {
+            toast.error("Problem has occured", {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }).finally(() => {
+            setButtonLoading(false);
+        });
     }
+
+    const handleRequestAccept = async () => {
+        setButtonLoading(true);
+        await studentAcceptRequest(model.my_request.id).then(() => {
+            model.status = Status.SA;
+            // props.requestStatusChange?.(Status.PA)
+        }).catch(() => {
+            toast.error("Problem has occured", {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }).finally(() => {
+            setButtonLoading(false);
+        });
+    };
+
+    const handleRequestReject = async () => {
+        setButtonLoading(true);
+        await studentRejectRequest(model.my_request.id).then(() => {
+            model.status = Status.SR;
+            // props.requestStatusChange?.(Status.PR)
+        }).catch(() => {
+            toast.error("Problem has occured", {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }).finally(() => {
+            setButtonLoading(false);
+        });
+    };
 
     if (loading) {
         return <Loading />;
@@ -107,7 +166,7 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
                 {model.title}
             </DialogTitle>
 
-            <DialogContent sx={{ pb: '4rem'}}>
+            <DialogContent sx={{ pb: '4rem' }}>
                 <Box
                     id="name-and-button"
                     sx={{ display: "flex" }}
@@ -164,9 +223,9 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
                     Fee: $ {model.fee}
                 </Typography>
 
-                <Typography variant="body1">
+                <Typography variant="body1" display={'flex'}>
                     Position Duration: {`${formatTime(model.position_start_date.toString())} - ${formatTime(model.position_end_date.toString())}`}
-                    - {getPositionDuration(model.position_start_date, model.position_end_date).toString()}
+                    <ArrowForward sx={{ ml: '0.5rem', mr: '0.5rem' }} /> {getPositionDuration(model.position_start_date, model.position_end_date).toString()}
                 </Typography>
 
 
@@ -213,14 +272,40 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
                                         </Typography>
                                 }
                             </Box>
-                         </>
+                        </>
                         :
                         <></>
                 }
 
-                <StyledApplyButton variant="contained" sx={{ backgroundColor: statusColor(model.status)}} disabled={isApplyDisabled(model.status, UserType.Student)} onClick={handleApply}>
-                    {getStatusText(model.status)}
-                </StyledApplyButton>
+                {
+                    buttonLoading ?
+                        (
+                            <StyledApplyButton variant="contained" disabled sx={{ ml: 'auto', mt: '0.5rem' }}> {getStatusText(model.status)} </StyledApplyButton>
+                        ) :
+                        model.status == Status.Open ?
+                            (
+                                <StyledApplyButton variant="contained" sx={{ backgroundColor: statusColor(model.status) }} onClick={handleApply}>
+                                    {getStatusText(model.status)}
+                                </StyledApplyButton>
+                            ) :
+                            (model.status == Status.SP || model.status == Status.PA) ?
+                                (
+                                    <Tooltip title={getStatusText(model.status)}>
+                                        <StyledButtonGroup variant="contained" sx={{ ml: 'auto', mt: '0.5rem' }}>
+                                            <Button color="error" onClick={handleRequestReject}>
+                                                Reject
+                                            </Button>
+
+                                            <Button sx={{ backgroundColor: theme.palette.backgroundColor2 }} onClick={handleRequestAccept}>
+                                                Accept
+                                            </Button>
+                                        </StyledButtonGroup>
+                                    </Tooltip>
+                                ) :
+                                (
+                                    <StyledApplyButton variant="contained" disabled sx={{ ml: 'auto', mt: '0.5rem' }}> {getStatusText(model.status)} </StyledApplyButton>
+                                )
+                }
             </DialogContent>
         </>
     )

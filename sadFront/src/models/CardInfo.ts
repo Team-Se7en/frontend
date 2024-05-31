@@ -1,5 +1,5 @@
 import { Professor } from "./Professor";
-import { RequestingStudent } from "./Request";
+import { RequestingStudent, StudentRequest } from "./Request";
 import { Status } from "./Status";
 import { University } from "./University";
 
@@ -47,6 +47,7 @@ export interface StudentCardViewFullInfo extends CardInfo {
     university_id: string;
     university: University;
     remaining: number;
+    my_request: StudentRequest;
 }
 
 export interface createPositionRequestModel {

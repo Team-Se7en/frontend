@@ -4,12 +4,12 @@ export enum Status {
     Open = "Open",
     Closed = "Closed",
     NotActive = "Not Active",
-    SP = "SP",
-    SR = "SR",
-    SA = "SA",
-    PP = "PP",
-    PA = "PA",
-    PR = "PR",
+    SP = "Pending Student Response",
+    SR = "Student Rejected",
+    SA = "Student Accepted",
+    PP = "Pending Professor Response",
+    PA = "Professor Accepted",
+    PR = "Professor Rejected",
 }
 
 export function isApplyDisabled(status: Status, userType?: UserType): boolean {
@@ -35,12 +35,7 @@ export function getStatusText(status: Status): string {
         case Status.Open:
             return "Apply";
 
-        case Status.PA: case Status.SP:
-            return "Pending Student Response";
-
-
-
         default:
-            return status.toString();
+            return status;
     }
 }
