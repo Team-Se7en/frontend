@@ -47,7 +47,7 @@ const theme = createTheme({
         },
         status: {
             open: 'green !important',
-            pending: 'yellow !important',
+            pending: '#FFC300 !important',
             accepted: 'blue !important',
             notActive: 'purple !important',
             closed: 'gray !important',

@@ -1,34 +1,31 @@
-import { Avatar, Box, Button, Chip, Dialog, Icon, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Dialog, DialogActions, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import {
-  BottemInfo,
-  Deadline,
-  DeaedLineAndButton,
-  ProfAndUni,
-  ProgramInfo,
-  StyledCardActions,
+  StyledCard,
   StyledCardContent,
-  StyledStudentPositionCard,
 } from "./StudentPositionCard-styles";
 
-import { ConvDate } from "../../lib/DateConvertor";
 import { Link } from "react-router-dom";
 import { StudentCardViewShortInfo } from "../../models/CardInfo";
 import { useState } from "react";
 import { StudentPositionCardDialog } from "../dialogs/student-position-card-dialog/StudentPositionCardDialog";
 import clsx from "clsx";
 import Styles from "../../Styles";
-
-const handleClick = () => {
-  console.info("You clicked a topic.");
-};
+import { getPositionDuration, PositionDuration } from "../../models/PositionDurations";
+import { AccessTimeRounded, AttachMoneyRounded, CloseRounded, EventRounded, FullscreenExitOutlined, FullscreenRounded, SchoolRounded } from "@mui/icons-material";
+import theme from "../../Theme";
+import { formatTime } from "../../lib/format-time";
+import { StyledTag } from "../professor-position-card/ProfessorPositionCard-styles";
+import { Spacer } from "../ui/Spacer";
+import { StatusCircle } from "../ui/status-circle/StatusCircle";
+import { getFullName } from "../../lib/global-util";
 
 export interface StudentPositionCardProps {
   model: StudentCardViewShortInfo;
 }
 
 export default function StudentPositionCard(props: StudentPositionCardProps) {
-
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogFullscreen, setDialogFullscreen] = useState(false);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -38,197 +35,130 @@ export default function StudentPositionCard(props: StudentPositionCardProps) {
     setDialogOpen(false);
   }
 
+  const handleFullscreen = () => {
+    setDialogFullscreen(!dialogFullscreen);
+  };
+
   const globalStyles = Styles();
 
   return (
     <>
-      <Box minWidth={"24rem"} width={"90%"} margin={"0.5rem"}>
-        <StyledStudentPositionCard variant="outlined">
-          <StyledCardContent>
-            <Box
-              className="top-info"
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                width: "100%",
-              }}
-              width={{ xs: "100%", sm: "100%", md: "100%", lg: "80%", xl: "80%" }}
-            >
-              <Box
-                className="prof-info"
-                sx={{ display: "flex", flexDirection: "row" }}
-                gap={"1rem"}
-              >
-                <Avatar
-                  className="avatar"
-                  alt="Sauleh Etemadi"
-                  src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
-                  sx={{
-                    minHeight: "5rem",
-                    minWidth: "5rem",
-                    margin: "0.5rem",
-                    marginBottom: 0,
-                  }}
-                />
-                <ProgramInfo>
-                  <Typography
-                    variant="h5"
-                    component="div"
-                    sx={{ fontWeight: "bold" }}
-                    fontSize={"1.4rem"}
-                  >
-                    {props.model.title}
-                  </Typography>
-                  <ProfAndUni>
-                    <Typography color="text.secondary" fontSize={"1rem"}>
-                      {props.model.professor.user.first_name +
-                        " " +
-                        props.model.professor.user.last_name}
+      <StyledCard className={clsx(globalStyles.flexColumn)}>
+        <StyledCardContent className={clsx(globalStyles.flexColumn)}>
+
+          <Box gap={2} className={clsx(globalStyles.flexRow, globalStyles.vCenter)}>
+            <Avatar
+              className="avatar"
+              alt="Sauleh Etemadi"
+            />
+
+            <Tooltip title={props.model.title}>
+              <Typography variant="h5" color="iconButton" noWrap>
+                {props.model.title}
+              </Typography>
+            </Tooltip>
+          </Box>
+
+          <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween, globalStyles.vCenter)} sx={{ mt: 1 }}>
+            <Box gap={1} className={clsx(globalStyles.flexRow, globalStyles.vCenter)}>
+              <Tooltip title={props.model.university_name}>
+                <Box gap={2} className={globalStyles.flexRow}>
+                  <Link to={"/"} target="_blank">
+                    <Typography>
+                      {getFullName(props.model.professor.user.first_name, props.model.professor.user.last_name)}
                     </Typography>
+                  </Link>
+
+                  <Box gap={1} className={globalStyles.flexRow}>
+                    <SchoolRounded sx={{ color: theme.palette.iconButton }} />
                     <Link
                       to={{ pathname: "/universitypage" }}
                       state={props.model.university_id}
                     >
-                      <Box
-                        className="icon-uni"
-                        display={"flex"}
-                        flexDirection={"row"}
-                        gap={"0.2rem"}
-                      >
-                        <Icon sx={{ fontSize: "1.2rem" }}>school</Icon>
-                        <Typography
-                          variant="body2"
-                          fontSize={"0.8rem"}
-                          color={"black"}
-                        >
-                          {props.model.university_name}
-                        </Typography>
-                      </Box>
+                      <Typography
+                        variant="body1" textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
+                        {props.model.university_name}
+                      </Typography>
                     </Link>
-                  </ProfAndUni>
-                </ProgramInfo>
-              </Box>
+                  </Box>
+                </Box>
+              </Tooltip>
             </Box>
-            <BottemInfo>
-              <Box
-                className="left-details"
-                display={"flex"}
-                flexDirection={"column"}
-                gap={"0.8rem"}
-                width={{
-                  xs: "100%",
-                  sm: "100%",
-                  md: "100%",
-                  lg: "80%",
-                  xl: "80%",
-                }}
-              >
-                <Box
-                  className="info"
-                  display={"flex"}
-                  flexDirection={"row"}
-                  justifyContent={"space-between"}
-                  marginBottom={"0.5rem"}
-                  marginTop={"0.4rem"}
-                >
-                  <Box
-                    className="start-date"
-                    display={"flex"}
-                    flexDirection={"column"}
-                  >
-                    <Typography variant="body2" fontSize={"0.7rem"}>
-                      Starts at
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      fontWeight={"bold"}
-                      fontSize={"0.8rem"}
-                    >
-                      {ConvDate(props.model.position_start_date, "year and month")}
-                    </Typography>
-                  </Box>
-                  <Box
-                    className="duration"
-                    display={"flex"}
-                    flexDirection={"column"}
-                  >
-                    <Typography variant="body2" fontSize={"0.7rem"}>
-                      Duration:
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      fontWeight={"bold"}
-                      fontSize={"0.8rem"}
-                    >
-                      2 years
-                    </Typography>
-                  </Box>
-                  <Box className="fee" display={"flex"} flexDirection={"column"}>
-                    <Typography variant="body2" fontSize={"0.7rem"}>
-                      Fee:
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      fontWeight={"bold"}
-                      fontSize={"0.8rem"}
-                    >
-                      {props.model.fee} Rials
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box
-                  className="topics"
-                  flexDirection={"row"}
-                  gap={"0.5rem"}
-                  alignItems={"center"}
-                  //overflow={"auto"}
-                  display={{
-                    xs: "none",
-                    sm: "none",
-                    md: "flex",
-                    lg: "flex",
-                    xl: "flex",
-                  }}
-                >
-                  <Typography variant="body2" fontSize={"0.9rem"}>
-                    Topics:
-                  </Typography>
-                  <Stack direction="row" spacing={1}>
-                    {props.model.tags.map((tag, index) => (
-                      <Chip
-                        key={index}
-                        label={tag}
-                        size="small"
-                        onClick={handleClick}
-                      //variant="outlined"
-                      />
-                    ))}
-                  </Stack>
-                </Box>
-              </Box>
-              <DeaedLineAndButton>
-                <Deadline>
-                  <Typography variant="body2" fontSize={"0.7rem"}>
-                    Application Deadline:
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    fontWeight={"bold"}
-                    fontSize={"0.8rem"}
-                  >
-                    {ConvDate(props.model.position_end_date, "year and month")}
-                  </Typography>
-                </Deadline>
-                <StyledCardActions>
-                  <Button onClick={handleDialogOpen} sx={{ color: 'darkblue' }} className={clsx(globalStyles.justifySelfBottom)} variant="text" disableRipple>Learn More</Button>
-                </StyledCardActions>
-              </DeaedLineAndButton>
-            </BottemInfo>
-          </StyledCardContent>
-        </StyledStudentPositionCard>
-      </Box>
-      <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth maxWidth='sm'>
+          </Box>
+
+          <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween, globalStyles.vCenter)} sx={{ mt: 1 }}>
+            <Box gap={1} className={globalStyles.flexRow}>
+              <AccessTimeRounded sx={{ color: theme.palette.iconButton }} />
+              <Typography variant="body1">
+                {`${formatTime(props.model.start_date.toString())} - ${formatTime(props.model.end_date.toString())}`}
+              </Typography>
+            </Box>
+            <Spacer />
+            <Box gap={0.5} className={globalStyles.flexRow}>
+
+              <EventRounded sx={{ color: theme.palette.iconButton }} />
+              <Typography variant="body1">
+                {`${formatTime(props.model.position_start_date.toString())} - ${formatTime(props.model.position_end_date.toString())}`}
+              </Typography>
+            </Box>
+
+            <Box minWidth={'4.5rem'} display={'flex'} justifyContent={'flex-end'}>
+              <StatusCircle status={props.model.status} />
+            </Box>
+          </Box>
+
+          <Box className={clsx(globalStyles.flexRow, globalStyles.justifyContentBetween)} sx={{ mt: 1, mb: 0.5 }}>
+            <Box className={globalStyles.flexRow}>
+              <AttachMoneyRounded sx={{ color: theme.palette.iconButton }} />
+              <Typography variant="body1">
+                {props.model.fee}
+              </Typography>
+            </Box>
+
+            <Typography variant="body1">
+              Remaining: {props.model.remaining}
+            </Typography>
+
+            <Typography variant="body1" width={'12rem'}>
+              Duration: {getPositionDuration(props.model.position_start_date, props.model.position_end_date).toString()}
+            </Typography>
+
+          </Box>
+
+          <Grid container spacing={1} sx={{ overflow: 'hidden', height: '2.5rem', mt: '0 !important' }}>
+            <Grid item>
+              <Typography sx={{ pt: '4px' }}>
+                Topics:
+              </Typography>
+            </Grid>
+
+            {
+              props.model.tags.map(tag => (
+                <Grid item key={tag}>
+                  <StyledTag label={tag}></StyledTag>
+                </Grid>
+              ))
+            }
+
+            <Spacer />
+            <Grid sx={{ pt: '4px' }}>
+              <Button onClick={handleDialogOpen} sx={{ color: 'darkblue' }} className={clsx(globalStyles.justifySelfBottom)} variant="text" disableRipple>Learn More</Button>
+            </Grid>
+
+          </Grid>
+        </StyledCardContent>
+      </StyledCard>
+
+      <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth maxWidth='md' fullScreen={dialogFullscreen}
+        PaperProps={{ sx: { backgroundImage: theme.palette.backgroundColor } }}>
+        <DialogActions>
+          <IconButton onClick={handleFullscreen} sx={{ color: theme.palette.iconButton }}>
+            {dialogFullscreen ? <FullscreenExitOutlined /> : <FullscreenRounded />}
+          </IconButton>
+          <IconButton onClick={handleDialogClose} sx={{ color: theme.palette.iconButton }}>
+            <CloseRounded />
+          </IconButton>
+        </DialogActions>
         <StudentPositionCardDialog model_id={props.model.id} />
       </Dialog>
     </>

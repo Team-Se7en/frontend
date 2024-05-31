@@ -8,6 +8,10 @@ import { StyledTag } from "../../professor-position-card/ProfessorPositionCard-s
 import { StyledShowButton } from "./ProfessorPositionCardDialog-styles";
 import { Loading } from "../../ui/Loading";
 import { useNavigate } from "react-router-dom";
+import { StudentCard } from "../../student-card/StudentCard";
+import { Status } from "../../../models/Status";
+import clsx from "clsx";
+import Styles from "../../../Styles";
 
 export interface ProfessorRequestCardDialogProps {
     // cardId: string;
@@ -64,6 +68,12 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
     const croppedLength = 200;
 
     const [loading, setLoading] = useState(true);
+
+    const handleRequestStatusChange = (status: Status) => {
+        console.log(status);
+    }
+
+    const globalClasses = Styles();
 
     if (loading) {
         return <Loading />;
@@ -187,6 +197,14 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                             <Divider orientation="horizontal" variant="middle" sx={{ mt: 1, mb: 1 }}>
                                 Applications
                             </Divider>
+
+                            <Box gap={2} className={clsx(globalClasses.flexColumn)}>
+                                {
+                                    model.requests.map((student, index) => (
+                                        <StudentCard key={index} model={student} requestStatusChange={handleRequestStatusChange}/>
+                                    ))
+                                }
+                            </Box>
                         </DialogContent>
                     </>
             }

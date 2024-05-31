@@ -1,4 +1,5 @@
 import { Professor } from "./Professor";
+import { RequestingStudent } from "./Request";
 import { Status } from "./Status";
 import { University } from "./University";
 
@@ -28,12 +29,14 @@ export interface ProfessorCardViewFullInfo extends CardInfo {
     description: string;
     request_count: number;
     university: University;
+    requests: RequestingStudent[];
 }
 
 export interface StudentCardViewShortInfo extends CardInfo {
     professor: Professor;
     university_name: string;
     university_id: string;
+    remaining: number;
 }
 
 export interface StudentCardViewFullInfo extends CardInfo {
@@ -43,6 +46,7 @@ export interface StudentCardViewFullInfo extends CardInfo {
     university_name: string;
     university_id: string;
     university: University;
+    remaining: number;
 }
 
 export interface createPositionRequestModel {

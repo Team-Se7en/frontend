@@ -20,7 +20,7 @@ import { siteUrl } from "../../Http/axios";
 import StudentPositionCard from "../../components/student-position-card/StudentPositionCard";
 import { ProfessorRequestCard } from "../../components/professor-position-card/ProfessorPositionCard";
 import { UniversityCard } from "../../components/university-card/UnversityCard";
-import { StudentCard } from "../../components/student-card/StudentCard";
+import { StudentCard } from "../../components/top-student-card/TopStudentCard";
 import "./Home.css"
 import { getPlacementColor } from "../../lib/global-util";
 import { ProfessorCard } from "../../components/professor-card/ProfessorCard";
@@ -135,10 +135,6 @@ export function Home() {
     };
   }, []);
 
-  const handleUniversityClick = (id: number): void => {
-    window.open(`/universityPage${id}`, '_blank');
-  }
-
   const globalClasses = Styles();
   const homeClasses = HomeStyles();
 
@@ -168,6 +164,7 @@ export function Home() {
                             <Link2
                               to={{ pathname: "/universitypage" }}
                               state={item.id}
+                              target="_blank"
                             >
                               <StyledUniversityIcon src={siteUrl + item.icon} />
                             </Link2>

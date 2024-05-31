@@ -35,7 +35,7 @@ export function StudentPositions(props: StudentPositionsProps) {
             maxWidth={"55rem"}
             minWidth={"20rem"}
             maxHeight={"35rem"}
-            sx={{ backgroundColor: "#0F1035" }}
+            sx={{ backgroundColor: "white" }}
         >
             <Box
                 height={"30rem"}

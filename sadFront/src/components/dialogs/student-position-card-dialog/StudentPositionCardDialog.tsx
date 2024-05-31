@@ -11,9 +11,10 @@ import { Loading } from "../../ui/Loading";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { RequestModel } from "../../../models/Request";
 import { StyledApplyButton } from "./StudentPositionCardDialog-styles";
-import { isApplyDisabled, Status } from "../../../models/Status";
+import { getStatusText, isApplyDisabled, Status } from "../../../models/Status";
 import { UserType } from "../../../models/UserType";
 import { statusColor } from "../../../lib/status-color";
+import { getPositionDuration } from "../../../models/PositionDurations";
 
 
 export interface StudentPositionCardDialogProps {
@@ -80,7 +81,7 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
             setModelData(_model => {
                 return _model ? {
                     ..._model,
-                    status: Status.PP,
+                    status:     P,
                 }
                     :
                     _model;
@@ -164,15 +165,8 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
                 </Typography>
 
                 <Typography variant="body1">
-                    Needed: {model.capacity}
-                </Typography>
-
-                {/* <Typography variant="body1">
-                    Requested: {model.request_count}
-                </Typography> */}
-
-                <Typography variant="body1">
                     Position Duration: {`${formatTime(model.position_start_date.toString())} - ${formatTime(model.position_end_date.toString())}`}
+                    - {getPositionDuration(model.position_start_date, model.position_end_date).toString()}
                 </Typography>
 
 
@@ -225,7 +219,7 @@ export function StudentPositionCardDialog(props: StudentPositionCardDialogProps)
                 }
 
                 <StyledApplyButton variant="contained" sx={{ backgroundColor: statusColor(model.status)}} disabled={isApplyDisabled(model.status, UserType.Student)} onClick={handleApply}>
-                    {model.status}
+                    {getStatusText(model.status)}
                 </StyledApplyButton>
             </DialogContent>
         </>
