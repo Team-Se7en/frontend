@@ -65,7 +65,7 @@ function StudentHeader() {
         width: "100%",
         backgroundColor: "#0F1035",
         color: "#FFF5EE",
-        height: "60px",
+        // height: "60px",
       }}
     >
       <Container
