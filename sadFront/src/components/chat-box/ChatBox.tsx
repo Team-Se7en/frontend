@@ -21,6 +21,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import client from "../../Http/axios";
 import { AllowedChats, ChatModel } from "../../models/Chat";
 import { MessageModel } from "../../models/Message";
+import { generateMessageDate } from "../../lib/MessageDate";
 
 export default function ChatBox() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -59,7 +60,6 @@ export default function ChatBox() {
         .get(
           "https://seven-apply.liara.run/eduportal/start_new_chat/" + id + "/"
         )
-        .then((response) => {})
         .catch((error) => {
           console.error("There was an error!", error);
         });
@@ -99,6 +99,7 @@ export default function ChatBox() {
   const [chats, setchats] = React.useState<ChatModel[]>();
   const [messages, setMessages] = React.useState<MessageModel[]>();
   const [text, setText] = React.useState("");
+  const currentDate = new Date();
   //const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
@@ -250,7 +251,10 @@ export default function ChatBox() {
                             {chat.group_name}
                           </Typography>
                           <Typography color={"#D9D9D9"} fontSize={"0.8rem"}>
-                            Fri
+                            {generateMessageDate(
+                              chat.time_of_the_last_message,
+                              currentDate
+                            )}
                           </Typography>
                         </Box>
                         <Typography color={"#D9D9D9"} fontSize={"0.8rem"}>
@@ -455,7 +459,10 @@ export default function ChatBox() {
                                 color="text.secondary"
                                 fontSize={"0.6rem"}
                               >
-                                May 11, 12:24
+                                {generateMessageDate(
+                                  message.send_time.toString(),
+                                  currentDate
+                                )}
                               </Typography>
                             </Box>
                           </Box>
