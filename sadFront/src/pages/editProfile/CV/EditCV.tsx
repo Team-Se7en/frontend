@@ -35,10 +35,11 @@ export function EditCV() {
 
     async function getInfo() {
         try {
-            currentUser = await client.get("/auth/users/me/");
-            const UserPK = currentUser.data.id;
-
-            const basicInfoApiUrl = `/eduportal/students/${UserPK}/CV/`;
+            currentUser = await client.get("/eduportal/userinfo/");
+            console.log(currentUser.data)
+            const userType = currentUser.data.is_student ? 'students' : 'professors'
+            const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
+            const basicInfoApiUrl = `/eduportal/${userType}/${UserPK}/CV/`;
             const basicInfoResponse = await client.get(basicInfoApiUrl);
             cvDataBasic.title = basicInfoResponse.data.title
             cvDataBasic.birth_date = basicInfoResponse.data.birth_date
@@ -52,25 +53,25 @@ export function EditCV() {
             });
             // console.log(cvDataBasic)
 
-            const educationApiUrl = `/eduportal/students/${UserPK}/CV/education`;
+            const educationApiUrl = `/eduportal/${userType}/${UserPK}/CV/education`;
             const educationsResponse = await client.get(educationApiUrl);
             educationList = educationsResponse.data
             setEducationList(educationsResponse.data)
             // console.log(educations)
 
-            const hardSkillsApiUrl = `/eduportal/students/${UserPK}/CV/hard-skills`;
+            const hardSkillsApiUrl = `/eduportal/${userType}/${UserPK}/CV/hard-skills`;
             const hardSkillsResponse = await client.get(hardSkillsApiUrl);
             hardSkillList = hardSkillsResponse.data
             setHardSkillList(hardSkillsResponse.data)
             console.log(hardSkills)
 
-            const projectsApiUrl = `/eduportal/students/${UserPK}/CV/projects`;
+            const projectsApiUrl = `/eduportal/${userType}/${UserPK}/CV/projects`;
             const projectsResponse = await client.get(projectsApiUrl);
             projectList = projectsResponse.data
             setProjectList(projectsResponse.data)
             // console.log(projectList)
 
-            const workXPsApiUrl = `/eduportal/students/${UserPK}/CV/work-xps`;
+            const workXPsApiUrl = `/eduportal/${userType}/${UserPK}/CV/work-xps`;
             const workXPsResponse = await client.get(workXPsApiUrl);
             workXPList = workXPsResponse.data
             setWorkXPList(workXPsResponse.data)
@@ -99,8 +100,8 @@ export function EditCV() {
     const handleSave = async () => {
         console.log(cvDataBasic)
         try {
-            currentUser = await client.get("/auth/users/me/");
-            const UserPK = currentUser.data.id;
+            const currentUser = await client.get("/eduportal/userinfo/");
+            const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
             const apiURL = `/eduportal/students/${UserPK}/CV/`
             const respone = client.patch(apiURL,
                 {
@@ -150,8 +151,8 @@ export function EditCV() {
         if (education.institute && education.degree) {
 
             try {
-                currentUser = await client.get("/auth/users/me/");
-                const UserPK = currentUser.data.id;
+                currentUser = await client.get("/eduportal/userinfo/");
+                const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
                 const API_URL = `/eduportal/students/${UserPK}/CV/education/`
                 const response = client.post(API_URL, education);
                 console.log(response)
@@ -177,8 +178,8 @@ export function EditCV() {
 
     const handleRemoveEducation = async (index: number) => {
         try {
-            currentUser = await client.get("/auth/users/me/");
-            const UserPK = currentUser.data.id;
+            currentUser = await client.get("/eduportal/userinfo/");
+            const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
             const API_URL = `/eduportal/students/${UserPK}/CV/education/${educationList[index].id}/`
             const response = client.delete(API_URL);
             console.log(response)
@@ -210,8 +211,8 @@ export function EditCV() {
         if (workXP.company_name && workXP.company_website) {
 
             try {
-                currentUser = await client.get("/auth/users/me/");
-                const UserPK = currentUser.data.id;
+                currentUser = await client.get("/eduportal/userinfo/");
+                const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
                 const API_URL = `/eduportal/students/${UserPK}/CV/work-xps/`
                 const response = client.post(API_URL, workXP);
                 console.log(response)
@@ -236,8 +237,8 @@ export function EditCV() {
 
     const handleRemoveWorkXP = async (index: number) => {
         try {
-            currentUser = await client.get("/auth/users/me/");
-            const UserPK = currentUser.data.id;
+            currentUser = await client.get("/eduportal/userinfo/");
+            const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
             const API_URL = `/eduportal/students/${UserPK}/CV/work-xps/${workXPList[index].id}/`
             const response = client.delete(API_URL);
             console.log(response)
@@ -268,8 +269,8 @@ export function EditCV() {
         if (project.title && project.description) {
 
             try {
-                currentUser = await client.get("/auth/users/me/");
-                const UserPK = currentUser.data.id;
+                currentUser = await client.get("/eduportal/userinfo/");
+                const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
                 const API_URL = `/eduportal/students/${UserPK}/CV/projects/`
                 const response = client.post(API_URL, project);
                 console.log(response)
@@ -292,8 +293,8 @@ export function EditCV() {
 
     const handleRemoveProject = async (index: number) => {
         try {
-            currentUser = await client.get("/auth/users/me/");
-            const UserPK = currentUser.data.id;
+            currentUser = await client.get("/eduportal/userinfo/");
+            const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
             const API_URL = `/eduportal/students/${UserPK}/CV/projects/${projectList[index].id}/`
             const response = client.delete(API_URL);
             console.log(response)
@@ -326,8 +327,8 @@ export function EditCV() {
         if (hardSkill.technology && hardSkill.skill_level) {
 
             try {
-                currentUser = await client.get("/auth/users/me/");
-                const UserPK = currentUser.data.id;
+                currentUser = await client.get("/eduportal/userinfo/");
+                const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
                 const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/`
                 const response = client.post(API_URL, hardSkill);
                 console.log(response)
@@ -350,8 +351,8 @@ export function EditCV() {
 
     const handleRemoveHardSkill = async (index: number) => {
         try {
-            currentUser = await client.get("/auth/users/me/");
-            const UserPK = currentUser.data.id;
+            currentUser = await client.get("/eduportal/userinfo/");
+            const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
             const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/${hardSkillList[index].id}/`
             const response = client.delete(API_URL);
             console.log(response)
@@ -750,8 +751,8 @@ export function EditCV() {
 //     console.log(index + '  **  ' + value)
 //     if (value == null) {
 //         try {
-//             currentUser = await client.get("/auth/users/me/");
-//             const UserPK = currentUser.data.id;
+//             currentUser = await client.get("/eduportal/userinfo/");
+//             const UserPK = currentUser.data.is_student ? currentUser.data.student.id : currentUser.data.professor.id;
 //             const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/${projectList[index].id}/`
 //             const response = client.delete(API_URL);
 //             console.log(response)

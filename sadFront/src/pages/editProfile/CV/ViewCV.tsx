@@ -85,8 +85,9 @@ export function ViewCV() {
 
     async function getInfo() {
         try {
-            const currentUser = await client.get("/auth/users/me/");
-            const UserPK = currentUser.data.id;
+            const currentUser = await client.get("/eduportal/userinfo/");
+            console.log(currentUser)
+            const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
             setcurrentUserInfo(currentUser.data)
             console.log(currentUserInfo)
 
@@ -151,7 +152,7 @@ export function ViewCV() {
 
                 <Grid item container rowSpacing={2} sx={{ width: '35%', bgcolor: '#2b364a', padding: '1rem', justifyContent: 'center' }}>
 
-                    <Grid item xs={12} sx={{display:"flex"}}>
+                    <Grid item xs={12} sx={{ display: "flex" }}>
                         {showDownloadButton && <Box sx={{ paddingTop: '1rem' }}>
                             <Button
                                 variant="text"
