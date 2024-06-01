@@ -199,7 +199,7 @@ export function Home() {
               <StyledTopCarouselSlide>
                 <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '14%', pl: '10%' }}>
                   <StyledSlideshowStudentImage />
-                  <Box className={clsx(globalClasses.flexColumn)} paddingTop={'6rem !important'}>
+                  <Box className={clsx(globalClasses.flexColumn)} paddingTop={'7rem !important'}>
                     <Typography variant="h3">
                       Ease the Pain of Applying
                     </Typography>

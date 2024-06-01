@@ -86,7 +86,7 @@ export default function ChatBoxProf() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  });
+  }, []);
 
   React.useEffect(() => {
     client
@@ -98,7 +98,7 @@ export default function ChatBoxProf() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, [chatID, messages]);
+  }, [chatID]);
 
   //console.log(chats);
   //console.log(messages);
