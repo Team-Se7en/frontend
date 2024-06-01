@@ -78,7 +78,7 @@ export function StudentCard(props: StudentCardProps) {
                     {props.model.cover_letter}
                 </Typography>
                 {
-                    !buttonLoading && (props.model.status == Status.PP || props.model.status == Status.SA) ?
+                    !buttonLoading && (props.model.status == Status.PP) ?
                         (
                             <ButtonGroup variant="contained" sx={{ ml: 'auto', mt: '0.5rem' }}>
                                 <Button color="error" onClick={handleRequestReject}>
