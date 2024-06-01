@@ -28,15 +28,40 @@ export default function ChatBox() {
   const chatsOpen = Boolean(anchorEl);
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
   const composeOpen = Boolean(anchorE2);
+  const [whichtab, setWhichtab] = React.useState("chats");
+  const [chatID, setChatID] = React.useState(-1);
+  const [chatName, setChatName] = React.useState("");
+  const [allowedNewChats, setAllowedNewChats] =
+    React.useState<AllowedChats[]>();
+  const [chats, setchats] = React.useState<ChatModel[]>();
+  const [messages, setMessages] = React.useState<MessageModel[]>();
+  const [text, setText] = React.useState("");
+  const currentDate = new Date();
+  const [newChatsCount, setNewChatsCount] = React.useState<newChatsNumber>();
+  //const [refreshKey, setRefreshKey] = React.useState(0);
 
-  const notifIconHandleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const loadChats = () => {
+    client
+      .get("https://seven-apply.liara.run/eduportal/chat_list/")
+      .then((response) => {
+        setchats(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
-  const notifMenuHandleClose = () => {
+
+  const chatIconHandleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    loadChats();
+  };
+  const chatMenuHandleClose = () => {
     setAnchorEl(null);
   };
   const backHandleClick = () => {
     setWhichtab("chats");
+    setMessages([]);
+    setChatID(-1);
   };
 
   const composeHandleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -45,7 +70,6 @@ export default function ChatBox() {
       .get("https://seven-apply.liara.run/eduportal/student_new_chat/")
       .then((response) => {
         setAllowedNewChats(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -56,6 +80,7 @@ export default function ChatBox() {
       setChatID(id);
       setChatName(name);
       setWhichtab("person");
+      loadChats();
       client
         .get(
           "https://seven-apply.liara.run/eduportal/start_new_chat/" + id + "/"
@@ -70,12 +95,14 @@ export default function ChatBox() {
 
   const chatHandleClick = (chat: ChatModel) => {
     setChatID(chat.id);
+    //console.log("chat.id = " + chat.id + "   , chatID = " + chatID);
     setWhichtab("person");
     setChatName(chat.group_name);
     client
-      .get("https://seven-apply.liara.run/eduportal/messages/" + chatID + "/")
+      .get("https://seven-apply.liara.run/eduportal/messages/" + chat.id + "/")
       .then((response) => {
         setMessages(response.data);
+        //console.log(chatID);
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -87,52 +114,24 @@ export default function ChatBox() {
   };
 
   const sendHandleClick = (text: string, chatID: number) => {
-    client
-      .post("https://seven-apply.liara.run/eduportal/create_message/", {
-        text: text,
-        related_chat_group: chatID,
-        user: null,
-      })
-      .then((response) => {
-        console.log(response);
-      });
+    client.post("https://seven-apply.liara.run/eduportal/create_message/", {
+      text: text,
+      related_chat_group: chatID,
+      user: null,
+    });
   };
-
-  const [whichtab, setWhichtab] = React.useState("chats");
-  const [chatID, setChatID] = React.useState(-1);
-  const [chatName, setChatName] = React.useState("");
-  const [allowedNewChats, setAllowedNewChats] =
-    React.useState<AllowedChats[]>();
-  const [chats, setchats] = React.useState<ChatModel[]>();
-  const [messages, setMessages] = React.useState<MessageModel[]>();
-  const [text, setText] = React.useState("");
-  const currentDate = new Date();
-  const [newChatsCount, setNewChatsCount] = React.useState<newChatsNumber>();
-  //const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
     client
       .get("https://seven-apply.liara.run/eduportal/number_of_new_messages/")
       .then((response) => {
         setNewChatsCount(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  });
-
-  React.useEffect(() => {
-    client
-      .get("https://seven-apply.liara.run/eduportal/chat_list/")
-      .then((response) => {
-        setchats(response.data);
         //console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  });
+  }, []);
 
   return (
     <React.Fragment>
@@ -145,7 +144,7 @@ export default function ChatBox() {
       >
         <Tooltip title="Chats">
           <IconButton
-            onClick={notifIconHandleClick}
+            onClick={chatIconHandleClick}
             size="large"
             aria-controls={chatsOpen ? "account-menu" : undefined}
             aria-haspopup="true"
@@ -165,7 +164,7 @@ export default function ChatBox() {
         anchorEl={anchorEl}
         id="account-menu"
         open={chatsOpen}
-        onClose={notifMenuHandleClose}
+        onClose={chatMenuHandleClose}
         PaperProps={{
           elevation: 0,
           sx: {
