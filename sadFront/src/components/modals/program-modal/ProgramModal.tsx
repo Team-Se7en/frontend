@@ -244,12 +244,8 @@ export default function TransitionsModal(props: ModalInput) {
               <Box height={"100%"}>
                 <Stack spacing={1}>
                   <Skeleton variant="circular" width={"7rem"} height={"7rem"} />
-                  <Skeleton
-                    variant="rectangular"
-                    width={"90%"}
-                    height={"10rem"}
-                  />
-                  <Skeleton variant="rounded" width={"90%"} height={"10rem"} />
+                  <Skeleton variant="rounded" width={"100%"} height={"10rem"} />
+                  <Skeleton variant="rounded" width={"100%"} height={"10rem"} />
                 </Stack>
               </Box>
             )}

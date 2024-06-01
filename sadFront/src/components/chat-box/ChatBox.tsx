@@ -10,6 +10,8 @@ import {
   CircularProgress,
   Divider,
   MenuItem,
+  Skeleton,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -540,15 +542,17 @@ export default function ChatBox() {
               </Box>
             )
           ) : (
-            <Box
-              height={"100%"}
-              display={"flex"}
-              flexDirection={"column"}
-              justifyContent={"center"}
-              alignItems={"center"}
-            >
-              <CircularProgress />
-            </Box>
+            <Stack spacing={1.5} marginLeft={"2rem"} marginTop={"2rem"}>
+              {[1, 2, 3, 4, 5, 6].map((index) => (
+                <Skeleton
+                  key={index}
+                  variant="rounded"
+                  width={"90%"}
+                  height={"4.5rem"}
+                  sx={{ bgcolor: "gray" }}
+                />
+              ))}
+            </Stack>
           )}
         </Box>
       </Menu>
