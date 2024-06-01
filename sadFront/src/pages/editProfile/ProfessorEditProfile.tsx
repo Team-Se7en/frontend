@@ -28,12 +28,7 @@ export function ProfessorEditProfile() {
     });
 
     const [universities, setUniversities] = useState<{ name: string; id: number }[]>([]);
-    const [myRequests, setMyRequests] = useState<{
-        date_applied: any
-        id: number
-        position: number
-        status: string
-    }[]>([]);
+    const [myPositions, setMyPositions] = useState<any[]>([]);
 
     const [EmailResetformData, emailResetFormData] = useState({
         password: "",
@@ -189,9 +184,9 @@ export function ProfessorEditProfile() {
             console.log(universities)
             setLoading(false);
 
-            // const myRequestsResponse = await client.get("/eduportal/requests/");
-            // setMyRequests(myRequestsResponse.data)
-            // console.log(myRequests)
+            // const myPositionsResponse = await client.get("/eduportal/requests/");
+            const myPositionsResponse = await client.get("/eduportal/professors/my_positions/");
+            setMyPositions(myPositionsResponse.data)
 
         } catch (error) {
             console.error('Error:', error);
@@ -200,6 +195,7 @@ export function ProfessorEditProfile() {
 
     const [tabValue, setTabValue] = React.useState(0);
     const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+        console.log(myPositions)
         setTabValue(newValue);
     };
 
@@ -280,7 +276,7 @@ export function ProfessorEditProfile() {
                             <Tab label="CV" {...a11yProps(1)} />
                             <Tab label="Reset Email" {...a11yProps(2)} />
                             <Tab label="Reset Password" {...a11yProps(3)} />
-                            <Tab label="My Requests" {...a11yProps(4)} />
+                            <Tab label="My Positions" {...a11yProps(4)} />
                         </Tabs>
                         <Spacer />
                         <Button
@@ -467,7 +463,7 @@ export function ProfessorEditProfile() {
                         <Paper elevation={3} style={{ padding: '16px' }}>
                             <Typography variant="h6">Application List</Typography>
                             <List>
-                                {myRequests.map((item) => (
+                                {myPositions.map((item) => (
                                     <ListItem key={item.id}>
                                         <ListItemText
                                             primary={`Position ${item.position}`}

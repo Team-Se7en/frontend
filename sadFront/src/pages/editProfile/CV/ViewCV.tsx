@@ -75,8 +75,14 @@ export function ViewCV() {
     const navigateToEditCV = () => {
         navigate("/cv/edit");
     }
-    const navigateToProfile = () => {
-        navigate("/student/editProfile");
+    const navigateToProfile = async () => {
+        const currentUser: any = await client.get("/eduportal/userinfo/");
+        console.log(currentUser)
+        if (currentUser.data.user_type == "Student") {
+            navigate("/student/editProfile");
+        } else {
+            navigate("/professor/editProfile");
+        }
     }
 
     useEffect(() => {
