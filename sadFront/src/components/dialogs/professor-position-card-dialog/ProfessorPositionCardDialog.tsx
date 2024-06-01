@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import { toast, Bounce } from "react-toastify";
 import { formatTime } from "../../../lib/format-time";
 import { ProfessorCardViewFullInfo } from "../../../models/CardInfo";
-import { Status } from "../../../models/Status";
-import { getPositionFullInfoProfessor } from "../../../services/position.service";
-import { StyledTag } from "../../professor-request-card/ProfessorRequestCard-styles";
-import { StyledShowButton } from "./ProfessorRequestCardDialog-styles";
+import { getPositionFullInfo } from "../../../services/position.service";
+import { StyledTag } from "../../professor-position-card/ProfessorPositionCard-styles";
+import { StyledShowButton } from "./ProfessorPositionCardDialog-styles";
 import { Loading } from "../../ui/Loading";
+import { useNavigate } from "react-router-dom";
+import { StudentCard } from "../../student-card/StudentCard";
+import { Status } from "../../../models/Status";
+import clsx from "clsx";
+import Styles from "../../../Styles";
 
 export interface ProfessorRequestCardDialogProps {
     // cardId: string;
@@ -16,13 +20,16 @@ export interface ProfessorRequestCardDialogProps {
 }
 
 export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDialogProps) {
+    const navigate = useNavigate();
+
+
     useEffect(() => {
         const getModel = async () => {
             try {
                 if (!props.model_id) {
                     throw new Error('Invalid Id');
                 }
-                const result = await getPositionFullInfoProfessor(props.model_id);
+                const result = await getPositionFullInfo(props.model_id);
                 setModelData(result.data);
                 setLoading(false);
             } catch (e) {
@@ -45,23 +52,7 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
         }
     }, [props.model_id]);
 
-    const [model, setModelData] = useState<ProfessorCardViewFullInfo>({
-        title: "",
-        description: "",
-        status: Status.Open,
-        start_date: new Date(),
-        end_date: new Date(),
-        tags: [],
-        fee: 0,
-        position_start_date: new Date(),
-        position_end_date: new Date(),
-        // duration: model?.duration ?? { year: 0, month: 0, day: 0 },
-        university: undefined,
-        // university: "",
-        request_count: 0,
-        id: 0,
-        capacity: 0,
-    });
+    const [model, setModelData] = useState<ProfessorCardViewFullInfo>();
 
     const [descriptionExpanded, setDescriptionExpanded] = useState(false);
     const handleDescriptionExpandClick = () => {
@@ -77,6 +68,21 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
     const croppedLength = 200;
 
     const [loading, setLoading] = useState(true);
+
+    const handleRequestStatusChange = (status: Status) => {
+        console.log(status);
+    }
+
+    const globalClasses = Styles();
+
+    if (loading) {
+        return <Loading />;
+    }
+
+    if (!model) {
+        navigate("/404");
+        return;
+    }
 
     return (
         <Box>
@@ -191,6 +197,14 @@ export default function ProfessorRequestCardDialog(props: ProfessorRequestCardDi
                             <Divider orientation="horizontal" variant="middle" sx={{ mt: 1, mb: 1 }}>
                                 Applications
                             </Divider>
+
+                            <Box gap={2} className={clsx(globalClasses.flexColumn)}>
+                                {
+                                    model.requests.map((student, index) => (
+                                        <StudentCard key={index} model={student} requestStatusChange={handleRequestStatusChange}/>
+                                    ))
+                                }
+                            </Box>
                         </DialogContent>
                     </>
             }
