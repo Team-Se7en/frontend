@@ -17,10 +17,10 @@ import Styles from "../../Styles";
 import theme from "../../Theme";
 import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineSeparator } from "@mui/lab";
 import { siteUrl } from "../../Http/axios";
-import ProgramCard from "../../components/programcard/ProgramCard";
-import { ProfessorRequestCard } from "../../components/professor-request-card/ProfessorRequestCard";
+import StudentPositionCard from "../../components/student-position-card/StudentPositionCard";
+import { ProfessorRequestCard } from "../../components/professor-position-card/ProfessorPositionCard";
 import { UniversityCard } from "../../components/university-card/UnversityCard";
-import { StudentCard } from "../../components/student-card/StudentCard";
+import { StudentCard } from "../../components/top-student-card/TopStudentCard";
 import "./Home.css"
 import { getPlacementColor } from "../../lib/global-util";
 import { ProfessorCard } from "../../components/professor-card/ProfessorCard";
@@ -135,10 +135,6 @@ export function Home() {
     };
   }, []);
 
-  const handleUniversityClick = (id: number): void => {
-    window.open(`/universityPage${id}`, '_blank');
-  }
-
   const globalClasses = Styles();
   const homeClasses = HomeStyles();
 
@@ -168,6 +164,7 @@ export function Home() {
                             <Link2
                               to={{ pathname: "/universitypage" }}
                               state={item.id}
+                              target="_blank"
                             >
                               <StyledUniversityIcon src={siteUrl + item.icon} />
                             </Link2>
@@ -202,7 +199,7 @@ export function Home() {
               <StyledTopCarouselSlide>
                 <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '14%', pl: '10%' }}>
                   <StyledSlideshowStudentImage />
-                  <Box className={clsx(globalClasses.flexColumn)} paddingTop={'6rem !important'}>
+                  <Box className={clsx(globalClasses.flexColumn)} paddingTop={'7rem !important'}>
                     <Typography variant="h3">
                       Ease the Pain of Applying
                     </Typography>
@@ -210,12 +207,7 @@ export function Home() {
                       {
                         landingInfo?.student_view_positions.map((item, index) => (
                           <Box flexShrink={1} key={index}>
-                            <ProgramCard professor={item.professor} description={""}
-                              capacity={item.capacity} university_name={item.university_name} university_id={item.university_id}
-                              id={0} title={item.title} status={item.status}
-                              end_date={item.end_date} tags={item.tags} fee={0}
-                              start_date={item.start_date} position_start_date={item.position_start_date}
-                              position_end_date={item.position_end_date} />
+                            <StudentPositionCard model={item} />
                           </Box>
                         ))
                       }

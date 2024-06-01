@@ -10,7 +10,7 @@ import {
   Divider,
 } from "@mui/material";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { ConvDate } from "../../../lib/DateConvertor";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
 import { style } from "./ProgramModal-styles";
@@ -25,14 +25,20 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { applyToPosition } from "../../../services/position.service";
 import { RequestModel } from "../../../models/Request";
+import { Loading } from "../../ui/Loading";
 
-export default function TransitionsModal(props: StudentCardViewFullInfo) {
+export interface ProgramModalProps {
+  id: number;
+}
+
+export default function ProgramModal(props: ProgramModalProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const isSmallScreen = useMediaQuery("(max-width:800px)");
   const [fullInfo, setFullInfo] = React.useState<StudentCardViewFullInfo>();
   const [isApplyAvailable, setIsApplyAvailable] = React.useState(false);
+  const [loading, setLoading] = useState(true);
 
   React.useEffect(() => {
     axios
@@ -63,6 +69,12 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
     } catch (error) {
       toast.error('Failed to apply to position');
     }
+  }
+
+  if (loading) {
+    return (
+      <Loading />
+    )
   }
 
   return (
