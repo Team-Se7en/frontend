@@ -13,3 +13,7 @@ export interface AllowedChats {
     name: string;
     university: string;
 }
+
+export interface newChatsNumber {
+    number: string;
+}
