@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import ProgramCard from "../programcard/ProgramCard";
+import StudentPositionCard from "../student-position-card/StudentPositionCard";
 import React from "react";
 import { StudentCardViewFullInfo } from "../../models/CardInfo";
 import axios from "axios";
@@ -47,7 +47,7 @@ const ProgramsList:React.FC<SendData>=({allPrograms})=>
         padding={"0rem"}
       >
         {allPrograms.map((program, index) => (
-          <ProgramCard
+          <StudentPositionCard
             key={index}
             professor={program.professor}
             id={program.id}
