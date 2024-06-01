@@ -52,3 +52,7 @@ export interface createPositionRequestModel {
     position_start_date: string;
     position_end_date: string;
 }
+
+export interface ModalInput {
+    id: number;
+}

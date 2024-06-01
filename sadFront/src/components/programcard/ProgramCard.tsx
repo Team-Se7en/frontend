@@ -13,13 +13,13 @@ import {
 import { ConvDate } from "../../lib/DateConvertor";
 import { Link } from "react-router-dom";
 import ProgramModal from "../modals/program-modal/ProgramModal";
-import { StudentCardViewFullInfo } from "../../models/CardInfo";
+import { StudentCardViewShortInfo } from "../../models/CardInfo";
 
 const handleClick = () => {
   console.info("You clicked a topic.");
 };
 
-export default function ProgramCard(props: StudentCardViewFullInfo) {
+export default function ProgramCard(props: StudentCardViewShortInfo) {
   return (
     <Box minWidth={"24rem"} width={"90%"} margin={"0.5rem"}>
       <StyledProgramCard variant="outlined">
@@ -201,24 +201,7 @@ export default function ProgramCard(props: StudentCardViewFullInfo) {
                 </Typography>
               </Deadline>
               <StyledCardActions>
-                <ProgramModal
-                  professor={props.professor}
-                  description={props.description}
-                  capacity={props.capacity}
-                  id={props.id}
-                  title={props.title}
-                  status={props.status}
-                  position_start_date={props.position_start_date}
-                  position_end_date={props.position_end_date}
-                  fee={props.fee}
-                  start_date={props.start_date}
-                  tags={props.tags}
-                  // updated_at={props.updated_at}
-                  end_date={props.end_date}
-                  // created_at={props.created_at}
-                  university_name={props.university_name}
-                  university_id={props.university_id}
-                ></ProgramModal>
+                <ProgramModal id={props.id}></ProgramModal>
               </StyledCardActions>
             </DeaedLineAndButton>
           </BottemInfo>

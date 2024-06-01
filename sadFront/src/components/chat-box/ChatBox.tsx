@@ -22,8 +22,7 @@ import client from "../../Http/axios";
 import { AllowedChats, ChatModel, newChatsNumber } from "../../models/Chat";
 import { MessageModel } from "../../models/Message";
 import { generateMessageDate } from "../../lib/MessageDate";
-import { error } from "console";
-import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
+import { Flip, ToastContainer, toast } from "react-toastify";
 
 export default function ChatBox() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -122,7 +121,7 @@ export default function ChatBox() {
         related_chat_group: chatID,
         user: null,
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("You can only send one message in each turn.", {
           position: "bottom-left",
           autoClose: 3000,

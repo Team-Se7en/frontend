@@ -8,11 +8,12 @@ import {
   Avatar,
   Typography,
   Divider,
+  Stack,
+  Skeleton,
 } from "@mui/material";
-import axios from "axios";
 import React from "react";
 import { ConvDate } from "../../../lib/DateConvertor";
-import { StudentCardViewFullInfo } from "../../../models/CardInfo";
+import { ModalInput, StudentCardViewFullInfo } from "../../../models/CardInfo";
 import { style } from "./ProgramModal-styles";
 import {
   KeyboardArrowRight,
@@ -25,22 +26,18 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { applyToPosition } from "../../../services/position.service";
 import { RequestModel } from "../../../models/Request";
+import client from "../../../Http/axios";
 
-export default function TransitionsModal(props: StudentCardViewFullInfo) {
+export default function TransitionsModal(props: ModalInput) {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const isSmallScreen = useMediaQuery("(max-width:800px)");
-  const [fullInfo, setFullInfo] = React.useState<StudentCardViewFullInfo>();
-  const [isApplyAvailable, setIsApplyAvailable] = React.useState(false);
-
-  React.useEffect(() => {
-    axios
+  const handleOpen = () => {
+    setOpen(true);
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/positions" +
-        "/" +
-        props.id +
-        "/"
+          "/" +
+          props.id +
+          "/"
       )
       .then((response) => {
         setFullInfo(response.data);
@@ -48,22 +45,24 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, [props.id]);
-
-  if (!fullInfo) return null;
+  };
+  const handleClose = () => setOpen(false);
+  const isSmallScreen = useMediaQuery("(max-width:800px)");
+  const [fullInfo, setFullInfo] = React.useState<StudentCardViewFullInfo>();
+  const [isApplyAvailable, setIsApplyAvailable] = React.useState(false);
 
   const handleApply = async () => {
     const requestModel: RequestModel = {
-      position_id: fullInfo.id,
-    }
+      position_id: props.id,
+    };
     try {
       await applyToPosition(requestModel);
       setIsApplyAvailable(false);
-      toast.success('Request sent successfully');
+      toast.success("Request sent successfully");
     } catch (error) {
-      toast.error('Failed to apply to position');
+      toast.error("Failed to apply to position");
     }
-  }
+  };
 
   return (
     <div>
@@ -91,153 +90,169 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
             width={{ xs: "75%", sm: "65%", md: "55%", lg: "45%", xl: "40%" }}
             height={{ xs: "55%", sm: "60%", md: "65%", lg: "75%", xl: "85%" }}
           >
-            <Box
-              id="scrollable-top"
-              sx={{ display: "flex" }}
-              flexDirection={"column"}
-              gap={"1rem"}
-              overflow={"auto"}
-              height={"100%"}
-            >
-              <Box id="prof-info-and-share" sx={{ display: "flex" }}>
-                <Box id="prof-info" sx={{ display: "flex" }} gap={"0.8rem"}>
-                  <Box
-                    id="avatar-container"
-                    sx={{
-                      margin: "0.5rem",
-                      marginBottom: 0,
-                    }}
-                  >
-                    <Avatar
-                      className="avatar"
-                      alt="Sauleh Etemadi"
-                      src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
-                      sx={{ height: "auto", width: "100%" }}
-                    />
-                  </Box>
-                  <Box
-                    id="near-avatar-things"
-                    sx={{ display: "flex", flexDirection: "column" }}
-                    justifyContent={"center"}
-                  >
-                    <Box
-                      id="name-and-button"
-                      sx={{ display: "flex" }}
-                      alignItems={"center"}
-                    >
-                      <Typography variant="h6">
-                        {props.professor.user.first_name +
-                          " " +
-                          props.professor.user.last_name}
-                      </Typography>
-                      <KeyboardArrowRight />
-                      <Button size="small" sx={{ height: "2rem" }}>
-                        {isSmallScreen ? (
-                          <p>PROFILE</p>
-                        ) : (
-                          <p>VIEW FULL PROFILE</p>
-                        )}
-                      </Button>
-                    </Box>
-                    <Typography color="text.secondary">
-                      Associate Professor at{" "}
-                      <Link
-                        to={{ pathname: "/universitypage" }}
-                        state={props.university_id}
-                      >
-                        <Typography
-                          color="text.secondary"
-                          display={"inline"}
-                          fontWeight={"bold"}
-                        >
-                          {props.university_name}
-                        </Typography>
-                      </Link>
-                    </Typography>
-                    <Typography color="text.secondary">
-                      {ConvDate(props.start_date, "week diff")}w
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box id="share-container"></Box>
-              </Box>
-              <Divider
-                textAlign="center"
-                sx={{
-                  fontFamily: "roboto",
-                  fontSize: "1rem",
-                  color: "black",
-                  fontWeight: "bold",
-                }}
-              >
-                NLP/ML PhD Positions
-              </Divider>
-              <Box id="program-descriptions" padding={"0.5rem"}>
-                <Typography>{fullInfo.description}</Typography>
-              </Box>
-              <Divider
-                textAlign="left"
-                sx={{
-                  fontFamily: "roboto",
-                  fontSize: "1rem",
-                  color: "#404040",
-                }}
-              >
-                Program Info
-              </Divider>
+            {fullInfo ? (
               <Box
-                id="program-info"
-                display={"flex"}
+                id="scrollable-top"
+                sx={{ display: "flex" }}
                 flexDirection={"column"}
                 gap={"1rem"}
-                padding={"1rem"}
+                overflow={"auto"}
+                height={"100%"}
               >
-                <Box
-                  id="starting-date"
-                  display={"flex"}
-                  gap={"1rem"}
-                  alignItems={"center"}
-                >
-                  <Today sx={{ fontSize: "1.6rem" }} />
-                  <Typography>Starting Date: </Typography>
-                  <Typography fontWeight={"bold"}>
-                    {ConvDate(props.position_start_date, "full")}
-                  </Typography>
+                <Box id="prof-info-and-share" sx={{ display: "flex" }}>
+                  <Box id="prof-info" sx={{ display: "flex" }} gap={"0.8rem"}>
+                    <Box
+                      id="avatar-container"
+                      sx={{
+                        margin: "0.5rem",
+                        marginBottom: 0,
+                      }}
+                    >
+                      <Avatar
+                        className="avatar"
+                        alt="Sauleh Etemadi"
+                        src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
+                        sx={{ height: "auto", width: "100%" }}
+                      />
+                    </Box>
+                    <Box
+                      id="near-avatar-things"
+                      sx={{ display: "flex", flexDirection: "column" }}
+                      justifyContent={"center"}
+                    >
+                      <Box
+                        id="name-and-button"
+                        sx={{ display: "flex" }}
+                        alignItems={"center"}
+                      >
+                        <Typography variant="h6">
+                          {fullInfo.professor.user.first_name +
+                            " " +
+                            fullInfo.professor.user.last_name}
+                        </Typography>
+                        <KeyboardArrowRight />
+                        <Button size="small" sx={{ height: "2rem" }}>
+                          {isSmallScreen ? (
+                            <p>PROFILE</p>
+                          ) : (
+                            <p>VIEW FULL PROFILE</p>
+                          )}
+                        </Button>
+                      </Box>
+                      <Typography color="text.secondary">
+                        Associate Professor at{" "}
+                        <Link
+                          to={{ pathname: "/universitypage" }}
+                          state={fullInfo.university_id}
+                        >
+                          <Typography
+                            color="text.secondary"
+                            display={"inline"}
+                            fontWeight={"bold"}
+                          >
+                            {fullInfo.university_name}
+                          </Typography>
+                        </Link>
+                      </Typography>
+                      <Typography color="text.secondary">
+                        {ConvDate(fullInfo.start_date, "week diff")}w
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box id="share-container"></Box>
                 </Box>
-                <Box
-                  id="application-deadline"
-                  display={"flex"}
-                  gap={"1rem"}
-                  alignItems={"center"}
+                <Divider
+                  textAlign="center"
+                  sx={{
+                    fontFamily: "roboto",
+                    fontSize: "1rem",
+                    color: "black",
+                    fontWeight: "bold",
+                  }}
                 >
-                  <AccessAlarms sx={{ fontSize: "1.6rem" }} />
-                  <Typography>Application Deadline:</Typography>
-                  <Typography fontWeight={"bold"}>
-                    {ConvDate(props.position_end_date, "full")}
-                  </Typography>
+                  NLP/ML PhD Positions
+                </Divider>
+                <Box id="program-descriptions" padding={"0.5rem"}>
+                  <Typography>{fullInfo.description}</Typography>
                 </Box>
-                <Box
-                  id="Duration"
-                  display={"flex"}
-                  gap={"1rem"}
-                  alignItems={"center"}
+                <Divider
+                  textAlign="left"
+                  sx={{
+                    fontFamily: "roboto",
+                    fontSize: "1rem",
+                    color: "#404040",
+                  }}
                 >
-                  <AccessTime sx={{ fontSize: "1.6rem" }} />
-                  <Typography>Duration: </Typography>
-                  <Typography fontWeight={"bold"}>{ } days</Typography>
-                </Box>
+                  Program Info
+                </Divider>
                 <Box
-                  id="fee"
+                  id="program-info"
                   display={"flex"}
+                  flexDirection={"column"}
                   gap={"1rem"}
-                  alignItems={"center"}
+                  padding={"1rem"}
                 >
-                  <Paid sx={{ fontSize: "1.6rem" }} />
-                  <Typography>Fee: </Typography>
-                  <Typography fontWeight={"bold"}>{props.fee} Rials</Typography>
+                  <Box
+                    id="starting-date"
+                    display={"flex"}
+                    gap={"1rem"}
+                    alignItems={"center"}
+                  >
+                    <Today sx={{ fontSize: "1.6rem" }} />
+                    <Typography>Starting Date: </Typography>
+                    <Typography fontWeight={"bold"}>
+                      {ConvDate(fullInfo.position_start_date, "full")}
+                    </Typography>
+                  </Box>
+                  <Box
+                    id="application-deadline"
+                    display={"flex"}
+                    gap={"1rem"}
+                    alignItems={"center"}
+                  >
+                    <AccessAlarms sx={{ fontSize: "1.6rem" }} />
+                    <Typography>Application Deadline:</Typography>
+                    <Typography fontWeight={"bold"}>
+                      {ConvDate(fullInfo.position_end_date, "full")}
+                    </Typography>
+                  </Box>
+                  <Box
+                    id="Duration"
+                    display={"flex"}
+                    gap={"1rem"}
+                    alignItems={"center"}
+                  >
+                    <AccessTime sx={{ fontSize: "1.6rem" }} />
+                    <Typography>Duration: </Typography>
+                    <Typography fontWeight={"bold"}>{} days</Typography>
+                  </Box>
+                  <Box
+                    id="fee"
+                    display={"flex"}
+                    gap={"1rem"}
+                    alignItems={"center"}
+                  >
+                    <Paid sx={{ fontSize: "1.6rem" }} />
+                    <Typography>Fee: </Typography>
+                    <Typography fontWeight={"bold"}>
+                      {fullInfo.fee} Rials
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
+            ) : (
+              <Box height={"100%"}>
+                <Stack spacing={1}>
+                  <Skeleton variant="circular" width={"7rem"} height={"7rem"} />
+                  <Skeleton
+                    variant="rectangular"
+                    width={"90%"}
+                    height={"10rem"}
+                  />
+                  <Skeleton variant="rounded" width={"90%"} height={"10rem"} />
+                </Stack>
+              </Box>
+            )}
 
             <Box id="footer" display={"flex"} justifyContent={"center"}>
               <Box
@@ -261,7 +276,7 @@ export default function TransitionsModal(props: StudentCardViewFullInfo) {
                   onClick={handleApply}
                   disabled={isApplyAvailable}
                 >
-                  {isApplyAvailable ? 'Apply Now!' : 'Already Applied'}
+                  {isApplyAvailable ? "Apply Now!" : "Already Applied"}
                 </Button>
               </Box>
             </Box>
