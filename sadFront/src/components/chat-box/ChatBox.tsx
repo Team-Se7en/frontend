@@ -123,6 +123,20 @@ export default function ChatBox() {
         related_chat_group: chatID,
         user: null,
       })
+      .then(() => {
+        setText("");
+        client
+          .get(
+            "https://seven-apply.liara.run/eduportal/messages/" + chatID + "/"
+          )
+          .then((response) => {
+            setMessages(response.data);
+            //console.log(chatID);
+          })
+          .catch((error) => {
+            console.error("There was an error!", error);
+          });
+      })
       .catch(() => {
         toast.error("You can only send one message in each turn.", {
           position: "bottom-left",
