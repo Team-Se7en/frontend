@@ -22,6 +22,8 @@ import client from "../../Http/axios";
 import { AllowedChats, ChatModel, newChatsNumber } from "../../models/Chat";
 import { MessageModel } from "../../models/Message";
 import { generateMessageDate } from "../../lib/MessageDate";
+import { error } from "console";
+import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 
 export default function ChatBox() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -114,11 +116,24 @@ export default function ChatBox() {
   };
 
   const sendHandleClick = (text: string, chatID: number) => {
-    client.post("https://seven-apply.liara.run/eduportal/create_message/", {
-      text: text,
-      related_chat_group: chatID,
-      user: null,
-    });
+    client
+      .post("https://seven-apply.liara.run/eduportal/create_message/", {
+        text: text,
+        related_chat_group: chatID,
+        user: null,
+      })
+      .catch((error) => {
+        toast.error("You can only send one message in each turn.", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      });
   };
 
   React.useEffect(() => {
@@ -439,6 +454,7 @@ export default function ChatBox() {
                         gap={"0.7rem"}
                         maxHeight={"28.8rem"}
                       >
+                        <ToastContainer transition={Flip} />
                         {messages ? (
                           messages.map((message, index) => (
                             <Box
