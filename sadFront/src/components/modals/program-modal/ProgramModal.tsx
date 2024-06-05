@@ -11,7 +11,8 @@ import {
   Stack,
   Skeleton,
 } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { ConvDate } from "../../../lib/DateConvertor";
 import { ModalInput, StudentCardViewFullInfo } from "../../../models/CardInfo";
 import { style } from "./ProgramModal-styles";
@@ -26,13 +27,23 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { applyToPosition } from "../../../services/position.service";
 import { RequestModel } from "../../../models/Request";
-import client from "../../../Http/axios";
+import { Loading } from "../../ui/Loading";
 
-export default function TransitionsModal(props: ModalInput) {
+export interface ProgramModalProps {
+  id: number;
+}
+
+export default function ProgramModal(props: ProgramModalProps) {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-    client
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const isSmallScreen = useMediaQuery("(max-width:800px)");
+  const [fullInfo, setFullInfo] = React.useState<StudentCardViewFullInfo>();
+  const [isApplyAvailable, setIsApplyAvailable] = React.useState(false);
+  const [loading, setLoading] = useState(true);
+
+  React.useEffect(() => {
+    axios
       .get(
         "https://seven-apply.liara.run/eduportal/positions" +
           "/" +
@@ -62,7 +73,13 @@ export default function TransitionsModal(props: ModalInput) {
     } catch (error) {
       toast.error("Failed to apply to position");
     }
-  };
+  }
+
+  if (loading) {
+    return (
+      <Loading />
+    )
+  }
 
   return (
     <div>

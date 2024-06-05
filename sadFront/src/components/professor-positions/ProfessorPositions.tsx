@@ -24,7 +24,7 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
     }
 
     useEffect(() => {
-        if (props.modelToAdd && positions[-1].id != props.modelToAdd.id) {
+        if (props.modelToAdd) {
             setPositions(positions.concat(props.modelToAdd));
         }
     }, [positions, props.modelToAdd]);
