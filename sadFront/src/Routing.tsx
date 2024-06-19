@@ -18,6 +18,7 @@ import { StudentAccept } from "./pages/accept-sudent/StudentAccept";
 import { EditCV } from "./pages/editProfile/CV/EditCV";
 import { ViewCV } from "./pages/editProfile/CV/ViewCV";
 import NotificationsPage from "./pages/notifications/notifications-page";
+import ChatPage from "./pages/chat-page/ChatPage";
 
 export default function Routing() {
   return (
@@ -51,6 +52,7 @@ export default function Routing() {
         <Route path="studentaccept" element={<StudentAccept />} />
         <Route path="universitypage" element={<UniversityPage />} />
         <Route path="notifications" element={<NotificationsPage />} />
+        <Route path="chatpage" element={<ChatPage />} />
       </Routes>
     </BrowserRouter>
   );
