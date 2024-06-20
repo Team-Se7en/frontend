@@ -7,6 +7,7 @@ import {
   Avatar,
   Button,
   CircularProgress,
+  Input,
   MenuItem,
   Skeleton,
   Stack,
@@ -446,10 +447,10 @@ export default function ChatPage() {
                 flexDirection={"column"}
               >
                 <Typography color={"white"} fontSize={"0.9rem"}>
-                  Sauleh Etemadi
+                  {chatName}
                 </Typography>
                 <Typography color={"#D9D9D9"} fontSize={"0.7rem"}>
-                  Assistant professor at IUST
+                  Student
                 </Typography>
               </Box>
             </Box>
@@ -471,7 +472,77 @@ export default function ChatPage() {
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
             }}
-          ></Box>
+          >
+            <Box
+              className="chat-texts-container"
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"flex-end"}
+              padding={"0.8rem"}
+              gap={"1rem"}
+              height={"90%"}
+            >
+              <ToastContainer transition={Flip} />
+              {messages ? (
+                messages.map((message, index) => (
+                  <Box
+                    key={index}
+                    className="text-container"
+                    sx={{
+                      backgroundColor: message.is_student ? "#DEEBF7" : "white",
+                    }}
+                    borderRadius={"0.3rem"}
+                    padding={"0.5rem"}
+                    maxWidth={"33rem"}
+                    marginLeft={message.is_student ? "46%" : "0"}
+                  >
+                    <Typography fontSize={"0.9rem"}>{message.text}</Typography>
+                    <Box
+                      className="bottom-date"
+                      display={"flex"}
+                      flexDirection={"row-reverse"}
+                    >
+                      <Typography color="text.secondary" fontSize={"0.6rem"}>
+                        {generateMessageDate(
+                          message.send_time.toString(),
+                          currentDate
+                        )}
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))
+              ) : (
+                <Box width={"100%"} textAlign={"center"}>
+                  <CircularProgress />
+                </Box>
+              )}
+            </Box>
+            <Box
+              className="bottom-input-message"
+              position={"fixed"}
+              bottom={"0"}
+              width={"76.5%"}
+              display={"flex"}
+              flexDirection={"row"}
+            >
+              <TextField
+                id="standard-basic"
+                label="Type Your Message"
+                onChange={handleInputChange}
+                value={text}
+                variant="standard"
+                sx={{ width: "83%" }}
+              />
+              <Button
+                onClick={() => sendHandleClick(text, chatID)}
+                variant="contained"
+                size="small"
+                sx={{ height: "2.1rem", marginTop: "0.9rem" }}
+              >
+                Send
+              </Button>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>
