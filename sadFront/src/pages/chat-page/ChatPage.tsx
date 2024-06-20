@@ -7,7 +7,6 @@ import {
   Avatar,
   Button,
   CircularProgress,
-  Divider,
   MenuItem,
   Skeleton,
   Stack,
@@ -23,11 +22,12 @@ import { AllowedChats, ChatModel } from "../../models/Chat";
 import { MessageModel } from "../../models/Message";
 import { generateMessageDate } from "../../lib/MessageDate";
 import { Flip, ToastContainer, toast } from "react-toastify";
+import ForumIcon from "@mui/icons-material/Forum";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function ChatPage() {
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
   const composeOpen = Boolean(anchorE2);
-  const [whichtab, setWhichtab] = React.useState("chats");
   const [chatID, setChatID] = React.useState(-1);
   const [chatName, setChatName] = React.useState("");
   const [allowedNewChats, setAllowedNewChats] =
@@ -39,11 +39,7 @@ export default function ChatPage() {
 
   const currentDate = new Date();
 
-  const backHandleClick = () => {
-    setWhichtab("chats");
-    setMessages([]);
-    setChatID(-1);
-  };
+  const backHandleClick = () => {};
 
   const composeHandleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorE2(event.currentTarget);
@@ -60,7 +56,6 @@ export default function ChatPage() {
     if (id != -1) {
       setChatID(id);
       setChatName(name);
-      setWhichtab("person");
       setLoadChats(loadChats + 1);
       client
         .get(
@@ -76,7 +71,6 @@ export default function ChatPage() {
 
   const chatHandleClick = (chat: ChatModel) => {
     setChatID(chat.id);
-    setWhichtab("person");
     setChatName(chat.group_name);
     client
       .get("https://seven-apply.liara.run/eduportal/messages/" + chat.id + "/")
@@ -139,7 +133,13 @@ export default function ChatPage() {
   }, [loadChats]);
 
   return (
-    <React.Fragment>
+    <Box
+      className="page-container"
+      height={"100%"}
+      width={"100%"}
+      display={"flex"}
+      flexDirection={"row"}
+    >
       <Box
         className="leftside-chatmenu"
         width={"24rem"}
@@ -148,11 +148,52 @@ export default function ChatPage() {
         height={"100%"}
         sx={{ backgroundColor: "#0F1035" }}
       >
-        {chats ? (
-          chats.length > 0 ? (
-            <Box display={"flex"} flexDirection={"column"} overflow={"auto"}>
-              {whichtab == "chats" ? (
-                <Box padding={"1rem"}>
+        <Box
+          className="top-bar-left"
+          height={"3rem"}
+          display={"flex"}
+          flexDirection={"row"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          paddingRight={"1.2rem"}
+          paddingLeft={"1.2rem"}
+          paddingTop={"0.5rem"}
+        >
+          <Tooltip title="Back">
+            <IconButton
+              onClick={backHandleClick}
+              size="large"
+              sx={{ color: "white", padding: "0" }}
+            >
+              <ArrowBackIosIcon />
+            </IconButton>
+          </Tooltip>
+          <Typography
+            color={"white"}
+            fontSize={"1.2rem"}
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            7Apply
+            <ForumIcon />
+            chat
+          </Typography>
+          <Tooltip title="Search chats">
+            <IconButton
+              onClick={backHandleClick}
+              sx={{ color: "white", padding: "0" }}
+            >
+              <SearchIcon sx={{ fontSize: "1.8rem" }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Box className="chats">
+          {chats ? (
+            chats.length > 0 ? (
+              <Box display={"flex"} flexDirection={"column"} overflow={"auto"}>
+                <Box padding={"1rem"} paddingTop={"0rem"}>
                   {chats.map((chat, index) => (
                     <StyledChats
                       key={index}
@@ -206,7 +247,7 @@ export default function ChatPage() {
                     className="compose icon"
                     position={"fixed"}
                     bottom={"2rem"}
-                    right={"2rem"}
+                    left={"19rem"}
                     borderRadius={"100%"}
                     height={"2.7rem"}
                     width={"2.7rem"}
@@ -317,160 +358,36 @@ export default function ChatPage() {
                     </Menu>
                   </Box>
                 </Box>
-              ) : (
-                <>
-                  <Box
-                    className="chat-with-person-container"
-                    display={"flex"}
-                    flexDirection={"column"}
-                  >
-                    <Box
-                      className="nav-contact-info"
-                      display={"flex"}
-                      flexDirection={"row"}
-                      alignItems={"center"}
-                      sx={{ backgroundColor: "#203864" }}
-                      height={"4.4rem"}
-                      padding={"0.8rem"}
-                    >
-                      <Tooltip title="Back">
-                        <IconButton
-                          onClick={backHandleClick}
-                          size="large"
-                          sx={{ color: "white", padding: "0" }}
-                        >
-                          <ArrowBackIosIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Avatar
-                        className="avatar"
-                        alt="Sauleh Etemadi"
-                        src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
-                        sx={{
-                          minHeight: "3.5rem",
-                          minWidth: "3.5rem",
-                          marginRight: "0.5rem",
-                        }}
-                      />
-                      <Box
-                        className="near-avatar"
-                        display={"flex"}
-                        flexDirection={"column"}
-                      >
-                        <Typography color={"white"}>{chatName}</Typography>
-                        <Typography color="#D9D9D9" fontSize={"0.7rem"}>
-                          Professor
-                        </Typography>
-                      </Box>
-                    </Box>
-                    <Box
-                      className="chat-texts-container"
-                      display={"flex"}
-                      flexDirection={"column"}
-                      padding={"0.8rem"}
-                      gap={"0.7rem"}
-                      maxHeight={"28.8rem"}
-                    >
-                      <ToastContainer transition={Flip} />
-                      {messages ? (
-                        messages.map((message, index) => (
-                          <Box
-                            key={index}
-                            className="text-container"
-                            sx={{
-                              backgroundColor: message.is_student
-                                ? "#DEEBF7"
-                                : "white",
-                            }}
-                            borderRadius={"0.3rem"}
-                            padding={"0.5rem"}
-                            maxWidth={"18rem"}
-                            marginLeft={message.is_student ? "4.3rem" : "0"}
-                          >
-                            <Typography fontSize={"0.7rem"}>
-                              {message.text}
-                            </Typography>
-                            <Box
-                              className="bottom-date"
-                              display={"flex"}
-                              flexDirection={"row-reverse"}
-                            >
-                              <Typography
-                                color="text.secondary"
-                                fontSize={"0.6rem"}
-                              >
-                                {generateMessageDate(
-                                  message.send_time.toString(),
-                                  currentDate
-                                )}
-                              </Typography>
-                            </Box>
-                          </Box>
-                        ))
-                      ) : (
-                        <Box width={"100%"} textAlign={"center"}>
-                          <CircularProgress />
-                        </Box>
-                      )}
-                    </Box>
-
-                    <Box
-                      className="bottom-input-message"
-                      position={"fixed"}
-                      bottom={"0"}
-                      width={"100%"}
-                      display={"flex"}
-                      flexDirection={"row"}
-                    >
-                      <TextField
-                        id="standard-basic"
-                        label="Type Your Message"
-                        onChange={handleInputChange}
-                        value={text}
-                        variant="standard"
-                        sx={{ width: "83%" }}
-                      />
-                      <Button
-                        onClick={() => sendHandleClick(text, chatID)}
-                        variant="contained"
-                        size="small"
-                        sx={{ height: "2.1rem", marginTop: "0.9rem" }}
-                      >
-                        Send
-                      </Button>
-                    </Box>
-                  </Box>
-                </>
-              )}
-            </Box>
+              </Box>
+            ) : (
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
+              >
+                <CircleNotificationsIcon
+                  sx={{ color: "#F2F2F2", fontSize: "8rem" }}
+                />
+                <Typography color={"#F2F2F2"} fontSize={"0.9rem"}>
+                  You have no chats.
+                </Typography>
+              </Box>
+            )
           ) : (
-            <Box
-              display={"flex"}
-              flexDirection={"column"}
-              alignItems={"center"}
-            >
-              <CircleNotificationsIcon
-                sx={{ color: "#F2F2F2", fontSize: "8rem" }}
-              />
-              <Typography color={"#F2F2F2"} fontSize={"0.9rem"}>
-                You have no chats.
-              </Typography>
-            </Box>
-          )
-        ) : (
-          <Stack spacing={1.5} marginLeft={"2rem"} marginTop={"2rem"}>
-            {[1, 2, 3, 4, 5, 6].map((index) => (
-              <Skeleton
-                key={index}
-                variant="rounded"
-                width={"90%"}
-                height={"4.5rem"}
-                sx={{ bgcolor: "gray" }}
-              />
-            ))}
-          </Stack>
-        )}
+            <Stack spacing={1.5} marginLeft={"2rem"} marginTop={"2rem"}>
+              {[1, 2, 3, 4, 5, 6].map((index) => (
+                <Skeleton
+                  key={index}
+                  variant="rounded"
+                  width={"90%"}
+                  height={"4.5rem"}
+                  sx={{ bgcolor: "gray" }}
+                />
+              ))}
+            </Stack>
+          )}
+        </Box>
       </Box>
-    </React.Fragment>
+    </Box>
   );
 }
