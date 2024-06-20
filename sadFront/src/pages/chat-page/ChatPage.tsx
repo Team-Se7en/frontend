@@ -26,6 +26,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { MoreVert } from "@mui/icons-material";
+import ChatBackground from "./../../assets/images/chat-background.png";
 
 export default function ChatPage() {
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
@@ -263,7 +264,7 @@ export default function ChatPage() {
                       className="compose icon"
                       position={"fixed"}
                       bottom={"2rem"}
-                      left={"19rem"}
+                      left={"21.5rem"}
                       borderRadius={"100%"}
                       height={"2.7rem"}
                       width={"2.7rem"}
@@ -414,7 +415,7 @@ export default function ChatPage() {
         >
           <Box
             className="top-bar-right"
-            height={"3.8rem"}
+            height={"8%"}
             display={"flex"}
             flexDirection={"row"}
             justifyContent={"space-between"}
@@ -461,6 +462,16 @@ export default function ChatPage() {
               </IconButton>
             </Tooltip>
           </Box>
+
+          <Box
+            className="chat-page"
+            height={"92%"}
+            sx={{
+              backgroundImage: `url(${ChatBackground})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
+          ></Box>
         </Box>
       </Box>
     </Box>
