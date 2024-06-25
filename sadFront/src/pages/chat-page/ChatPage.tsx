@@ -50,7 +50,7 @@ export default function ChatPage() {
   const composeHandleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorE2(event.currentTarget);
     client
-      .get("https://seven-apply.liara.run/eduportal/student_new_chat/")
+      .get("https://seven-apply.liara.run/eduportal/professor_new_chat/")
       .then((response) => {
         setAllowedNewChats(response.data);
       })
