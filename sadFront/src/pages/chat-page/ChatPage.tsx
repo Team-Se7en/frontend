@@ -28,6 +28,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { MoreVert } from "@mui/icons-material";
 import ChatBackground from "./../../assets/images/chat-background.png";
+import { Link } from "react-router-dom";
 
 export default function ChatPage() {
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
@@ -174,13 +175,15 @@ export default function ChatPage() {
             paddingTop={"0.5rem"}
           >
             <Tooltip title="Back">
-              <IconButton
-                onClick={backHandleClick}
-                size="large"
-                sx={{ color: "white", padding: "0" }}
-              >
-                <ArrowBackIosIcon />
-              </IconButton>
+              <Link to="/professorhomepage">
+                <IconButton
+                  onClick={backHandleClick}
+                  size="large"
+                  sx={{ color: "white", padding: "0" }}
+                >
+                  <ArrowBackIosIcon />
+                </IconButton>
+              </Link>
             </Tooltip>
             <Typography
               color={"white"}
@@ -512,8 +515,22 @@ export default function ChatPage() {
                   </Box>
                 ))
               ) : (
-                <Box width={"100%"} textAlign={"center"}>
-                  <CircularProgress />
+                <Box
+                  width={"100%"}
+                  height={"100%"}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  textAlign={"center"}
+                >
+                  <Typography
+                    sx={{ backgroundColor: "black" }}
+                    borderRadius={"0.5rem"}
+                    width={"20rem"}
+                    color={"white"}
+                  >
+                    Click on a contact to open the chat ...
+                  </Typography>
                 </Box>
               )}
             </Box>
