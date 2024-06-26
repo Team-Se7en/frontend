@@ -418,7 +418,7 @@ export default function ChatPage() {
           <Box
             className="top-bar-right"
             height={"8%"}
-            display={"flex"}
+            display={chatID == -1 ? "none" : "flex"}
             flexDirection={"row"}
             justifyContent={"space-between"}
             alignItems={"center"}
@@ -482,6 +482,7 @@ export default function ChatPage() {
               padding={"0.8rem"}
               gap={"1rem"}
               height={"90%"}
+              alignItems={"right"}
             >
               <ToastContainer transition={Flip} />
               {messages ? (
@@ -490,14 +491,17 @@ export default function ChatPage() {
                     key={index}
                     className="text-container"
                     sx={{
-                      backgroundColor: message.is_student ? "#DEEBF7" : "white",
+                      backgroundColor: message.is_student ? "white" : "#DEEBF7",
                     }}
                     borderRadius={"0.3rem"}
                     padding={"0.5rem"}
                     maxWidth={"33rem"}
-                    marginLeft={message.is_student ? "46%" : "0"}
+                    alignSelf={message.is_student ? "flex-start" : "flex-end"}
+                    width={"fit-content"}
                   >
-                    <Typography fontSize={"0.9rem"}>{message.text}</Typography>
+                    <Typography fontSize={"0.9rem"} paddingRight={"3rem"}>
+                      {message.text}
+                    </Typography>
                     <Box
                       className="bottom-date"
                       display={"flex"}
