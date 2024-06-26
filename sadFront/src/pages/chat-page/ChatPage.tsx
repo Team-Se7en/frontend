@@ -7,7 +7,6 @@ import {
   Avatar,
   Button,
   CircularProgress,
-  Input,
   MenuItem,
   Skeleton,
   Stack,
@@ -25,7 +24,6 @@ import { generateMessageDate } from "../../lib/MessageDate";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import ForumIcon from "@mui/icons-material/Forum";
 import SearchIcon from "@mui/icons-material/Search";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { MoreVert } from "@mui/icons-material";
 import ChatBackground from "./../../assets/images/chat-background.png";
 import { Link } from "react-router-dom";
