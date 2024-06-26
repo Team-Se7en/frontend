@@ -2,6 +2,7 @@ import { Box, CssBaseline } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
+import PaginationControlled from "../../../components/homepage_pagination/PaginationControlled"
 import { ProfessorCardViewShortInfo } from "../../../models/CardInfo";
 import ProfessorHeader from "../../../components/home_header/ProfessorHeader";
 import { ProfessorHomePage1 } from "../../../assets/images";
@@ -120,13 +121,23 @@ fetchRecentPositions();
             <ProfessorPositionSort onSortChange={setSortOptions} />
             <ProfessorPositionFilter onProfessorFilter={setFilterOptions} />
           </Box>
+          
+
 
         <Box sx = {{width: "100%"}}>
           <ProfessorPositions data={data} modelToAdd={modelToAdd} queryParams={cards} />
-
+          
+          <Box sx = {{display: "flex", flexDirection: "row", marginTop: "16px", marginBottom: '20px', justifyContent: "center"}}>
+            <PaginationControlled/>
+          </Box>
 
         <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
           <StudentCard/>
+        </Box>
+        
+        
+        <Box sx = {{display: "flex", flexDirection: "row", marginTop: "16px", justifyContent: "center"}}>
+            <PaginationControlled/>
         </Box>
 
         </Box>
