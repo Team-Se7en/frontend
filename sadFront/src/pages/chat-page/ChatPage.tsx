@@ -467,7 +467,7 @@ export default function ChatPage() {
 
           <Box
             className="chat-page"
-            height={"92%"}
+            height={chatID == -1 ? "100%" : "92%"}
             sx={{
               backgroundImage: `url(${ChatBackground})`,
               backgroundRepeat: "no-repeat",
@@ -541,7 +541,7 @@ export default function ChatPage() {
               position={"fixed"}
               bottom={"0"}
               width={"76.5%"}
-              display={"flex"}
+              display={chatID == -1 ? "none" : "flex"}
               flexDirection={"row"}
             >
               <TextField
