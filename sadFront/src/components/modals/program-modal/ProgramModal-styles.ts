@@ -1,0 +1,16 @@
+export const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    display: "flex",
+    flexDirection: "column",
+    borderRadius: "1rem",
+    borderColor: "#BFBFBF",
+    padding: "1.5rem 1.5rem 0rem 1.5rem",
+    gap: "1rem",
+  };
