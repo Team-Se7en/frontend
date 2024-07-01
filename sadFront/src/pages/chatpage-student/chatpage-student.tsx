@@ -49,7 +49,7 @@ export default function StudentChatPage() {
   const composeHandleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorE2(event.currentTarget);
     client
-      .get("https://seven-apply.liara.run/eduportal/professor_new_chat/")
+      .get("https://seven-apply.liara.run/eduportal/student_new_chat/")
       .then((response) => {
         setAllowedNewChats(response.data);
       })
@@ -173,7 +173,7 @@ export default function StudentChatPage() {
             paddingTop={"0.5rem"}
           >
             <Tooltip title="Back">
-              <Link to="/professorhomepage">
+              <Link to="/studenthomepage">
                 <IconButton
                   onClick={backHandleClick}
                   size="large"
@@ -451,7 +451,7 @@ export default function StudentChatPage() {
                   {chatName}
                 </Typography>
                 <Typography color={"#D9D9D9"} fontSize={"0.7rem"}>
-                  Student
+                  Professor
                 </Typography>
               </Box>
             </Box>
@@ -491,12 +491,12 @@ export default function StudentChatPage() {
                     key={index}
                     className="text-container"
                     sx={{
-                      backgroundColor: message.is_student ? "white" : "#DEEBF7",
+                      backgroundColor: !message.is_student ? "white" : "#DEEBF7",
                     }}
                     borderRadius={"0.3rem"}
                     padding={"0.5rem"}
                     maxWidth={"33rem"}
-                    alignSelf={message.is_student ? "flex-start" : "flex-end"}
+                    alignSelf={!message.is_student ? "flex-start" : "flex-end"}
                     width={"fit-content"}
                   >
                     <Typography fontSize={"0.9rem"} paddingRight={"3rem"}>
