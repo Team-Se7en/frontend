@@ -221,8 +221,8 @@ export default function ChatPage() {
                       >
                         <Avatar
                           className="avatar"
-                          alt="Sauleh Etemadi"
-                          src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
+                          alt="A Student"
+                          src="https://pngimg.com/uploads/student/student_PNG62560.png"
                           sx={{
                             minHeight: "4rem",
                             minWidth: "4rem",
@@ -325,8 +325,8 @@ export default function ChatPage() {
                                 >
                                   <Avatar
                                     className="avatar"
-                                    alt="Sauleh Etemadi"
-                                    src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
+                                    alt="A Student"
+                                    src="https://pngimg.com/uploads/student/student_PNG62560.png"
                                     sx={{
                                       minHeight: "1rem",
                                       minWidth: "1rem",
@@ -435,8 +435,8 @@ export default function ChatPage() {
             >
               <Avatar
                 className="avatar"
-                alt="Sauleh Etemadi"
-                src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
+                alt="A Student"
+                src="https://pngimg.com/uploads/student/student_PNG62560.png"
                 sx={{
                   minHeight: "3rem",
                   minWidth: "3rem",
