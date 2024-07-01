@@ -28,7 +28,7 @@ import { MoreVert } from "@mui/icons-material";
 import ChatBackground from "./../../assets/images/chat-background.png";
 import { Link } from "react-router-dom";
 
-export default function ChatPage() {
+export default function StudentChatPage() {
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
   const composeOpen = Boolean(anchorE2);
   const [chatID, setChatID] = React.useState(-1);
