@@ -19,6 +19,7 @@ import { EditCV } from "./pages/editProfile/CV/EditCV";
 import { ViewCV } from "./pages/editProfile/CV/ViewCV";
 import NotificationsPage from "./pages/notifications/notifications-page";
 import StudentChatPage from "./pages/chatpage-student/chatpage-student";
+import ChatPage from "./pages/chat-page/ChatPage";
 
 export default function Routing() {
   return (
@@ -53,6 +54,7 @@ export default function Routing() {
         <Route path="universitypage" element={<UniversityPage />} />
         <Route path="notifications" element={<NotificationsPage />} />
         <Route path="studentchatpage" element={<StudentChatPage />} />
+        <Route path="chatpage" element={<ChatPage />} />
       </Routes>
     </BrowserRouter>
   );
