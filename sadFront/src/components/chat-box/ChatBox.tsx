@@ -15,7 +15,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import { StyledChats, StyledTopMessage } from "./ChatBox-styles";
 import ChatIcon from "@mui/icons-material/Chat";
 import CreateIcon from "@mui/icons-material/Create";
@@ -26,6 +25,7 @@ import { MessageModel } from "../../models/Message";
 import { generateMessageDate } from "../../lib/MessageDate";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import ForumIcon from "@mui/icons-material/Forum";
 
 export default function ChatBox() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -163,6 +163,8 @@ export default function ChatBox() {
         console.error("There was an error!", error);
       });
   }, []);
+
+  console.log(chats);
 
   return (
     <React.Fragment>
@@ -307,10 +309,12 @@ export default function ChatBox() {
                                 {chat.group_name}
                               </Typography>
                               <Typography color={"#D9D9D9"} fontSize={"0.8rem"}>
-                                {generateMessageDate(
-                                  chat.time_of_the_last_message,
-                                  currentDate
-                                )}
+                                {chat.time_of_the_last_message
+                                  ? generateMessageDate(
+                                      chat.time_of_the_last_message,
+                                      currentDate
+                                    )
+                                  : "Start Chat"}
                               </Typography>
                             </Box>
                             <Typography color={"#D9D9D9"} fontSize={"0.8rem"}>
@@ -319,120 +323,6 @@ export default function ChatBox() {
                           </Box>
                         </StyledChats>
                       ))}
-                      <Box
-                        className="compose icon"
-                        position={"fixed"}
-                        bottom={"2rem"}
-                        right={"2rem"}
-                        borderRadius={"100%"}
-                        height={"2.7rem"}
-                        width={"2.7rem"}
-                        sx={{ backgroundColor: "#188DEA" }}
-                        display={"flex"}
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                      >
-                        <Tooltip title="Start New Chat">
-                          <IconButton
-                            aria-controls={
-                              composeOpen ? "demo-positioned-menu" : undefined
-                            }
-                            aria-haspopup="true"
-                            aria-expanded={composeOpen ? "true" : undefined}
-                            onClick={composeHandleClick}
-                          >
-                            <CreateIcon
-                              sx={{
-                                color: "white",
-                                fontSize: "1.3rem",
-                                cursor: "pointer",
-                              }}
-                            />
-                          </IconButton>
-                        </Tooltip>
-                        <Menu
-                          id="demo-positioned-menu"
-                          aria-labelledby="demo-positioned-button"
-                          anchorEl={anchorE2}
-                          open={composeOpen}
-                          onClose={() => composeHandleClose(-1, "")}
-                          anchorOrigin={{
-                            vertical: "top",
-                            horizontal: "left",
-                          }}
-                          transformOrigin={{
-                            vertical: "top",
-                            horizontal: "left",
-                          }}
-                        >
-                          {allowedNewChats ? (
-                            allowedNewChats.length != 0 ? (
-                              allowedNewChats.map((prof, index) => (
-                                <MenuItem
-                                  key={index}
-                                  onClick={() =>
-                                    composeHandleClose(prof.id, prof.name)
-                                  }
-                                >
-                                  <Box
-                                    display={"flex"}
-                                    flexDirection={"row"}
-                                    alignItems={"center"}
-                                    gap={"0.3rem"}
-                                  >
-                                    <Avatar
-                                      className="avatar"
-                                      alt="Sauleh Etemadi"
-                                      src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
-                                      sx={{
-                                        minHeight: "1rem",
-                                        minWidth: "1rem",
-                                      }}
-                                    />
-                                    <Box>
-                                      <Typography fontSize={"0.8rem"}>
-                                        {prof.name}
-                                      </Typography>
-                                      <Typography
-                                        fontSize={"0.6rem"}
-                                        color="text.secondary"
-                                      >
-                                        {prof.university}
-                                      </Typography>
-                                    </Box>
-                                  </Box>
-                                </MenuItem>
-                              ))
-                            ) : (
-                              <Box
-                                width={"13rem"}
-                                height={"4rem"}
-                                display={"flex"}
-                                flexDirection={"column"}
-                                justifyContent={"center"}
-                                alignItems={"center"}
-                                padding={"2rem"}
-                                textAlign={"center"}
-                              >
-                                <Typography fontSize={"0.8rem"}>
-                                  There is no remaining allowed chats
-                                </Typography>
-                              </Box>
-                            )
-                          ) : (
-                            <Box
-                              width={"13rem"}
-                              height={"4rem"}
-                              display={"flex"}
-                              flexDirection={"column"}
-                              justifyContent={"center"}
-                              alignItems={"center"}
-                            >
-                              <CircularProgress />
-                            </Box>
-                          )}
-                        </Menu>
-                      </Box>
                     </Box>
                   ) : (
                     <>
@@ -574,12 +464,14 @@ export default function ChatBox() {
                   display={"flex"}
                   flexDirection={"column"}
                   alignItems={"center"}
+                  justifyContent={"center"}
+                  height={"100%"}
+                  padding={"4rem"}
                 >
-                  <CircleNotificationsIcon
-                    sx={{ color: "#F2F2F2", fontSize: "8rem" }}
-                  />
+                  <ForumIcon sx={{ color: "#F2F2F2", fontSize: "8rem" }} />
                   <Typography color={"#F2F2F2"} fontSize={"0.9rem"}>
-                    You have no chats.
+                    You have no active chats. Click on compose icon to start a
+                    new chat ...
                   </Typography>
                 </Box>
               )
@@ -596,6 +488,118 @@ export default function ChatBox() {
                 ))}
               </Stack>
             )}
+            <Box
+              className="compose icon"
+              position={"fixed"}
+              bottom={"2rem"}
+              right={"2rem"}
+              borderRadius={"100%"}
+              height={"2.7rem"}
+              width={"2.7rem"}
+              sx={{ backgroundColor: "#188DEA" }}
+              display={chatID == -1 ? "flex" : "none"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Tooltip title="Start New Chat">
+                <IconButton
+                  aria-controls={
+                    composeOpen ? "demo-positioned-menu" : undefined
+                  }
+                  aria-haspopup="true"
+                  aria-expanded={composeOpen ? "true" : undefined}
+                  onClick={composeHandleClick}
+                >
+                  <CreateIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "1.3rem",
+                      cursor: "pointer",
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                id="demo-positioned-menu"
+                aria-labelledby="demo-positioned-button"
+                anchorEl={anchorE2}
+                open={composeOpen}
+                onClose={() => composeHandleClose(-1, "")}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                {allowedNewChats ? (
+                  allowedNewChats.length != 0 ? (
+                    allowedNewChats.map((prof, index) => (
+                      <MenuItem
+                        key={index}
+                        onClick={() => composeHandleClose(prof.id, prof.name)}
+                      >
+                        <Box
+                          display={"flex"}
+                          flexDirection={"row"}
+                          alignItems={"center"}
+                          gap={"0.3rem"}
+                        >
+                          <Avatar
+                            className="avatar"
+                            alt="Sauleh Etemadi"
+                            src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
+                            sx={{
+                              minHeight: "1rem",
+                              minWidth: "1rem",
+                            }}
+                          />
+                          <Box>
+                            <Typography fontSize={"0.8rem"}>
+                              {prof.name}
+                            </Typography>
+                            <Typography
+                              fontSize={"0.6rem"}
+                              color="text.secondary"
+                            >
+                              {prof.university}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <Box
+                      width={"13rem"}
+                      height={"4rem"}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      padding={"2rem"}
+                      textAlign={"center"}
+                    >
+                      <Typography fontSize={"0.8rem"}>
+                        There is no remaining allowed chats
+                      </Typography>
+                    </Box>
+                  )
+                ) : (
+                  <Box
+                    width={"13rem"}
+                    height={"4rem"}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                  >
+                    <CircularProgress />
+                  </Box>
+                )}
+              </Menu>
+            </Box>
           </Box>
         </Box>
       </Menu>

@@ -250,10 +250,12 @@ export default function ChatPage() {
                               {chat.group_name}
                             </Typography>
                             <Typography color={"#D9D9D9"} fontSize={"0.8rem"}>
-                              {generateMessageDate(
-                                chat.time_of_the_last_message,
-                                currentDate
-                              )}
+                              {chat.time_of_the_last_message
+                                ? generateMessageDate(
+                                    chat.time_of_the_last_message,
+                                    currentDate
+                                  )
+                                : "Start Chat"}
                             </Typography>
                           </Box>
                           <Typography color={"#D9D9D9"} fontSize={"0.8rem"}>
