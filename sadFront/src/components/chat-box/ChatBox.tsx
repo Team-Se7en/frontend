@@ -486,7 +486,7 @@ export default function ChatBox() {
                           flexDirection={"column"}
                           padding={"0.8rem"}
                           gap={"0.7rem"}
-                          maxHeight={"28.8rem"}
+                          //maxHeight={"28.8rem"}
                         >
                           <ToastContainer transition={Flip} />
                           {messages ? (
@@ -501,10 +501,16 @@ export default function ChatBox() {
                                 }}
                                 borderRadius={"0.3rem"}
                                 padding={"0.5rem"}
+                                width={"fit-content"}
                                 maxWidth={"18rem"}
-                                marginLeft={message.is_student ? "4.3rem" : "0"}
+                                alignSelf={
+                                  message.is_student ? "flex-start" : "flex-end"
+                                }
                               >
-                                <Typography fontSize={"0.7rem"}>
+                                <Typography
+                                  fontSize={"0.7rem"}
+                                  paddingRight={"2rem"}
+                                >
                                   {message.text}
                                 </Typography>
                                 <Box
