@@ -127,7 +127,7 @@ fetchRecentPositions();
         <Box sx = {{width: "100%"}}>
           <ProfessorPositions data={data} modelToAdd={modelToAdd} queryParams={cards} />
           
-          <Box sx = {{display: "flex", flexDirection: "row", marginTop: "16px", marginBottom: '20px', justifyContent: "center"}}>
+          <Box sx = {{display: "flex", flexDirection: "row", marginTop: "16px", marginBottom: '20px', marginLeft: "225px", paddingRight: "0px"}}>
             <PaginationControlled/>
           </Box>
 
@@ -136,7 +136,7 @@ fetchRecentPositions();
         </Box>
         
         
-        <Box sx = {{display: "flex", flexDirection: "row", marginTop: "16px", justifyContent: "center"}}>
+        <Box sx = {{display: "flex", flexDirection: "row", margin: "16px 225px auto",}}>
             <PaginationControlled/>
         </Box>
 
