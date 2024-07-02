@@ -13,3 +13,16 @@ export const StyledChats = styled(Box)(() => ({
     backgroundColor: "black",
   },
 }));
+
+export const StyledTopMessage = styled(Box)(() => ({
+  height: "6%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#188DEA",
+  opacity: "93%",
+
+  "&:hover": {
+    opacity: "100%",
+  },
+}));
