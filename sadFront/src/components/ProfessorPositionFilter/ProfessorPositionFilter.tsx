@@ -101,6 +101,12 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({
                 fontSize: "0.75rem",
                 margin: "4px 4px",
                 height: "32px",
+                "&:hover": {
+                  backgroundColor: "#0F1035",
+                },
+                "&:active": {
+                  backgroundColor: "#0D0E2A",
+                },
               }}
             >
               Apply
@@ -115,6 +121,12 @@ const ProfessorPositionFilter: React.FC<FilterProps> = ({
                 fontSize: "0.75rem",
                 margin: "4px 4px",
                 height: "32px",
+                "&:hover": {
+                  backgroundColor: "#7FC7D9",
+                },
+                "&:active": {
+                  backgroundColor: "#7FC7D9",
+                },
               }}
             >
               Reset
