@@ -277,7 +277,7 @@ const StudentPositionFilter: React.FC<FilterProps> = ({
                     <Typography sx={{ marginBottom: '48px' }}>Fee</Typography>
 
                     <Slider 
-                        sx={{marginTop:'16px', color: '#0F1035',width:'200px',}}
+                        sx={{marginTop:'16px',paddingRight:"2px", paddingLeft:"2px",color: '#0F1035',width:'300px',}}
                         value={[feeMin, feeMax]}
                         onChange={(_, newValue) => {
                         if (Array.isArray(newValue) && newValue.length === 2) {
