@@ -112,7 +112,7 @@ export default function StudentHomepage() {
             <PaginationControlled/>
           </Box>
 
-          <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px", backgroundColor:'white', maxWidth: "875px"}}>
+          <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px", maxWidth: "875px"}}>
             <ProfessorCard/>
           </Box>
 

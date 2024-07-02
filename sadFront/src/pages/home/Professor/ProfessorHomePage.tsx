@@ -131,7 +131,7 @@ fetchRecentPositions();
             <PaginationControlled/>
           </Box>
 
-        <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
+        <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", maxWidth: 790}}>
           <StudentCard/>
         </Box>
         
