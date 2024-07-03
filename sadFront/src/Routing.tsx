@@ -1,23 +1,24 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import AboutUs from "./pages/aboutus/AboutUs";
+import { EditCV } from "./pages/editProfile/CV/EditCV";
 import { Forgot } from "./pages/forgot-pass/Forgotpassword/ForgotPassword";
 import { Home } from "./pages/home/Home";
 import { Login } from "./pages/login/Login";
 import Newpassword from "./pages/forgot-pass/Newpassword/Newpassword";
+import NotificationsPage from "./pages/notifications/notifications-page";
 import { ProfessorEditProfile } from "./pages/editProfile/ProfessorEditProfile";
 import { ProfessorHomePage } from "./pages/home/Professor/ProfessorHomePage";
 import { ProfessorSignup } from "./pages/signup/professor-signup/ProfessorSignup";
 import Signup from "./pages/signup/Signup";
 import { SignupVerification } from "./pages/signup/SignupVerification";
+import { StudentAccept } from "./pages/accept-sudent/StudentAccept";
 import { StudentEditProfile } from "./pages/editProfile/StudentEditProfile";
 import StudentHomepage from "./pages/home/Student/StudentHomepage";
 import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
-import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import UniversityPage from "./pages/university/University";
-import { StudentAccept } from "./pages/accept-sudent/StudentAccept";
-import { EditCV } from "./pages/editProfile/CV/EditCV";
+import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import { ViewCV } from "./pages/editProfile/CV/ViewCV";
-import NotificationsPage from "./pages/notifications/notifications-page";
 import StudentChatPage from "./pages/chatpage-student/chatpage-student";
 import ChatPage from "./pages/chat-page/ChatPage";
 
@@ -55,6 +56,8 @@ export default function Routing() {
         <Route path="notifications" element={<NotificationsPage />} />
         <Route path="studentchatpage" element={<StudentChatPage />} />
         <Route path="chatpage" element={<ChatPage />} />
+
+        <Route path="aboutus" element={<AboutUs />} />
       </Routes>
     </BrowserRouter>
   );

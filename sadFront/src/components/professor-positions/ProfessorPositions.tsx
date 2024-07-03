@@ -1,6 +1,6 @@
-import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
+import { Box } from "@mui/material";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import { ProfessorPositionsQueryParams } from "../../models/QueryParams";
 import { ProfessorRequestCard } from "../professor-position-card/ProfessorPositionCard";
@@ -34,7 +34,6 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
             width={"90%"}
             minWidth={"30rem"}
             maxWidth={"50rem"}
-            sx={{ backgroundColor: "white" }}
         >
             {/* <Divider
                 textAlign="left"

@@ -2,6 +2,7 @@ import { Box, CssBaseline } from "@mui/material";
 import React, { useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
+import PaginationControlled from "../../../components/homepage_pagination/PaginationControlled"
 import ProfessorCard from "../../../components/professorcard/ProfessorCard";
 import SearchStudent from "../../../components/Search_student/Search";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
@@ -106,9 +107,17 @@ export default function StudentHomepage() {
 
           <Box sx = {{width: "100%"}}>
           <StudentPositions data={data} queryParams={cards}/>
+          
+          <Box sx = {{display: "flex", flexDirection: "row", marginTop: "16px", marginBottom: '20px', marginLeft: "225px", paddingRight: "0px"}}>
+            <PaginationControlled/>
+          </Box>
 
-          <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
+          <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px", maxWidth: "875px"}}>
             <ProfessorCard/>
+          </Box>
+
+          <Box sx = {{display: "flex", flexDirection: "row", margin: "16px 225px auto",}}>
+            <PaginationControlled/>
           </Box>
 
             

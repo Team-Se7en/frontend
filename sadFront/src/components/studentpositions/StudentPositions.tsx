@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { Box } from "@mui/material";
-import StudentPositionCard from "../student-position-card/StudentPositionCard";
 import { StudentCardViewFullInfo } from "../../models/CardInfo";
+import StudentPositionCard from "../student-position-card/StudentPositionCard";
 import { StudentPositionsQueryParams } from "../../models/QueryParams";
 import { getStudentPositions } from "../../services/sposition.service";
 
@@ -35,7 +35,6 @@ export function StudentPositions(props: StudentPositionsProps) {
             maxWidth={"55rem"}
             minWidth={"20rem"}
             maxHeight={"35rem"}
-            sx={{ backgroundColor: "white" }}
         >
             <Box
                 height={"30rem"}
