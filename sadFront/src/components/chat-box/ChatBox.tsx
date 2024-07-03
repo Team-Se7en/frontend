@@ -397,7 +397,7 @@ export default function ChatBox() {
                                 width={"fit-content"}
                                 maxWidth={"18rem"}
                                 alignSelf={
-                                  message.is_student ? "flex-start" : "flex-end"
+                                  message.is_student ? "flex-end" : "flex-start"
                                 }
                               >
                                 <Typography
