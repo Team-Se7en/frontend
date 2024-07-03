@@ -28,7 +28,7 @@ import { MoreVert } from "@mui/icons-material";
 import ChatBackground from "./../../assets/images/chat-background.png";
 import { Link } from "react-router-dom";
 
-export default function StudentChatPage() {
+export default function ChatPage() {
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
   const composeOpen = Boolean(anchorE2);
   const [chatID, setChatID] = React.useState(-1);
@@ -221,7 +221,7 @@ export default function StudentChatPage() {
                       >
                         <Avatar
                           className="avatar"
-                          alt="Sauleh Etemadi"
+                          alt="A Professor"
                           src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
                           sx={{
                             minHeight: "4rem",
@@ -327,7 +327,7 @@ export default function StudentChatPage() {
                                 >
                                   <Avatar
                                     className="avatar"
-                                    alt="Sauleh Etemadi"
+                                    alt="A Professor"
                                     src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
                                     sx={{
                                       minHeight: "1rem",
@@ -437,7 +437,7 @@ export default function StudentChatPage() {
             >
               <Avatar
                 className="avatar"
-                alt="Sauleh Etemadi"
+                alt="A Professor"
                 src="https://media.licdn.com/dms/image/C5603AQFRQMoLVOmP7w/profile-displayphoto-shrink_100_100/0/1624999976467?e=1721260800&v=beta&t=rWvEmn81zadwHSowf4ryqT6S5rOyr9qvEkW9rHVgNXM"
                 sx={{
                   minHeight: "3rem",
@@ -493,12 +493,12 @@ export default function StudentChatPage() {
                     key={index}
                     className="text-container"
                     sx={{
-                      backgroundColor: !message.is_student ? "white" : "#DEEBF7",
+                      backgroundColor: message.is_student ? "white" : "#DEEBF7",
                     }}
                     borderRadius={"0.3rem"}
                     padding={"0.5rem"}
                     maxWidth={"33rem"}
-                    alignSelf={!message.is_student ? "flex-start" : "flex-end"}
+                    alignSelf={message.is_student ? "flex-start" : "flex-end"}
                     width={"fit-content"}
                   >
                     <Typography fontSize={"0.9rem"} paddingRight={"3rem"}>
