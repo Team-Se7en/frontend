@@ -19,7 +19,6 @@ import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
 import UniversityPage from "./pages/university/University";
 import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import { ViewCV } from "./pages/editProfile/CV/ViewCV";
-import NotificationsPage from "./pages/notifications/notifications-page";
 import StudentChatPage from "./pages/chatpage-student/chatpage-student";
 import ChatPage from "./pages/chat-page/ChatPage";
 
