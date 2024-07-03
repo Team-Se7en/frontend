@@ -226,7 +226,7 @@ export default function UniversityPage() {
                 flexDirection={"column"}
                 gap={"0.5rem"}
               >
-                {uniInfo.recent_positions.map((program, index) => (
+                {/* {uniInfo.recent_positions.map((program, index) => (
                   <StudentPositionCard
                     key={index}
                     professor={program.professor}
@@ -244,7 +244,7 @@ export default function UniversityPage() {
                     university_name={program.university_name}
                     university_id={program.university_id}
                   />
-                ))}
+                ))} */}
               </Box>
             </Box>
           </Box>

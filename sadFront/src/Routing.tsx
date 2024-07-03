@@ -19,6 +19,9 @@ import { StudentSignup } from "./pages/signup/student-signup/StudentSignup";
 import UniversityPage from "./pages/university/University";
 import { Verification } from "./pages/forgot-pass/AccountVerification/Verification";
 import { ViewCV } from "./pages/editProfile/CV/ViewCV";
+import NotificationsPage from "./pages/notifications/notifications-page";
+import StudentChatPage from "./pages/chatpage-student/chatpage-student";
+import ChatPage from "./pages/chat-page/ChatPage";
 
 export default function Routing() {
   return (
@@ -52,6 +55,8 @@ export default function Routing() {
         <Route path="studentaccept" element={<StudentAccept />} />
         <Route path="universitypage" element={<UniversityPage />} />
         <Route path="notifications" element={<NotificationsPage />} />
+        <Route path="studentchatpage" element={<StudentChatPage />} />
+        <Route path="chatpage" element={<ChatPage />} />
 
         <Route path="aboutus" element={<AboutUs />} />
       </Routes>
