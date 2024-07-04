@@ -15,7 +15,8 @@ export const getStudentRecentPositions = async () => {
     }
 };
 
-export const getStudentPositions = async (queryParams?: StudentPositionsQueryParams) => {
+export const getStudentPositions = async (spage1:number, queryParams?: StudentPositionsQueryParams) => {
+    console.log(queryParams, "this is query params");
     try {
         let result = await client.get(`/eduportal/stud_position_filter/`, { params: {
             "term": queryParams?.term,
@@ -23,6 +24,7 @@ export const getStudentPositions = async (queryParams?: StudentPositionsQueryPar
             "fee__gte": queryParams?.feeMin,
             "fee__lte": queryParams?.feeMax,
             "position_start_date__year":  queryParams?.year,
+            "page":spage1,
         } });
         
         if (queryParams?.filled != -1) {
@@ -33,6 +35,7 @@ export const getStudentPositions = async (queryParams?: StudentPositionsQueryPar
                 "fee__lte": queryParams?.feeMax,
                 "position_start_date__year":  queryParams?.year,
                 "filled": queryParams?.filled,
+                "page":spage1,
             } });
             
     }

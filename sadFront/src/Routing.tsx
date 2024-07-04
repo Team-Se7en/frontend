@@ -47,8 +47,8 @@ export default function Routing() {
 
         <Route path="" element={<Home />} />
         <Route path="newpassword" element={<Newpassword />} />
-        <Route path="professorhomepage" element={<ProfessorHomePage />} />
-        <Route path="studenthomepage" element={<StudentHomepage />} />
+        <Route path="professorhomepage/:page1/:page2" element={<ProfessorHomePage />} />
+        <Route path="studenthomepage/:page1/:page2" element={<StudentHomepage />} />
         <Route path="studentaccept" element={<StudentAccept />} />
         <Route path="universitypage" element={<UniversityPage />} />
         <Route path="notifications" element={<NotificationsPage />} />

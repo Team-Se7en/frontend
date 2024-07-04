@@ -1,13 +1,14 @@
-import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { Box, Container, CssBaseline, Avatar, Typography, TextField, InputAdornment, IconButton, FormControlLabel, Checkbox, Button, Grid } from "@mui/material";
-import clsx from "clsx";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { toast, ToastContainer, Flip } from "react-toastify";
-import client from "../../Http/axios";
-import Styles from "../../Styles";
-import LoginStyles from "./Login.styles";
+import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { Flip, ToastContainer, toast } from "react-toastify";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
+import LoginStyles from "./Login.styles";
+import Styles from "../../Styles";
+import client from "../../Http/axios";
+import clsx from "clsx";
 
 export function Login() {
     const [formData, setFormData] = useState({
@@ -90,10 +91,10 @@ export function Login() {
             client.get("/auth/users").then((response:any) => {
                 const redirect = () => {
                 if (response.data[0].is_student){
-                    window.location.href = "/studenthomepage";
+                    window.location.href = "/studenthomepage/page1=1/page2=1";
                     
                 } else{
-                    window.location.href = "/professorhomepage";
+                    window.location.href = "/professorhomepage/page1=1/page2=1";
                 }
 
             };

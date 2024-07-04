@@ -36,14 +36,14 @@ const SearchProfessor: React.FC<SendData> = ({ setData }) => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<ProfessorCardViewShortInfo[]>([]);
   const [error, setError] = useState<string>('');
+  const [ignore, setIgnore] = useState(true);
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
+    if(!ignore){
       fetchSearchResults();
-    }, 300); 
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [query]);
+    }
+    
+  }, [query, ignore]);
 
   const fetchSearchResults = async () => {
     try {
@@ -64,6 +64,8 @@ const SearchProfessor: React.FC<SendData> = ({ setData }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
+    setIgnore(false);
+    
   };
 
   const handleClear = () => {

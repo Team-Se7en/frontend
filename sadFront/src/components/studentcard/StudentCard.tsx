@@ -36,7 +36,7 @@ const theme = createTheme({
     },
     });
 
-    export default function StudentCard() {
+    export default function StudentCard({page}: any) {
 
     interface University {
             name?: string,
@@ -56,7 +56,10 @@ const theme = createTheme({
 
     const getTopStudent = async () => {
         try {
-            const result = await client.get(`/eduportal/top_students/`);
+            console.log(page,"page student card")
+            const result = await client.get(`/eduportal/top_students/`,{ params: {
+                    "page": page,
+                } });
             const values:Student[] = Object.keys(result.data).map(function(key){
                 return result.data[key];
             });
@@ -68,13 +71,11 @@ const theme = createTheme({
         }
     };
 
-    useEffect(() => {
+        useEffect(() => {
 
-        getTopStudent();
+            getTopStudent();
 
-    }, []);
-
-
+        }, [page]);
     return (
     <ThemeProvider theme={theme}>
     <Box
