@@ -173,7 +173,7 @@ export default function ChatPage() {
             paddingTop={"0.5rem"}
           >
             <Tooltip title="Back">
-              <Link to="/studenthomepage">
+              <Link to="/studenthomepage/:page1/:page2">
                 <IconButton
                   onClick={backHandleClick}
                   size="large"
