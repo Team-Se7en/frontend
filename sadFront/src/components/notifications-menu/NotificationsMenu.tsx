@@ -12,7 +12,6 @@ import { StyledNotification } from "./NotificationsMenu-styles";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Notifications } from "../../models/Notifications";
 import { GenerateNotifText } from "../../lib/NotifText";
 import client from "../../Http/axios";
@@ -33,7 +32,7 @@ export default function NotificationsMenu() {
           id +
           "/toggle_bookmark/"
       )
-      .then((response) => {
+      .then(() => {
         setRefreshKey((oldKey) => oldKey + 1);
       })
       .catch((error) => {
