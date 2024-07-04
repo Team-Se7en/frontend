@@ -21,8 +21,25 @@ import { Verification } from "./pages/forgot-pass/AccountVerification/Verificati
 import { ViewCV } from "./pages/editProfile/CV/ViewCV";
 import StudentChatPage from "./pages/chatpage-student/chatpage-student";
 import ChatPage from "./pages/chat-page/ChatPage";
+import React from "react";
+import axios from "axios";
+import { University } from "./models/University";
 
 export default function Routing() {
+  const [allUnis, setAllUnis] = React.useState<University[]>();
+  const [uniPath, setUniPath] = React.useState<string>("");
+
+  React.useEffect(() => {
+    axios
+      .get("https://seven-apply.liara.run/eduportal/universities/")
+      .then((response) => {
+        setAllUnis(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -52,12 +69,22 @@ export default function Routing() {
         <Route path="professorhomepage" element={<ProfessorHomePage />} />
         <Route path="studenthomepage" element={<StudentHomepage />} />
         <Route path="studentaccept" element={<StudentAccept />} />
-        <Route path="universitypage" element={<UniversityPage />} />
         <Route path="notifications" element={<NotificationsPage />} />
         <Route path="studentchatpage" element={<StudentChatPage />} />
         <Route path="chatpage" element={<ChatPage />} />
-
         <Route path="aboutus" element={<AboutUs />} />
+
+        {allUnis ? (
+          allUnis.map((uni, index) => (
+            <Route
+              key={index}
+              path={"universitypage/" + uni.id}
+              element={<UniversityPage />}
+            />
+          ))
+        ) : (
+          <></>
+        )}
       </Routes>
     </BrowserRouter>
   );

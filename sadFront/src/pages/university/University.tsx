@@ -10,6 +10,10 @@ import { University } from "../../models/University";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import StudentPositionCard from "../../components/student-position-card/StudentPositionCard";
+import StudentHeader from "../../components/home_st_header/StudentHeader";
+import { UserInfo } from "../../models/UserInfo";
+import ProfessorHeader from "../../components/home_header/ProfessorHeader";
+import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 //import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
@@ -22,8 +26,17 @@ const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
 
 export default function UniversityPage() {
   const [uniInfo, setuniInfo] = React.useState<University>();
+  const [userInfo, setUserInfo] = React.useState<UserInfo>();
+  const [modelToAdd, setModelToAdd] =
+    React.useState<ProfessorCardViewShortInfo>();
   const location = useLocation();
   const uniID = location.state;
+
+  const handleProfessorPositionAddition = (
+    model: ProfessorCardViewShortInfo
+  ) => {
+    setModelToAdd(model);
+  };
 
   React.useEffect(() => {
     axios
@@ -41,8 +54,20 @@ export default function UniversityPage() {
       });
   }, []);
 
+  React.useEffect(() => {
+    axios
+      .get("https://seven-apply.liara.run/eduportal/userinfo/")
+      .then((response) => {
+        setUserInfo(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
+
   if (!uniInfo) return null;
   //console.log(uniInfo);
+  console.log(userInfo);
 
   const statisticTitles = [
     "Total Students",
@@ -59,7 +84,16 @@ export default function UniversityPage() {
 
   return (
     <Box sx={{ overflowX: "hidden" }}>
-      <Navbar />
+      {userInfo?.user_type == "Anonymous" ? (
+        <Navbar showAuthButtons={true} />
+      ) : userInfo?.professor ? (
+        <ProfessorHeader
+          handleProfessorPositionAddition={handleProfessorPositionAddition}
+        ></ProfessorHeader>
+      ) : (
+        <StudentHeader />
+      )}
+
       <Box
         className="page-body"
         display={"flex"}
@@ -226,25 +260,9 @@ export default function UniversityPage() {
                 flexDirection={"column"}
                 gap={"0.5rem"}
               >
-                {/* {uniInfo.recent_positions.map((program, index) => (
-                  <StudentPositionCard
-                    key={index}
-                    professor={program.professor}
-                    id={program.id}
-                    status={program.status}
-                    title={program.title}
-                    tags={program.tags}
-                    fee={program.fee}
-                    position_start_date={program.position_start_date}
-                    position_end_date={program.position_end_date}
-                    start_date={program.start_date}
-                    end_date={program.end_date}
-                    description="" //Will be assigned in modal
-                    capacity={0} //Will be assigned in modal
-                    university_name={program.university_name}
-                    university_id={program.university_id}
-                  />
-                ))} */}
+                {uniInfo.recent_positions.map((program, index) => (
+                  <StudentPositionCard key={index} model={program} />
+                ))}
               </Box>
             </Box>
           </Box>
