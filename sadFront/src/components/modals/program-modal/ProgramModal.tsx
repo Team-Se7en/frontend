@@ -43,7 +43,7 @@ export default function ProgramModal(props: ProgramModalProps) {
   const [loading, setLoading] = useState(true);
 
   React.useEffect(() => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/positions" +
           "/" +

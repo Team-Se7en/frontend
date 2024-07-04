@@ -14,6 +14,7 @@ import StudentHeader from "../../components/home_st_header/StudentHeader";
 import { UserInfo } from "../../models/UserInfo";
 import ProfessorHeader from "../../components/home_header/ProfessorHeader";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
+import client from "../../Http/axios";
 //import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
@@ -39,7 +40,7 @@ export default function UniversityPage() {
   };
 
   React.useEffect(() => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/universities" +
           "/" +
@@ -55,7 +56,7 @@ export default function UniversityPage() {
   }, []);
 
   React.useEffect(() => {
-    axios
+    client
       .get("https://seven-apply.liara.run/eduportal/userinfo")
       .then((response) => {
         setUserInfo(response.data);

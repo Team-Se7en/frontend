@@ -91,7 +91,7 @@ export default function NotificationsMenu() {
 
   const [notifs, setnotifs] = React.useState<Notifications[]>();
   const [newNotifsCount, setNewNotifsCount] = React.useState<number>();
-  const [newNotif, setNewNotif] = React.useState<Notifications>();
+  //const [newNotif, setNewNotif] = React.useState<Notifications>();
   const [notifySocket, setNotifySocket] = React.useState<WebSocket>();
 
   if (notifySocket) {
@@ -106,10 +106,21 @@ export default function NotificationsMenu() {
     };
 
     // on receiving message on group
-    notifySocket.onmessage = function (e) {
+    notifySocket.onmessage = function () {
       //console.log("Message received.");
       //setNewNotif(JSON.parse(e.data));
-      console.log(e.data);
+      //setnotifs((notifs) => [...notifs, newNotif]);
+      client
+        .get(
+          "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
+        )
+        .then((response) => {
+          setnotifs(response.data);
+          //console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
       if (newNotifsCount) setNewNotifsCount(newNotifsCount + 1);
     };
   }
