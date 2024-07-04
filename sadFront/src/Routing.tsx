@@ -27,7 +27,6 @@ import { University } from "./models/University";
 
 export default function Routing() {
   const [allUnis, setAllUnis] = React.useState<University[]>();
-  const [uniPath, setUniPath] = React.useState<string>("");
 
   React.useEffect(() => {
     axios
