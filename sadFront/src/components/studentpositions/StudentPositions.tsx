@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 
 import { Box } from "@mui/material";
-import StudentPositionCard from "../student-position-card/StudentPositionCard";
 import { StudentCardViewFullInfo } from "../../models/CardInfo";
+import StudentPositionCard from "../student-position-card/StudentPositionCard";
 import { StudentPositionsQueryParams } from "../../models/QueryParams";
 import { getStudentPositions } from "../../services/sposition.service";
 
 export interface StudentPositionsProps {
     queryParams?: StudentPositionsQueryParams;
     data: StudentCardViewFullInfo[];
+    page: number;
 }
 
 export function StudentPositions(props: StudentPositionsProps) {
@@ -16,7 +17,7 @@ export function StudentPositions(props: StudentPositionsProps) {
 
     useEffect(() => {
         const fetchRecentPositions = async () => {
-            const result = await getStudentPositions(props.queryParams);
+            const result = await getStudentPositions(props.page, props.queryParams);
             setPositions(result.data)
         };
 
@@ -35,7 +36,6 @@ export function StudentPositions(props: StudentPositionsProps) {
             maxWidth={"55rem"}
             minWidth={"20rem"}
             maxHeight={"35rem"}
-            sx={{ backgroundColor: "white" }}
         >
             <Box
                 height={"30rem"}

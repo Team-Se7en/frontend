@@ -4,6 +4,7 @@ export interface ProfessorPositionsQueryParams {
     year?: number;
     term?: string;
     ordering?: string;
+    page?: number;
     
 }
 
@@ -14,5 +15,5 @@ export interface StudentPositionsQueryParams {
     term?: string;
     ordering?: string;
     filled?: number;
-    
+    page?: number;
 }

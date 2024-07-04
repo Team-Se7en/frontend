@@ -2,6 +2,7 @@ import { Box, CssBaseline } from "@mui/material";
 import React, { useState } from "react";
 
 import Footer from "../../../components/footer/footer/footer";
+import Pagination from '@mui/material/Pagination';
 import ProfessorCard from "../../../components/professorcard/ProfessorCard";
 import SearchStudent from "../../../components/Search_student/Search";
 import { StudentCardViewFullInfo } from "../../../models/CardInfo";
@@ -10,6 +11,38 @@ import { StudentHomePage1 } from "../../../assets/images";
 import StudentPositionFilter from "../../../components/StudentPositionFilter/StudentPositionFilter";
 import StudentPositionSort from "../../../components/StudentPositonSort/StudentPositionSort";
 import { StudentPositions } from "../../../components/studentpositions/StudentPositions";
+import {makeStyles} from '@mui/styles';
+import { useParams } from "react-router-dom";
+
+const useStyles = makeStyles({
+  root: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: '10px',
+      backgroundColor: '#f9f9f9',
+      borderRadius: '30px',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  pagination: {
+      '& .MuiPaginationItem-root': {
+          color: '#0F1035',
+      },
+      '& .MuiPaginationItem-root.Mui-selected': {
+          backgroundColor: '#0F1035',
+          color: '#fff',
+      },
+  },
+  pageInfo: {
+      marginBottom: '10px',
+  },
+});
+
+interface Params {
+  [key: string]: string;
+  page1: string;
+  page2: string;
+}
 
 export default function StudentHomepage() {
   const [data,setdata]=useState<StudentCardViewFullInfo[]>([]);
@@ -22,12 +55,29 @@ export default function StudentHomepage() {
       filled: 0,
     });
 
+  const params = useParams<Params>();
+  const { page1, page2 } = params;
+
   const [sortOptions, setSortOptions] = useState("");
 
   const [cards, setCards] = useState([]);
 
+  const classes = useStyles();
+
+  const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {      
+    window.location.href = "/studenthomepage/page1="+value+"/page2="+page2.split("=")[1];
+    
+}
+
+const handleChange2 = (_: React.ChangeEvent<unknown>, value: number) => {      
+  window.location.href = "/studenthomepage/page1="+page1.split("=")[1]+"/page2="+value;
+  
+}
+
+
   React.useEffect(() => {
 
+    console.log(filterOptions, "this is filter options");
     setCards({
       ...cards,
       term: filterOptions.term[0],
@@ -36,6 +86,7 @@ export default function StudentHomepage() {
       year: filterOptions.year[0],
       filled: filterOptions.filled,
       ordering: sortOptions,
+      
     });
   }, [sortOptions, filterOptions]);
     
@@ -105,19 +156,41 @@ export default function StudentHomepage() {
           </Box>
 
           <Box sx = {{width: "100%"}}>
-          <StudentPositions data={data} queryParams={cards}/>
+          <StudentPositions data={data} queryParams={cards} page={page1}/>
+          
+          <Box sx = {{display: "flex", flexDirection: "row", marginTop: "16px", marginBottom: '20px', marginLeft: "225px", paddingRight: "0px"}}>
+            <div className={classes.root}>
+              <Pagination
+                  count={10}
+                  page={Number(page1.split("=")[1])}
+                  onChange={handleChange}
+                  className={classes.pagination}
+              />
+              </div>
+              
+          </Box>
 
-          <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "1px", backgroundColor:'white', maxWidth: 790}}>
-            <ProfessorCard/>
+          <Box sx = {{display: "flex", flexDirection: "column", justifyContent: "center", marginTop: "10px", maxWidth: "875px"}}>
+            <ProfessorCard page = {Number(page2.split("=")[1])}/>
+          </Box>
+
+          <Box sx = {{display: "flex", flexDirection: "row", margin: "16px 225px auto",}}>
+              <div className={classes.root}>
+                
+              <Pagination
+                  count={10}
+                  page={Number(page2.split("=")[1])}
+                  onChange={handleChange2}
+                  className={classes.pagination}
+              />
+              </div>
+              
           </Box>
 
             
           </Box>
-
           
         </Box>
-
-
 
       </Box>
 

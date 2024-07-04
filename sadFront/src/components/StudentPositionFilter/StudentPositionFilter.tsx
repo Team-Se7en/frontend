@@ -125,6 +125,12 @@ const StudentPositionFilter: React.FC<FilterProps> = ({
                 fontSize: "0.75rem",
                 margin: "4px 4px",
                 height: "32px",
+                "&:hover": {
+                    backgroundColor: "#0F1035",
+                },
+                "&:active": {
+                    backgroundColor: "#0D0E2A",
+                },
             }}
             >
             Apply
@@ -139,6 +145,12 @@ const StudentPositionFilter: React.FC<FilterProps> = ({
                 fontSize: "0.75rem",
                 margin: "4px 4px",
                 height: "32px",
+                "&:hover": {
+                    backgroundColor: "#7FC7D9",
+                },
+                "&:active": {
+                    backgroundColor: "#7FC7D9",
+                },
             }}
             >
                 Reset
@@ -277,7 +289,7 @@ const StudentPositionFilter: React.FC<FilterProps> = ({
                     <Typography sx={{ marginBottom: '48px' }}>Fee</Typography>
 
                     <Slider 
-                        sx={{marginTop:'16px', color: '#0F1035',width:'200px',}}
+                        sx={{marginTop:'16px',paddingRight:"2px", paddingLeft:"2px",color: '#0F1035',width:'300px',}}
                         value={[feeMin, feeMax]}
                         onChange={(_, newValue) => {
                         if (Array.isArray(newValue) && newValue.length === 2) {
