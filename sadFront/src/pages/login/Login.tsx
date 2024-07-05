@@ -8,8 +8,11 @@ import client from "../../Http/axios";
 import Styles from "../../Styles";
 import LoginStyles from "./Login.styles";
 import Cookies from "js-cookie";
+import { useAuth } from "../../hooks/useAuth";
 
 export function Login() {
+    const { login } = useAuth();
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -88,17 +91,8 @@ export function Login() {
             }
 
             client.get("/auth/users").then((response:any) => {
-                const redirect = () => {
-                if (response.data[0].is_student){
-                    window.location.href = "/studenthomepage";
-                    
-                } else{
-                    window.location.href = "/professorhomepage";
-                }
-
-            };
-            
-            setTimeout(redirect, 3000);
+                // console.log("Response:", response);
+                login(response.data[0]);
 
             });
 

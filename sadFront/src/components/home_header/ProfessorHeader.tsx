@@ -17,7 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import NotificationsMenu from "../notifications-menu/NotificationsMenu";
-import { AuthContextType, useAuth } from "../../hooks/authUtils";
+import { AuthContextType, useAuth } from "../../hooks/useAuth";
 import ChatBoxProf from "../chat-box-professor/chat-box-professor";
 
 const pages = ["Home", "Positions", "Requests", "University"];

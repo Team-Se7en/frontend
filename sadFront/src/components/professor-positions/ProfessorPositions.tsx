@@ -25,9 +25,9 @@ export function ProfessorPositions(props: ProfessorPositionsProps) {
 
     useEffect(() => {
         if (props.modelToAdd) {
-            setPositions(positions.concat(props.modelToAdd));
+            setPositions([props.modelToAdd, ...positions]);
         }
-    }, [positions, props.modelToAdd]);
+    }, [props.modelToAdd]);
 
     return (    
         <Box
