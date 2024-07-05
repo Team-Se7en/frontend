@@ -50,12 +50,12 @@ interface Params {
 }
 
 export function ProfessorHomePage() {
-  const [filterOptions, setFilterOptions] = useState({
-    term: "",
-    feeMax: 9999999999,
-    feeMin: 0,
-    year: "",
-  });
+    const [filterOptions, setFilterOptions] = useState({
+      term: "",
+      feeMax: 9999999999,
+      feeMin: 0,
+      year: "",
+    });
   
     const [sortOptions, setSortOptions] = useState("");
     const [cards, setCards] = useState({});
@@ -75,10 +75,8 @@ export function ProfessorHomePage() {
 
     const handleChange2 = (_: React.ChangeEvent<unknown>, value: number) => {      
       window.location.href = "/professorhomepage/page1="+ page1.split("=")[1] + "/page2="+value;
-
-    
       
-  }
+    }
 
 
   useEffect(() => {
