@@ -27,6 +27,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { MoreVert } from "@mui/icons-material";
 import ChatBackground from "./../../assets/images/chat-background.png";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function ChatPage() {
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
@@ -39,6 +40,7 @@ export default function ChatPage() {
   const [messages, setMessages] = React.useState<MessageModel[]>();
   const [text, setText] = React.useState("");
   const [loadChats, setLoadChats] = React.useState(0);
+  const [chatSocket, setChatSocket] = React.useState<WebSocket>();
 
   const currentDate = new Date();
 
@@ -85,6 +87,14 @@ export default function ChatPage() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
+
+    let token = Cookies.get("token");
+
+    // Setup notifs socket
+    let newChatSocket = new WebSocket(
+      "wss://seven-apply.liara.run/ws/chat/" + chat.id + "/?token=" + token
+    );
+    setChatSocket(newChatSocket);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,6 +146,31 @@ export default function ChatPage() {
         console.error("There was an error!", error);
       });
   }, [loadChats]);
+
+  if (chatSocket) {
+    // on socket open
+    chatSocket.onopen = function () {
+      console.log("Socket successfully connected.");
+    };
+
+    // on socket close
+    chatSocket.onclose = function () {
+      console.log("Socket closed unexpectedly");
+    };
+
+    // on receiving message on group
+    chatSocket.onmessage = function () {
+      client
+        .get("https://seven-apply.liara.run/eduportal/messages/" + chatID + "/")
+        .then((response) => {
+          setMessages(response.data);
+          //console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    };
+  }
 
   return (
     <Box
