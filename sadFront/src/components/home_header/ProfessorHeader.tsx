@@ -1,3 +1,5 @@
+import { AuthContextType, useAuth } from "../../hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 import AppBar from "@mui/material/AppBar";
@@ -5,20 +7,18 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CardModal from "../modals/card-modal/CardModal";
+import ChatBoxProf from "../chat-box-professor/chat-box-professor";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Modal } from "@mui/material";
+import NotificationsMenu from "../notifications-menu/NotificationsMenu";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { Link, useNavigate } from "react-router-dom";
-import NotificationsMenu from "../notifications-menu/NotificationsMenu";
-import { AuthContextType, useAuth } from "../../hooks/useAuth";
-import ChatBoxProf from "../chat-box-professor/chat-box-professor";
 
 const pages = ["Home", "Universities", "About Us"];
 const settings = ["Profile", "Add Program", "Logout"];

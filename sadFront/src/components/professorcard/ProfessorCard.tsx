@@ -42,7 +42,7 @@ const theme = createTheme({
   },
 });
 
-export default function ProfessorCard() {
+export default function ProfessorCard({page}: any) {
   interface University {
     name?: string;
     country?: string;
@@ -60,10 +60,16 @@ export default function ProfessorCard() {
 
   const getTopProfessor = async () => {
     try {
-      const result = await client.get(`/eduportal/top_professors/`);
-      const values: Professor[] = Object.keys(result.data).map(function (key) {
-        return result.data[key];
+      const result = await client.get(`/eduportal/top_professors/`,{ params: {
+        "page":page,
+      }});
+
+      const values: Professor[] = Object.keys(result.data.results).map(function (key) {
+        return result.data.results[key];
       });
+      
+      console.log(result.data, "prof cards");
+      
       setTopProfessors([...values]);
       console.log(values);
     } catch (e) {

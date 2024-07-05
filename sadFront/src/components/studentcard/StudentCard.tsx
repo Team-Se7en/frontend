@@ -56,12 +56,11 @@ const theme = createTheme({
 
     const getTopStudent = async () => {
         try {
-            console.log(page,"page student card")
             const result = await client.get(`/eduportal/top_students/`,{ params: {
                     "page": page,
                 } });
-            const values:Student[] = Object.keys(result.data).map(function(key){
-                return result.data[key];
+            const values:Student[] = Object.keys(result.data.results).map(function(key){
+                return result.data.results[key];
             });
             setTopStudents([...values]);
             console.log(topStudents);
