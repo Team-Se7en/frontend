@@ -3,9 +3,38 @@ import { LineChart } from "@mui/x-charts";
 import "../../assets/fonts/CalligraphyFLF.css";
 import "../../assets/fonts/GreatVibes-Regular.css";
 
-import { Box, Divider, Fade, Grid, Grow, Link, Tooltip, Typography } from "@mui/material";
-import { HomeStyles, StyledDetailContainer, StyledIntro, StyledJoinUsText, StyledProfessorIcon, StyledStudentIcon, StyledTopCarouselSlide, TopProfessorsSectionImage, TopStudentsSectionImage, TopUniversitiesSectionImage, StyledTimelineProfessor, StyledTimelineStudent, StyledTopSectionTitle, StyledWhyusProfessorImage, StyledWhyusStudentImage, StyledSlideshowUniversityImage, StyledUniversityIcon, StyledSlideshowStudentImage, StyledSlideshowProfessorImage } from "./Home-styles";
-import Carousel from 'react-material-ui-carousel';
+import {
+  Box,
+  Divider,
+  Fade,
+  Grid,
+  Grow,
+  Link,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import {
+  HomeStyles,
+  StyledDetailContainer,
+  StyledIntro,
+  StyledJoinUsText,
+  StyledProfessorIcon,
+  StyledStudentIcon,
+  StyledTopCarouselSlide,
+  TopProfessorsSectionImage,
+  TopStudentsSectionImage,
+  TopUniversitiesSectionImage,
+  StyledTimelineProfessor,
+  StyledTimelineStudent,
+  StyledTopSectionTitle,
+  StyledWhyusProfessorImage,
+  StyledWhyusStudentImage,
+  StyledSlideshowUniversityImage,
+  StyledUniversityIcon,
+  StyledSlideshowStudentImage,
+  StyledSlideshowProfessorImage,
+} from "./Home-styles";
+import Carousel from "react-material-ui-carousel";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import Footer from "../../components/footer/footer/footer";
@@ -15,27 +44,32 @@ import { LandingInfo } from "../../models/LandingInfo";
 import { getLandingInfo } from "../../services/landing.service";
 import Styles from "../../Styles";
 import theme from "../../Theme";
-import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineSeparator } from "@mui/lab";
+import {
+  Timeline,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineSeparator,
+} from "@mui/lab";
 import { siteUrl } from "../../Http/axios";
 import StudentPositionCard from "../../components/student-position-card/StudentPositionCard";
 import { ProfessorRequestCard } from "../../components/professor-position-card/ProfessorPositionCard";
 import { UniversityCard } from "../../components/university-card/UnversityCard";
 import { StudentCard } from "../../components/top-student-card/TopStudentCard";
-import "./Home.css"
+import "./Home.css";
 import { getPlacementColor } from "../../lib/global-util";
 import { ProfessorCard } from "../../components/professor-card/ProfessorCard";
 import { Link as Link2 } from "react-router-dom";
-
 
 export function Home() {
   const [studentCount, setStudentCount] = useState<number>(0);
   const [professorCount, setProfessorCount] = useState<number>(0);
   const [landingInfo, setLandingInfo] = useState<LandingInfo>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [chartData, setChartData] = useState<{ date: Date, count: number }[]>();
+  const [chartData, setChartData] = useState<{ date: Date; count: number }[]>();
 
   useEffect(() => {
-
     const fetchLandingInfo = async () => {
       const result = await getLandingInfo();
       setLandingInfo(result.data);
@@ -44,22 +78,22 @@ export function Home() {
     if (!landingInfo) {
       fetchLandingInfo();
     }
-  },);
+  });
 
   useEffect(() => {
     if (landingInfo) {
-      const _dataset = landingInfo?.growth.map(value => {
+      const _dataset = landingInfo?.growth.map((value) => {
         return { date: value[0], count: value[1] };
-      })
+      });
       setChartData(_dataset);
     }
-  }, [landingInfo])
+  }, [landingInfo]);
 
   useEffect(() => {
     if (landingInfo && chartData) {
       setLoading(false);
     }
-  }, [landingInfo, chartData])
+  }, [landingInfo, chartData]);
 
   useEffect(() => {
     if (!loading && landingInfo) {
@@ -88,13 +122,16 @@ export function Home() {
         }
       }, 10);
 
-      return () => { clearInterval(timerProfessor), clearInterval(timerStudent) };
+      return () => {
+        clearInterval(timerProfessor), clearInterval(timerStudent);
+      };
     }
   }, [loading, landingInfo]);
 
   const [isWhyusVisible, setIsWhyusVisible] = useState(false);
   const [isTimelineVisible, setIsTimelineVisible] = useState(false);
-  const [isTopUniversitiesVisible, setIsTopUniversitiesVisible] = useState(false);
+  const [isTopUniversitiesVisible, setIsTopUniversitiesVisible] =
+    useState(false);
   const [isTopProfessorsVisible, setIsTopProfessorsVisible] = useState(false);
   const [isTopStudentsVisible, setIsTopStudentsVisible] = useState(false);
 
@@ -102,11 +139,15 @@ export function Home() {
     function handleScroll() {
       const scrollPosition = window.scrollY + window.innerHeight;
 
-      const whyusOffset = document.getElementById('why-us')?.offsetTop ?? 0;
-      const timelineOffset = document.getElementById('timeline')?.offsetTop ?? 0;
-      const topUnversitiesSectionOffset = document.getElementById('top-universities')?.offsetTop ?? 0;
-      const topProfessorsSectionOffset = document.getElementById('top-professors')?.offsetTop ?? 0;
-      const topStudentsSectionOffset = document.getElementById('top-students')?.offsetTop ?? 0;
+      const whyusOffset = document.getElementById("why-us")?.offsetTop ?? 0;
+      const timelineOffset =
+        document.getElementById("timeline")?.offsetTop ?? 0;
+      const topUnversitiesSectionOffset =
+        document.getElementById("top-universities")?.offsetTop ?? 0;
+      const topProfessorsSectionOffset =
+        document.getElementById("top-professors")?.offsetTop ?? 0;
+      const topStudentsSectionOffset =
+        document.getElementById("top-students")?.offsetTop ?? 0;
 
       if (scrollPosition > whyusOffset) {
         setIsWhyusVisible(true);
@@ -129,9 +170,9 @@ export function Home() {
       }
     }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -143,312 +184,425 @@ export function Home() {
       <Navbar showAuthButtons={true} showAuthButton={true} />
       {/* <Box sx={{ height: '100px' }}></Box> */}
 
-      {
-        loading
-          ?
-          <Loading />
-          :
-          <Box sx={{ backgroundColor: theme.palette.backgroundColor }}>
-            <Carousel animation="slide" navButtonsAlwaysInvisible cycleNavigation indicators={false}>
-              <StyledTopCarouselSlide>
-                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '14%', pl: '10%' }}>
-                  <StyledSlideshowUniversityImage />
-                  <Box className={clsx(globalClasses.flexColumn)} paddingTop={'7rem !important'}>
-                    <Typography variant={'h4'}>
-                      Positions From Various Universities
-                    </Typography>
-                    <Grid container spacing={2} marginTop={'1rem'} maxWidth={'50rem'}>
-                      {
-                        landingInfo?.random_universities.map((item, index) => (
-                          <Grid item xs={2} key={index}>
-                            <Link2
-                              to={{ pathname: "/universitypage" }}
-                              state={item.id}
-                              target="_blank"
-                            >
-                              <StyledUniversityIcon src={siteUrl + item.icon} />
-                            </Link2>
-                          </Grid>
-                        ))
-                      }
-                    </Grid>
-                  </Box>
-                </Box>
-              </StyledTopCarouselSlide>
-
-              <StyledTopCarouselSlide>
-                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '14%', pl: '10%' }}>
-                  <StyledSlideshowProfessorImage />
-                  <Box className={clsx(globalClasses.flexColumn)} paddingTop={'7rem !important'}>
-                    <Typography variant="h3">
-                      Define Various Tasks!
-                    </Typography>
-                    <Box flex={1} className={clsx(globalClasses.flexColumn)}>
-                      {
-                        landingInfo?.professor_view_positions.map((item, index) => (
-                          <Box flexShrink={1} key={index}>
-                            <ProfessorRequestCard model={item} disable />
-                          </Box>
-                        ))
-                      }
-                    </Box>
-                  </Box>
-                </Box>
-              </StyledTopCarouselSlide>
-
-              <StyledTopCarouselSlide>
-                <Box className={clsx(globalClasses.flexRow, globalClasses.vCenter)} sx={{ height: '100%', gap: '14%', pl: '10%' }}>
-                  <StyledSlideshowStudentImage />
-                  <Box className={clsx(globalClasses.flexColumn)} paddingTop={'7rem !important'}>
-                    <Typography variant="h3">
-                      Ease the Pain of Applying
-                    </Typography>
-                    <Box flex={1} className={clsx(globalClasses.flexColumn)}>
-                      {
-                        landingInfo?.student_view_positions.map((item, index) => (
-                          <Box flexShrink={1} key={index}>
-                            <StudentPositionCard model={item} />
-                          </Box>
-                        ))
-                      }
-                    </Box>
-                  </Box>
-                </Box>
-              </StyledTopCarouselSlide>
-            </Carousel>
-            <StyledIntro maxWidth={'md'}>
-
-              <StyledDetailContainer>
-                <Box className={clsx(globalClasses.flexColumn, globalClasses.fullyCenter)} gap={2} width={'60%'} minWidth={'300px'}>
-                  <LineChart height={300} dataset={chartData}
-                    series={[{ curve: "linear", dataKey: 'count', color: theme.palette.chartColor, showMark: false, },
-                    ]} sx={{ backgroundColor: 'transparent', borderRadius: theme.shape.borderRadius, }} className={clsx(homeClasses.chartStyle)} />
-                </Box>
-
-                <Box width={'40%'} className={clsx(globalClasses.flexColumn)} justifyContent={'space-around'}>
-                  <Box className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween)} marginBlockEnd={6} marginInlineStart={3} marginInlineEnd={3}>
-
-                    <Tooltip title="site's professors">
-                      <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)} width={'45%'}>
-                        <Grow in={!loading}
-                          style={{ transformOrigin: 'bottom' }}
-                          {...({ timeout: 1000 })}>
-                          <StyledProfessorIcon />
-                        </Grow>
-                        <Typography variant="h6">
-                          {professorCount}
-                        </Typography>
-                      </Box>
-                    </Tooltip>
-
-                    <Tooltip title="site's students">
-                      <Box className={clsx(globalClasses.fullyCenter, globalClasses.flexColumn)} width={'45%'}>
-                        <Grow in={!loading}
-                          style={{ transformOrigin: 'bottom' }}
-                          {...({ timeout: 1000 })}>
-                          <StyledStudentIcon />
-                        </Grow>
-                        <Typography variant="h6">
-                          {studentCount}
-                        </Typography>
-                      </Box>
-                    </Tooltip>
-                  </Box>
-
-                  <Link href="/signup" lineHeight={0} sx={{ textDecoration: 'none', }} >
-                    <StyledJoinUsText variant="h4" textAlign={'center'}>
-                      Join Us Now!
-                    </StyledJoinUsText>
-                  </Link>
-                </Box>
-
-              </StyledDetailContainer>
-
-            </StyledIntro >
-
-            <Fade in={!loading && isWhyusVisible} style={{ transitionDelay: '500ms' }} id="why-us">
-              <Box>
-                <Divider sx={{ fontSize: '4rem', fontFamily: '"Roboto","Helvetica","Arial",sans-serif' }} textAlign="center">
-                  Why Us
-                </Divider>
-                <Box marginTop={'-37px'} className={clsx(globalClasses.flexRow, globalClasses.justifyContentBetween, globalClasses.vCenter)} height={'22rem'}>
-                  <StyledWhyusProfessorImage />
-
-                  <Typography variant="h4" textAlign='center' width={'50%'} sx={{ padding: '0 2rem' }}>
-                    We are the only platform specialized for connecting professors with students for accomplishing great tasks
+      {loading ? (
+        <Loading />
+      ) : (
+        <Box sx={{ backgroundColor: theme.palette.backgroundColor }}>
+          <Carousel
+            animation="slide"
+            navButtonsAlwaysInvisible
+            cycleNavigation
+            indicators={false}
+          >
+            <StyledTopCarouselSlide>
+              <Box
+                className={clsx(globalClasses.flexRow, globalClasses.vCenter)}
+                sx={{ height: "100%", gap: "14%", pl: "10%" }}
+              >
+                <StyledSlideshowUniversityImage />
+                <Box
+                  className={clsx(globalClasses.flexColumn)}
+                  paddingTop={"7rem !important"}
+                >
+                  <Typography variant={"h4"}>
+                    Positions From Various Universities
                   </Typography>
-
-                  <StyledWhyusStudentImage />
+                  <Grid
+                    container
+                    spacing={2}
+                    marginTop={"1rem"}
+                    maxWidth={"50rem"}
+                  >
+                    {landingInfo?.random_universities.map((item, index) => (
+                      <Grid item xs={2} key={index}>
+                        <Link2
+                          to={{ pathname: "/universitypage/" + item.id }}
+                          state={item.id}
+                          target="_blank"
+                        >
+                          <StyledUniversityIcon src={siteUrl + item.icon} />
+                        </Link2>
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Box>
               </Box>
-            </Fade>
+            </StyledTopCarouselSlide>
 
-            <Fade in={!loading && isTimelineVisible} style={{ transitionDelay: '800ms' }} id="timeline">
-              <Box>
-                <Divider sx={{ fontSize: '4rem', mt: '-37px', fontFamily: '"Roboto","Helvetica","Arial",sans-serif' }} textAlign={'center'}>
-                  Get Started in a few steps
-                </Divider>
-                <Box>
-                  <Box marginTop={'-38px'} className={clsx(globalClasses.flexRow)} height={'22rem'}>
-                    <Box width={'50%'} className={clsx(globalClasses.flexRow)}>
-                      <StyledTimelineProfessor />
-                      <Timeline position="left" sx={{ width: '50%', mt: '4rem' }}>
-                        <TimelineItem>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ backgroundColor: '#eceaf6' }} />
-                            <TimelineConnector />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography>
-                              Signup
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                        <TimelineItem>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ backgroundColor: '#9883e8' }} />
-                            <TimelineConnector />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography>
-                              Complete your CV
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                        <TimelineItem>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ backgroundColor: '#444ed3' }} />
-                            <TimelineConnector />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography>
-                              Create a Custom Position
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                        <TimelineItem>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ backgroundColor: '#000000' }} />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography>
-                              Wait for students application or find them yourself!
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                      </Timeline>
-                    </Box>
-                    <Box width={'50%'} className={clsx(globalClasses.flexRow)}>
-                      <Timeline sx={{ width: '50%', mt: '4rem' }}>
-                        <TimelineItem>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ backgroundColor: '#eceaf6' }} />
-                            <TimelineConnector />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography>
-                              Signup
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                        <TimelineItem>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ backgroundColor: '#9883e8' }} />
-                            <TimelineConnector />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography>
-                              Look for positions with your favourite topics
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                        <TimelineItem>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ backgroundColor: '#444ed3' }} />
-                            <TimelineConnector />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography>
-                              Complete your CV to have a higher chance of acceptance
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                        <TimelineItem>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ backgroundColor: '#000000' }} />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography>
-                              Apply and get started!
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                      </Timeline>
-                      <StyledTimelineStudent />
-                    </Box>
+            <StyledTopCarouselSlide>
+              <Box
+                className={clsx(globalClasses.flexRow, globalClasses.vCenter)}
+                sx={{ height: "100%", gap: "14%", pl: "10%" }}
+              >
+                <StyledSlideshowProfessorImage />
+                <Box
+                  className={clsx(globalClasses.flexColumn)}
+                  paddingTop={"7rem !important"}
+                >
+                  <Typography variant="h3">Define Various Tasks!</Typography>
+                  <Box flex={1} className={clsx(globalClasses.flexColumn)}>
+                    {landingInfo?.professor_view_positions.map(
+                      (item, index) => (
+                        <Box flexShrink={1} key={index}>
+                          <ProfessorRequestCard model={item} disable />
+                        </Box>
+                      )
+                    )}
                   </Box>
                 </Box>
               </Box>
-            </Fade>
+            </StyledTopCarouselSlide>
 
-            <Fade in={!loading && isTopUniversitiesVisible} style={{ transitionDelay: '800ms' }} id="top-universities">
-
-              <TopUniversitiesSectionImage>
-                <StyledTopSectionTitle color={"white"}>
-                  Top Universities
-                </StyledTopSectionTitle>
-
-
-                <Box width={'50%'} sx={{ aspectRatio: '2.5' }}>
-                  <Carousel>
-                    {landingInfo?.top_universities.map((item, index) => (
-                      <UniversityCard key={index} university={item} rgba={getPlacementColor(item.rank)} />
+            <StyledTopCarouselSlide>
+              <Box
+                className={clsx(globalClasses.flexRow, globalClasses.vCenter)}
+                sx={{ height: "100%", gap: "14%", pl: "10%" }}
+              >
+                <StyledSlideshowStudentImage />
+                <Box
+                  className={clsx(globalClasses.flexColumn)}
+                  paddingTop={"7rem !important"}
+                >
+                  <Typography variant="h3">
+                    Ease the Pain of Applying
+                  </Typography>
+                  <Box flex={1} className={clsx(globalClasses.flexColumn)}>
+                    {landingInfo?.student_view_positions.map((item, index) => (
+                      <Box flexShrink={1} key={index}>
+                        <StudentPositionCard model={item} />
+                      </Box>
                     ))}
-                  </Carousel>
+                  </Box>
                 </Box>
-              </TopUniversitiesSectionImage>
-            </Fade>
+              </Box>
+            </StyledTopCarouselSlide>
+          </Carousel>
+          <StyledIntro maxWidth={"md"}>
+            <StyledDetailContainer>
+              <Box
+                className={clsx(
+                  globalClasses.flexColumn,
+                  globalClasses.fullyCenter
+                )}
+                gap={2}
+                width={"60%"}
+                minWidth={"300px"}
+              >
+                <LineChart
+                  height={300}
+                  dataset={chartData}
+                  series={[
+                    {
+                      curve: "linear",
+                      dataKey: "count",
+                      color: theme.palette.chartColor,
+                      showMark: false,
+                    },
+                  ]}
+                  sx={{
+                    backgroundColor: "transparent",
+                    borderRadius: theme.shape.borderRadius,
+                  }}
+                  className={clsx(homeClasses.chartStyle)}
+                />
+              </Box>
 
-            <Fade in={!loading && isTopProfessorsVisible} style={{ transitionDelay: '800ms' }} id="top-professors">
+              <Box
+                width={"40%"}
+                className={clsx(globalClasses.flexColumn)}
+                justifyContent={"space-around"}
+              >
+                <Box
+                  className={clsx(
+                    globalClasses.flexRow,
+                    globalClasses.justifyContentBetween
+                  )}
+                  marginBlockEnd={6}
+                  marginInlineStart={3}
+                  marginInlineEnd={3}
+                >
+                  <Tooltip title="site's professors">
+                    <Box
+                      className={clsx(
+                        globalClasses.fullyCenter,
+                        globalClasses.flexColumn
+                      )}
+                      width={"45%"}
+                    >
+                      <Grow
+                        in={!loading}
+                        style={{ transformOrigin: "bottom" }}
+                        {...{ timeout: 1000 }}
+                      >
+                        <StyledProfessorIcon />
+                      </Grow>
+                      <Typography variant="h6">{professorCount}</Typography>
+                    </Box>
+                  </Tooltip>
 
-              <TopProfessorsSectionImage>
-                <StyledTopSectionTitle color={"white"}>
-                  Top Professors
-                </StyledTopSectionTitle>
-
-                <Box width={'50%'} sx={{ aspectRatio: '2.5' }}>
-                  <Carousel>
-                    {landingInfo?.top_professors.map((item, index) => (
-                      <ProfessorCard key={index} professor={item} rgba={getPlacementColor(item.rank)} />
-                    ))}
-                  </Carousel>
+                  <Tooltip title="site's students">
+                    <Box
+                      className={clsx(
+                        globalClasses.fullyCenter,
+                        globalClasses.flexColumn
+                      )}
+                      width={"45%"}
+                    >
+                      <Grow
+                        in={!loading}
+                        style={{ transformOrigin: "bottom" }}
+                        {...{ timeout: 1000 }}
+                      >
+                        <StyledStudentIcon />
+                      </Grow>
+                      <Typography variant="h6">{studentCount}</Typography>
+                    </Box>
+                  </Tooltip>
                 </Box>
-              </TopProfessorsSectionImage>
 
-            </Fade>
+                <Link
+                  href="/signup"
+                  lineHeight={0}
+                  sx={{ textDecoration: "none" }}
+                >
+                  <StyledJoinUsText variant="h4" textAlign={"center"}>
+                    Join Us Now!
+                  </StyledJoinUsText>
+                </Link>
+              </Box>
+            </StyledDetailContainer>
+          </StyledIntro>
 
-            <Fade in={!loading && isTopStudentsVisible} style={{ transitionDelay: '800ms' }} id="top-students">
+          <Fade
+            in={!loading && isWhyusVisible}
+            style={{ transitionDelay: "500ms" }}
+            id="why-us"
+          >
+            <Box>
+              <Divider
+                sx={{
+                  fontSize: "4rem",
+                  fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+                }}
+                textAlign="center"
+              >
+                Why Us
+              </Divider>
+              <Box
+                marginTop={"-37px"}
+                className={clsx(
+                  globalClasses.flexRow,
+                  globalClasses.justifyContentBetween,
+                  globalClasses.vCenter
+                )}
+                height={"22rem"}
+              >
+                <StyledWhyusProfessorImage />
 
-              <TopStudentsSectionImage>
+                <Typography
+                  variant="h4"
+                  textAlign="center"
+                  width={"50%"}
+                  sx={{ padding: "0 2rem" }}
+                >
+                  We are the only platform specialized for connecting professors
+                  with students for accomplishing great tasks
+                </Typography>
 
-                <StyledTopSectionTitle color={"white"}>
-                  Top Students
-                </StyledTopSectionTitle>
+                <StyledWhyusStudentImage />
+              </Box>
+            </Box>
+          </Fade>
 
-                <Box width={'50%'} sx={{ aspectRatio: '2.5' }}>
-                  <Carousel>
-                    {landingInfo?.top_students.map((item, index) => (
-                      <StudentCard key={index} student={item} rgba={getPlacementColor(item.rank)} />
-                    ))}
-                  </Carousel>
+          <Fade
+            in={!loading && isTimelineVisible}
+            style={{ transitionDelay: "800ms" }}
+            id="timeline"
+          >
+            <Box>
+              <Divider
+                sx={{
+                  fontSize: "4rem",
+                  mt: "-37px",
+                  fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+                }}
+                textAlign={"center"}
+              >
+                Get Started in a few steps
+              </Divider>
+              <Box>
+                <Box
+                  marginTop={"-38px"}
+                  className={clsx(globalClasses.flexRow)}
+                  height={"22rem"}
+                >
+                  <Box width={"50%"} className={clsx(globalClasses.flexRow)}>
+                    <StyledTimelineProfessor />
+                    <Timeline position="left" sx={{ width: "50%", mt: "4rem" }}>
+                      <TimelineItem>
+                        <TimelineSeparator>
+                          <TimelineDot sx={{ backgroundColor: "#eceaf6" }} />
+                          <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Typography>Signup</Typography>
+                        </TimelineContent>
+                      </TimelineItem>
+                      <TimelineItem>
+                        <TimelineSeparator>
+                          <TimelineDot sx={{ backgroundColor: "#9883e8" }} />
+                          <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Typography>Complete your CV</Typography>
+                        </TimelineContent>
+                      </TimelineItem>
+                      <TimelineItem>
+                        <TimelineSeparator>
+                          <TimelineDot sx={{ backgroundColor: "#444ed3" }} />
+                          <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Typography>Create a Custom Position</Typography>
+                        </TimelineContent>
+                      </TimelineItem>
+                      <TimelineItem>
+                        <TimelineSeparator>
+                          <TimelineDot sx={{ backgroundColor: "#000000" }} />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Typography>
+                            Wait for students application or find them yourself!
+                          </Typography>
+                        </TimelineContent>
+                      </TimelineItem>
+                    </Timeline>
+                  </Box>
+                  <Box width={"50%"} className={clsx(globalClasses.flexRow)}>
+                    <Timeline sx={{ width: "50%", mt: "4rem" }}>
+                      <TimelineItem>
+                        <TimelineSeparator>
+                          <TimelineDot sx={{ backgroundColor: "#eceaf6" }} />
+                          <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Typography>Signup</Typography>
+                        </TimelineContent>
+                      </TimelineItem>
+                      <TimelineItem>
+                        <TimelineSeparator>
+                          <TimelineDot sx={{ backgroundColor: "#9883e8" }} />
+                          <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Typography>
+                            Look for positions with your favourite topics
+                          </Typography>
+                        </TimelineContent>
+                      </TimelineItem>
+                      <TimelineItem>
+                        <TimelineSeparator>
+                          <TimelineDot sx={{ backgroundColor: "#444ed3" }} />
+                          <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Typography>
+                            Complete your CV to have a higher chance of
+                            acceptance
+                          </Typography>
+                        </TimelineContent>
+                      </TimelineItem>
+                      <TimelineItem>
+                        <TimelineSeparator>
+                          <TimelineDot sx={{ backgroundColor: "#000000" }} />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <Typography>Apply and get started!</Typography>
+                        </TimelineContent>
+                      </TimelineItem>
+                    </Timeline>
+                    <StyledTimelineStudent />
+                  </Box>
                 </Box>
-              </TopStudentsSectionImage>
+              </Box>
+            </Box>
+          </Fade>
 
-            </Fade>
-          </Box>
-      }
+          <Fade
+            in={!loading && isTopUniversitiesVisible}
+            style={{ transitionDelay: "800ms" }}
+            id="top-universities"
+          >
+            <TopUniversitiesSectionImage>
+              <StyledTopSectionTitle color={"white"}>
+                Top Universities
+              </StyledTopSectionTitle>
+
+              <Box width={"50%"} sx={{ aspectRatio: "2.5" }}>
+                <Carousel>
+                  {landingInfo?.top_universities.map((item, index) => (
+                    <UniversityCard
+                      key={index}
+                      university={item}
+                      rgba={getPlacementColor(item.rank)}
+                    />
+                  ))}
+                </Carousel>
+              </Box>
+            </TopUniversitiesSectionImage>
+          </Fade>
+
+          <Fade
+            in={!loading && isTopProfessorsVisible}
+            style={{ transitionDelay: "800ms" }}
+            id="top-professors"
+          >
+            <TopProfessorsSectionImage>
+              <StyledTopSectionTitle color={"white"}>
+                Top Professors
+              </StyledTopSectionTitle>
+
+              <Box width={"50%"} sx={{ aspectRatio: "2.5" }}>
+                <Carousel>
+                  {landingInfo?.top_professors.map((item, index) => (
+                    <ProfessorCard
+                      key={index}
+                      professor={item}
+                      rgba={getPlacementColor(item.rank)}
+                    />
+                  ))}
+                </Carousel>
+              </Box>
+            </TopProfessorsSectionImage>
+          </Fade>
+
+          <Fade
+            in={!loading && isTopStudentsVisible}
+            style={{ transitionDelay: "800ms" }}
+            id="top-students"
+          >
+            <TopStudentsSectionImage>
+              <StyledTopSectionTitle color={"white"}>
+                Top Students
+              </StyledTopSectionTitle>
+
+              <Box width={"50%"} sx={{ aspectRatio: "2.5" }}>
+                <Carousel>
+                  {landingInfo?.top_students.map((item, index) => (
+                    <StudentCard
+                      key={index}
+                      student={item}
+                      rgba={getPlacementColor(item.rank)}
+                    />
+                  ))}
+                </Carousel>
+              </Box>
+            </TopStudentsSectionImage>
+          </Fade>
+        </Box>
+      )}
 
       <Footer />
     </>
-  )
+  );
 }
