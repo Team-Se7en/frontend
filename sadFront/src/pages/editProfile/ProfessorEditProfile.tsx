@@ -242,7 +242,7 @@ export function ProfessorEditProfile() {
 
     const navigate = useNavigate();
     const navigateToHome = () => {
-        navigate("/professorhomepage");
+        navigate("/professorhomepage/page1=1/page2=1");
     }
     const navigateToViewCV = () => {
         navigate("/cv/view");
