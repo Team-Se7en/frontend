@@ -15,12 +15,12 @@ import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NotificationsMenu from "../notifications-menu/NotificationsMenu";
-import { AuthContextType, useAuth } from "../../hooks/authUtils";
+import { AuthContextType, useAuth } from "../../hooks/useAuth";
 import ChatBoxProf from "../chat-box-professor/chat-box-professor";
 
-const pages = ["Home", "Positions", "Requests", "University"];
+const pages = ["Home", "Universities", "About Us"];
 const settings = ["Profile", "Add Program", "Logout"];
 
 export interface ProfessorHeaderProps {
@@ -122,13 +122,23 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={() => handlePageClick(page)}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                <Link
+                  to={
+                    page == "Home"
+                      ? "/professorhomepage/page1=1/page2=1"
+                      : page == "Universities"
+                      ? "/alluniversities"
+                      : "/aboutus"
+                  }
                 >
-                  {page}
-                </Button>
+                  <Button
+                    key={page}
+                    onClick={() => handlePageClick(page)}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {page}
+                  </Button>
+                </Link>
               ))}
 
               <IconButton
@@ -160,34 +170,54 @@ function ProfessorHeader(props: ProfessorHeaderProps) {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
+                  <Link
+                    to={
+                      page == "Home"
+                        ? "/professorhomepage/page1=1/page2=1"
+                        : page == "Universities"
+                        ? "/alluniversities"
+                        : "/aboutus"
+                    }
+                  >
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  </Link>
                 ))}
               </Menu>
             </Box>
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: "white",
-                    display: "flex",
-                    backgroundColor: "transparent",
-                    textTransform: "none",
-                    transition: "0.3s",
-                    ":hover": {
-                      color: "black",
-                      bgcolor: "white",
-                      ml: 1,
-                    },
-                  }}
+                <Link
+                  to={
+                    page == "Home"
+                      ? "/professorhomepage/page1=1/page2=1"
+                      : page == "Universities"
+                      ? "/alluniversities"
+                      : "/aboutus"
+                  }
                 >
-                  {page}
-                </Button>
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "flex",
+                      backgroundColor: "transparent",
+                      textTransform: "none",
+                      transition: "0.3s",
+                      ":hover": {
+                        color: "black",
+                        bgcolor: "white",
+                        ml: 1,
+                      },
+                    }}
+                  >
+                    {page}
+                  </Button>
+                </Link>
               ))}
             </Box>
 

@@ -5,7 +5,6 @@ import { Box, CircularProgress } from "@mui/material";
 import { Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Divider } from "@mui/material";
-import axios from "axios";
 import { University } from "../../models/University";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
@@ -14,7 +13,9 @@ import StudentHeader from "../../components/home_st_header/StudentHeader";
 import { UserInfo } from "../../models/UserInfo";
 import ProfessorHeader from "../../components/home_header/ProfessorHeader";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
-//import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import client from "../../Http/axios";
+import NeshanMap from "@neshan-maps-platform/react-openlayers";
+import { useAuth } from "../../hooks/useAuth";
 
 const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
   e.preventDefault();
@@ -26,11 +27,10 @@ const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
 
 export default function UniversityPage() {
   const [uniInfo, setuniInfo] = React.useState<University>();
-  const [userInfo, setUserInfo] = React.useState<UserInfo>();
   const [modelToAdd, setModelToAdd] =
     React.useState<ProfessorCardViewShortInfo>();
-  const location = useLocation();
-  const uniID = location.state;
+  const uniID = window.location.pathname.split("/")[2];
+  const { user } = useAuth();
 
   const handleProfessorPositionAddition = (
     model: ProfessorCardViewShortInfo
@@ -39,7 +39,7 @@ export default function UniversityPage() {
   };
 
   React.useEffect(() => {
-    axios
+    client
       .get(
         "https://seven-apply.liara.run/eduportal/universities" +
           "/" +
@@ -54,18 +54,8 @@ export default function UniversityPage() {
       });
   }, []);
 
-  React.useEffect(() => {
-    axios
-      .get("https://seven-apply.liara.run/eduportal/userinfo")
-      .then((response) => {
-        setUserInfo(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  }, []);
-
-  console.log(userInfo);
+  //console.log(userInfo);
+  console.log(window.location.pathname.split("/")[2]);
 
   const statisticTitles = [
     "Total Students",
@@ -82,9 +72,9 @@ export default function UniversityPage() {
 
   return (
     <Box sx={{ overflowX: "hidden" }}>
-      {userInfo?.user_type == "Anonymous" ? (
+      {!user ? (
         <Navbar showAuthButtons={true} />
-      ) : userInfo?.professor ? (
+      ) : user?.professor ? (
         <ProfessorHeader
           handleProfessorPositionAddition={handleProfessorPositionAddition}
         ></ProfessorHeader>
@@ -239,7 +229,17 @@ export default function UniversityPage() {
                 >
                   Where is it?
                 </Divider>
-                <Box className="map" width={"50rem"} height={"20rem"}></Box>
+                <NeshanMap
+                  poi={true}
+                  defaultType="standard-day"
+                  mapKey="web.cd11dcd478174ae59086b8b4503b41d6"
+                  style={{ height: "48vh", width: "100%" }}
+                  zoom={4}
+                  center={{
+                    latitude: uniInfo.latitude,
+                    longitude: uniInfo.longitude,
+                  }}
+                ></NeshanMap>
               </Box>
               <Box id="active-programs">
                 <Divider

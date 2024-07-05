@@ -18,11 +18,11 @@ export function StudentPositions(props: StudentPositionsProps) {
     useEffect(() => {
         const fetchRecentPositions = async () => {
             const result = await getStudentPositions(props.page, props.queryParams);
-            setPositions(result.data)
+            setPositions(result.data.results)
         };
 
         fetchRecentPositions();
-    }, [props.queryParams]);
+    }, [props.page, props.queryParams]);
     // useEffect(() => {
     //     setPositions(props.data);
 

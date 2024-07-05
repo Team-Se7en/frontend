@@ -1,4 +1,4 @@
-import { Bounce, toast } from "react-toastify";
+import { Bounce, Flip, toast, ToastContainer } from "react-toastify";
 import { Box, ButtonGroup, FormControl, FormHelperText, Grid, MenuItem, Select, TextField, TextareaAutosize, Typography } from "@mui/material";
 import { CancelButton, SaveButton, StyledTag, Wrapper } from "./CardModal-styles";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -111,8 +111,54 @@ export default function CardModal(props: CardModalProps) {
         });
     };
 
+    const handleDateChange = (name, value) => {
+        setModelData({
+            ...model,
+            [name]: value.$d,
+        });
+    }
 
     const handleSubmit = () => {
+        if (model.end_date < model.start_date) {
+            toast.error('\'end date\' must be after \'start date\'', {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+        else if (model.position_end_date < model.position_start_date) {
+            toast.error('\'position end date\' must be after \'position start date\'', {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+        else if (model.position_start_date < model.end_date) {
+            toast.error('\'position start date\' must be after \'end date\'', {
+                position: "top-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+
         if (props.model_id) {
             updatePosition(props.model_id, model);
 
@@ -178,160 +224,160 @@ export default function CardModal(props: CardModalProps) {
     const loading = loadingModel || loadingTags;
 
     return (
-        <Wrapper maxWidth="md" sx={{ mt: 1 }} disableGutters>
-            {
-                loading
-                    ?
-                    <Loading />
-                    :
-                    <>
+        <>
+            <ToastContainer transition={Flip} />
+            <Wrapper maxWidth="md" sx={{ mt: 1 }} disableGutters>
+                {
+                    loading
+                        ?
+                        <Loading />
+                        :
+                        <>
 
-                        <Box component="form" height={'100%'}>
-                            <Box sx={{
-                                pl: theme.spacing(5),
-                                pr: theme.spacing(5),
-                                // pt: '0',
-                                overflow: 'scroll',
-                                height: 'calc(100% - 3rem)',
-                            }} gap={2} className={clsx(globalStyles.flexColumn, globalStyles.fullyCenter)}>
-
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="title"
-                                    label="Title"
-                                    name="title"
-                                    autoFocus
-                                    value={model.title}
-                                    onChange={handleInputChange}
-                                />
-
-                                <FormControl fullWidth>
-                                    <Typography variant="h6" textAlign="left" marginBottom={1}>
-                                        Description
-                                    </Typography>
-                                    <TextareaAutosize
-                                        value={model.description}
-                                        id="description"
-                                        name="description"
-                                        placeholder="Description"
-                                        autoFocus
-                                        onChange={handleInputChange}
-                                        minRows={2}
-                                        required
-                                    />
-                                </FormControl>
-
-                                <Box className={clsx(globalStyles.flexRow)} width={'100%'} marginTop={2} gap={2}>
-                                    <TextField
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="fee"
-                                        label="Fee"
-                                        name="fee"
-                                        autoFocus
-                                        type="number"
-                                        value={model.fee}
-                                        onChange={handleInputChange}
-                                    />
+                            <Box component="form" height={'100%'}>
+                                <Box sx={{
+                                    pl: theme.spacing(5),
+                                    pr: theme.spacing(5),
+                                    // pt: '0',
+                                    overflow: 'scroll',
+                                    height: 'calc(100% - 3rem)',
+                                }} gap={2} className={clsx(globalStyles.flexColumn, globalStyles.fullyCenter)}>
 
                                     <TextField
                                         margin="normal"
                                         required
                                         fullWidth
-                                        id="capacity"
-                                        label="Capacity"
-                                        name="capacity"
+                                        id="title"
+                                        label="Title"
+                                        name="title"
                                         autoFocus
-                                        type="number"
-                                        value={model.capacity}
+                                        value={model.title}
                                         onChange={handleInputChange}
                                     />
-                                </Box>
 
-                                <Box className={clsx(globalStyles.flexRow)} marginTop={2} width={'100%'} gap={2}>
-                                    <FormControl fullWidth required>
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <DatePicker
-                                                label="Application start date"
-                                                value={dayjs(model.start_date)}
-                                                onChange={handleInputChange}
-                                            />
-                                        </LocalizationProvider>
+                                    <FormControl fullWidth>
+                                        <TextareaAutosize
+                                            value={model.description}
+                                            id="description"
+                                            name="description"
+                                            placeholder="Description *"
+                                            autoFocus
+                                            onChange={handleInputChange}
+                                            minRows={2}
+                                            required
+                                        />
                                     </FormControl>
-                                    <FormControl fullWidth required>
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <DatePicker
-                                                label="Application end date"
-                                                value={dayjs(model.end_date)}
-                                                onChange={handleInputChange}
-                                            />
-                                        </LocalizationProvider>
-                                    </FormControl>
-                                </Box>
 
-                                <Box className={clsx(globalStyles.flexRow)} width={'100%'} marginTop={2} gap={2}>
+                                    <Box className={clsx(globalStyles.flexRow)} width={'100%'} marginTop={2} gap={2}>
+                                        <TextField
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="fee"
+                                            label="Fee"
+                                            name="fee"
+                                            autoFocus
+                                            type="number"
+                                            value={model.fee}
+                                            onChange={handleInputChange}
+                                        />
 
-                                    <FormControl fullWidth required>
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <DatePicker
-                                                label="Position start date"
-                                                value={dayjs(model.position_start_date)}
-                                                onChange={handleInputChange}
-                                            />
-                                        </LocalizationProvider>
-                                    </FormControl>
-                                    <FormControl fullWidth required>
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <DatePicker
-                                                label="Position end date"
-                                                value={dayjs(model.position_end_date)}
-                                                onChange={handleInputChange}
-                                            />
-                                        </LocalizationProvider>
-                                    </FormControl>
-                                </Box>
+                                        <TextField
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="capacity"
+                                            label="Capacity"
+                                            name="capacity"
+                                            autoFocus
+                                            type="number"
+                                            value={model.capacity}
+                                            onChange={handleInputChange}
+                                        />
+                                    </Box>
 
-                                <Grid container spacing={1} mt={2}>
-                                    <Grid item>
-                                        <Typography sx={{ pt: '4px' }}>
-                                            Tags:
-                                        </Typography>
-                                    </Grid>
+                                    <Box className={clsx(globalStyles.flexRow)} marginTop={2} width={'100%'} gap={2}>
+                                        <FormControl fullWidth required>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DatePicker
+                                                    label="Application start date"
+                                                    value={dayjs(model.start_date)}
+                                                    onChange={(newValue) => handleDateChange('start_date', newValue)}
+                                                />
+                                            </LocalizationProvider>
+                                        </FormControl>
+                                        <FormControl fullWidth required>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DatePicker
+                                                    label="Application end date"
+                                                    value={dayjs(model.end_date)}
+                                                    onChange={(newValue) => handleDateChange('end_date', newValue)}
+                                                />
+                                            </LocalizationProvider>
+                                        </FormControl>
+                                    </Box>
 
-                                    {
-                                        model.tags.map(tag => (
-                                            <Grid item key={tag}>
-                                                <StyledTag label={tag} variant="outlined" onDelete={() => handleTagDelete(tag)}></StyledTag>
-                                            </Grid>
-                                        ))
-                                    }
+                                    <Box className={clsx(globalStyles.flexRow)} width={'100%'} marginTop={2} gap={2}>
 
-                                </Grid>
-                                <FormControl fullWidth sx={{ mt: 2 }}>
-                                    {/* <InputLabel>Add Tag</InputLabel> */}
-                                    <Select onChange={handleTagAdd}>
+                                        <FormControl fullWidth required>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DatePicker
+                                                    label="Position start date"
+                                                    value={dayjs(model.position_start_date)}
+                                                    onChange={(newValue) => handleDateChange('position_start_date', newValue)}
+                                                />
+                                            </LocalizationProvider>
+                                        </FormControl>
+                                        <FormControl fullWidth required>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DatePicker
+                                                    label="Position end date"
+                                                    value={dayjs(model.position_end_date)}
+                                                    onChange={(newValue) => handleDateChange('position_end_date', newValue)}
+                                                />
+                                            </LocalizationProvider>
+                                        </FormControl>
+                                    </Box>
+
+                                    <Grid container spacing={1} mt={2}>
+                                        <Grid item>
+                                            <Typography sx={{ pt: '4px' }}>
+                                                Tags:
+                                            </Typography>
+                                        </Grid>
 
                                         {
-                                            tagOptions.map((tag, index) => (
-                                                <MenuItem key={index} value={tag.label}>{tag.label}</MenuItem>
+                                            model.tags.map(tag => (
+                                                <Grid item key={tag}>
+                                                    <StyledTag label={tag} variant="outlined" onDelete={() => handleTagDelete(tag)}></StyledTag>
+                                                </Grid>
                                             ))
                                         }
 
-                                    </Select>
-                                    <FormHelperText>Select Tag to Add</FormHelperText>
-                                </FormControl>
-                            </Box>
+                                    </Grid>
+                                    <FormControl fullWidth sx={{ mt: 2 }}>
+                                        {/* <InputLabel>Add Tag</InputLabel> */}
+                                        <Select onChange={handleTagAdd}>
 
-                            <ButtonGroup variant="text" fullWidth sx={{ height: '3rem' }}>
-                                <CancelButton color="error" disableRipple onClick={props.onClose}>Cancel</CancelButton>
-                                <SaveButton color="success" disableRipple onClick={handleSubmit}>Save</SaveButton>
-                            </ButtonGroup>
-                        </Box>
-                    </>
-            }
-        </Wrapper >
+                                            {
+                                                tagOptions.map((tag, index) => (
+                                                    <MenuItem key={index} value={tag.label}>{tag.label}</MenuItem>
+                                                ))
+                                            }
+
+                                        </Select>
+                                        <FormHelperText>Select Tag to Add</FormHelperText>
+                                    </FormControl>
+                                </Box>
+
+                                <ButtonGroup variant="text" fullWidth sx={{ height: '3rem' }}>
+                                    <CancelButton color="error" disableRipple onClick={props.onClose}>Cancel</CancelButton>
+                                    <SaveButton disabled={!model.title || !model.description} color="success" disableRipple onClick={handleSubmit}>Save</SaveButton>
+                                </ButtonGroup>
+                            </Box>
+                        </>
+                }
+            </Wrapper >
+        </>
     );
 }

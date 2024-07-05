@@ -11,12 +11,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
-import { AuthContextType, useAuth } from "../../hooks/authUtils";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContextType, useAuth } from "../../hooks/useAuth";
 import NotificationsMenu from "../notifications-menu/NotificationsMenu";
 import ChatBox from "../chat-box/ChatBox";
 
-const pages = ["Home", "Positions", "University"];
+const pages = ["Home", "About Us", "Universities"];
 const settings = ["Profile", "Logout"];
 
 function StudentHeader() {
@@ -124,25 +124,35 @@ function StudentHeader() {
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "flex",
-                  backgroundColor: "transparent",
-                  textTransform: "none",
-                  transition: "0.3s",
-                  ":hover": {
-                    color: "black",
-                    bgcolor: "white",
-                    ml: 1,
-                  },
-                }}
+              <Link
+                to={
+                  page == "Universities"
+                    ? "/alluniversities"
+                    : page == "Home"
+                    ? "/studenthomepage/page1=1/page2=1"
+                    : "/aboutus"
+                }
               >
-                {page}
-              </Button>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "flex",
+                    backgroundColor: "transparent",
+                    textTransform: "none",
+                    transition: "0.3s",
+                    ":hover": {
+                      color: "black",
+                      bgcolor: "white",
+                      ml: 1,
+                    },
+                  }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
 

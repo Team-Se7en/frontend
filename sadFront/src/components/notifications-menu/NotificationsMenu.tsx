@@ -12,7 +12,8 @@ import { StyledNotification } from "./NotificationsMenu-styles";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { Link } from "react-router-dom";
-import { Notifications } from "../../models/Notifications";
+import Cookies from "js-cookie";
+import { Notifications, NotificationsCount } from "../../models/Notifications";
 import { GenerateNotifText } from "../../lib/NotifText";
 import client from "../../Http/axios";
 
@@ -21,10 +22,22 @@ export default function NotificationsMenu() {
   const open = Boolean(anchorEl);
   const notifIconHandleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+    client
+      .get(
+        "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
+      )
+      .then((response) => {
+        setnotifs(response.data);
+        //console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
   const notifMenuHandleClose = () => {
     setAnchorEl(null);
   };
+
   const bookmarkHandleClick = (id: number) => {
     client
       .get(
@@ -33,7 +46,7 @@ export default function NotificationsMenu() {
           "/toggle_bookmark/"
       )
       .then(() => {
-        setRefreshKey((oldKey) => oldKey + 1);
+        //setRefreshKey((oldKey) => oldKey + 1);
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -47,33 +60,73 @@ export default function NotificationsMenu() {
           "/mark_as_read/"
       )
       .then(() => {
-        setRefreshKey((oldKey) => oldKey + 1);
+        //setRefreshKey((oldKey) => oldKey + 1);
       })
       .catch((error) => {
         console.error("There was an error!", error);
       });
   };
 
-  const [notifs, setnotifs] = React.useState<Notifications[]>();
-  const [refreshKey, setRefreshKey] = React.useState(0);
-
   React.useEffect(() => {
     client
-      .get(
-        "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
-      )
+      .get("https://seven-apply.liara.run/eduportal/notifications/new_count/")
       .then((response) => {
-        setnotifs(response.data);
+        setNewNotifsCount(response.data.count);
         //console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error!", error);
       });
-  }, [refreshKey]);
+  }, []);
+
+  React.useEffect(() => {
+    let token = Cookies.get("token");
+
+    // Setup notifs socket
+    let newNotifySocket = new WebSocket(
+      "wss://seven-apply.liara.run/ws/notifications/?token=" + token
+    );
+    setNotifySocket(newNotifySocket);
+  }, []);
+
+  const [notifs, setnotifs] = React.useState<Notifications[]>();
+  const [newNotifsCount, setNewNotifsCount] = React.useState<number>();
+  //const [newNotif, setNewNotif] = React.useState<Notifications>();
+  const [notifySocket, setNotifySocket] = React.useState<WebSocket>();
+
+  if (notifySocket) {
+    // on socket open
+    notifySocket.onopen = function () {
+      console.log("Socket successfully connected.");
+    };
+
+    // on socket close
+    notifySocket.onclose = function () {
+      console.log("Socket closed unexpectedly");
+    };
+
+    // on receiving message on group
+    notifySocket.onmessage = function () {
+      //console.log("Message received.");
+      //setNewNotif(JSON.parse(e.data));
+      //setnotifs((notifs) => [...notifs, newNotif]);
+      client
+        .get(
+          "https://seven-apply.liara.run/eduportal/notifications/new_notifications/"
+        )
+        .then((response) => {
+          setnotifs(response.data);
+          //console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+      if (newNotifsCount) setNewNotifsCount(newNotifsCount + 1);
+    };
+  }
 
   //console.log(notifs);
 
-  if (!notifs) return null;
   return (
     <React.Fragment>
       <Box
@@ -92,7 +145,7 @@ export default function NotificationsMenu() {
             aria-expanded={open ? "true" : undefined}
             sx={{ color: "white" }}
           >
-            <Badge badgeContent={notifs.length} color="error">
+            <Badge badgeContent={newNotifsCount} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>
@@ -134,80 +187,68 @@ export default function NotificationsMenu() {
           flexDirection={"column"}
           padding={"1rem"}
         >
-          {notifs.length > 0 ? (
-            <Box
-              display={"flex"}
-              flexDirection={"column"}
-              maxHeight={"30rem"}
-              overflow={"auto"}
-            >
-              {notifs.map((notif, index) => (
-                <StyledNotification key={index} className="notif-body">
-                  <Box>
-                    <Box className="notif-icon-and-text">
-                      <CampaignIcon
-                        sx={{
-                          color: "white",
-                          marginRight: "0.5rem",
-                          marginBottom: "-0.3rem",
-                        }}
-                      />
-                      <Typography
-                        color={"white"}
-                        display={"inline"}
-                        fontSize={"0.85rem"}
-                      >
-                        {GenerateNotifText(notif)}
-                      </Typography>
-                    </Box>
-                    <Box className="notif-target-button" textAlign={"right"}>
-                      <Button
-                        variant="text"
-                        sx={{ color: "white", fontSize: "0.8rem" }}
-                      >
-                        {notif.notification_type == 1
-                          ? "See " +
-                            notif.student?.user.first_name +
-                            "'s profile"
-                          : notif.notification_type == 2
-                          ? "Go to position's page"
-                          : notif.notification_type == -2
-                          ? "Explore similar positions"
-                          : notif.notification_type == 3
-                          ? "Message " + notif.student?.user.first_name
-                          : notif.notification_type == -3
-                          ? "Explore your other requests"
-                          : "See Position"}
-                      </Button>
-                    </Box>
-                  </Box>
-                  <Box
-                    className="right-circle-and-ribbon"
-                    display={"flex"}
-                    flexDirection={"column"}
-                    alignItems={"center"}
-                    marginLeft={"0.6rem"}
-                  >
-                    <Tooltip title="Mark As Seen">
-                      <IconButton onClick={() => markReadHandleClick(notif.id)}>
-                        <CircleIcon
+          {notifs ? (
+            notifs.length > 0 ? (
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                maxHeight={"30rem"}
+                overflow={"auto"}
+              >
+                {notifs.map((notif, index) => (
+                  <StyledNotification key={index} className="notif-body">
+                    <Box>
+                      <Box className="notif-icon-and-text">
+                        <CampaignIcon
                           sx={{
-                            color: "#4472C4",
-                            fontSize: "1.3rem",
-                            cursor: "pointer",
-                            marginTop: "0.5rem",
+                            color: "white",
+                            marginRight: "0.5rem",
+                            marginBottom: "-0.3rem",
                           }}
                         />
-                      </IconButton>
-                    </Tooltip>
-                    {!notif.bookmarked ? (
-                      <Tooltip title="Bookmark this notification">
-                        <IconButton
-                          onClick={() => bookmarkHandleClick(notif.id)}
+                        <Typography
+                          color={"white"}
+                          display={"inline"}
+                          fontSize={"0.85rem"}
                         >
-                          <BookmarkBorderIcon
+                          {GenerateNotifText(notif)}
+                        </Typography>
+                      </Box>
+                      <Box className="notif-target-button" textAlign={"right"}>
+                        <Button
+                          variant="text"
+                          sx={{ color: "white", fontSize: "0.8rem" }}
+                        >
+                          {notif.notification_type == 1
+                            ? "See " +
+                              notif.student?.user.first_name +
+                              "'s profile"
+                            : notif.notification_type == 2
+                            ? "Go to position's page"
+                            : notif.notification_type == -2
+                            ? "Explore similar positions"
+                            : notif.notification_type == 3
+                            ? "Message " + notif.student?.user.first_name
+                            : notif.notification_type == -3
+                            ? "Explore your other requests"
+                            : "See Position"}
+                        </Button>
+                      </Box>
+                    </Box>
+                    <Box
+                      className="right-circle-and-ribbon"
+                      display={"flex"}
+                      flexDirection={"column"}
+                      alignItems={"center"}
+                      marginLeft={"0.6rem"}
+                    >
+                      <Tooltip title="Mark As Seen">
+                        <IconButton
+                          onClick={() => markReadHandleClick(notif.id)}
+                        >
+                          <CircleIcon
                             sx={{
-                              color: "white",
+                              color: "#4472C4",
                               fontSize: "1.3rem",
                               cursor: "pointer",
                               marginTop: "0.5rem",
@@ -215,39 +256,57 @@ export default function NotificationsMenu() {
                           />
                         </IconButton>
                       </Tooltip>
-                    ) : (
-                      <Tooltip title="Delete from bookmarks">
-                        <IconButton
-                          onClick={() => bookmarkHandleClick(notif.id)}
-                        >
-                          <BookmarkIcon
-                            sx={{
-                              color: "white",
-                              fontSize: "1.3rem",
-                              cursor: "pointer",
-                              marginTop: "0.5rem",
-                            }}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                  </Box>
-                </StyledNotification>
-              ))}
-            </Box>
+                      {!notif.bookmarked ? (
+                        <Tooltip title="Bookmark this notification">
+                          <IconButton
+                            onClick={() => bookmarkHandleClick(notif.id)}
+                          >
+                            <BookmarkBorderIcon
+                              sx={{
+                                color: "white",
+                                fontSize: "1.3rem",
+                                cursor: "pointer",
+                                marginTop: "0.5rem",
+                              }}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Delete from bookmarks">
+                          <IconButton
+                            onClick={() => bookmarkHandleClick(notif.id)}
+                          >
+                            <BookmarkIcon
+                              sx={{
+                                color: "white",
+                                fontSize: "1.3rem",
+                                cursor: "pointer",
+                                marginTop: "0.5rem",
+                              }}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                    </Box>
+                  </StyledNotification>
+                ))}
+              </Box>
+            ) : (
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
+              >
+                <CircleNotificationsIcon
+                  sx={{ color: "#F2F2F2", fontSize: "8rem" }}
+                />
+                <Typography color={"#F2F2F2"} fontSize={"0.9rem"}>
+                  You have no unseen notification.
+                </Typography>
+              </Box>
+            )
           ) : (
-            <Box
-              display={"flex"}
-              flexDirection={"column"}
-              alignItems={"center"}
-            >
-              <CircleNotificationsIcon
-                sx={{ color: "#F2F2F2", fontSize: "8rem" }}
-              />
-              <Typography color={"#F2F2F2"} fontSize={"0.9rem"}>
-                You have no unseen notification.
-              </Typography>
-            </Box>
+            <></>
           )}
           <Box
             className="all-notifs-button"

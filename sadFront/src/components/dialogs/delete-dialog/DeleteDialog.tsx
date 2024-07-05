@@ -35,8 +35,8 @@ export default function DeleteDialog(props: DeleteDialogProps) {
                 </Typography>
             </Box>
             <ButtonGroup variant="text" fullWidth>
-                <YesButton color="success" sx={{ borderRadius: 0 }} onClick={handleYesClick}>Yes</YesButton>
                 <NoButton color="error" sx={{ borderRadius: 0 }} onClick={handleNoClick}>No</NoButton>
+                <YesButton color="success" sx={{ borderRadius: 0 }} onClick={handleYesClick}>Yes</YesButton>
             </ButtonGroup>
         </Wrapper>
     );
