@@ -156,7 +156,7 @@ const handleChange2 = (_: React.ChangeEvent<unknown>, value: number) => {
           </Box>
 
           <Box sx = {{width: "100%"}}>
-          <StudentPositions data={data} queryParams={cards} page={page1}/>
+          <StudentPositions data={data} queryParams={cards} page={Number(page1.split("=")[1])}/>
           
           <Box sx = {{display: "flex", flexDirection: "row", marginTop: "16px", marginBottom: '20px', marginLeft: "225px", paddingRight: "0px"}}>
             <div className={classes.root}>
