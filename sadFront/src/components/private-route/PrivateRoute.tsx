@@ -1,22 +1,10 @@
 import { Route, Navigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/authUtils';
+import { useAuth } from '../../hooks/useAuth';
 
-const ProtectedRoute = ({ element: Element, userType, ...rest }) => {
-  const { isLoggedIn, userInfo } = useAuth();
-
-  return (
-    <Route
-      {...rest}
-    >
-        {
-            userInfo?.user_type != userType ? (
-                <Element />
-            ) : (
-                <Navigate to="/login" />
-            )
-        }
-    </Route>
-  );
+export const PrivateRoute = ({ children, userTypes }) => {
+  const { user } = useAuth();
+  if (!userTypes.includes(user?.user_type)) {
+    return <Navigate to="/login" />;
+  }
+  return children;
 };
-
-export default ProtectedRoute;

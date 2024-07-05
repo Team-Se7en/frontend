@@ -21,6 +21,9 @@ import { Verification } from "./pages/forgot-pass/AccountVerification/Verificati
 import { ViewCV } from "./pages/editProfile/CV/ViewCV";
 import StudentChatPage from "./pages/chat-page/ChatPage";
 import ChatPage from "./pages/chat-page/ChatPage";
+import { PrivateRoute } from "./components/private-route/PrivateRoute";
+import { UserType } from "./models/UserType";
+import { NotFoundPage } from "./pages/not-found-page/NotFoundPage";
 import React from "react";
 import { University } from "./models/University";
 import client from "./Http/axios";
@@ -51,11 +54,11 @@ export default function Routing() {
         {/* <Route path="signup/verification" element={<SignupVerfication />} /> */}
         <Route
           path="professor/editProfile"
-          element={<ProfessorEditProfile />}
+          element={<PrivateRoute userTypes={[UserType.Professor]}><ProfessorEditProfile /></PrivateRoute>}
         />
-        <Route path="student/editProfile" element={<StudentEditProfile />} />
-        <Route path="cv/view" element={<ViewCV />} />
-        <Route path="cv/edit" element={<EditCV />} />
+        <Route path="student/editProfile" element={<PrivateRoute userTypes={[UserType.Student]}><StudentEditProfile /></PrivateRoute>} />
+        <Route path="cv/view" element={<PrivateRoute userTypes={[UserType.Student, UserType.Professor]}><ViewCV /></PrivateRoute>} />
+        <Route path="cv/edit" element={<PrivateRoute userTypes={[UserType.Student, UserType.Professor]}><EditCV /></PrivateRoute>} />
         <Route path="forgot-pass" element={<Forgot />} />
         <Route path="verification" element={<Verification />} />
         <Route
@@ -68,14 +71,14 @@ export default function Routing() {
         <Route path="newpassword" element={<Newpassword />} />
         <Route
           path="professorhomepage/:page1/:page2"
-          element={<ProfessorHomePage />}
+          element={<PrivateRoute userTypes={[UserType.Professor]}><ProfessorHomePage /></PrivateRoute>}
         />
         <Route
           path="studenthomepage/:page1/:page2"
-          element={<StudentHomepage />}
+          element={<PrivateRoute userTypes={[UserType.Student]}><StudentHomepage /></PrivateRoute>}
         />
-        <Route path="studentaccept" element={<StudentAccept />} />
-        <Route path="notifications" element={<NotificationsPage />} />
+        {/* <Route path="studentaccept" element={<StudentAccept />} /> */}
+        <Route path="notifications" element={<PrivateRoute userTypes={[UserType.Student, UserType.Professor]}><NotificationsPage /></PrivateRoute>} />
         <Route path="studentchatpage" element={<StudentChatPage />} />
         <Route path="chatpage" element={<ChatPage />} />
         <Route path="aboutus" element={<AboutUs />} />
@@ -92,6 +95,8 @@ export default function Routing() {
         ) : (
           <></>
         )}
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

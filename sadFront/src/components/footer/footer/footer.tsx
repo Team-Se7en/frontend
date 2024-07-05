@@ -12,12 +12,18 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import useStyles from "./footer-styles";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const navigateToAbout = () => {
+    navigate("/aboutus");
   };
 
   return (
@@ -127,6 +133,7 @@ function Footer() {
             </Typography>
             <Grid display="flex" flexDirection="column" alignItems="start">
               <Button
+              onClick={navigateToAbout}
                 color="inherit"
                 style={{
                   

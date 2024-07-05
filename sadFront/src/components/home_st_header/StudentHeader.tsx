@@ -12,7 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContextType, useAuth } from "../../hooks/authUtils";
+import { AuthContextType, useAuth } from "../../hooks/useAuth";
 import NotificationsMenu from "../notifications-menu/NotificationsMenu";
 import ChatBox from "../chat-box/ChatBox";
 
