@@ -24,6 +24,7 @@ import ChatPage from "./pages/chat-page/ChatPage";
 import React from "react";
 import { University } from "./models/University";
 import client from "./Http/axios";
+import AllUnisPage from "./pages/all-universities/AllUniversities";
 
 export default function Routing() {
   const [allUnis, setAllUnis] = React.useState<University[]>();
@@ -78,6 +79,7 @@ export default function Routing() {
         <Route path="studentchatpage" element={<StudentChatPage />} />
         <Route path="chatpage" element={<ChatPage />} />
         <Route path="aboutus" element={<AboutUs />} />
+        <Route path="alluniversities" element={<AllUnisPage />} />
 
         {allUnis ? (
           allUnis.map((uni, index) => (
