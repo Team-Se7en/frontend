@@ -1,5 +1,5 @@
 import { Box, Divider, List, ListItem, ListItemSecondaryAction, ListItemText, MenuItem, Select } from "@mui/material";
-import { BasicInfo, Skills, Education, WorkExperience, Project, HardSkill } from "../../../models/CVtypes";
+import { BasicInfo, Skills, Education, WorkExperience, Project, HardSkill, HardSkills } from "../../../models/CVtypes";
 import React, { useEffect, useState } from "react";
 import {
     TextField,
@@ -36,11 +36,12 @@ export function EditCV() {
     async function getInfo() {
         try {
             currentUser = await client.get("/eduportal/userinfo/");
-            console.log(currentUser.data)
-            const userType = currentUser.data.is_student ? 'students' : 'professors'
+            // console.log(currentUser.data)
+            const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
             const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
             const basicInfoApiUrl = `/eduportal/${userType}/${UserPK}/CV/`;
             const basicInfoResponse = await client.get(basicInfoApiUrl);
+            // console.log(basicInfoResponse)
             cvDataBasic.title = basicInfoResponse.data.title
             cvDataBasic.birth_date = basicInfoResponse.data.birth_date
             cvDataBasic.gender = basicInfoResponse.data.gender
@@ -51,7 +52,6 @@ export function EditCV() {
             setCVDataBasic({
                 ...cvDataBasic,
             });
-            // console.log(cvDataBasic)
 
             const educationApiUrl = `/eduportal/${userType}/${UserPK}/CV/education`;
             const educationsResponse = await client.get(educationApiUrl);
@@ -63,7 +63,7 @@ export function EditCV() {
             const hardSkillsResponse = await client.get(hardSkillsApiUrl);
             hardSkillList = hardSkillsResponse.data
             setHardSkillList(hardSkillsResponse.data)
-            console.log(hardSkills)
+            // console.log(hardSkills)
 
             const projectsApiUrl = `/eduportal/${userType}/${UserPK}/CV/projects`;
             const projectsResponse = await client.get(projectsApiUrl);
@@ -93,16 +93,17 @@ export function EditCV() {
     };
 
     const birthdayChange = (newValue: any) => {
-        console.log(dayjs(newValue.$d).format('YYYY-MM-DD'))
+        // console.log(dayjs(newValue.$d).format('YYYY-MM-DD'))
         cvDataBasic.birth_date = dayjs(newValue.$d).format('YYYY-MM-DD')
     }
 
     const handleSave = async () => {
-        console.log(cvDataBasic)
+        // console.log(cvDataBasic)
         try {
             const currentUser = await client.get("/eduportal/userinfo/");
             const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-            const apiURL = `/eduportal/students/${UserPK}/CV/`
+            const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+            const apiURL = `/eduportal/${userType}/${UserPK}/CV/`
             const respone = client.patch(apiURL,
                 {
                     title: cvDataBasic.title,
@@ -113,8 +114,7 @@ export function EditCV() {
                     soft_skills: selectedSkills
                 }
             )
-            console.log(selectedSkills)
-            console.log(respone)
+            // console.log(respone)
         } catch (error) {
             console.error('Error:', error);
         }
@@ -153,9 +153,10 @@ export function EditCV() {
             try {
                 currentUser = await client.get("/eduportal/userinfo/");
                 const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-                const API_URL = `/eduportal/students/${UserPK}/CV/education/`
+                const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+                const API_URL = `/eduportal/${userType}/${UserPK}/CV/education/`
                 const response = client.post(API_URL, education);
-                console.log(response)
+                // console.log(response)
 
             } catch (error) {
                 console.error('Error:', error);
@@ -180,9 +181,10 @@ export function EditCV() {
         try {
             currentUser = await client.get("/eduportal/userinfo/");
             const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-            const API_URL = `/eduportal/students/${UserPK}/CV/education/${educationList[index].id}/`
+            const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+            const API_URL = `/eduportal/${userType}/${UserPK}/CV/education/${educationList[index].id}/`
             const response = client.delete(API_URL);
-            console.log(response)
+            // console.log(response)
 
         } catch (error) {
             console.error('Error:', error);
@@ -213,9 +215,10 @@ export function EditCV() {
             try {
                 currentUser = await client.get("/eduportal/userinfo/");
                 const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-                const API_URL = `/eduportal/students/${UserPK}/CV/work-xps/`
+                const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+                const API_URL = `/eduportal/${userType}/${UserPK}/CV/work-xps/`
                 const response = client.post(API_URL, workXP);
-                console.log(response)
+                // console.log(response)
 
             } catch (error) {
                 console.error('Error:', error);
@@ -239,9 +242,10 @@ export function EditCV() {
         try {
             currentUser = await client.get("/eduportal/userinfo/");
             const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-            const API_URL = `/eduportal/students/${UserPK}/CV/work-xps/${workXPList[index].id}/`
+            const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+            const API_URL = `/eduportal/${userType}/${UserPK}/CV/work-xps/${workXPList[index].id}/`
             const response = client.delete(API_URL);
-            console.log(response)
+            // console.log(response)
 
         } catch (error) {
             console.error('Error:', error);
@@ -271,9 +275,10 @@ export function EditCV() {
             try {
                 currentUser = await client.get("/eduportal/userinfo/");
                 const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-                const API_URL = `/eduportal/students/${UserPK}/CV/projects/`
+                const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+                const API_URL = `/eduportal/${userType}/${UserPK}/CV/projects/`
                 const response = client.post(API_URL, project);
-                console.log(response)
+                // console.log(response)
 
             } catch (error) {
                 console.error('Error:', error);
@@ -295,9 +300,10 @@ export function EditCV() {
         try {
             currentUser = await client.get("/eduportal/userinfo/");
             const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-            const API_URL = `/eduportal/students/${UserPK}/CV/projects/${projectList[index].id}/`
+            const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+            const API_URL = `/eduportal/${userType}/${UserPK}/CV/projects/${projectList[index].id}/`
             const response = client.delete(API_URL);
-            console.log(response)
+            // console.log(response)
 
         } catch (error) {
             console.error('Error:', error);
@@ -329,9 +335,10 @@ export function EditCV() {
             try {
                 currentUser = await client.get("/eduportal/userinfo/");
                 const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-                const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/`
+                const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+                const API_URL = `/eduportal/${userType}/${UserPK}/CV/hard-skills/`
                 const response = client.post(API_URL, hardSkill);
-                console.log(response)
+                // console.log(response)
 
             } catch (error) {
                 console.error('Error:', error);
@@ -353,9 +360,10 @@ export function EditCV() {
         try {
             currentUser = await client.get("/eduportal/userinfo/");
             const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
-            const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/${hardSkillList[index].id}/`
+            const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
+            const API_URL = `/eduportal/${userType}/${UserPK}/CV/hard-skills/${hardSkillList[index].id}/`
             const response = client.delete(API_URL);
-            console.log(response)
+            // console.log(response)
 
         } catch (error) {
             console.error('Error:', error);
@@ -365,25 +373,22 @@ export function EditCV() {
         setHardSkillList(updatedList);
     };
 
-    // const handleTechChange = (event: any) => {
-    //     setAge(event.target.value as string);
-    // };
-
     const globalClasses = Styles();
     const cvStyles = CVStyles();
 
     return (
-        <Box sx={{ backgroundImage: 'linear-gradient(to bottom right,rgb(182, 248, 252), rgb(252, 182, 232))', padding: '3rem' }}>
+        <Box className={clsx(cvStyles.background)} >
             <Container maxWidth="md" className={clsx(cvStyles.editBackground)} >
                 <Typography variant="h2" fontWeight={'bold'} gutterBottom>
                     Edit CV
                 </Typography>
-                <Grid container spacing={3}>
+                <Grid container spacing={4}>
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
                             label="Title"
                             name="title"
+                            inputProps={{ maxLength: 75 }}
                             value={cvDataBasic.title || ''}
                             onChange={handleBasicChange}
                         />
@@ -399,11 +404,14 @@ export function EditCV() {
                         </LocalizationProvider>
                     </Grid>
                     <Grid item xs={12}>
+                        <Typography sx={{ marginBottom: '0.5rem' }}>
+                            Gender:
+                        </Typography>
                         <Select
                             fullWidth
-                            label="Gender"
+                            // label="Gender"
                             name="gender"
-                            value={cvDataBasic.gender}
+                            value={cvDataBasic.gender || ''}
                             onChange={handleBasicChange}
                         >
                             <MenuItem value={1}>Male</MenuItem>
@@ -411,13 +419,23 @@ export function EditCV() {
                         </Select>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField
+                        <Typography sx={{ marginBottom: '0.5rem' }}>
+                            Employment Status:
+                        </Typography>
+                        <Select
                             fullWidth
-                            label="Employment Status"
+                            // label="Employment Status"
                             name="employment_status"
                             value={cvDataBasic.employment_status || ''}
                             onChange={handleBasicChange}
-                        />
+                        >
+                            <MenuItem value={1}>Employed</MenuItem>
+                            <MenuItem value={2}>Unemployed</MenuItem>
+                            <MenuItem value={3}>Student</MenuItem>
+                            <MenuItem value={4}>Actively Seeking Work</MenuItem>
+                            <MenuItem value={5}>Open To Work</MenuItem>
+                            <MenuItem value={6}>Not Interested</MenuItem>
+                        </Select>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -425,6 +443,7 @@ export function EditCV() {
                             multiline
                             minRows={4}
                             maxRows={8}
+                            inputProps={{ maxLength: 75 }}
                             label="About Me"
                             name="about"
                             value={cvDataBasic.about || ''}
@@ -459,14 +478,23 @@ export function EditCV() {
                 </Grid>
 
                 <Divider sx={{ padding: '2rem' }}></Divider>
-                <h2>Main Form Education</h2>
-                <Button variant="contained" onClick={() => setOpen(true)}>Add Education</Button>
-                <h3>Education List</h3>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '2rem 1rem 0 1rem' }}>
+                    <h2>Education List</h2>
+                    <Button variant="contained" sx={{ height: '2.5rem' }} onClick={() => setOpen(true)}>Add Education</Button>
+                </Box>
                 <List>
                     {educationList.map((education, index) => (
                         <ListItem key={index}>
-                            <ListItemText primary={`${education.institute}: ${education.degree}`} />
-                            <ListItemSecondaryAction>
+                            <ListItemText
+                                primary={`${education.degree} in ${education.field_of_study}`}
+                                secondary={
+                                    <>
+                                        <Typography variant="body2">University: {education.institute}</Typography>
+                                        <Typography variant="body2">Date: {education.start_date + ' to ' + education.end_date}</Typography>
+                                        <Typography variant="body2">GPA: {education.grade}</Typography>
+                                    </>
+                                }
+                            />                            <ListItemSecondaryAction>
                                 <IconButton onClick={() => handleRemoveEducation(index)}>
                                     <Delete />
                                 </IconButton>
@@ -485,6 +513,7 @@ export function EditCV() {
                                         label="Institute"
                                         name="institute"
                                         value={education.institute}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleEducationChange}
                                     />
                                 </Grid>
@@ -494,6 +523,7 @@ export function EditCV() {
                                         label="Degree"
                                         name="degree"
                                         value={education.degree}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleEducationChange}
                                     />
                                 </Grid>
@@ -504,6 +534,7 @@ export function EditCV() {
                                         label="Grade"
                                         name="grade"
                                         value={education.grade}
+                                        inputProps={{ min: 0, max: 100 }}
                                         onChange={handleEducationChange}
                                     />
                                 </Grid>
@@ -513,6 +544,7 @@ export function EditCV() {
                                         label="Field of study"
                                         name="field_of_study"
                                         value={education.field_of_study}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleEducationChange}
                                     />
                                 </Grid>
@@ -525,14 +557,23 @@ export function EditCV() {
                 <Divider sx={{ padding: '2rem' }}></Divider>
 
                 {/* Dialog for adding/editing work experience */}
-                <h2>Main Form Work XP</h2>
-                <Button variant="contained" onClick={() => setOpenWorkXP(true)}>Add Work XP</Button>
-                <h3>WORK XP List</h3>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '2rem 1rem 0 1rem' }}>
+                    <h2>WORK XP List</h2>
+                    <Button variant="contained" sx={{ height: '2.5rem' }} onClick={() => setOpenWorkXP(true)}>Add Work XP</Button>
+                </Box>
                 <List>
                     {workXPList.map((workXP, index) => (
                         <ListItem key={index}>
-                            <ListItemText primary={`${workXP.company_name}: ${workXP.company_website}`} />
-                            <ListItemSecondaryAction>
+                            <ListItemText
+                                primary={workXP.company_name}
+                                secondary={
+                                    <>
+                                        <Typography variant="body2">Role: {workXP.job_title}</Typography>
+                                        <Typography variant="body2">Website: {workXP.company_website}</Typography>
+                                        <Typography variant="body2">Start-End Date: {workXP.start_date + ' to ' + workXP.end_date}</Typography>
+                                    </>
+                                }
+                            />                            <ListItemSecondaryAction>
                                 <IconButton onClick={() => handleRemoveWorkXP(index)}>
                                     <Delete />
                                 </IconButton>
@@ -551,6 +592,7 @@ export function EditCV() {
                                         label="company name"
                                         name="company_name"
                                         value={workXP.company_name}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleWorkXPChange}
                                     />
                                 </Grid>
@@ -560,6 +602,7 @@ export function EditCV() {
                                         label="company website"
                                         name="company_website"
                                         value={workXP.company_website}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleWorkXPChange}
                                     />
                                 </Grid>
@@ -569,6 +612,7 @@ export function EditCV() {
                                         label="job title"
                                         name="job_title"
                                         value={workXP.job_title}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleWorkXPChange}
                                     />
                                 </Grid>
@@ -581,14 +625,20 @@ export function EditCV() {
                 <Divider sx={{ padding: '2rem' }}></Divider>
 
                 {/* Dialog for adding/editing Project */}
-                <h2>Main Form Project</h2>
-                <Button variant="contained" onClick={() => setOpenProject(true)}>Add Project</Button>
-                <h3>Project List</h3>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '2rem 1rem 0 1rem' }}>
+                    <h2>Project List</h2>
+                    <Button variant="contained" sx={{ height: '2.5rem' }} onClick={() => setOpenProject(true)}>Add Project</Button>
+                </Box>
                 <List>
                     {projectList.map((project, index) => (
                         <ListItem key={index}>
-                            <ListItemText primary={`${project.title}: ${project.description}`} />
-                            <ListItemSecondaryAction>
+                            <ListItemText
+                                primary={project.title}
+                                secondary={<>
+                                    <Typography variant="body2">Link: {project.link}</Typography>
+                                    <Typography variant="body2">Description: {project.description}</Typography>
+                                </>}
+                            />                            <ListItemSecondaryAction>
                                 <IconButton onClick={() => handleRemoveProject(index)}>
                                     <Delete />
                                 </IconButton>
@@ -607,6 +657,7 @@ export function EditCV() {
                                         label="Title"
                                         name="title"
                                         value={project.title}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleProjectChange}
                                     />
                                 </Grid>
@@ -616,6 +667,7 @@ export function EditCV() {
                                         label="Description"
                                         name="description"
                                         value={project.description}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleProjectChange}
                                     />
                                 </Grid>
@@ -625,6 +677,7 @@ export function EditCV() {
                                         label="Link"
                                         name="link"
                                         value={project.link}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleProjectChange}
                                     />
                                 </Grid>
@@ -637,13 +690,17 @@ export function EditCV() {
                 <Divider sx={{ padding: '2rem' }}></Divider>
 
                 {/* Dialog for adding/editing Hard Skills*/}
-                <h2>Main Form Hard Skills</h2>
-                <Button variant="contained" onClick={() => setOpenHardSkill(true)}>Add Hard Skills</Button>
-                <h3>Hard Skills List</h3>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '2rem 1rem 0 1rem' }}>
+                    <h2>Hard Skills List</h2>
+                    <Button variant="contained" sx={{ height: '2.5rem' }} onClick={() => setOpenHardSkill(true)}>Add Hard Skills</Button>
+                </Box>
                 <List>
                     {hardSkillList.map((hardskill, index) => (
                         <ListItem key={index}>
-                            <ListItemText primary={`${hardskill.technology}: ${hardskill.skill_level}`} />
+                            <ListItem key={index}>
+                                <ListItemText primary={HardSkills[hardskill.technology! - 1]} />
+                                <Typography>{hardskill.skill_level}%</Typography>
+                            </ListItem>
                             <ListItemSecondaryAction>
                                 <IconButton onClick={() => handleRemoveHardSkill(index)}>
                                     <Delete />
@@ -702,19 +759,25 @@ export function EditCV() {
                                         fullWidth
                                         label="skill level"
                                         name="skill_level"
+                                        type="number"
                                         value={hardSkill.skill_level}
+                                        inputProps={{ maxLength: 75 }}
                                         onChange={handleHardSkillChange}
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
+                                {/* <Grid item xs={12}>
+                                    <Select
                                         fullWidth
                                         label="experience time"
                                         name="experience_time"
-                                        value={hardSkill.experience_time}
+                                        value={hardSkill.experience_time || ''}
                                         onChange={handleHardSkillChange}
-                                    />
-                                </Grid>
+                                    >
+                                        <MenuItem value={1}>Less Than A Year</MenuItem>
+                                        <MenuItem value={2}>Between 1 And 5 Years</MenuItem>
+                                        <MenuItem value={3}>More Than 5 Years</MenuItem>
+                                    </Select>
+                                </Grid> */}
                             </Grid>
                         </form>
                     </DialogContent>
@@ -725,75 +788,3 @@ export function EditCV() {
 
     );
 }
-
-
-
-
-
-
-// const [skills, setSkills] = useState(
-//     HardSkills.map((skill) => ({
-//         ...skill,
-//         level: 0,
-//     }))
-// );
-// const [selectedSkill, setSelectedSkill] = useState(null);
-
-// const handleHardSkillClick = (index: any) => {
-//     setSelectedSkill(index === selectedSkill ? null : index);
-// };
-
-// const handleRatingChange = async (index: any, value: any) => {
-//     const updatedSkills = [...skills];
-//     updatedSkills[index].level = value;
-//     setSkills(updatedSkills);
-
-//     console.log(index + '  **  ' + value)
-//     if (value == null) {
-//         try {
-//             currentUser = await client.get("/eduportal/userinfo/");
-//             const UserPK = currentUser.data.is_student ? currentUser.data.student.id : currentUser.data.professor.id;
-//             const API_URL = `/eduportal/students/${UserPK}/CV/hard-skills/${projectList[index].id}/`
-//             const response = client.delete(API_URL);
-//             console.log(response)
-
-//         } catch (error) {
-//             console.error('Error:', error);
-//         }
-//     } else {
-
-//     }
-// };
-
-{/* <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                {skills.map((skill, index) => (
-                    <div key={index} style={{ flex: '0 0 25%', maxWidth: '25%' }}>
-                        <Button
-                            variant="outlined"
-                            onClick={() => handleHardSkillClick(index)}
-                            sx={{
-                                marginBottom: '10px',
-                                backgroundColor: [
-                                    '#ffffff',
-                                    '#f0fff0',
-                                    '#98fb98',
-                                    '#32cd32',
-                                    '#008000',
-                                    '#006400',
-                                ][skill.level],
-                            }}
-                        >
-                            {skill.name}
-                        </Button>
-                        {selectedSkill === index && (
-                            <Box component="fieldset" borderColor="transparent">
-                                <Rating
-                                    name="skill-rating"
-                                    value={skill.level}
-                                    onChange={(event, newValue) => handleRatingChange(index, newValue)}
-                                />
-                            </Box>
-                        )}
-                    </div>
-                ))}
-            </div> */}

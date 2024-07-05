@@ -11,6 +11,7 @@ import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import { EditCV, ViewCV } from "../../assets/icons";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
+import StudentPositionCard from "../../components/student-position-card/StudentPositionCard";
 
 
 export function StudentEditProfile() {
@@ -27,12 +28,7 @@ export function StudentEditProfile() {
     });
 
     const [universities, setUniversities] = useState<{ name: string; id: number }[]>([]);
-    const [myRequests, setMyRequests] = useState<{
-        date_applied: any
-        id: number
-        position: number
-        status: string
-    }[]>([]);
+    const [myRequests, setMyRequests] = useState<any[]>([]);
 
     const [EmailResetformData, emailResetFormData] = useState({
         password: "",
@@ -234,7 +230,8 @@ export function StudentEditProfile() {
             console.log('User Info Loaded', response);
             const myRequestsResponse = await client.get("/eduportal/requests/");
             setMyRequests(myRequestsResponse.data)
-            console.log('ow', myRequests)
+            console.log('ow')
+            console.log(myRequests)
 
         } catch (error) {
             console.error('Error:', error);
@@ -246,7 +243,7 @@ export function StudentEditProfile() {
         console.log(myRequests)
         setTabValue(newValue);
     };
-    
+
 
     const [emailError, setEmailError] = useState("");
     const handleInputChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -537,6 +534,10 @@ export function StudentEditProfile() {
                                 ))}
                             </List>
                         </Paper>
+                        {/* {myRequests.map((item, index) => (
+                            <StudentPositionCard key={index} model={item} ></StudentPositionCard>
+                            // <StudentPositionCard key={index} model={item} onDelete={onDeletePosition}></StudentPositionCard>
+                        ))} */}
                     </CustomTabPanel>
                 </Box>
             </Container>
