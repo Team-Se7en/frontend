@@ -4,7 +4,6 @@ import {
   Button,
   CircularProgress,
   IconButton,
-  Link,
   Tooltip,
 } from "@mui/material";
 import Navbar from "../../components/navbar/navbar/navbar";
@@ -23,6 +22,11 @@ import { Notifications } from "../../models/Notifications";
 import { GenerateNotifText } from "../../lib/NotifText";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import client from "../../Http/axios";
+import { Link } from "react-router-dom";
+import ProfessorHeader from "../../components/home_header/ProfessorHeader";
+import StudentHeader from "../../components/home_st_header/StudentHeader";
+import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
+import { useAuth } from "../../hooks/useAuth";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -67,11 +71,14 @@ export default function NotificationsPage() {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  const { user } = useAuth();
 
   const [newNotifs, setnewNotifs] = React.useState<Notifications[]>();
   const [allNotifs, setallNotifs] = React.useState<Notifications[]>();
   const [markedNotifs, setmarkedNotifs] = React.useState<Notifications[]>();
   const [refreshKey, setRefreshKey] = React.useState(0);
+  const [modelToAdd, setModelToAdd] =
+    React.useState<ProfessorCardViewShortInfo>();
 
   const bookmarkHandleClick = (id: number) => {
     client
@@ -111,6 +118,12 @@ export default function NotificationsPage() {
       .then(() => {
         setRefreshKey((oldKey) => oldKey + 1);
       });
+  };
+
+  const handleProfessorPositionAddition = (
+    model: ProfessorCardViewShortInfo
+  ) => {
+    setModelToAdd(model);
   };
 
   React.useEffect(() => {
@@ -162,12 +175,26 @@ export default function NotificationsPage() {
 
   return (
     <Box sx={{ overflowX: "hidden", backgroundColor: "#F2F2F2" }}>
-      <Navbar />
+      {!user ? (
+        <Navbar showAuthButtons={true} />
+      ) : user?.professor ? (
+        <ProfessorHeader
+          handleProfessorPositionAddition={handleProfessorPositionAddition}
+        ></ProfessorHeader>
+      ) : (
+        <StudentHeader />
+      )}
       <Box marginLeft={"3rem"} marginTop={"7rem"}>
         <div role="presentation" onClick={handleClick}>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/studenthomepage">
-              Home
+            <Link
+              to={
+                user?.professor
+                  ? "/professorhomepage/page1=1/page2=1"
+                  : "/studenthomepage"
+              }
+            >
+              <Typography>Home</Typography>
             </Link>
             <Typography color="text.primary">Notifications</Typography>
           </Breadcrumbs>

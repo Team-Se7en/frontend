@@ -15,6 +15,7 @@ import ProfessorHeader from "../../components/home_header/ProfessorHeader";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import client from "../../Http/axios";
 import NeshanMap from "@neshan-maps-platform/react-openlayers";
+import { useAuth } from "../../hooks/useAuth";
 
 const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
   e.preventDefault();
@@ -26,11 +27,10 @@ const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
 
 export default function UniversityPage() {
   const [uniInfo, setuniInfo] = React.useState<University>();
-  const [userInfo, setUserInfo] = React.useState<UserInfo>();
   const [modelToAdd, setModelToAdd] =
     React.useState<ProfessorCardViewShortInfo>();
-  const location = useLocation();
-  const uniID = location.state;
+  const uniID = window.location.pathname.split("/")[2];
+  const { user } = useAuth();
 
   const handleProfessorPositionAddition = (
     model: ProfessorCardViewShortInfo
@@ -54,18 +54,8 @@ export default function UniversityPage() {
       });
   }, []);
 
-  React.useEffect(() => {
-    client
-      .get("https://seven-apply.liara.run/eduportal/userinfo")
-      .then((response) => {
-        setUserInfo(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  }, []);
-
-  console.log(userInfo);
+  //console.log(userInfo);
+  console.log(window.location.pathname.split("/")[2]);
 
   const statisticTitles = [
     "Total Students",
@@ -82,9 +72,9 @@ export default function UniversityPage() {
 
   return (
     <Box sx={{ overflowX: "hidden" }}>
-      {userInfo?.user_type == "Anonymous" ? (
+      {!user ? (
         <Navbar showAuthButtons={true} />
-      ) : userInfo?.professor ? (
+      ) : user?.professor ? (
         <ProfessorHeader
           handleProfessorPositionAddition={handleProfessorPositionAddition}
         ></ProfessorHeader>

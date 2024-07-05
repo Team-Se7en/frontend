@@ -103,7 +103,6 @@ export default function StudentPositionCard(props: StudentPositionCardProps) {
                         pathname:
                           "/universitypage/" + props.model.university_id,
                       }}
-                      state={props.model.university_id}
                     >
                       <Typography
                         variant="body1"
