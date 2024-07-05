@@ -77,7 +77,7 @@ export function ViewCV() {
     }
     const navigateToProfile = async () => {
         const currentUser: any = await client.get("/eduportal/userinfo/");
-        console.log(currentUser)
+        // console.log(currentUser)
         if (currentUser.data.user_type == "Student") {
             navigate("/student/editProfile");
         } else {
@@ -92,12 +92,13 @@ export function ViewCV() {
     async function getInfo() {
         try {
             const currentUser = await client.get("/eduportal/userinfo/");
-            console.log(currentUser)
+            // console.log(currentUser)
+            const userType = currentUser.data.user_type == "Student" ? 'students' : 'professors'
             const UserPK = currentUser.data.user_type == "Student" ? currentUser.data.student.id : currentUser.data.professor.id;
             setcurrentUserInfo(currentUser.data)
-            console.log(currentUserInfo)
+            // console.log(currentUserInfo)
 
-            const basicInfoApiUrl = `/eduportal/students/${UserPK}/CV/`;
+            const basicInfoApiUrl = `/eduportal/${userType}/${UserPK}/CV/`;
             const basicInfoResponse = await client.get(basicInfoApiUrl);
             cvDataBasic.title = basicInfoResponse.data.title
             cvDataBasic.birth_date = basicInfoResponse.data.birth_date
@@ -109,31 +110,31 @@ export function ViewCV() {
             setCVDataBasic({
                 ...cvDataBasic,
             });
-            console.log(cvDataBasic)
+            // console.log(cvDataBasic)
 
-            const educationApiUrl = `/eduportal/students/${UserPK}/CV/education`;
+            const educationApiUrl = `/eduportal/${userType}/${UserPK}/CV/education`;
             const educationsResponse = await client.get(educationApiUrl);
             educationList = educationsResponse.data
             setEducationList(educationsResponse.data)
-            console.log(educationList)
+            // console.log(educationList)
 
-            const hardSkillsApiUrl = `/eduportal/students/${UserPK}/CV/hard-skills`;
+            const hardSkillsApiUrl = `/eduportal/${userType}/${UserPK}/CV/hard-skills`;
             const hardSkillsResponse = await client.get(hardSkillsApiUrl);
             hardSkillList = hardSkillsResponse.data
             setHardSkillList(hardSkillsResponse.data)
-            console.log(hardSkillList)
+            // console.log(hardSkillList)
 
-            const projectsApiUrl = `/eduportal/students/${UserPK}/CV/projects`;
+            const projectsApiUrl = `/eduportal/${userType}/${UserPK}/CV/projects`;
             const projectsResponse = await client.get(projectsApiUrl);
             projectList = projectsResponse.data
             setProjectList(projectsResponse.data)
-            console.log(projectList)
+            // console.log(projectList)
 
-            const workXPsApiUrl = `/eduportal/students/${UserPK}/CV/work-xps`;
+            const workXPsApiUrl = `/eduportal/${userType}/${UserPK}/CV/work-xps`;
             const workXPsResponse = await client.get(workXPsApiUrl);
             workXPList = workXPsResponse.data
             setWorkXPList(workXPsResponse.data)
-            console.log(workXPList)
+            // console.log(workXPList)
 
 
         } catch (error) {
@@ -151,7 +152,31 @@ export function ViewCV() {
         setShowDownloadButton(true)
     }, [showDownloadButton]);
 
-
+    const showEmploymentStatus = (id: any) => {
+        switch (id) {
+            case 1:
+                return "Employed"
+                break;
+            case 2:
+                return "Unemployed"
+                break;
+            case 3:
+                return "Student"
+                break;
+            case 4:
+                return "Actively Seeking Work"
+                break;
+            case 5:
+                return "Open To Work"
+                break;
+            case 6:
+                return "Not Interested"
+                break;
+            default:
+                break;
+        }
+    }
+    
     return (
         <Box className={clsx(cvStyles.background)}>
             <Grid ref={targetRef} container sx={{ width: '75%', bgcolor: 'white', height: 'fit-content' }}>
@@ -175,7 +200,7 @@ export function ViewCV() {
                             <Typography variant="body1" sx={{ fontFamily: 'Helvetica' }}>University: {CVdata.university}</Typography>
                             <Typography variant="body1">Birthdate: {cvDataBasic.birth_date}</Typography>
                             <Typography variant="body1">Gender: {cvDataBasic.gender ? 'male' : 'female'}</Typography>
-                            <Typography variant="body1">Job: {cvDataBasic.employment_status == 1 ? 'Employed' : 'Unemployed'}</Typography>
+                            <Typography variant="body1">Job: {showEmploymentStatus(cvDataBasic.employment_status)}</Typography>
                             <Typography variant="body1">About Me: {cvDataBasic.about}</Typography>
                         </Paper>
                     </Grid>
@@ -186,7 +211,8 @@ export function ViewCV() {
                             <List>
                                 {hardSkillList.map((skill, index) => (
                                     <ListItem key={index}>
-                                        <ListItemText primary={HardSkills[skill.technology!]} />
+                                        <ListItemText primary={HardSkills[skill.technology! - 1]} />
+                                        <Typography>{skill.skill_level}%</Typography>
                                     </ListItem>
                                 ))}
                             </List>

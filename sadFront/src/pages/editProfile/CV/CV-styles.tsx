@@ -13,7 +13,9 @@ const CVStyles = makeStyles(() =>
         },
         editBackground: {
             backgroundColor: 'whitesmoke',
-            padding: '3rem',
+            padding: '2rem',
+            margin: '2rem',
+            height:'fit-content',
             borderRadius: '1rem'
         }
     })

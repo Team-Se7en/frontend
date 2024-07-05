@@ -28,6 +28,7 @@ import React from "react";
 import { University } from "./models/University";
 import client from "./Http/axios";
 import AllUnisPage from "./pages/all-universities/AllUniversities";
+import { Loading } from "./components/ui/Loading";
 
 export default function Routing() {
   const [allUnis, setAllUnis] = React.useState<University[]>();
@@ -95,7 +96,7 @@ export default function Routing() {
         ) : (
           <></>
         )}
-
+        <Route path="universitypage/*" element={<Loading />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
