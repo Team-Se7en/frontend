@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
             setUser(response.data);
             const redirect = () => {
                 if (data.is_student) {
-                    window.location.href = "/studenthomepage";
+                    window.location.href = "/studenthomepage/page1=1/page2=1";
                 } else {
                     window.location.href = "/professorhomepage/page1=1/page2=1";
                 }

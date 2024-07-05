@@ -21,11 +21,6 @@ export const getProfessorRecentPositions = async () => {
 
 
 export const getProfessorPositions = async(page1:number, queryParams?: ProfessorPositionsQueryParams) =>  {
-    
-    useEffect(() => {
-
-    }, [page1, queryParams]);
-    
     try {
         console.log(queryParams,"this is query params");
 
@@ -43,8 +38,6 @@ export const getProfessorPositions = async(page1:number, queryParams?: Professor
         console.error(e);
         throw e;
     }
-    
-
 };
 
 export const deletePosition = async (id: number) => {

@@ -16,7 +16,7 @@ export function NotFoundPage() {
         if (!user) { navigate("/"); return; }
 
         if (user?.user_type == UserType.Professor) { navigate("/professorHomePage/page1=1/page2=1"); }
-        else if (user?.user_type == UserType.Student) { navigate("/studentHomePage"); }
+        else if (user?.user_type == UserType.Student) { navigate("/studentHomePage/page1=1/page2=1"); }
     };
 
     const globalStyles = Styles();
