@@ -410,8 +410,9 @@ export default function ChatBox() {
                           flexDirection={"column"}
                           padding={"0.8rem"}
                           gap={"0.7rem"}
-                          maxHeight={"28.8rem"}
+                          maxHeight={"26.5rem"}
                           bottom={"2rem"}
+                          overflow={"auto"}
                         >
                           <ToastContainer transition={Flip} />
                           {messages ? (
