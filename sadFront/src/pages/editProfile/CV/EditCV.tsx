@@ -20,6 +20,8 @@ import { Delete } from "@mui/icons-material";
 import CVStyles from "./CV-styles";
 import Styles from "../../../Styles";
 import clsx from "clsx";
+import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export function EditCV() {
     let currentUser: any
@@ -376,9 +378,27 @@ export function EditCV() {
     const globalClasses = Styles();
     const cvStyles = CVStyles();
 
+    const navigate = useNavigate();
+    const navigateToProfile = async () => {
+        const currentUser: any = await client.get("/eduportal/userinfo/");
+        // console.log(currentUser)
+        if (currentUser.data.user_type == "Student") {
+            navigate("/student/editProfile");
+        } else {
+            navigate("/professor/editProfile");
+        }
+    }
+
     return (
         <Box className={clsx(cvStyles.background)} >
             <Container maxWidth="md" className={clsx(cvStyles.editBackground)} >
+                <Button
+                    variant="text"
+                    color="primary"
+                    onClick={navigateToProfile}
+                    sx={{ margin: '0 0 1rem 1rem' }}>
+                    <ArrowBackIcon sx={{ color: 'gray' }} />
+                </Button>
                 <Typography variant="h2" fontWeight={'bold'} gutterBottom>
                     Edit CV
                 </Typography>

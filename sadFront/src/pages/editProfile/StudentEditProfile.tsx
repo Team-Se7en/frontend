@@ -16,6 +16,40 @@ import StudentPositionCard from "../../components/student-position-card/StudentP
 
 export function StudentEditProfile() {
 
+    const myRequestsTMP = [
+        {
+            // id: 1,
+            // title: 'stringNumber',
+            // capacity: 12,
+            // status: 1,
+            // end_date: null,
+            // tags: [],
+            // fee: 100000,
+            // start_date: null,
+            // position_start_date: null,
+            // position_end_date: null,
+            // professor: 1,
+            // university_name: 'stringNumber',
+            // university_id: 1,
+            // remaining: 123,
+
+            id: 0,
+            title: 'stringNumber',
+            capacity: 10,
+            status: 1,
+            end_date: null,
+            tags: [],
+            fee: 10000,
+            start_date: null,
+            position_start_date: null,
+            position_end_date: null,
+            professor: 10,
+            university_name: 'stringNumber',
+            university_id: 1,
+            remaining: 10,
+        }
+    ]
+
     const [loading, setLoading] = useState(false);
     const [formChanged, setFormChanged] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -308,6 +342,9 @@ export function StudentEditProfile() {
                     <Box sx={{ backgroundColor: '#176B87', height: '100%', display: 'flex', flexDirection: 'column' }}>
                         <Box className={clsx(editProfileStyles.uperImage)}>
                             <div>
+                                <img className={clsx(editProfileStyles.profileImage)} src={StudentProfileImage}></img>
+                            </div>
+                            {/* <div>
                                 <img className={clsx(editProfileStyles.profileImage)} src={preview || formData.profile_image || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="Profile"></img>
                             </div>
                             <div style={{ marginBottom: '110px', marginLeft: '-152px' }}>
@@ -323,20 +360,19 @@ export function StudentEditProfile() {
                                     <PhotoCameraIcon ></PhotoCameraIcon>
                                 </Button>
                             </div>
-                            {/* <Typography fontSize={30}>Welcome</Typography> */}
                             <div style={{ marginLeft: '30px', marginBottom: '110px' }}>
                                 <Button onClick={handleRemoveImage}>
 
                                     <CloseIcon></CloseIcon>
                                 </Button>
-                            </div>
+                            </div> */}
                         </Box>
                         <Tabs value={tabValue} onChange={handleTabChange} orientation="vertical" sx={{ minWidth: '12rem' }}>
                             <Tab label="Edit Profile" {...a11yProps(0)} />
                             <Tab label="CV" {...a11yProps(1)} />
                             <Tab label="Reset Email" {...a11yProps(2)} />
                             <Tab label="Reset Password" {...a11yProps(3)} />
-                            <Tab label="My Requests" {...a11yProps(4)} />
+                            {/* <Tab label="My Requests" {...a11yProps(4)} /> */}
                         </Tabs>
                         <Spacer />
                         <Button
@@ -534,7 +570,7 @@ export function StudentEditProfile() {
                                 ))}
                             </List>
                         </Paper>
-                        {/* {myRequests.map((item, index) => (
+                        {/* {myRequestsTMP.map((item, index) => (
                             <StudentPositionCard key={index} model={item} ></StudentPositionCard>
                             // <StudentPositionCard key={index} model={item} onDelete={onDeletePosition}></StudentPositionCard>
                         ))} */}
