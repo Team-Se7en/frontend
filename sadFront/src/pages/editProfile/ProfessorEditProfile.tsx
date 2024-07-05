@@ -10,6 +10,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Spacer } from "../../components/ui/Spacer";
 import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import { EditCV, ViewCV } from "../../assets/icons";
+import { ProfessorRequestCard } from "../../components/professor-position-card/ProfessorPositionCard";
 
 
 export function ProfessorEditProfile() {
@@ -250,6 +251,10 @@ export function ProfessorEditProfile() {
         navigate("/cv/edit");
     }
 
+    const onDeletePosition = (id: number) => {
+        setMyPositions(myPositions.filter(p => p.id != id));
+    }
+
     // const globalClasses = Styles();
     const editProfileStyles = EditProfileStyles();
 
@@ -460,19 +465,10 @@ export function ProfessorEditProfile() {
                         </Box>
                     </CustomTabPanel>
                     <CustomTabPanel value={tabValue} index={4}>
-                        <Paper elevation={3} style={{ padding: '16px' }}>
-                            <Typography variant="h6">Application List</Typography>
-                            <List>
-                                {myPositions.map((item) => (
-                                    <ListItem key={item.id}>
-                                        <ListItemText
-                                            primary={`Position ${item.position}`}
-                                            secondary={`Status: ${item.status} | Applied on: ${new Date(item.date_applied).toLocaleDateString()}`}
-                                        />
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </Paper>
+                        {myPositions.map((item, index) => (
+                            <ProfessorRequestCard key={index} model={item} onDelete={onDeletePosition}></ProfessorRequestCard>
+                        ))}
+
                     </CustomTabPanel>
                 </Box>
             </Container>
@@ -501,7 +497,7 @@ function CustomTabPanel(props: TabPanelProps) {
             style={{ height: '100%', width: '100%' }}
         >
             {value === index && (
-                <Box sx={{ p: 3, height: '100%', width: '100%' }}>
+                <Box sx={{ p: 3, height: '100%', width: '100%', overflow: 'auto' }}>
                     {children}
                 </Box>
             )}
