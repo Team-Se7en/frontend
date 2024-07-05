@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
                 if (data.is_student) {
                     window.location.href = "/studenthomepage";
                 } else {
-                    window.location.href = "/professorhomepage";
+                    window.location.href = "/professorhomepage/page1=1/page2=1";
                 }
 
             };

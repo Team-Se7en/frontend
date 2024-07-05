@@ -15,7 +15,7 @@ export function NotFoundPage() {
     const returnToHomePage = () => {
         if (!user) { navigate("/"); return; }
 
-        if (user?.user_type == UserType.Professor) { navigate("/professorHomePage"); }
+        if (user?.user_type == UserType.Professor) { navigate("/professorHomePage/page1=1/page2=1"); }
         else if (user?.user_type == UserType.Student) { navigate("/studentHomePage"); }
     };
 
