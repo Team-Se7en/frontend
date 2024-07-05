@@ -9,6 +9,7 @@ import { getStudentPositions } from "../../services/sposition.service";
 export interface StudentPositionsProps {
     queryParams?: StudentPositionsQueryParams;
     data: StudentCardViewFullInfo[];
+    page: number;
 }
 
 export function StudentPositions(props: StudentPositionsProps) {
@@ -16,7 +17,7 @@ export function StudentPositions(props: StudentPositionsProps) {
 
     useEffect(() => {
         const fetchRecentPositions = async () => {
-            const result = await getStudentPositions(props.queryParams);
+            const result = await getStudentPositions(props.page, props.queryParams);
             setPositions(result.data)
         };
 

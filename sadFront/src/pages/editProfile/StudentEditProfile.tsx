@@ -234,7 +234,7 @@ export function StudentEditProfile() {
             console.log('User Info Loaded', response);
             const myRequestsResponse = await client.get("/eduportal/requests/");
             setMyRequests(myRequestsResponse.data)
-            console.log(myRequests)
+            console.log('ow', myRequests)
 
         } catch (error) {
             console.error('Error:', error);
@@ -243,8 +243,10 @@ export function StudentEditProfile() {
 
     const [tabValue, setTabValue] = React.useState(0);
     const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+        console.log(myRequests)
         setTabValue(newValue);
     };
+    
 
     const [emailError, setEmailError] = useState("");
     const handleInputChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
