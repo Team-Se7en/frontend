@@ -235,7 +235,7 @@ export default function NotificationsPage() {
                   backgroundColor: "white",
                   borderRadius: "0.2rem",
                   minHeight: "13rem",
-                  maxHeight: "30rem",
+                  height: "100%",
                   padding: "0.5rem",
                   marginBottom: "4rem",
                   overflow: "auto",
