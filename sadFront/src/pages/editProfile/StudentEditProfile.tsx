@@ -287,7 +287,7 @@ export function StudentEditProfile() {
 
     const navigate = useNavigate();
     const navigateToHome = () => {
-        navigate("/studenthomepage");
+        navigate("/studenthomepage/page1=1/page2=1");
     }
     const navigateToViewCV = () => {
         navigate("/cv/view");
