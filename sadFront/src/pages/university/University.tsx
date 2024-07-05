@@ -30,7 +30,7 @@ export default function UniversityPage() {
   const [modelToAdd, setModelToAdd] =
     React.useState<ProfessorCardViewShortInfo>();
   const location = useLocation();
-  const uniID = location.state;
+  const uniID = window.location.pathname.split("/")[2];
 
   const handleProfessorPositionAddition = (
     model: ProfessorCardViewShortInfo
@@ -65,7 +65,8 @@ export default function UniversityPage() {
       });
   }, []);
 
-  console.log(userInfo);
+  //console.log(userInfo);
+  console.log(window.location.pathname.split("/")[2]);
 
   const statisticTitles = [
     "Total Students",

@@ -217,7 +217,6 @@ export function Home() {
                       <Grid item xs={2} key={index}>
                         <Link2
                           to={{ pathname: "/universitypage/" + item.id }}
-                          state={item.id}
                           target="_blank"
                         >
                           <StyledUniversityIcon src={siteUrl + item.icon} />
