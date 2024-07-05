@@ -26,6 +26,7 @@ import { generateMessageDate } from "../../lib/MessageDate";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import ForumIcon from "@mui/icons-material/Forum";
+import Cookies from "js-cookie";
 
 export default function ChatBox() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -42,7 +43,7 @@ export default function ChatBox() {
   const [text, setText] = React.useState("");
   const currentDate = new Date();
   const [newChatsCount, setNewChatsCount] = React.useState<newChatsNumber>();
-  //const [refreshKey, setRefreshKey] = React.useState(0);
+  const [chatSocket, setChatSocket] = React.useState<WebSocket>();
 
   const loadChats = () => {
     client
@@ -111,6 +112,14 @@ export default function ChatBox() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
+
+    let token = Cookies.get("token");
+
+    // Setup notifs socket
+    let newChatSocket = new WebSocket(
+      "wss://seven-apply.liara.run/ws/chat/" + chat.id + "/?token=" + token
+    );
+    setChatSocket(newChatSocket);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,7 +173,30 @@ export default function ChatBox() {
       });
   }, []);
 
-  console.log(chats);
+  if (chatSocket) {
+    // on socket open
+    chatSocket.onopen = function () {
+      console.log("Socket successfully connected.");
+    };
+
+    // on socket close
+    chatSocket.onclose = function () {
+      console.log("Socket closed unexpectedly");
+    };
+
+    // on receiving message on group
+    chatSocket.onmessage = function () {
+      client
+        .get("https://seven-apply.liara.run/eduportal/messages/" + chatID + "/")
+        .then((response) => {
+          setMessages(response.data);
+          //console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    };
+  }
 
   return (
     <React.Fragment>
