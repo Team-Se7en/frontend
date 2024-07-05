@@ -84,7 +84,7 @@ export default function Routing() {
             <Route
               key={index}
               path={"universitypage/" + uni.id}
-              element={<UniversityPage />}
+              element={<UniversityPage props={uni.id} />}
             />
           ))
         ) : (

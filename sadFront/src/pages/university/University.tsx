@@ -5,7 +5,6 @@ import { Box, CircularProgress } from "@mui/material";
 import { Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Divider } from "@mui/material";
-import axios from "axios";
 import { University } from "../../models/University";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
@@ -15,7 +14,7 @@ import { UserInfo } from "../../models/UserInfo";
 import ProfessorHeader from "../../components/home_header/ProfessorHeader";
 import { ProfessorCardViewShortInfo } from "../../models/CardInfo";
 import client from "../../Http/axios";
-//import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import NeshanMap from "@neshan-maps-platform/react-openlayers";
 
 const onNavClick = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
   e.preventDefault();
@@ -240,7 +239,17 @@ export default function UniversityPage() {
                 >
                   Where is it?
                 </Divider>
-                <Box className="map" width={"50rem"} height={"20rem"}></Box>
+                <NeshanMap
+                  poi={true}
+                  defaultType="standard-day"
+                  mapKey="web.cd11dcd478174ae59086b8b4503b41d6"
+                  style={{ height: "48vh", width: "100%" }}
+                  zoom={4}
+                  center={{
+                    latitude: uniInfo.latitude,
+                    longitude: uniInfo.longitude,
+                  }}
+                ></NeshanMap>
               </Box>
               <Box id="active-programs">
                 <Divider
