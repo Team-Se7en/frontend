@@ -1,0 +1,1 @@
+any component that is used in anywhere and contains smaller components from ui folder.

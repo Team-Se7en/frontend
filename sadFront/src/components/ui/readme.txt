@@ -1,0 +1,1 @@
+any component that does not contain smaller components. like buttons or input boxes.
